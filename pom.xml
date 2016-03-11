@@ -28,6 +28,8 @@
 
 	<dependencies>
 
+		
+
 		<!-- Utils -->
 		<dependency>
 			<groupId>joda-time</groupId>
@@ -143,6 +145,12 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>4.0.3.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>javax.inject</groupId>
+		  <artifactId>javax.inject</artifactId>
+		  <version>1</version>
 		</dependency>
 
 		<!-- JSON TOKEN -->

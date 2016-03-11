@@ -8,8 +8,6 @@ import javax.persistence.Version;
 @Entity
 public class Message {
 	
-	
-	
 	@Id
 	@GeneratedValue
 	long id;
