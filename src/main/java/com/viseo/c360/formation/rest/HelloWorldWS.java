@@ -16,8 +16,10 @@ import com.viseo.c360.formation.domain.Message;
 @RestController
 public class HelloWorldWS {
 	
+	
 	@PersistenceContext
 	EntityManager em;
+	
 	
 	@RequestMapping(value = "${endpoint.helloworld}", method = RequestMethod.GET)
     @ResponseBody
@@ -25,7 +27,6 @@ public class HelloWorldWS {
     public String sayHelloWorld(){
 		
 		em.persist(new Message("Coucou"));
-		
         return "Hello world";
     }
 
