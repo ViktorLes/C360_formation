@@ -33,7 +33,6 @@ public class HelloWorldWS {
     public Essai sayHelloWorld(){
 		
 		messageDAO.addCoucou();
-		
         return new Essai();
     }
 	
