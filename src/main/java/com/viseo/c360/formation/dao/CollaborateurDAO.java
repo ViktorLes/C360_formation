@@ -19,7 +19,7 @@ public class CollaborateurDAO {
 		
 		Collaborateur c = new Collaborateur();
 		c.setMatricule(matricule);
-		c.setNom(prenom);
+		c.setNom(nom);
 		c.setPrenom(prenom);
 		
 		em.persist(c);
