@@ -23,7 +23,6 @@ public class Message {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	public Message(String message) {
 		super();
 		this.message = message;

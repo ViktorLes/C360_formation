@@ -25,4 +25,9 @@ public class CollaborateurDAO {
 		em.persist(c);
 	}
 	
+	@Transactional
+	public void addCollaborateur(Collaborateur c){
+		em.persist(c);
+	}
+	
 }
