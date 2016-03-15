@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.viseo.c360.formation.dao.CollaborateurDAO;
 
-//
-//@Controller
-//public class CollaborateurController {
-//	
-//}
+
+@Controller
+public class CollaborateurController {
+	
+}
