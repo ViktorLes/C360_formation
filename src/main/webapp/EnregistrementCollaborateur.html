@@ -1,27 +1,33 @@
 
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
 <meta charset="ISO-8859-1">
 <title>Enregistrement Collaborateur</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css">
+    <script src="http://code.angularjs.org/1.0.6/angular.min.js"></script>
+    <script src="js/EnregistrementcollaborateurController.js"></script>
+
 <link rel="stylesheet" href="EnregistrementCollaborateur.css">
 </head>
+
+
 <body>
  <form action="/EnregistrerCollaborateur" method="post" >
  
- 	<div class="label">
+ 	<div class="label" ng-controller="MyCtrl">
  		<label for="Matricule">Matricule:</label>
- 		<input type="text" id="Matricule"/>
+ 		<input type="text" id="Matricule" ng-model="Matricule" required name="Matricule" class="majuscule" size="30"/>
  	</div>
  	
  	<div class="label">
  		<label for="Nom">Nom:</label>
- 		<input type="text" id="Nom"/>
+ 		<input type="text" id="Nom" ng-model="Nom" required name="Nom"/>
  	</div>
  	
  	<div class="label">
- 		<label for="Prénom">Prénom:</label>
- 		<input type="text"id="Prénom"/>
+ 		<label for="Prenom">Prénom:</label>
+ 		<input type="text" id="Prenom" ng-model="Prenom" required name="Prenom"/>
  	
  	</div>
 
@@ -29,5 +35,15 @@
 	<input type='submit'  value='Enregistrer'>
 	</div>
 	</form>
+	<script type="text/javascript">
+	var app = angular.module('myApp', []);
+	app.controller('MyCtrl', function($scope, $http) {
+	    $http.post("api/collaborateurs","{{'matricule':'KIKOU234'},{'prenom':'leo'},{'nom':'ROWLING'}}")
+	    .then(function(response) {
+	        alert("c'est ok");
+	    });
+	});
+ 	</script>
+	
 </body>
 </html>
