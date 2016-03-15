@@ -1,4 +1,4 @@
-package com.viseo.c360.formation.domain.Collaborateur;
+package com.viseo.c360.formation.domain.collaborateur;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

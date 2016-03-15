@@ -6,7 +6,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.viseo.c360.formation.domain.Collaborateur.Collaborateur;
+import com.viseo.c360.formation.domain.collaborateur.Collaborateur;
 
 @Repository
 public class CollaborateurDAO {
