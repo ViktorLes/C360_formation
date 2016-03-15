@@ -8,8 +8,6 @@ import javax.persistence.Version;
 @Entity
 public class Message {
 	
-	
-	
 	@Id
 	@GeneratedValue
 	long id;
@@ -24,7 +22,6 @@ public class Message {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 
 	public Message(String message) {
 		super();

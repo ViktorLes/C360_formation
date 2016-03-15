@@ -2,60 +2,56 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Enregistrement Collaborateur</title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css">
     <script src="http://code.angularjs.org/1.0.6/angular.min.js"></script>
   	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-  	
-<link rel="stylesheet" href="EnregistrementCollaborateur.css">
+
+<link rel="stylesheet" href="css/EnregistrementCollaborateur.css">
+
 </head>
 
 
 <body>
+
  <form ng-controller="MyCtrl">
  
  	<div class="label">
  		<label for="Matricule">Matricule:</label>
- 		<input type="text" id="Matricule" ng-model="Matricule" required name="Matricule" class="majuscule" size="30"/>
+ 		<input type="text" id="Matricule" ng-model="Matricule" required name="Matricule" class="majuscule"/>
  	</div>
  	
  	<div class="label">
  		<label for="Nom">Nom:</label>
  		<input type="text" id="Nom" ng-model="Nom" required name="Nom"/>
- 	</div>
- 	
+ 	</div> 
  	<div class="label">
- 		<label for="Prenom">Prénom:</label>
+ 		<label for="Prenom">PrÃ©nom:</label>
  		<input type="text" id="Prenom" ng-model="Prenom" required name="Prenom"/>
- 	
  	</div>
+
 
 		<div>
 		  {{Matricule}},{{Nom}},{{Prenom}} 
-		  <button ng-click="MyCtrl.actionEnregistrer()">Enregistrer</button>
+		  <button ng-click="actionEnregistrer()">Enregistrer</button>
 		</div>
 	</form>
 	<script type="text/javascript">
 	var app = angular.module('myApp', []);
 	app.controller('MyCtrl', function($scope, $http) {
-	    /* $http.post("api/collaborateurs","{{'matricule':'KIKOU234'},{'prenom':'leo'},{'nom':'ROWLING'}}")
-	    .then(function(response) {
-	        alert("c'est ok");
-	    }); */
-	    $scope.actionEnregister = function() {
+	    $scope.actionEnregistrer = function() {
 		var activeObject = new Object();
 	    console.log("hellooo");
 		activeObject.matricule = $scope.Matricule;
 		activeObject.prenom = $scope.Nom;
 		activeObject.nom = $scope.Prenom;
-		$http.post("/path/to/api/", activeObject).success(function(data){
+		$http.post("api/collaborateurs", activeObject).success(function(data){
 			console.log("holaaa");
 		  alert("done!!!!");
 		});
 	    };
 	});
-	
  	</script>
 
 </body>
