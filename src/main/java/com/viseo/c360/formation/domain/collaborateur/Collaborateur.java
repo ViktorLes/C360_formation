@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Collaborateur {
@@ -14,6 +15,7 @@ public class Collaborateur {
 	@Version
 	long version;
 	
+	@Size(min=2)
 	String matricule;
 	String nom;
 	String prenom;
