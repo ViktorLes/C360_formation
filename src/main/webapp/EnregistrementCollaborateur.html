@@ -67,15 +67,10 @@
 	var app = angular.module('myApp', []);
 	app.controller('MyCtrl', function($http) {
 		var self = this;
-	    
 		self.actionEnregistrer = function() {
-			var activeObject = new Object();
-			/*activeObject.matricule = $scope.Matricule;
-			activeObject.prenom = $scope.Nom;
-			activeObject.nom = $scope.Prenom;*/
-			console.log(self.collaborateur);
+			//console.log("Coucou nada",self.collaborateur);
 			$http.post("api/collaborateurs", self.collaborateur).success(function(data){
-		  	alert("done!!!!");
+		  		alert("done!!!!");
 			});
 	    };
 	});

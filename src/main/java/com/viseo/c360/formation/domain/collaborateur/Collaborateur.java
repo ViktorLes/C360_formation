@@ -19,13 +19,15 @@ public class Collaborateur {
 	long version;
 	
 	@NotNull
-	@NotBlank
 	@Size(min=2)
 	String matricule;
 	
 	@NotNull
-	@NotBlank
+	@Size(min=2)
 	String nom;
+	
+	@NotNull
+	@Size(min=2)
 	String prenom;
 	
 	public Collaborateur() {

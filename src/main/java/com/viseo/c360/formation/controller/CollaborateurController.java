@@ -21,26 +21,26 @@ import com.viseo.c360.formation.domain.collaborateur.Collaborateur;
 @Controller
 @RequestMapping(value = "${endpoint.collaborateurs}")
 public class CollaborateurController {
-	@Inject
-	CollaborateurDAO collaborateurDAO;
-	
-	@Inject
-    private Validator validator;
-	
-	@RequestMapping(method = RequestMethod.POST)
-    @Transactional
-    public String addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur,BindingResult bindingResult){
-
-		//Set<ConstraintViolation<Collaborateur>> a = validator.validate(myCollaborateur, Collaborateur.class);
-		
-		//check var sent !
-		if(!(bindingResult.hasErrors())){
-			System.out.println("COUCOU" + myCollaborateur.getMatricule());
-			System.out.println("COUCOU" + myCollaborateur.getNom());
-			//persist the data
-			collaborateurDAO.addCollaborateur(myCollaborateur);
-		}
-		
-        return "collaborateur ajouté !";
-    }
+//	@Inject
+//	CollaborateurDAO collaborateurDAO;
+//	
+//	@Inject
+//    private Validator validator;
+//	
+//	@RequestMapping(method = RequestMethod.POST)
+//    @Transactional
+//    public String addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur,BindingResult bindingResult){
+//
+//		//Set<ConstraintViolation<Collaborateur>> a = validator.validate(myCollaborateur, Collaborateur.class);
+//		
+//		//check var sent !
+//		if(!(bindingResult.hasErrors())){
+//			System.out.println("COUCOU" + myCollaborateur.getMatricule());
+//			System.out.println("COUCOU" + myCollaborateur.getNom());
+//			//persist the data
+//			collaborateurDAO.addCollaborateur(myCollaborateur);
+//		}
+//		
+//        return "collaborateur ajouté !";
+//    }
 }
