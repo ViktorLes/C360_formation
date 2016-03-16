@@ -11,7 +11,7 @@
         </description>
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>com.viseo.c360.formation.domain.Message</class>
-		<!-- <class>com.viseo.c360.formation.domain.collaborateur.Collaborateur</class> -->
+		<class>com.viseo.c360.formation.domain.collaborateur.Collaborateur</class>
 		
 		<properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />

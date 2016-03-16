@@ -1,8 +1,0 @@
-com\viseo\c360\formation\domain\Message.class
-com\viseo\c360\formation\rest\CollaborateurWS.class
-com\viseo\c360\formation\domain\MessageDAO.class
-com\viseo\c360\formation\controller\CollaborateurController.class
-com\viseo\c360\formation\rest\HelloWorldWS$Essai.class
-com\viseo\c360\formation\rest\HelloWorldWS.class
-com\viseo\c360\formation\dao\CollaborateurDAO.class
-com\viseo\c360\formation\domain\collaborateur\Collaborateur.class
