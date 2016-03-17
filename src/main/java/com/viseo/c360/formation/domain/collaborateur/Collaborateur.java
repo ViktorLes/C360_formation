@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+//import org.springframework.util.StringUtils;
+
 @Entity
 public class Collaborateur {
 	@Id
@@ -25,12 +27,12 @@ public class Collaborateur {
 	
 	@NotNull
 	@Size(min=2)
-	@Pattern(regexp="[a-zA-Z-'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ. ]*")
+	@Pattern(regexp="[a-zA-Z-'.áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ ]*")
 	String nom;
 	
 	@NotNull
 	@Size(min=2)
-	@Pattern(regexp="[a-zA-Z-'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ. ]*")
+	@Pattern(regexp="[a-zA-Z-'.áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ ]*")
 	String prenom;
 	
 	public Collaborateur() {
@@ -60,13 +62,13 @@ public class Collaborateur {
 		this.version = version;
 	}
 	public void setMatricule(String matricule) {
-		this.matricule = matricule;
+		this.matricule = matricule.trim();
 	}
 	public void setNom(String nom) {
-		this.nom = nom;
+		this.nom = nom.replaceAll("( )+", " ").trim();
 	}
 	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+		this.prenom = prenom.replaceAll("( )+", " ").trim();
 	}
 	
 	

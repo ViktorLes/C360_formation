@@ -29,7 +29,7 @@ public class CollaborateurWS {
 	
 	@RequestMapping(method = RequestMethod.POST)
     @Transactional
-    public String addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur, BindingResult bindingResult){
+    public void addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur, BindingResult bindingResult){
 		
 		System.out.println("REST controller Matricule : " + myCollaborateur.getMatricule()+" !");
 		System.out.println("REST controller Nom       : " + myCollaborateur.getNom()+" !");
@@ -42,8 +42,6 @@ public class CollaborateurWS {
 		else {
 			for(ObjectError error : bindingResult.getAllErrors()) System.out.println("Error : "+error.toString());
 		}
-		
-        return "";
     }
 //	
 //	@RequestMapping(method = RequestMethod.GET)
