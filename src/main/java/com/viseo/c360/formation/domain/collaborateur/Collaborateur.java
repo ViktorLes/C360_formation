@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -19,15 +20,17 @@ public class Collaborateur {
 	long version;
 	
 	@NotNull
-	@Size(min=2)
+	@Pattern(regexp="[A-Z0-9]*")
 	String matricule;
 	
 	@NotNull
 	@Size(min=2)
+	@Pattern(regexp="[a-zA-Z-'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ. ]*")
 	String nom;
 	
 	@NotNull
 	@Size(min=2)
+	@Pattern(regexp="[a-zA-Z-'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ. ]*")
 	String prenom;
 	
 	public Collaborateur() {

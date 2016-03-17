@@ -10,6 +10,7 @@ import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,12 +30,17 @@ public class CollaborateurWS {
 	@RequestMapping(method = RequestMethod.POST)
     @Transactional
     public String addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur, BindingResult bindingResult){
+		
+		System.out.println("REST controller Matricule : " + myCollaborateur.getMatricule()+" !");
+		System.out.println("REST controller Nom       : " + myCollaborateur.getNom()+" !");
+		System.out.println("REST controller Prenom    : " + myCollaborateur.getPrenom()+" !");
 		//check var sent !
 		if(!(bindingResult.hasErrors())){
 			//persist the data
-			System.out.println("REST controller " + myCollaborateur.getMatricule());
-			System.out.println("REST controller " + myCollaborateur.getNom());
 			collaborateurDAO.addCollaborateur(myCollaborateur);
+		}
+		else {
+			for(ObjectError error : bindingResult.getAllErrors()) System.out.println("Error : "+error.toString());
 		}
 		
         return "";

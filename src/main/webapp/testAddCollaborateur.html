@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Enregistrement Collaborateur</title>
+		<link href="css/bootstrap.css" rel="stylesheet" />
+	    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+</head>
+
+
+<body ng-controller="MyCtrl as main">
+
+<div class="row">
+ <div class="col-md-4">
+ </div>
+  <div class="col-md-4">
+	<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Enregistrement collaborateur</h3>
+  </div>
+  <div class="panel-body">
+  <p>
+  <form name="collaborateurForm" >
+
+    <!-- MATRICULE -->
+    <div class="form-group">
+      <input type="text" name="matricule" class="form-control" ng-model="main.collaborateur.matricule">
+    </div>
+
+    <!-- NOM -->
+    <div class="form-group">
+      <input type="text" name="nom" class="form-control" ng-model="main.collaborateur.nom">
+    </div>
+
+    <!-- PRENOM -->
+    <div class="form-group">
+      <input type="text" name="prenom" class="form-control" ng-model="main.collaborateur.prenom">
+    </div>
+
+	<span>{{main.collaborateur.matricule}}</span>
+	<span>{{main.collaborateur.nom}}</span>
+	<span>{{main.collaborateur.prenom}}</span>
+    <button class="btn btn-primary" ng-clic="main.actionEnregistrer()">Enregistrer</button>
+
+  </form>
+  </p>
+  </div>
+  
+   <div class="col-md-4">
+ 	</div>
+</div>
+	
+  </div>
+</div>
+
+	<script type="text/javascript">
+		var app = angular.module('myApp', []);
+		app.controller('MyCtrl', function($http) {
+			var self = this;
+			
+			self.actionEnregistrer = function(data) {
+				$http.post("api/collaborateurs", data).success(function(d){
+			  		console.log(d);
+				});
+		    };
+		    
+		    self.obj = function(matricule, nom, prenom){
+				self.actionEnregistrer({matricule: matricule, nom: nom, prenom: prenom});
+			};
+			
+			self.obj("      ","      ","         ");
+			self.obj("","","");
+			self.obj("MMMM","THOMASÉéééùùùçäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄ","ÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒLECOMTEÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ");
+			self.obj("mkkq06625","THOMAS","LECOMTE");
+			self.obj("mkkq","THOMAS","LECOMTE");
+			self.obj("ézdds","","");
+			self.obj("mkkq","===","kji");
+		    
+		    
+		});
+ 	</script>
+
+</body>
+</html>
