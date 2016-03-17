@@ -27,14 +27,23 @@ public class CollaborateurWS {
 	@Inject
 	CollaborateurDAO collaborateurDAO;
 	
+	/*
 	@RequestMapping(method = RequestMethod.POST)
     @Transactional
     public void addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur, BindingResult bindingResult){
-		
 		//check data sent !
 		if(!(bindingResult.hasErrors())){
 			//if valid : persist the data
 			collaborateurDAO.addCollaborateur(myCollaborateur);
 		}
+    }
+    */
+	
+	//test
+	@RequestMapping(method = RequestMethod.POST)
+    @Transactional
+    public void addCollaborateur(@RequestBody Collaborateur myCollaborateur){
+
+			collaborateurDAO.addCollaborateur(myCollaborateur);
     }
 }

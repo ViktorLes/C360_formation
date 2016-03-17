@@ -44,13 +44,13 @@
 			
 			    <!-- NOM -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.nom.$invalid && collaborateurForm.nom.$dirty }">
-			      <input type="text" name="nom" class="form-control" ng-model="main.collaborateur.nom" required ng-pattern=<%=regexNom %> ng-minlength="2" ng-maxlength="120" ng-trim="true"  placeholder="Nom">
+			      <input type="text" name="nom" class="form-control" ng-model="main.collaborateur.nom" required ng-pattern=<%=regexNom %> ng-minlength="2" ng-maxlength="125" ng-trim="true"  placeholder="Nom">
 			      <p ng-show="collaborateurForm.nom.$invalid && collaborateurForm.nom.$dirty" class="help-block">Veuillez entrer un nom valide</p>
 			    </div>
 			
 			    <!-- PRENOM -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty }">
-			      <input type="text" name="prenom" class="form-control" ng-model="main.collaborateur.prenom" required ng-pattern=<%=regexPrenom %> ng-minlength="2" ng-maxlength="120" ng-trim="true" placeholder="Prénom">
+			      <input type="text" name="prenom" class="form-control" ng-model="main.collaborateur.prenom" required ng-pattern=<%=regexPrenom %> ng-minlength="2" ng-maxlength="125" ng-trim="true" placeholder="Prénom">
 			      <p ng-show="collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty" class="help-block">Veuillez entrer un prénom valide</p>
 			    </div>
 			
