@@ -1,8 +1,39 @@
-<html>
+<!DOCTYPE html>
+<html ng-app="myApp">
 <head>
-	<meta charset="UTF-8">
+<meta charset="UTF-8">
+<title>Déclaration d'un formulaire</title>
+	<link href="css/bootstrap.css" rel="stylesheet" />
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+ 
 </head>
-<body>
-	Déclaration d'une formation
-</body>
-</html>
+
+<body ng-controller="MyCtrl as main">
+
+<div class="row">
+ <div class="col-md-4">
+ </div>
+  <div class="col-md-4">
+	<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Déclaration d'un formulaire</h3>
+  </div>
+  <div class="panel-body">
+  <p>
+   <form name="formationForm" ng-submit="main.actionEnregistrer()" novalidate>
+   <!-- Titre de la formation-->
+    <div class="form-group" ng-class="{ 'has-error' : formationForm.titredelaformation.$invalid && formationForm.titredelaformation.$dirty }">
+      <input type="text" name="titredelaformation" class="form-control" ng-model="main.collaborateur.titredelaformation" required ng-pattern="/^[a-zA-Z-':+-#éèà. ]+$/" ng-minlength="3" ng-maxlength="20" placeholder="Titre de la formation">
+      <p ng-show="formationForm.titredelaformation.$invalid && formationForm.titredelaformation.$dirty" class="help-block">Veuillez entrer un numéro de titredelaformation valide</p>
+    </div>
+
+    <!-- nombrededemijourneebre de 1/2 journée-->
+    <div class="form-group" ng-class="{ 'has-error' : formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty }">
+      <input type="text" name="nombredemijournee" class="form-control" ng-model="main.collaborateur.nombredemijournee" required ng-pattern="/^[a-zA-Z-'éèà. ]+$/" ng-minlength="2" ng-maxlength="125" placeholder="Nombre de 1/2 journée">
+      <p ng-show="formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty" class="help-block">Veuillez entrer un nombrededemijournee valide</p>
+    </div>
+    
+     <div class="alert alert-danger" role="alert" ng-show="formationForm.$invalid && formationForm.$dirty">
+      Veuillez remplir tous les champs
+      
+       <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>
