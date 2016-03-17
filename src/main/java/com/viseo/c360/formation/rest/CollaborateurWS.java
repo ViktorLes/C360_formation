@@ -31,23 +31,10 @@ public class CollaborateurWS {
     @Transactional
     public void addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur, BindingResult bindingResult){
 		
-		System.out.println("REST controller Matricule : " + myCollaborateur.getMatricule()+" !");
-		System.out.println("REST controller Nom       : " + myCollaborateur.getNom()+" !");
-		System.out.println("REST controller Prenom    : " + myCollaborateur.getPrenom()+" !");
-		//check var sent !
+		//check data sent !
 		if(!(bindingResult.hasErrors())){
-			//persist the data
+			//if valid : persist the data
 			collaborateurDAO.addCollaborateur(myCollaborateur);
 		}
-		else {
-			for(ObjectError error : bindingResult.getAllErrors()) System.out.println("Error : "+error.toString());
-		}
     }
-//	
-//	@RequestMapping(method = RequestMethod.GET)
-//    @ResponseBody
-//    @Transactional
-//    public String getCollaborateurs(){		
-//        return "collaborateurs lecture !";
-//    }
 }

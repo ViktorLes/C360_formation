@@ -10,8 +10,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-//import org.springframework.util.StringUtils;
-
 @Entity
 public class Collaborateur {
 	@Id
@@ -22,16 +20,17 @@ public class Collaborateur {
 	long version;
 	
 	@NotNull
+	@Size(min=3, max=20)
 	@Pattern(regexp="[A-Z0-9]*")
 	String matricule;
 	
 	@NotNull
-	@Size(min=2)
+	@Size(min=2, max=125)
 	@Pattern(regexp="[a-zA-Z-'.áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ ]*")
 	String nom;
 	
 	@NotNull
-	@Size(min=2)
+	@Size(min=2, max=125)
 	@Pattern(regexp="[a-zA-Z-'.áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ ]*")
 	String prenom;
 	
@@ -70,6 +69,5 @@ public class Collaborateur {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom.replaceAll("( )+", " ").trim();
 	}
-	
 	
 }
