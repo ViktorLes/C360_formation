@@ -38,26 +38,27 @@
 			
 			    <!-- MATRICULE -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty }">
-			      <input type="text" name="matricule" class="form-control" ng-model="main.collaborateur.matricule" required ng-pattern=<%=regexMatricule %>  placeholder="Matricule">
+			      <input type="text" name="matricule" class="form-control" ng-model="main.collaborateur.matricule" required ng-pattern=<%=regexMatricule %> ng-minlength="3" ng-maxlength="20"  placeholder="Matricule">
 			      <p ng-show="collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty" class="help-block">Veuillez entrer un numéro de matricule valide</p>
 			    </div>
 			
 			    <!-- NOM -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.nom.$invalid && collaborateurForm.nom.$dirty }">
-			      <input type="text" name="nom" class="form-control" ng-model="main.collaborateur.nom" required ng-pattern=<%=regexNom %> ng-minlength="2" placeholder="Nom">
+			      <input type="text" name="nom" class="form-control" ng-model="main.collaborateur.nom" required ng-pattern=<%=regexNom %> ng-minlength="2" ng-maxlength="120" ng-trim="true"  placeholder="Nom">
 			      <p ng-show="collaborateurForm.nom.$invalid && collaborateurForm.nom.$dirty" class="help-block">Veuillez entrer un nom valide</p>
 			    </div>
 			
 			    <!-- PRENOM -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty }">
-			      <input type="text" name="prenom" class="form-control" ng-model="main.collaborateur.prenom" required ng-pattern=<%=regexPrenom %> ng-minlength="2" placeholder="Prénom">
+			      <input type="text" name="prenom" class="form-control" ng-model="main.collaborateur.prenom" required ng-pattern=<%=regexPrenom %> ng-minlength="2" ng-maxlength="120" ng-trim="true" placeholder="Prénom">
 			      <p ng-show="collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty" class="help-block">Veuillez entrer un prénom valide</p>
 			    </div>
 			
 			    <div class="alert alert-danger" role="alert" ng-show="collaborateurForm.$invalid && collaborateurForm.$dirty">
 			      Veuillez remplir tous les champs
 			    </div>
-			    
+			    {{main.collaborateur.prenom}}
+			    {{main.collaborateur.nom}}
 			    <button type="submit" class="btn btn-primary" ng-disabled="collaborateurForm.$invalid">Enregistrer</button>
 			
 			  </form>
@@ -76,14 +77,15 @@
 		app.controller('MyCtrl', function($http) {
 			var self = this;
 			self.actionEnregistrer = function() {
+				self.collaborateur.nom= self.collaborateur.nom.replace(/ +/g, " ");
+				self.collaborateur.prenom= self.collaborateur.prenom.replace(/ +/g, " ");
 				$http.post("api/collaborateurs", self.collaborateur).success(function(data){
-					/* Replace popin by a redirection on another view ! */
-			  		alert("done!!!!");
+			 	document.location.href = 'pageblanche.html';
+					
 				});
 		    };
 		});
 	
  	</script>
-
 </body>
 </html>
