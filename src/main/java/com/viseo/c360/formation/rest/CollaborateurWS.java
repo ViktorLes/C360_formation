@@ -10,6 +10,7 @@ import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,20 +29,14 @@ public class CollaborateurWS {
 	
 	@RequestMapping(method = RequestMethod.POST)
     @Transactional
-    public String addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur, BindingResult bindingResult){
-		//check var sent !
+    public void addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur, BindingResult bindingResult){
+		
+		//check data sent !
 		if(!(bindingResult.hasErrors())){
-			//persist the data
+
+			//if valid : persist the data
+
 			collaborateurDAO.addCollaborateur(myCollaborateur);
 		}
-		
-        return "";
     }
-//	
-//	@RequestMapping(method = RequestMethod.GET)
-//    @ResponseBody
-//    @Transactional
-//    public String getCollaborateurs(){		
-//        return "collaborateurs lecture !";
-//    }
 }
