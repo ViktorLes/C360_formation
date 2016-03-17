@@ -32,8 +32,6 @@ public class CollaborateurWS {
 		//check var sent !
 		if(!(bindingResult.hasErrors())){
 			//persist the data
-			System.out.println("REST controller " + myCollaborateur.getMatricule());
-			System.out.println("REST controller " + myCollaborateur.getNom());
 			collaborateurDAO.addCollaborateur(myCollaborateur);
 		}
 		
