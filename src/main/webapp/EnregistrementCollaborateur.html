@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head>
@@ -10,7 +9,7 @@
 </head>
 
 
-<body ng-controller="MyCtrl as ctrl">
+<body ng-controller="MyCtrl as main">
 
 <div class="row">
  <div class="col-md-4">
@@ -22,32 +21,32 @@
   </div>
   <div class="panel-body">
   <p>
-  <form name="collaborateurForm" ng-submit="ctrl.actionEnregistrer()" novalidate>
+  <form name="collaborateurForm" ng-submit="main.actionEnregistrer()" novalidate>
 
-    <!-- matricule -->
+    <!-- MATRICULE -->
     <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty }">
-      <input type="text" name="matricule" class="form-control" ng-model="ctrl.collaborateur.matricule" required ng-pattern="/^[A-Z0-9]+$/"  placeholder="matricule">
+      <input type="text" name="matricule" class="form-control" ng-model="main.collaborateur.matricule" required ng-pattern="/^[A-Z0-9]+$/"  placeholder="Matricule">
       <p ng-show="collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty" class="help-block">Veuillez entrer un numéro de matricule valide</p>
     </div>
 
-    <!-- nom -->
+    <!-- NOM -->
     <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.nom.$invalid && collaborateurForm.nom.$dirty }">
-      <input type="text" name="nom" class="form-control" ng-model="ctrl.collaborateur.nom" required ng-pattern="/^[a-zA-Z-'éèà. ]+$/" ng-minlength="2" placeholder="nom">
+      <input type="text" name="nom" class="form-control" ng-model="main.collaborateur.nom" required ng-pattern="/^[a-zA-Z-'éèà. ]+$/" ng-minlength="2" placeholder="Nom">
       <p ng-show="collaborateurForm.nom.$invalid && collaborateurForm.nom.$dirty" class="help-block">Veuillez entrer un nom valide</p>
     </div>
 
-    <!-- prenom -->
+    <!-- PRENOM -->
     <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty }">
-      <input type="text" name="prenom" class="form-control" ng-model="ctrl.collaborateur.prenom" required ng-pattern="/^[a-zA-Z-'. ]+$/" ng-minlength="2" placeholder="Prénom">
+      <input type="text" name="prenom" class="form-control" ng-model="main.collaborateur.prenom" required ng-pattern="/^[a-zA-Z-'. ]+$/" ng-minlength="2" placeholder="Prénom">
       <p ng-show="collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty" class="help-block">Veuillez entrer un prénom valide</p>
     </div>
 
     <div class="alert alert-danger" role="alert" ng-show="collaborateurForm.$invalid && collaborateurForm.$dirty">
       Veuillez remplir tous les champs
     </div>
-	<span>{{ctrl.collaborateur.matricule}}</span>
-	<span>{{ctrl.collaborateur.nom}}</span>
-	<span>{{ctrl.collaborateur.prenom}}</span>
+	<span>{{main.collaborateur.matricule}}</span>
+	<span>{{main.collaborateur.nom}}</span>
+	<span>{{main.collaborateur.prenom}}</span>
     <button type="submit" class="btn btn-primary" ng-disabled="collaborateurForm.$invalid">Enregistrer</button>
 
   </form>
@@ -64,15 +63,13 @@
 
 
 	<script type="text/javascript">
-	console.log("hhh");
 	var app = angular.module('myApp', []);
 	app.controller('MyCtrl', function($http) {
 		var self = this;
-		console.log("ffffffffffffffff");
 		self.actionEnregistrer = function() {
-			console.log("lklllk");
+			//console.log("Coucou nada",self.collaborateur);
 			$http.post("api/collaborateurs", self.collaborateur).success(function(data){
-		  	alert("done!!!!");
+		  		alert("done!!!!");
 			});
 	    };
 	});
