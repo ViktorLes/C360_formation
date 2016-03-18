@@ -8,7 +8,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 
 @Entity
 public class Collaborateur {
@@ -70,4 +73,25 @@ public class Collaborateur {
 		this.prenom = prenom.replaceAll("( )+", " ").trim();
 	}
 	
+	/*
+	public class CollaborateurValidator implements Validator{
+
+		public boolean supports(Class clazz) {
+	        return Collaborateur.class.equals(clazz);
+	    }
+
+	    public void validate(Object obj, Errors e) {
+	        ValidationUtils.rejectIfEmpty(e, "name", "name.empty");
+	        Collaborateur p = (Collaborateur) obj;
+	        /*
+	        if (p.getAge() < 0) {
+	            e.rejectValue("age", "negativevalue");
+	        } else if (p.getAge() > 110) {
+	            e.rejectValue("age", "too.darn.old");
+	        }
+	        
+	    }
+		
+	}
+	*/
 }

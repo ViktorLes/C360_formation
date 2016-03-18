@@ -14,6 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viseo.c360.formation.dao.CollaborateurDAO;
@@ -27,18 +28,22 @@ public class CollaborateurWS {
 	@Inject
 	CollaborateurDAO collaborateurDAO;
 	
-	/*
+	
 	@RequestMapping(method = RequestMethod.POST)
     @Transactional
-    public void addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur, BindingResult bindingResult){
-		//check data sent !
-		if(!(bindingResult.hasErrors())){
+    @ResponseBody
+    public boolean addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur, BindingResult bindingResult){
+		//check data sent AND the inexistance of matricule !
+		if(!(bindingResult.hasErrors()) && !collaborateurDAO.isMatriculeAlreadySaved(myCollaborateur.getMatricule())){
 			//if valid : persist the data
 			collaborateurDAO.addCollaborateur(myCollaborateur);
+			return true;
 		}
+		
+		return false;
     }
-    */
-	
+    
+	/*
 	//test
 	@RequestMapping(method = RequestMethod.POST)
     @Transactional
@@ -46,4 +51,5 @@ public class CollaborateurWS {
 
 			collaborateurDAO.addCollaborateur(myCollaborateur);
     }
+    */
 }
