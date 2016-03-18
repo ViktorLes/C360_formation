@@ -13,7 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Enregistrement Collaborateur</title>
-	<link href="css/bootstrap.css" rel="stylesheet" />
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 </head>
 
