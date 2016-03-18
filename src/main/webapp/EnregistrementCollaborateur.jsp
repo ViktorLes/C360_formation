@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.viseo.c360.formation.domain.collaborateur.Collaborateur" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%! 
-	String accents = "áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ";
-	String regexMatricule = "\"/^[A-Z0-9]+$/\""; 
-	String regexNom = "\"/^[a-zA-Z-'."+accents+" ]+$/\""; 
-	String regexPrenom = "\"/^[a-zA-Z-'"+accents+". ]+$/\""; 
+	//Déclaration des regex 
+	String regexMatricule = "\"/^"+Collaborateur.regexMatricule+"+$/\""; 
+	String regexNom = "\"/^"+Collaborateur.regexNom+"+$/\""; 
+	String regexPrenom = "\"/^"+Collaborateur.regexPrenom+"+$/\""; 
 %>
 
 <html ng-app="myApp">

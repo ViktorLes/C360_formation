@@ -15,6 +15,12 @@ import org.springframework.validation.Validator;
 
 @Entity
 public class Collaborateur {
+		
+	public static final String regexMatricule = "[A-Z0-9]";
+	public static final String regexNom = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+	public static final String regexPrenom = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+	
+	
 	@Id
 	@GeneratedValue
 	long id;
@@ -24,17 +30,17 @@ public class Collaborateur {
 	
 	@NotNull
 	@Size(min=3, max=20)
-	@Pattern(regexp="[A-Z0-9]*")
+	@Pattern(regexp=Collaborateur.regexMatricule+"*")
 	String matricule;
 	
 	@NotNull
 	@Size(min=2, max=125)
-	@Pattern(regexp="[a-zA-Z-'.áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ ]*")
+	@Pattern(regexp=Collaborateur.regexNom+"*")
 	String nom;
 	
 	@NotNull
 	@Size(min=2, max=125)
-	@Pattern(regexp="[a-zA-Z-'.áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ ]*")
+	@Pattern(regexp=Collaborateur.regexPrenom+"*")
 	String prenom;
 	
 	public Collaborateur() {
