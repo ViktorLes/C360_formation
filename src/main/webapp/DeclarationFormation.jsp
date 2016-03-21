@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%! 
 	String accents = "áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ";
-	String regexformationdemijournee = "\"/^[0-9]+$/\""; 
+	String regexnombredemijournee = "\"/^[0-9]+$/\""; 
 	String regexTitredelaformation = "\"/^[a-zA-Z-'-+%.:@#"+accents+" ]+$/\""; 
 	
 %>
@@ -42,15 +42,15 @@
 			    </div>
 			
 			        <!-- Nombre de 1/2 journée -->
-			    <div class="form-group" ng-class="{ 'has-error' : formationForm.formationdemijournee.$invalid && formationForm.formationdemijournee.$dirty }">
-			      <input type="number" name="formationdemijournee" class="form-control" ng-model="main.formation.formationdemijournee" required ng-pattern=<%=regexformationdemijournee %> ng-minlength="1" ng-maxlength="2"  placeholder="Nombre de 1/2 journée">
-			      <p ng-show="formationForm.formationdemijournee.$invalid && formationForm.formationdemijournee.$dirty" class="help-block">Veuillez entrer un nombre de formation valide</p>
+			    <div class="form-group" ng-class="{ 'has-error' : formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty }">
+			      <input type="number" name="nombredemijournee" class="form-control" ng-model="main.formation.nombredemijournee" required ng-pattern=<%=regexnombredemijournee %> ng-minlength="1" ng-maxlength="2"  placeholder="Nombre de 1/2 journée">
+			      <p ng-show="formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty" class="help-block">Veuillez entrer un nombre de formation valide</p>
 			    </div>
 			
 			    <div class="alert alert-danger" role="alert" ng-show="formationForm.$invalid && formationForm.$dirty">
 			      Veuillez remplir tous les champs
 			    </div>
-			    <!-- {{main.formation.formationdemijournee}}
+			    <!-- {{main.formation.nombredemijournee}}
 			    {{main.formation.titreformation}} -->
 			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>
 			
@@ -71,7 +71,7 @@
 			var self = this;
 			self.actionEnregistrer = function() {
 				self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
-				//self.formation.formationdemijournee= self.formation.formationdemijournee.replace(/ +/g, " ");
+				//self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, " ");
 				$http.post("api/formations", self.formation).success(function(data){
 			 		document.location.href = 'pageblancheformation.html';
 					
