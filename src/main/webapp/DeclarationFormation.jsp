@@ -42,7 +42,7 @@
 			
 			        <!-- Nombre de 1/2 journée -->
 			    <div class="form-group" ng-class="{ 'has-error' : formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty }">
-			      <input type="text" name="nombredemijournee" class="form-control" ng-model="main.formation.nombredemijournee" required ng-pattern=<%=regexnombredemijournee %> ng-minlength="1" ng-maxlength="3"  placeholder="Nombre de 1/2 journée">
+			      <input type="number" name="nombredemijournee" class="form-control" ng-model="main.formation.nombredemijournee" required ng-pattern=<%=regexnombredemijournee %> ng-min="1" ng-max="200"  placeholder="Nombre de 1/2 journée">
 			      <p ng-show="formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty" class="help-block">Veuillez entrer un nombre de formation valide (Entre 1 et 200)</p>
 			    </div>
 			
