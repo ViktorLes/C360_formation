@@ -39,7 +39,7 @@
 			   		    <!-- MATRICULE -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty }">
 			      <input type="text" name="matricule" class="form-control" ng-model="main.collaborateur.matricule" required ng-pattern=<%=regexMatricule %> ng-minlength="3" ng-maxlength="20"  placeholder="Matricule">
-			      <p ng-show="collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty" class="help-block">Veuillez entrer un numéro de matricule valide</p>
+			      <p ng-show="collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty" class="help-block">Numéro de matricule invalide (Exemple valide : ABC1234)</p>
 			    </div>
 			
 			    <!-- NOM -->
