@@ -7,5 +7,8 @@
 	<div><a href="EnregistrementCollaborateur.jsp">Enregistrement d'un collaborateur</a></div>
 	<div><a href="DeclarationFormation.jsp">Déclaration d'une formation</a></div>
 	<!-- <div><a href="testAddCollaborateur.html">testAddCollaborateur.html</a></div> -->
+	
+	
+	
 </body>
 </html>
