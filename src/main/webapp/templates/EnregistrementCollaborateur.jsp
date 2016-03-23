@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.viseo.c360.formation.domain.collaborateur.Collaborateur" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%! 
 	//Déclaration des regex 
@@ -9,15 +8,6 @@
 	String regexNom = "\"/^"+Collaborateur.regexNom+"+$/\""; 
 	String regexPrenom = "\"/^"+Collaborateur.regexPrenom+"+$/\""; 
 %>
-
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Enregistrement Collaborateur</title>
-</head>
-
-
-<body>
 
 <div class="row">
   
@@ -37,7 +27,7 @@
 			   		    <!-- MATRICULE -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty }">
 			      <input type="text" name="matricule" class="form-control" ng-model="EC.collaborateur.matricule" required ng-pattern=<%=regexMatricule %> ng-minlength="3" ng-maxlength="20"  placeholder="Matricule">
-			      <p ng-show="collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty" class="help-block">Veuillez entrer un numéro de matricule valide</p>
+			      <p ng-show="collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty" class="help-block">Numéro de matricule invalide (Exemple valide : ABC1234)</p>
 			    </div>
 			
 			    <!-- NOM -->
@@ -70,6 +60,3 @@
 	</div>
   </div>
 </div>
-
-</body>
-</html>
