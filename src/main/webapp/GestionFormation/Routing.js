@@ -1,5 +1,3 @@
-'use strict';
-console.log("Routing ok!")
 var routeApp = angular.module('routeApp', [
     // Dépendances du "module"
     'ngRoute',
@@ -25,4 +23,3 @@ routeApp.config(['$routeProvider',function($routeProvider) {
                       */
                  }
              ]);
-	console.log("Routing marche!")

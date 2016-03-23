@@ -1,9 +1,9 @@
-'use strict';	
+
 //Module de L'GestForapp
 		var GestForApp = angular.module('GestForController', []);
 		//Controleur DeclarationFromation		
-		GestForApp.controller('CtrlFor', ['$scope','$http',function($scope, $http) {
-			var self = $scope;
+		GestForApp.controller('CtrlFor', ['$http',function($http) {
+			var self = this;
 			self.actionEnregistrer = function() {
 				self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
 				//self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, " ");
@@ -16,7 +16,7 @@
 		
 
 		// Controleur EnregistrementCollab
-		GestForApp.controller('CtrlCol', [/*'$scope',*/'$http',function(/*$scope,*/ $http) {
+		GestForApp.controller('CtrlCol', ['$http',function($http) {
 			var self = this;
 			
 			self.isNewMatricule = true;	
@@ -41,4 +41,3 @@
 		GestForApp.controller('cntrlTest', ['$scope',function($scope) {
 			var self = $scope;
 		}]);
-	console.log("Ca marche!!!");

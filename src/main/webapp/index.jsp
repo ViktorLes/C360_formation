@@ -13,11 +13,12 @@
 <body ng-app="routeApp">
 
 	<div ng-controller="cntrlTest">
-		<input type="text" ng-model="ModelTest"/>
-		<!-- Liaison input et span -->
-		<span> {{ModelTest}} </span>
+		<!-- <input type="text" ng-model="ModelTest"/>
+		Liaison input et span
+		<span> {{ModelTest}} </span> -->
 	</div>
-	<a href="#/EnregistrementCollaborateur">6</a>
+	<a href="#/EnregistrementCollaborateur">EC</a>
+	<a href="#/DeclarationFormation">DF</a>
 	
 	<div ng-view></div>
 </body>
