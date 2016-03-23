@@ -16,8 +16,8 @@
 		
 
 		// Controleur EnregistrementCollab
-		GestForApp.controller('CtrlCol', ['$scope','$http',function($scope, $http) {
-			var self = $scope;
+		GestForApp.controller('CtrlCol', [/*'$scope',*/'$http',function(/*$scope,*/ $http) {
+			var self = this;
 			
 			self.isNewMatricule = true;	
 			self.actionEnregistrer = function() {

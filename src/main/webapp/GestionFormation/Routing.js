@@ -10,7 +10,8 @@ routeApp.config(['$routeProvider',function($routeProvider) {
                      $routeProvider
                      .when('/EnregistrementCollaborateur', {
                          templateUrl: 'templates/EnregistrementCollaborateur.jsp',
-                         controller: 'CtrlCol'
+                         controller: 'CtrlCol',
+                         controllerAs:'main'
                      })
                      .when('/DeclarationFormation', {
                          templateUrl: 'templates/DeclarationFormation.jsp',
