@@ -10,16 +10,14 @@
 	String regexPrenom = "\"/^"+Collaborateur.regexPrenom+"+$/\""; 
 %>
 
-<html ng-app="myApp">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Enregistrement Collaborateur</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet" />
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 </head>
 
 
-<body ng-controller="MyCtrl as main">
+<body>
 
 <div class="row">
   
@@ -34,23 +32,23 @@
 		  </div>
 		  
 		  <div class="panel-body">
-			  <form name="collaborateurForm" ng-submit="main.actionEnregistrer()" novalidate>
+			  <form name="collaborateurForm" ng-submit="EC.actionEnregistrer()" novalidate>
 			
 			   		    <!-- MATRICULE -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty }">
-			      <input type="text" name="matricule" class="form-control" ng-model="main.collaborateur.matricule" required ng-pattern=<%=regexMatricule %> ng-minlength="3" ng-maxlength="20"  placeholder="Matricule">
+			      <input type="text" name="matricule" class="form-control" ng-model="EC.collaborateur.matricule" required ng-pattern=<%=regexMatricule %> ng-minlength="3" ng-maxlength="20"  placeholder="Matricule">
 			      <p ng-show="collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty" class="help-block">Veuillez entrer un numéro de matricule valide</p>
 			    </div>
 			
 			    <!-- NOM -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.nom.$invalid && collaborateurForm.nom.$dirty }">
-			      <input type="text" name="nom" class="form-control" ng-model="main.collaborateur.nom" required ng-pattern=<%=regexNom %> ng-minlength="2" ng-maxlength="120" ng-trim="true"  placeholder="Nom">
+			      <input type="text" name="nom" class="form-control" ng-model="EC.collaborateur.nom" required ng-pattern=<%=regexNom %> ng-minlength="2" ng-maxlength="120" ng-trim="true"  placeholder="Nom">
 			      <p ng-show="collaborateurForm.nom.$invalid && collaborateurForm.nom.$dirty" class="help-block">Veuillez entrer un nom valide</p>
 			    </div>
 			
 			    <!-- PRENOM -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty }">
-			      <input type="text" name="prenom" class="form-control" ng-model="main.collaborateur.prenom" required ng-pattern=<%=regexPrenom %> ng-minlength="2" ng-maxlength="120" ng-trim="true" placeholder="Prénom">
+			      <input type="text" name="prenom" class="form-control" ng-model="EC.collaborateur.prenom" required ng-pattern=<%=regexPrenom %> ng-minlength="2" ng-maxlength="120" ng-trim="true" placeholder="Prénom">
 			      <p ng-show="collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty" class="help-block">Veuillez entrer un prénom valide</p>
 			    </div>
 			
@@ -58,7 +56,7 @@
 			      Veuillez remplir tous les champs
 			    </div>
 			    
-			    <div class="alert alert-danger" role="alert" ng-show="!main.isNewMatricule">
+			    <div class="alert alert-danger" role="alert" ng-show="!EC.isNewMatricule">
 			      Ce matricule a déjà été enregistré
 			    </div> 
 			    
@@ -73,11 +71,11 @@
   </div>
 </div>
 
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	
 	
 		var app = angular.module('myApp', []);
-		app.controller('MyCtrl', function($http) {
+		app.controller('CtrlCol', function($http) {
 			var self = this;
 			
 			self.isNewMatricule = true;
@@ -100,6 +98,6 @@
 		    };
 		});
 	
- 	</script>
+ 	</script> -->
 </body>
 </html>
