@@ -9,11 +9,12 @@ routeApp.config(['$routeProvider',function($routeProvider) {
                      .when('/EnregistrementCollaborateur', {
                          templateUrl: 'templates/EnregistrementCollaborateur.jsp',
                          controller: 'CtrlCol',
-                         controllerAs:'main'
+                         controllerAs:'EC'
                      })
                      .when('/DeclarationFormation', {
                          templateUrl: 'templates/DeclarationFormation.jsp',
-                         controller: 'CtrlFor'
+                         controller: 'CtrlFor',
+                         controllerAs:'DF'
                      });
                      /*
                      .otherwise({

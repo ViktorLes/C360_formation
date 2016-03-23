@@ -10,6 +10,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet" />
 	
 </head>
+
 <body ng-app="routeApp">
 
 	<div ng-controller="cntrlTest">

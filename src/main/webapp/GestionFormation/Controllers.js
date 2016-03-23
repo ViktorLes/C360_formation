@@ -38,6 +38,3 @@
 		    };
 		}]);
 		
-		GestForApp.controller('cntrlTest', ['$scope',function($scope) {
-			var self = $scope;
-		}]);

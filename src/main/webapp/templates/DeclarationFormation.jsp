@@ -31,25 +31,25 @@
 		  </div>
 		  
 		  <div class="panel-body">
-			  <form name="formationForm" ng-submit="main.actionEnregistrer()" novalidate>
+			  <form name="formationForm" ng-submit="DF.actionEnregistrer()" novalidate>
 			
 			    <!-- Titre de la Formation -->
 			    <div class="form-group" ng-class="{ 'has-error' : formationForm.titreformation.$invalid && formationForm.titreformation.$dirty }">
-			      <input type="text" name="titreformation" class="form-control" ng-model="main.formation.titreformation" required ng-pattern=<%=regexTitredelaformation %> ng-minlength="2" ng-maxlength="20" ng-trim="true"  placeholder="Titre de la formation">
+			      <input type="text" name="titreformation" class="form-control" ng-model="DF.formation.titreformation" required ng-pattern=<%=regexTitredelaformation %> ng-minlength="2" ng-maxlength="20" ng-trim="true"  placeholder="Titre de la formation">
 			      <p ng-show="formationForm.titreformation.$invalid && formationForm.titreformation.$dirty" class="help-block">Veuillez entrer un titre de formation valide</p>
 			    </div>
 			
 			        <!-- Nombre de 1/2 journée -->
 			    <div class="form-group" ng-class="{ 'has-error' : formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty }">
-			      <input type="number" name="nombredemijournee" class="form-control" ng-model="main.formation.nombredemijournee" required ng-pattern=<%=regexnombredemijournee %> ng-minlength="1" ng-maxlength="2"  placeholder="Nombre de 1/2 journée">
+			      <input type="number" name="nombredemijournee" class="form-control" ng-model="DF.formation.nombredemijournee" required ng-pattern=<%=regexnombredemijournee %> ng-minlength="1" ng-maxlength="2"  placeholder="Nombre de 1/2 journée">
 			      <p ng-show="formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty" class="help-block">Veuillez entrer un nombre de formation valide</p>
 			    </div>
 			
 			    <div class="alert alert-danger" role="alert" ng-show="formationForm.$invalid && formationForm.$dirty">
 			      Veuillez remplir tous les champs
 			    </div>
-			    <!-- {{main.formation.nombredemijournee}}
-			    {{main.formation.titreformation}} -->
+			    <!-- {{DF.formation.nombredemijournee}}
+			    {{DF.formation.titreformation}} -->
 			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>
 			
 			  </form>
