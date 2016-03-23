@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%! 
 	String accents = "áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ";
@@ -8,17 +9,14 @@
 	
 %>
 
-<html ng-app="myApp">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Déclaration de la formation</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet" />
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
- 
 </head>
 
 
-<body ng-controller="MyCtrl as main">
+<body>
 
 <div class="row">
   
@@ -64,10 +62,11 @@
   </div>
 </div>
 
-	<script type="text/javascript">
+
+	<!-- <script type="text/javascript">
 	
 		var app = angular.module('myApp', []);
-		app.controller('MyCtrl', function($http) {
+		app.controller('CtrlFor', function($http) {
 			var self = this;
 			self.actionEnregistrer = function() {
 				self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
@@ -79,6 +78,6 @@
 		    };
 		});
 	
- 	</script>
+ 	</script> -->
 </body>
 </html>
