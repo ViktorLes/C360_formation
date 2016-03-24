@@ -20,7 +20,6 @@
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Déclaration de la formation</h3>
 		  </div>
-		  
 		  <div class="panel-body">
 			  <form name="formationForm" ng-submit="DF.actionEnregistrer()" novalidate>
 			
@@ -41,8 +40,7 @@
 			    </div>
 			    <!-- {{DF.formation.nombredemijournee}}
 			    {{DF.formation.titreformation}} -->
-			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>
-			
+			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>		
 			  </form>
 		  </div>
 		  

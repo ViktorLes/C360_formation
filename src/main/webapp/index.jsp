@@ -19,6 +19,7 @@
 <body ng-app="routeApp">
 	<a href="#/EnregistrementCollaborateur">EC</a>
 	<a href="#/DeclarationFormation">DF</a>	
+	<a href="#/DeclarationSession">DS</a>	
 	<div ng-view></div>
 </body>
 </html>

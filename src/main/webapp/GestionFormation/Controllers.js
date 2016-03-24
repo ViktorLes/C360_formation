@@ -38,3 +38,18 @@
 		    };
 		}]);
 
+		/*// Controleur DeclarationSession
+		GestForApp.controller('CtrlSes', ['$http',function($http) {
+			var self = this;
+			self.actionEnregistrer = function() {
+				
+				var self = this;
+				self.actionEnregistrer = function() {
+					self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
+					//self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, " ");
+					$http.post("api/formations", self.formation).success(function(data){
+				 		document.location.href = 'pageblancheformation.html';
+						
+				});
+		    };
+		}])*/
