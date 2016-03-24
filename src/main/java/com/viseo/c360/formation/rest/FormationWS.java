@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viseo.c360.formation.dao.FormationDAO;
 import com.viseo.c360.formation.domain.formation.Formation;
-import com.viseo.c360.formation.domain.formation.Session;
+import com.viseo.c360.formation.domain.formation.SessionFormation;
 
 @RestController
 public class FormationWS {
@@ -23,26 +23,22 @@ public class FormationWS {
 	@RequestMapping(value="${endpoint.formations}", method = RequestMethod.POST)
     @Transactional
     public void addFormation(@Valid @RequestBody Formation myFormation, BindingResult bindingResult){
-		
-		//check data sent !
 		if(!(bindingResult.hasErrors())){
-
-			//if valid : persist the data
-
 			formationDAO.addFormation(myFormation);
 		}
     }
 	
 	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
     @Transactional
-    public void addSession(@Valid @RequestBody Session mySession, BindingResult bindingResult){
-		
-		//check data sent !
+    public void addSession(@Valid @RequestBody SessionFormation mySession, BindingResult bindingResult){
 		if(!(bindingResult.hasErrors())){
-
-			//if valid : persist the data
-
-			formationDAO.addSession(mySession);
+			formationDAO.addSession();
 		}
+    }
+	
+	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.GET)
+    @Transactional
+    public void addSession(){
+			formationDAO.addSession();
     }
 }
