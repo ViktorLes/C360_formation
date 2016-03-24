@@ -10,11 +10,12 @@
 			self.actionEnregistrer = function() {
 				self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
 				//self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, "");
-				$http.post("api/formations", self.formation).success(function(data){
-					console.log(data);
-					self.isNewTitleFormation = data;
-			 		if(self.isNewTitleFormation == true) document.location.href = 'pageblancheformation.html';
-					
+				$http.post("api/formations", self.formation).success(function(data){		
+					if(data == "true"){
+						self.isNewTitleFormation = true;
+				 		document.location.href = 'pageblancheformation.html';
+					}
+					else self.isNewTitleFormation = false;
 				});
 		    };
 		}]);
@@ -24,7 +25,7 @@
 		GestForApp.controller('CtrlCol', ['$http',function($http) {
 			var self = this;
 			
-			self.isNewMatricule = true;	
+			self.isNewMatricule = "true";	
 			self.actionEnregistrer = function() {
 				
 				//delete useless spaces between words 
@@ -33,10 +34,11 @@
 				
 				//post the form to the server
 				$http.post("api/collaborateurs", self.collaborateur).success(function(data){
-					//data = server return value : true or false,
-					// (depends of the existence of a previous 'Matricule')
-					 self.isNewMatricule = data; 
-					if(self.isNewMatricule == true) document.location.href = 'pageblanche.html';
+					 if(data == "true") {
+						 self.isNewMatricule = true; 
+						 document.location.href = 'pageblanche.html';
+					 }
+					 else self.isNewMatricule = false;
 				});
 		    };
 		}]);
