@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 @Entity
@@ -17,8 +18,8 @@ public class Session {
 	@Version
 	long version;
 	
-	
-	long id_formation;
+	@ManyToOne
+	Formation formation;
 	
 	Date firstDay;
 	
