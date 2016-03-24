@@ -15,7 +15,6 @@ routeApp.config(['$routeProvider',function($routeProvider) {
                          templateUrl: 'templates/DeclarationFormation.jsp',
                          controller: 'CtrlFor',
                          controllerAs:'DF'
-
                      });
                      /*
                      .otherwise({

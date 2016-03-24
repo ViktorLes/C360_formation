@@ -1,22 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="com.viseo.c360.formation.domain.formation.Formation" %>
+
 <%! 
-	String accents = "áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ";
-	String regexnombredemijournee = "\"/^[0-9]+$/\""; 
-	String regexTitredelaformation = "\"/^[a-zA-Z-'-+%.:@#"+accents+" ]+$/\""; 
-	
+	String regexnombredemijournee = "\"/^"+Formation.regexNombreDemiJournee+"+$/\""; 
+	String regexTitredelaformation = "\"/^"+Formation.regexTitreFormation+"+$/\""; 
 %>
-
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Déclaration de la formation</title>
-</head>
-
-
-<body>
 
 <div class="row">
   
@@ -35,14 +26,14 @@
 			
 			    <!-- Titre de la Formation -->
 			    <div class="form-group" ng-class="{ 'has-error' : formationForm.titreformation.$invalid && formationForm.titreformation.$dirty }">
-			      <input type="text" name="titreformation" class="form-control" ng-model="DF.formation.titreformation" required ng-pattern=<%=regexTitredelaformation %> ng-minlength="2" ng-maxlength="20" ng-trim="true"  placeholder="Titre de la formation">
+			      <input type="text" name="titreformation" class="form-control" ng-model="DF.formation.titreformation" required ng-pattern=<%=regexTitredelaformation %> ng-trim="true"  placeholder="Titre de la formation"> <!-- ng-minlength="2" ng-maxlength="20" -->
 			      <p ng-show="formationForm.titreformation.$invalid && formationForm.titreformation.$dirty" class="help-block">Veuillez entrer un titre de formation valide</p>
 			    </div>
 			
 			        <!-- Nombre de 1/2 journée -->
 			    <div class="form-group" ng-class="{ 'has-error' : formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty }">
-			      <input type="number" name="nombredemijournee" class="form-control" ng-model="DF.formation.nombredemijournee" required ng-pattern=<%=regexnombredemijournee %> ng-minlength="1" ng-maxlength="2"  placeholder="Nombre de 1/2 journée">
-			      <p ng-show="formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty" class="help-block">Veuillez entrer un nombre de formation valide</p>
+			      <input type="number" name="nombredemijournee" class="form-control no-spinner" ng-model="DF.formation.nombredemijournee" required ng-pattern=<%=regexnombredemijournee %> min="1" max="200"  placeholder="Nombre de 1/2 journée">
+			      <p ng-show="formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty" class="help-block">Veuillez entrer un nombre de formation valide (Entre 1 et 200)</p>
 			    </div>
 			
 			    <div class="alert alert-danger" role="alert" ng-show="formationForm.$invalid && formationForm.$dirty">
@@ -61,23 +52,3 @@
 	</div>
   </div>
 </div>
-
-
-	<!-- <script type="text/javascript">
-	
-		var app = angular.module('myApp', []);
-		app.controller('CtrlFor', function($http) {
-			var self = this;
-			self.actionEnregistrer = function() {
-				self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
-				//self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, " ");
-				$http.post("api/formations", self.formation).success(function(data){
-			 		document.location.href = 'pageblancheformation.html';
-					
-				});
-		    };
-		});
-	
- 	</script> -->
-</body>
-</html>
