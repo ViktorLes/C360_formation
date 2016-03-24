@@ -15,7 +15,12 @@ public class FormationDAO {
 	EntityManager enm;
 	
 	@Transactional
-	public void addFormation(String titreformation,int nombredemijournee){
+	public void addFormation(Formation F){
+		enm.persist(F);
+	}
+	
+	@Transactional
+	public void addSession(,){
 		
 		Formation F = new Formation();
 		F.setTitreformation(titreformation);
@@ -23,9 +28,4 @@ public class FormationDAO {
 		
 		enm.persist(F);
 	}
-	
-	@Transactional
-	public void addFormation(Formation F){
-		enm.persist(F);
-}
 }
