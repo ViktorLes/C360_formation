@@ -17,8 +17,13 @@
 </head>
 
 <body ng-app="routeApp">
-	<a href="#/EnregistrementCollaborateur">EC</a>
-	<a href="#/DeclarationFormation">DF</a>	
-	<div ng-view></div>
+		<header class="bg-primary row">
+			    <div class="col-md-1"></div> 
+				<div id="titreAppliquette" class="col-md-9">Gestions des formations</div>
+				<div id="titreProjet" class="col-md-2">Collaborateur 360</div>
+		</header>
+		<a href="#/EnregistrementCollaborateur">EC</a>
+		<a href="#/DeclarationFormation">DF</a>	
+		<div ng-view></div>
 </body>
 </html>
