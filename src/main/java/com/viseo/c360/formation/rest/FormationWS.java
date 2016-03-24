@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viseo.c360.formation.dao.CollaborateurDAO;
@@ -24,14 +25,15 @@ public class FormationWS {
 	
 	@RequestMapping(method = RequestMethod.POST)
     @Transactional
-    public void addFormation(@Valid @RequestBody Formation myFormation, BindingResult bindingResult){
-		
+    @ResponseBody
+    public boolean addFormation(@Valid @RequestBody Formation myFormation, BindingResult bindingResult){
 		//check data sent !
-		if(!(bindingResult.hasErrors())){
+		if(!(bindingResult.hasErrors()) && !formationDAO.isFormationAlreadySaved(myFormation.getTitreformation())){
 
 			//if valid : persist the data
-
 			formationDAO.addFormation(myFormation);
+			return true;
 		}
+		return false;
     }
 }

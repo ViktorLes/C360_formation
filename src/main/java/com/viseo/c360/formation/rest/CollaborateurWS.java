@@ -31,13 +31,11 @@ public class CollaborateurWS {
 	
 	@RequestMapping(method = RequestMethod.POST)
     @Transactional
-
     @ResponseBody
     public boolean addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur, BindingResult bindingResult){
 		//check data sent AND the inexistance of matricule !
 		if(!(bindingResult.hasErrors()) && !collaborateurDAO.isMatriculeAlreadySaved(myCollaborateur.getMatricule())){
 			//if valid : persist the data
-
 			collaborateurDAO.addCollaborateur(myCollaborateur);
 			return true;
 		}
@@ -45,13 +43,4 @@ public class CollaborateurWS {
 		return false;
     }
     
-	/*
-	//test
-	@RequestMapping(method = RequestMethod.POST)
-    @Transactional
-    public void addCollaborateur(@RequestBody Collaborateur myCollaborateur){
-
-			collaborateurDAO.addCollaborateur(myCollaborateur);
-    }
-    */
 }
