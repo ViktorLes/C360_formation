@@ -44,6 +44,10 @@
 		GestForApp.controller('CtrlSes', ['$http',function($http) {
 			var self = this;
 			
+			function pad2(number) {
+				   return (number < 10 ? '0' : '') + number
+				}
+			
 			var myTab =[];
 				var debutH = 8; var finH = 18; var pas = 30; var finM =30; var debutM=0;
 				var nbPasHeure = 60/pas;
@@ -55,13 +59,9 @@
 					{
 						myTab.push(pad2((debutH + Math.floor(compteur/nbPasHeure))).toString() + ":" + pad2((compteur%nbPasHeure*pas)).toString());
 					}
-				console.log ("ca marche");
+
 				self.monTab = myTab;
-				
-				function pad2(number) {
-					   return (number < 10 ? '0' : '') + number
-					}
-			
+		
 				self.actionEnregistrer = function() {
 				self.session.nomFormation= self.session.nomFormation.replace(/ +/g, " ");
 				self.session.nomFormation= self.session.nomFormation.replace(/ +/g, " ");

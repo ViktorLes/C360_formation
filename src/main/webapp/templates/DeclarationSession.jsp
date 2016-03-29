@@ -50,16 +50,17 @@
 				    <div>
 					 <label>Heure du Debut: (1er Jour)</label>
 				     <select name="HeureDebut">
-				     <option>08:00</option>
-				     <option>08:30</option>
+				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
 				     </select>
 				    </div>
+				    
 				    <div>
 					 <label>Heure de Fin: (Dernier Jour)</label>
 				     <select name="HeureFin" >
 				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
 				     </select>
 				    </div>
+				    
 				    <!-- Lieu de la session -->
 				    <div>
 					 <label>Lieu: </label>
