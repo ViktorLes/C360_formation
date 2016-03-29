@@ -43,23 +43,24 @@
 		//Controleur DeclarationSession
 		GestForApp.controller('CtrlSes', ['$http',function($http) {
 			var self = this;
+			
 			var myTab =[];
 				var debutH = 8; var finH = 18; var pas = 30; var finM =30; var debutM=0;
 				var nbPasHeure = 60/pas;
 				var nbPasHeures = (finH-debutH)*nbPasHeure;
 				var nbPasMinutes = (finM-debutM)/pas;
 
-				
-				
 				for(var compteur=0; compteur<(nbPasHeures+nbPasMinutes); compteur++)
 					
-						{
-							myTab.push((debutH + Math.floor(compteur/nbPasHeure)).toString() + ":" + (compteur%nbPasHeure*pas).toString());
-						}
+					{
+						myTab.push(pad2((debutH + Math.floor(compteur/nbPasHeure))).toString() + ":" + pad2((compteur%nbPasHeure*pas)).toString());
+					}
 				console.log ("ca marche");
 				self.monTab = myTab;
-			
-			
+				
+				function pad2(number) {
+					   return (number < 10 ? '0' : '') + number
+					}
 			
 				self.actionEnregistrer = function() {
 				self.session.nomFormation= self.session.nomFormation.replace(/ +/g, " ");
