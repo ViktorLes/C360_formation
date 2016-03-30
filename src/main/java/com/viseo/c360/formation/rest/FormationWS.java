@@ -28,9 +28,14 @@ public class FormationWS {
 		
 		//check data sent !
 		if(!(bindingResult.hasErrors())){
-
+			int a = myFormation.getNombredemijournee();
+			String b = Integer.toString(a);
+			System.out.println(b);
+			
+//		Integer.toString(myFormation.getNombredemijournee());
+//		System.out.println(getNombredemijournee());
+			
 			//if valid : persist the data
-
 			formationDAO.addFormation(myFormation);
 		}
     }

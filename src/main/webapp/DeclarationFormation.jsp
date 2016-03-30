@@ -50,8 +50,7 @@
 			    <div class="alert alert-danger" role="alert" ng-show="formationForm.$invalid && formationForm.$dirty">
 			      Veuillez remplir tous les champs
 			    </div>
-			    {{main.formation.formationdemijournee}}
-			    {{main.formation.titreformation}}
+			   
 			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>
 			
 			  </form>
