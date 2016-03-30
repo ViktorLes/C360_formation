@@ -16,19 +16,20 @@
 	<context:property-placeholder location="classpath:project.properties" />
 
 	<!-- Configure to plugin JSON as request and response in method handler -->
-	<bean
+	<!-- <bean
 		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="messageConverters">
 			<list>
 				<ref bean="jsonMessageConverter" />
 			</list>
 		</property>
-	</bean>
+	</bean> -->
 
 	<!-- Configure bean to convert JSON to POJO and vice versa -->
-	<bean id="jsonMessageConverter"
+	<!-- <bean id="jsonMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-	</bean>
+		
+	</bean> -->
 
 	<!-- BDD -->
 	<bean id="dataSourceC360"
