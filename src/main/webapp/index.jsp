@@ -2,17 +2,23 @@
 <head>
 	<meta charset="UTF-8">
 	
-	<!-- JS -->
-	<script src="lib/angular.js"></script>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+	<link href="css/formations.css" rel="stylesheet" />
+	<link rel="stylesheet" href="node_modules/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
+	
+	<script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="node_modules/moment/moment.js"></script>
+	<script type="text/javascript" src="node_modules/angular/angular.js"></script>
+	
 	<script src="lib/angular-mocks.js"></script>
 	<script src="lib/angular-route.js"></script>
 	
+	<script type="text/javascript" src="node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+	<script type="text/javascript" src="node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
+	
 	<script src="GestionFormation/Controllers.js"></script>
 	<script src="GestionFormation/Routing.js"></script> 
-	
-	<!-- CSS -->
-	<link href="css/bootstrap.min.css" rel="stylesheet" />
-	<link href="css/formations.css" rel="stylesheet" />
 	
 </head>
 
@@ -25,5 +31,18 @@
 		<a href="#/EnregistrementCollaborateur">EC</a>
 		<a href="#/DeclarationFormation">DF</a>	
 		<div ng-view></div>
+
+<div class="dropdown">
+  <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+    <div class="input-group"><input type="text" class="form-control" data-ng-model="data.dateDropDownInput"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+    </div>
+  </a>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    <datetimepicker data-ng-model="data.dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day' }"/>
+  </ul>
+</div>
+
+<!-- <datetimepicker data-ng-model="data.date" data-datetimepicker-config="{ startView:'day', minView:'day' }"></datetimepicker> -->
+ 
 </body>
 </html>

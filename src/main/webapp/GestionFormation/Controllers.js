@@ -1,6 +1,6 @@
 
 //Module de L'GestForapp
-		var GestForApp = angular.module('GestForController', []);
+		var GestForApp = angular.module('GestForController', ['ui.bootstrap.datetimepicker']); //
 		//Controleur DeclarationFromation		
 		GestForApp.controller('CtrlFor', ['$http',function($http) {
 			var self = this;
