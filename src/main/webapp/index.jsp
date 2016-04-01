@@ -32,17 +32,17 @@
 		<a href="#/DeclarationFormation">DF</a>	
 		<div ng-view></div>
 
-<div class="dropdown">
-  <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
-    <div class="input-group"><input type="text" class="form-control" data-ng-model="data.dateDropDownInput"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-    </div>
-  </a>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-    <datetimepicker data-ng-model="data.dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day' }"/>
-  </ul>
-</div>
+	<div class="dropdown">
+	  <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+	    <div class="input-group">
+	    	<input type="text" class="form-control" data-ng-model="dateDropDownInput"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+	    </div>
+	  </a>
+	  {{dateDropDownInput}}
+	  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+	    <datetimepicker data-ng-model="dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day' }"/>
+	  </ul>
+	</div>
 
-<!-- <datetimepicker data-ng-model="data.date" data-datetimepicker-config="{ startView:'day', minView:'day' }"></datetimepicker> -->
- 
 </body>
 </html>
