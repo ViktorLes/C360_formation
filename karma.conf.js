@@ -15,7 +15,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        'src/main/webapp/lib/*.js',
+        'src/main/webapp/lib/angular.js',
+        'src/main/webapp/lib/angular-route.js',
+        'src/main/webapp/lib/angular-mocks.js',
         'src/main/webapp/GestionFormation/*.js',
         'src/test/javaScript/*.js'
     ],
@@ -39,7 +41,7 @@ module.exports = function(config) {
 
 
     // web server port
-    port: 8080,
+    port: 9876,
 
 
     // enable / disable colors in the output (reporters and logs)
@@ -57,12 +59,12 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    //browsers: ['Chrome'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous

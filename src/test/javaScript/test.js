@@ -15,3 +15,4 @@ describe('products category service', function () {
     expect(categories).toEqual({ 1: 'Beverages', 2: 'Condiments' });
   });
 });
+
