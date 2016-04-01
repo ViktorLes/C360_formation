@@ -40,12 +40,27 @@ public class FormationWS {
 	
 	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
     @Transactional
-    public boolean addSessionFormation(@Valid @RequestBody SessionFormation mySession, BindingResult bindingResult){
+    @ResponseBody
+    public boolean addSessionFormation(@Valid @RequestBody final SessionFormation mySessionFormation, BindingResult bindingResult){
+//		
+//		JsonFactory jsonFactory = new JsonFactory();
+//		JsonParser jsonParser = null;
+//		
+//		try {
+//			jsonParser = jsonFactory.createParser(mySessionFormation);
+//			ObjectCodec oc = jsonParser.getCodec();
+//			JsonNode node = oc.readTree(jsonParser);
+//		} catch (JsonParseException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+        
+        
 		
 		if(!(bindingResult.hasErrors())){
 			//formationDAO.addSessionFormation(mySession);
 		}
-		
 		return true;
     }
 	
@@ -66,7 +81,7 @@ public class FormationWS {
     */
 	
 	@RequestMapping(value = "/test", method = RequestMethod.POST)
-    @Transactional
+    //@Transactional
     public void testDeserialization(@RequestBody Test test){		
 		System.out.println("message :"+test.getMessage());
     }
