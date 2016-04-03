@@ -19,7 +19,7 @@
 		  </div>
 		  
 		  <div class="panel-body">
-			  <form name="formationForm" ng-submit="DF.actionEnregistrer()" novalidate>
+			  <form name="formationForm" novalidate>
 			
 			    <!-- Titre de la Formation -->
 			    <div class="form-group" ng-class="{ 'has-error' : formationForm.titreformation.$invalid && formationForm.titreformation.$dirty }">
@@ -42,9 +42,14 @@
 			    </div> 
 			    <!-- {{DF.formation.nombredemijournee}}
 			    {{DF.formation.titreformation}} -->
-			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>
-			
+			    <button type="submit" class="btn btn-primary" ng-click="DF.actionEnregistrer()" ng-disabled="formationForm.$invalid">Enregistrer</button>
+	
 			  </form>
+			  <div class="form-horizontal">
+			        <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+			        <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+			   	</div>
+			
 		  </div>
 		  
 		 <div class="col-md-4">
