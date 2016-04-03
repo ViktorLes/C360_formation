@@ -1,4 +1,4 @@
-package com.viseo.c360.formation.rest;
+package com.viseo.c360.json.serializer.helloworld;
 
 import java.io.IOException;
 
@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.viseo.c360.formation.rest.HelloWorldWS;
 import com.viseo.c360.formation.rest.HelloWorldWS.Essai;
 
 public class MonSerializer extends JsonSerializer<Essai> {

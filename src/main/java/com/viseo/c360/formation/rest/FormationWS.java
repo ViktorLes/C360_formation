@@ -22,13 +22,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.viseo.c360.formation.dao.FormationDAO;
 import com.viseo.c360.formation.domain.formation.Formation;
 import com.viseo.c360.formation.domain.formation.SessionFormation;
-import com.viseo.c360.formation.rest.FormationWS.Test.TestDeserializer;
 
 @RestController
 public class FormationWS {
 
 	@Inject
 	FormationDAO formationDAO;
+	
+	
 	
 	@RequestMapping(value="${endpoint.formations}", method = RequestMethod.POST)
     @Transactional
@@ -41,81 +42,15 @@ public class FormationWS {
 	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
     @Transactional
     @ResponseBody
-    public boolean addSessionFormation(@Valid @RequestBody final SessionFormation mySessionFormation, BindingResult bindingResult){
-//		
-//		JsonFactory jsonFactory = new JsonFactory();
-//		JsonParser jsonParser = null;
-//		
-//		try {
-//			jsonParser = jsonFactory.createParser(mySessionFormation);
-//			ObjectCodec oc = jsonParser.getCodec();
-//			JsonNode node = oc.readTree(jsonParser);
-//		} catch (JsonParseException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-        
-        
-		
+    public boolean addSessionFormation(@Valid @RequestBody SessionFormation mySessionFormation, BindingResult bindingResult){     
+
+		System.out.println("deserialisation effective");
 		if(!(bindingResult.hasErrors())){
-			//formationDAO.addSessionFormation(mySession);
+			formationDAO.addSessionFormation(mySessionFormation);
+			System.out.println("sessionFormation valid");
 		}
 		return true;
     }
-	
-	/*
-	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.GET)
-    @Transactional
-    public void addSession(){
-		formationDAO.addSession();
-    }
-	
-	@RequestMapping(value="/get", method = RequestMethod.GET)
-    @Transactional
-    @ResponseBody
-    public SessionFormation getSession(){
-		SessionFormation s = formationDAO.getSessionFormation(2);
-			return s;
-    }
-    */
-	
-	@RequestMapping(value = "/test", method = RequestMethod.POST)
-    //@Transactional
-    public void testDeserialization(@RequestBody Test test){		
-		System.out.println("message :"+test.getMessage());
-    }
-	
-	@JsonDeserialize(using = TestDeserializer.class)
-	public class Test{
-		String message = "hello";
-		
-		
-		public String getMessage() {
-			return message;
-		}
-		public void setMessage(String message) {
-			message = message;
-		}
-		
-		public class TestDeserializer extends JsonDeserializer<Test> {
-			
-			public TestDeserializer() {
-				super();
-				// TODO Auto-generated constructor stub
-			}
-
-			@Override
-		    public Test deserialize(JsonParser jsonParser,DeserializationContext deserializationContext) throws IOException {
-		        ObjectCodec oc = jsonParser.getCodec();
-		        JsonNode node = oc.readTree(jsonParser);
-		        Test t = new Test();
-		        t.setMessage("Coucou deserializer");
-		        return t;
-		    }
-		}
-	}
-	
 	
 	
 }

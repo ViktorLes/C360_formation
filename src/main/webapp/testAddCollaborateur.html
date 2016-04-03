@@ -59,20 +59,20 @@
 		app.controller('MyCtrl', function($http) {
 			var self = this;
 			
-			/* var data = {
+			 var data = {
 					formation: 1,
-			 		firstDay: "1993-04-30",
-			 		lastDay: "1993-04-30",
-			 		firstTime: "10:10",
-			 		lastTime: "10:10", 
+			 		//firstDay: "1993-04-30",
+			 		//lastDay: "1993-04-30",
+			 		//firstTime: "10:10",
+			 		//lastTime: "10:10", 
 		        	lieu: "Paris"
-			}; */
+			}; 
 			
-			var data = {message:"message"};
+			//var data = {message:"message"};
 			
 			console.log(data);
 			
-			$http.post("api/test", data).success(function(d){
+			$http.post("api/sessions", data).success(function(d){
 		  		console.log(d);
 			});
 			

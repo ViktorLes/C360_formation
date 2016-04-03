@@ -30,13 +30,11 @@ public class FormationDAO {
 	@Transactional
 	public void addFormation(Formation F){
 		em.persist(F);
-		em.flush();
 	}
 	
 	@Transactional
 	public void addSessionFormation(SessionFormation sf){
 		em.persist(sf);
-		em.flush();
 	}
 	
 //	@Transactional
