@@ -15,6 +15,11 @@ routeApp.config(['$routeProvider',function($routeProvider) {
                          templateUrl: 'templates/DeclarationFormation.jsp',
                          controller: 'CtrlFor',
                          controllerAs:'DF'
+                     })
+                     .when('/DeclarationSession', {
+                         templateUrl: 'templates/DeclarationSession.jsp',
+                         controller: 'CtrlSes',
+                         controllerAs:'DS'
                      });
                      /*
                      .otherwise({

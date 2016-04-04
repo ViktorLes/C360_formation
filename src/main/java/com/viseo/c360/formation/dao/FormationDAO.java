@@ -1,7 +1,5 @@
 package com.viseo.c360.formation.dao;
 
-import java.util.Date;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 

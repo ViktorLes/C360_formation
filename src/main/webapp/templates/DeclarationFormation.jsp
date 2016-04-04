@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="com.viseo.c360.formation.domain.formation.Formation" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="com.viseo.c360.formation.domain.formation.Formation" %>
+
 <%! 
 	String regexnombredemijournee = "\"/^"+Formation.regexNombreDemiJournee+"+$/\""; 
 	String regexTitredelaformation = "\"/^"+Formation.regexTitreFormation+"+$/\""; 
@@ -17,7 +20,6 @@
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Déclaration de la formation</h3>
 		  </div>
-		  
 		  <div class="panel-body">
 			  <form name="formationForm" ng-submit="DF.actionEnregistrer()" novalidate>
 			
@@ -38,8 +40,7 @@
 			    </div>
 			    <!-- {{DF.formation.nombredemijournee}}
 			    {{DF.formation.titreformation}} -->
-			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>
-			
+			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>		
 			  </form>
 		  </div>
 		  

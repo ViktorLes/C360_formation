@@ -75,7 +75,5 @@ public class SessionFormation {
 	public void setLieu(String lieu) {
 		this.lieu = lieu;
 	}
-	
-	
-	
+
 }
