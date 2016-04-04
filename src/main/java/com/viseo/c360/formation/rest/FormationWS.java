@@ -44,10 +44,8 @@ public class FormationWS {
     @ResponseBody
     public boolean addSessionFormation(@Valid @RequestBody SessionFormation mySessionFormation, BindingResult bindingResult){     
 
-		System.out.println("deserialisation effective");
 		if(!(bindingResult.hasErrors())){
 			formationDAO.addSessionFormation(mySessionFormation);
-			System.out.println("sessionFormation valid");
 		}
 		return true;
     }
