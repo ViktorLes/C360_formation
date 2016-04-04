@@ -13,7 +13,7 @@
 	<!-- CSS -->
 	<link href="css/bootstrap.min.css" rel="stylesheet" />
 	<link href="css/formations.css" rel="stylesheet" />
-	<link href="css/bootstrap-datePicker.css" rel="stylesheet" />
+	<!-- <link href="css/bootstrap-datePicker.css" rel="stylesheet" /> -->
 	
 </head>
 

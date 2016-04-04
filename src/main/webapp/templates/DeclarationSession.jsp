@@ -30,8 +30,8 @@
 				    
 				      <!-- Date de la session -->
 				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
-				     <label>Date de la formation: </label>
-					<input type="date" size="3" />  <label>au</label>		<input type="date" size="3" />			
+				     <label>Date de la formation: </label><input type="date" size="3" />  
+					<label>au</label><input type="date" size="3" />			
 				     <span class="error" ng-show="sessionForm.input.$error.required">Date Valide!</span>
 				     <span class="error" ng-show="sessionForm.input.$error.date">Date Invalide!</span>
 					</div>

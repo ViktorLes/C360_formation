@@ -44,6 +44,8 @@
 		GestForApp.controller('CtrlSes', ['$http',function($http) {
 			var self = this;
 			
+			console.log("test DS");
+			
 			function pad2(number) {
 				   return (number < 10 ? '0' : '') + number
 				}

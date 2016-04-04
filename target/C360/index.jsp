@@ -13,25 +13,19 @@
 	<!-- CSS -->
 	<link href="css/bootstrap.min.css" rel="stylesheet" />
 	<link href="css/formations.css" rel="stylesheet" />
-	<link href="css/bootstrap-datePicker.css" rel="stylesheet" />
+	<!-- <link href="css/bootstrap-datePicker.css" rel="stylesheet" /> -->
 	
 </head>
 
 <body ng-app="routeApp">
-<<<<<<< HEAD
 		<header class="bg-primary row">
 			    <div class="col-md-1"></div> 
 				<div id="titreAppliquette" class="col-md-9">Gestions des formations</div>
 				<div id="titreProjet" class="col-md-2">Collaborateur 360</div>
 		</header>
-		<a href="#/EnregistrementCollaborateur">EC</a>
-		<a href="#/DeclarationFormation">DF</a>	
-		<div ng-view></div>
-=======
 	<a href="#/EnregistrementCollaborateur">EC</a>
 	<a href="#/DeclarationFormation">DF</a>	
 	<a href="#/DeclarationSession">DS</a>	
 	<div ng-view></div>
->>>>>>> d5255a44609f499490909a5da8b6c8334b5c8b78
 </body>
 </html>
