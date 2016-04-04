@@ -1,8 +1,6 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	    pageEncoding="UTF-8"%>
-	
-	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-	 
+		 
 	 <%@ page import="com.viseo.c360.formation.domain.formation.SessionFormation" %>
 	<%! 
 		
@@ -26,39 +24,43 @@
 				  <form name="sessionForm" ng-submit="DS.actionEnregistrer()" novalidate>
 				
 				 <!-- Nom de la Formation -->
-				   <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
+				     <div class="form-group">
 				   	<label>Nom de la formation: </label>
-				    <select name="Formation"></select>
+     					 <select class="selectpicker form-control"></select>
 				    </div>
 				    
 				      <!-- Date de la session -->
-				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
+				      <!-- <div class="form-group">
 				     <label>Date de la formation: </label>
-					<input type="date" size="3" />  <label>au</label>		<input type="date" size="3" />			
+					<input type="date" size="3" />  
+				 	
+					<label>au</label>		<input type="date" size="3" />			
 				     <span class="error" ng-show="sessionForm.input.$error.required">Date Valide!</span>
 				     <span class="error" ng-show="sessionForm.input.$error.date">Date Invalide!</span>
-					</div>
+					</div>  -->
 					
 					      <!-- Heure de la session -->
-				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
+				     <div class="form-group">
 					 <label>Heure du Debut: (1er Jour)</label>
-				     <select name="HeureDebut">
+				     <select class="selectpicker form-control">
 				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
 				     </select>
 				   	</div>
-				    
-				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
-					 <label>Heure de Fin: (Dernier Jour)</label>
-				     <select name="HeureFin" >
-				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
 				   	
+				     <div class="form-group">
+<!-- 				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
+ -->					 <label>Heure de Fin: (Dernier Jour)</label>
+				     
+     					 <select class="selectpicker form-control">
+<!-- 				     <select name="HeureFin">
+ -->				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
 				     </select>
 				    </div>
 				    
 				    <!-- Lieu de la session -->
 				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
 					 <label>Lieu: </label>
-				     <select class= "selectpicker" name="Lieu" >
+     					 <select class="selectpicker form-control">
 				     	<option>Salle Phuket</option>
 				     	<option>Salle Bali</option>
 				 	 <p ng-show="sessionForm.lieu.$invalid && sessionForm.lieu.$dirty" class="help-block">Veuillez entrer un nom valide</p>
