@@ -25,7 +25,7 @@
 				
 				 <!-- Nom de la Formation -->
 				     <div class="form-group">
-				   	<label>Nom de la formation: </label>
+				    <h5> <span class="label label-default">Nom de la formation: </span></h5>
      					 <select class="selectpicker form-control"></select>
 				    </div>
 				    
@@ -41,25 +41,24 @@
 					
 					      <!-- Heure de la session -->
 				     <div class="form-group">
-					 <label>Heure du Debut: (1er Jour)</label>
+				        <h5> <span class="label label-default">Heure du Debut: (1er Jour)</span></h5>
 				     <select class="selectpicker form-control">
 				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
 				     </select>
 				   	</div>
 				   	
 				     <div class="form-group">
-<!-- 				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
- -->					 <label>Heure de Fin: (Dernier Jour)</label>
+ 				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
+				        <h5> <span class="label label-default">Heure de fin: (Dernier Jour)</span></h5>
 				     
      					 <select class="selectpicker form-control">
-<!-- 				     <select name="HeureFin">
- -->				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
+ 				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
 				     </select>
 				    </div>
 				    
 				    <!-- Lieu de la session -->
 				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
-					 <label>Lieu: </label>
+				        <h5> <span class="label label-default">Lieu</span></h5>
      					 <select class="selectpicker form-control">
 				     	<option>Salle Phuket</option>
 				     	<option>Salle Bali</option>
