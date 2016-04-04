@@ -8,6 +8,14 @@
 	<name>C360 Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<org.springframework.version>4.2.2.RELEASE</org.springframework.version>
+		<com.jayway.jsonpath.version>2.0.0</com.jayway.jsonpath.version>
+	</properties>
+
+
 	<repositories>
 		<repository>
 			<id>version99</id>
@@ -27,6 +35,8 @@
 	</dependencyManagement>
 
 	<dependencies>
+
+
 
 		<!-- Utils -->
 		<dependency>
@@ -145,6 +155,12 @@
 			<version>4.0.3.RELEASE</version>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+
 		<!-- JSON TOKEN -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -184,7 +200,6 @@
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>1.0.0.GA</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- LOGGING -->
@@ -208,11 +223,8 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>1.7.13</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.1.3</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>ch.qos.logback</groupId> <artifactId>logback-classic</artifactId> 
+			<version>1.1.3</version> </dependency> -->
 
 		<!-- PosgreSQL -->
 		<dependency>
@@ -220,7 +232,7 @@
 			<artifactId>postgresql</artifactId>
 			<version>9.1-901-1.jdbc4</version>
 		</dependency>
-		
+
 
 
 		<!-- Jackson -->
@@ -238,10 +250,7 @@
 		</dependency>
 
 	</dependencies>
-	<properties>
-		<org.springframework.version>4.2.2.RELEASE</org.springframework.version>
-		<com.jayway.jsonpath.version>2.0.0</com.jayway.jsonpath.version>
-	</properties>
+
 	<build>
 		<finalName>C360</finalName>
 
