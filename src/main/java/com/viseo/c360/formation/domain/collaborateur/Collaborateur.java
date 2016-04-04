@@ -8,10 +8,19 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 
 @Entity
 public class Collaborateur {
+		
+	public static final String regexMatricule = "[A-Z0-9]";
+	public static final String regexNom = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+	public static final String regexPrenom = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+	
+	
 	@Id
 	@GeneratedValue
 	long id;
@@ -21,17 +30,17 @@ public class Collaborateur {
 	
 	@NotNull
 	@Size(min=3, max=20)
-	@Pattern(regexp="[A-Z0-9]*")
+	@Pattern(regexp=Collaborateur.regexMatricule+"*")
 	String matricule;
 	
 	@NotNull
 	@Size(min=2, max=125)
-	@Pattern(regexp="[a-zA-Z-'.áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ ]*")
+	@Pattern(regexp=Collaborateur.regexNom+"*")
 	String nom;
 	
 	@NotNull
 	@Size(min=2, max=125)
-	@Pattern(regexp="[a-zA-Z-'.áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ ]*")
+	@Pattern(regexp=Collaborateur.regexPrenom+"*")
 	String prenom;
 	
 	public Collaborateur() {
@@ -70,4 +79,25 @@ public class Collaborateur {
 		this.prenom = prenom.replaceAll("( )+", " ").trim();
 	}
 	
+	/*
+	public class CollaborateurValidator implements Validator{
+
+		public boolean supports(Class clazz) {
+	        return Collaborateur.class.equals(clazz);
+	    }
+
+	    public void validate(Object obj, Errors e) {
+	        ValidationUtils.rejectIfEmpty(e, "name", "name.empty");
+	        Collaborateur p = (Collaborateur) obj;
+	        /*
+	        if (p.getAge() < 0) {
+	            e.rejectValue("age", "negativevalue");
+	        } else if (p.getAge() > 110) {
+	            e.rejectValue("age", "too.darn.old");
+	        }
+	        
+	    }
+		
+	}
+	*/
 }
