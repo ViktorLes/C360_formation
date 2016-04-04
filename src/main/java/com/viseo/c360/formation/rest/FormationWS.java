@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.hibernate.loader.custom.Return;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -34,21 +36,17 @@ public class FormationWS {
 	@RequestMapping(value="${endpoint.formations}", method = RequestMethod.POST)
     @Transactional
     public void addFormation(@Valid @RequestBody Formation myFormation, BindingResult bindingResult){
+		
 		if(!(bindingResult.hasErrors())){
+
 			formationDAO.addFormation(myFormation);
 		}
     }
-	
-	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
-    @Transactional
-    @ResponseBody
-    public boolean addSessionFormation(@Valid @RequestBody SessionFormation mySessionFormation, BindingResult bindingResult){     
 
-		if(!(bindingResult.hasErrors())){
-			formationDAO.addSessionFormation(mySessionFormation);
-		}
-		return true;
-    }
-	
-	
-}
+	//method GET pour recupérer les titres de formation 
+	@RequestMapping(value = "/getString", method = RequestMethod.GET)
+	@ResponseBody
+    public String ReadFormation(){	
+		return Formation.regexTitreFormation;
+	}
+}	

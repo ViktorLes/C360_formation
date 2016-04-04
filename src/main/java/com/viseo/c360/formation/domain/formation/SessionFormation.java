@@ -1,6 +1,6 @@
 package com.viseo.c360.formation.domain.formation;
 
-import java.io.IOException;
+
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -28,6 +28,13 @@ import com.viseo.c360.json.deserializer.formation.SessionFormationDeserializer;
 @Entity
 public class SessionFormation {
 	
+	public static final String regextitreFormation = "[A-Z0-9]";
+	public static final String regexDate = "[0-9]";
+	public static final String regexHeureDeb = "[0-9]";
+	public static final String regexHeureFin= "[0-9]"; 
+	public static final String regexLieu = "[A-Z]";
+	
+	
 	@Id
 	@GeneratedValue
 	long id;
@@ -39,6 +46,8 @@ public class SessionFormation {
 	Formation formation;
 	
 	String lieu;
+	
+	
 
 	public SessionFormation() {
 		super();
@@ -75,5 +84,24 @@ public class SessionFormation {
 	public void setLieu(String lieu) {
 		this.lieu = lieu;
 	}
+	
+//	@NotNull
+//	@Pattern(regexp=SessionFormation.regexDate+"*")
+//	String date;
+//
+//	@NotNull
+//	@Size(min=8, max=18)
+//	@Pattern(regexp=SessionFormation.regexHeureDeb+"*")
+//	String heureDeb;
+//	
+//	@Size(min=8, max=18)
+//	@Pattern(regexp=SessionFormation.regexHeureFin+"*")
+//	String heureFin;
+//	
+//	@NotNull
+//	@Pattern(regexp=SessionFormation.regexLieu+"*")
+//	String lieu;
+	
+	
 
 }

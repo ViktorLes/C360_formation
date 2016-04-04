@@ -31,7 +31,6 @@ public class CollaborateurWS {
 	
 	@RequestMapping(method = RequestMethod.POST)
     @Transactional
-
     @ResponseBody
     public boolean addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur, BindingResult bindingResult){
 		//check data sent AND the inexistance of matricule !
