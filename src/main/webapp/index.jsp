@@ -2,11 +2,9 @@
 <head>
 	<meta charset="UTF-8">
 	
-	 <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <!-- <link href="css/bootstrap.css" rel="stylesheet" /> -->
+    <link href="css/bootstrap.css" rel="stylesheet" /> 
 	<link href="css/formations.css" rel="stylesheet" />
 
-	<!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script> -->
     <script src="lib/angular.js"></script>
     <script src="lib/angular-animate.js"></script> 
     <script src="lib/ui-bootstrap-tpls-1.2.5.js"></script>
@@ -16,14 +14,8 @@
 	
 	<script src="lib/angular-locale_fr-fr.js"></script>
 	
-<!-- 	
-	<script src="lib/datepicker/dateparser.js"></script>
-	<script src="lib/datepicker/popup.js"></script>
-	<script src="lib/datepicker/datepicker.js"></script>
--->
 	<script src="GestionFormation/Controllers.js"></script>
 	<script src="GestionFormation/Routing.js"></script> 
-	
 </head>
 
 <body ng-app="routeApp">
@@ -48,7 +40,17 @@
     <div class="row">
       <div class="col-md-6">
         <p class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" ng-click="open1()" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+      </div>
+      
+      <div class="row">
+      <div class="col-md-6">
+        <p class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" ng-click="open1()" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>

@@ -1,6 +1,6 @@
 
 //Module de L'GestForapp
-		var GestForApp = angular.module('GestForController', ['ngAnimate', 'ui.bootstrap']); //'ui.bootstrap.datepicker'
+		var GestForApp = angular.module('GestForController', ['ngAnimate', 'ui.bootstrap']);
 		GestForApp.controller('CtrlFor', ['$http', '$timeout',function($http,$timeout) {
 			var self = this;
 						
@@ -43,7 +43,9 @@
 		}]);
 		
 		GestForApp.controller('DatepickerDemoCtrl', function ($scope) {
-			  
+			
+				  
+			
 				  $scope.today = function() {
 				    $scope.dt = new Date();
 				  };
