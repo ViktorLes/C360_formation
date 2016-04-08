@@ -33,16 +33,18 @@ public class FormationWS {
 	
 	@RequestMapping(value="${endpoint.formations}", method = RequestMethod.POST)
     @Transactional
-    public void addFormation(@Valid @RequestBody Formation myFormation, BindingResult bindingResult){
+    @ResponseBody
+    public boolean addFormation(@Valid @RequestBody Formation myFormation, BindingResult bindingResult){
 		
-		if(!(bindingResult.hasErrors())){
-
+		if(!(bindingResult.hasErrors()) && !formationDAO.isFormationAlreadySaved(myFormation.getTitreformation())){
 			formationDAO.addFormation(myFormation);
+			return true;
 		}
+		return false;
     }
 	
 	//method GET pour recupérer les titres de formation 
-	@RequestMapping(value = "/getString", method = RequestMethod.GET)
+	@RequestMapping(value = "${endpoint.formations}", method = RequestMethod.GET)
 	@ResponseBody
     public List<Formation> ReadFormation(){	
 		return formationDAO.GetAllFormation();

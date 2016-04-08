@@ -24,7 +24,7 @@ import com.viseo.c360.json.deserializer.formation.SessionFormationDeserializer;
 
 
 
-@JsonDeserialize(using = SessionFormationDeserializer.class)
+//@JsonDeserialize(using = SessionFormationDeserializer.class)
 @Entity
 public class SessionFormation {
 	
