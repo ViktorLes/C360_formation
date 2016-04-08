@@ -20,6 +20,7 @@
 	<a href="#/DeclarationSession">DS</a>	
 	<div ng-view></div>
 
+<div ng-controller="DatepickerDemoCtrl as ctrl">
 <!-- d1 -->
     <div class="row">
       <div class="col-md-6">
@@ -41,6 +42,7 @@
           </span>
         </p>
       </div>
+    </div>
   
   	<!-- JS -->
     <script src="lib/angular.js"></script>
