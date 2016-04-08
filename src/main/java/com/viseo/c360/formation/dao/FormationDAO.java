@@ -1,5 +1,7 @@
 package com.viseo.c360.formation.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -33,6 +35,12 @@ public class FormationDAO {
 	@Transactional
 	public void addSessionFormation(SessionFormation sf){
 		em.persist(sf);
+	}
+	
+	public List<Formation> GetAllFormation() {
+		return em.createQuery("select a from Formation a", Formation.class).getResultList();
+		
+		
 	}
 	
 //	@Transactional

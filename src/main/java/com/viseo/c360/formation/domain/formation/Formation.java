@@ -10,9 +10,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.viseo.c360.formation.domain.collaborateur.Collaborateur;
+import com.viseo.c360.json.deserializer.formation.SessionFormationDeserializer;
+import com.viseo.c360.json.serializer.formation.FormationSerializer;
 
 @Entity
+@JsonSerialize(using = FormationSerializer.class)
+
 public class Formation {
 
 	

@@ -44,6 +44,13 @@
 		GestForApp.controller('CtrlSes', ['$http',function($http) {
 			var self = this;
 			
+			$http.get("api/getString").then(function(data){
+				console.log(data)
+			},
+			function(){
+				console.log("ERROOOOR")
+			});
+			
 			console.log("test DS");
 			
 			function pad2(number) {
@@ -64,11 +71,12 @@
 
 				self.monTab = myTab;
 		
-				self.actionEnregistrer = function() {
-				self.session.nomFormation= self.session.nomFormation.replace(/ +/g, " ");
-				self.session.nomFormation= self.session.nomFormation.replace(/ +/g, " ");
-				$http.post("api/sessions", self.formation).success(function(data){
-			 		document.location.href = 'pageblancheSession.html';
-				});
-		    };
+//				self.actionEnregistrer = function() {
+//				self.session.nomFormation= self.session.nomFormation.replace(/ +/g, " ");
+//				self.session.nomFormation= self.session.nomFormation.replace(/ +/g, " ");
+//				$http.post("api/sessions", self.formation).success(function(data){
+//			 		document.location.href = 'pageblancheSession.html';
+//			 		
+//				});
+//		    };
 		}]);

@@ -1,6 +1,7 @@
 package com.viseo.c360.formation.rest;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -32,7 +31,6 @@ public class FormationWS {
 	FormationDAO formationDAO;
 	
 	
-	
 	@RequestMapping(value="${endpoint.formations}", method = RequestMethod.POST)
     @Transactional
     public void addFormation(@Valid @RequestBody Formation myFormation, BindingResult bindingResult){
@@ -42,11 +40,11 @@ public class FormationWS {
 			formationDAO.addFormation(myFormation);
 		}
     }
-
+	
 	//method GET pour recupérer les titres de formation 
 	@RequestMapping(value = "/getString", method = RequestMethod.GET)
 	@ResponseBody
-    public String ReadFormation(){	
-		return Formation.regexTitreFormation;
+    public List<Formation> ReadFormation(){	
+		return formationDAO.GetAllFormation();
 	}
 }	
