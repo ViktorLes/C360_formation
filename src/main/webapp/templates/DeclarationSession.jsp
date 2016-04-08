@@ -1,6 +1,6 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	    pageEncoding="UTF-8"%>
-		 
+
 	 <%@ page import="com.viseo.c360.formation.domain.formation.SessionFormation" %>
 	<%! 
 		
@@ -28,16 +28,6 @@
 				    <h5> <span class="label label-default">Nom de la formation: </span></h5>
      					 <select class="selectpicker form-control"></select>
 				    </div>
-				    
-				      <!-- Date de la session -->
-				      <!-- <div class="form-group">
-				     <label>Date de la formation: </label>
-					<input type="date" size="3" />  
-				 	
-					<label>au</label>		<input type="date" size="3" />			
-				     <span class="error" ng-show="sessionForm.input.$error.required">Date Valide!</span>
-				     <span class="error" ng-show="sessionForm.input.$error.date">Date Invalide!</span>
-					</div>  -->
 					
 					      <!-- Heure de la session -->
 				     <div class="form-group">
