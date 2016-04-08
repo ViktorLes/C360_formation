@@ -16,7 +16,7 @@
 	
 </head>
 
-<body ng-app="routeApp">
+<body ng-app="App">
 		<header class="bg-primary row">
 			    <div class="col-md-1"></div> 
 				<div id="titreAppliquette" class="col-md-9">Gestions des formations</div>

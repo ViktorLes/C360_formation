@@ -1,4 +1,4 @@
-var routeApp = angular.module('routeApp', [
+var routeApp = angular.module('App', [
     // Dépendances du "module"
     'ngRoute',
     'GestForController']);
