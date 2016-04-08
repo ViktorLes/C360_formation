@@ -46,10 +46,14 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		}]);
 
 		//Controleur DeclarationSession
-		GestForApp.controller('CtrlSes', ['$http',function($http) {
+		GestForApp.controller('CtrlSes', ['DatepickerService','$http',function(datepicker,$http) {
 			var self = this;
 			
-			$http.get("api/getString").then(function(data){
+				self.d1 = datepicker.build();
+				self.d2 = datepicker.build();
+				
+			
+			$http.get("api/formations").then(function(data){
 				console.log(data)
 			},
 			function(){
@@ -85,10 +89,10 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 //				});
 //		    };
 		}]);
-
-		GestForApp.controller('DatepickerDemoCtrl', ['DatepickerService', function(datepicker) {
-			var self = this;
-			self.d1 = datepicker.build();
-			self.d2 = datepicker.build();
-			
-		}]);
+//
+//		GestForApp.controller('DatepickerDemoCtrl', ['DatepickerService', function(datepicker) {
+//			var self = this;
+//			self.d1 = datepicker.build();
+//			self.d2 = datepicker.build();
+//			
+//		}]);
