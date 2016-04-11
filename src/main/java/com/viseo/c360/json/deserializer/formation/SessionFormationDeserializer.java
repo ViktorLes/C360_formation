@@ -3,6 +3,7 @@ package com.viseo.c360.json.deserializer.formation;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -34,6 +35,8 @@ public class SessionFormationDeserializer extends JsonDeserializer<SessionFormat
 	public SessionFormation deserialize(JsonParser parser, DeserializationContext context) throws JsonProcessingException, IOException {
 
 		SimpleDateFormat formatterDate = new SimpleDateFormat("dd-MMM-yyyy|HH:mm");
+		Date debut = null;
+		Date fin = null;
 	
 		SessionFormation sf = new SessionFormation();
 		ObjectCodec oc = parser.getCodec();
@@ -50,8 +53,16 @@ public class SessionFormationDeserializer extends JsonDeserializer<SessionFormat
 		
 		//dates et heures
         try {
-        	sf.setDebut(formatterDate.parse(node.get("debut").asText()));
-        	sf.setFin(formatterDate.parse(node.get("fin").asText()));
+        	debut = formatterDate.parse(node.get("debut").asText());
+        	fin = formatterDate.parse(node.get("fin").asText());
+        	
+//        	if(!debut.before(fin)) {
+//        		System.err.println("L'ordre des dates ne concorde pas ( debut : "+debut.toString()+" <= fin : "+fin.toString());
+//        		throw new FormationDAOException("L'ordre des dates ne concorde pas ( debut : "+debut.toString()+" <= fin : "+fin.toString());
+//        	}
+        	
+        	sf.setDebut(debut);
+        	sf.setFin(fin);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			throw new FormationDAOException("Problème de format de date/heure.");

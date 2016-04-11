@@ -78,27 +78,38 @@ public class FormationDAO {
 		return em.find(SessionFormation.class, id);
 	}
 	
-//	public boolean isThereOneSessionFormationAlreadyPlanned(SessionFormation sf){
-//
-//		Collection<SessionFormation> list = null;
-//		CriteriaBuilder cb = em.getCriteriaBuilder();
-//		 
-//		  CriteriaQuery<SessionFormation> q = cb.createQuery(SessionFormation.class);
-//		  Root<SessionFormation> c = q.from(SessionFormation.class);
-//		  //ParameterExpression<String> p = cb.parameter(String.class);
-//		  cb.and(
-//				  cb.between(c.<Date>get("dateDebut"), sf.getDateDebut(), sf.getDateFin()),
-//				  cb.greaterThan(c.<Date>get("heureDebut"), sf.getHeureDebut())
-//		   );
-//		  
-//		  q.select(c).where(
-//				  ,
-//				  
-//				  );
-//		//  cb.greaterThan(arg0, arg1);
-//		  list = (Collection<SessionFormation>) em.createQuery(q).getResultList();
-//		  
-//		return !list.isEmpty(); //return true if the list is not avoid
-//	}
+	public boolean isThereOneSessionFormationAlreadyPlanned(SessionFormation sf){
+
+		Collection<SessionFormation> list = null;
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		 
+		  CriteriaQuery<SessionFormation> q = cb.createQuery(SessionFormation.class);
+		  Root<SessionFormation> c = q.from(SessionFormation.class);
+		  //ParameterExpression<String> p = cb.parameter(String.class);
+		  
+		  q.select(c).where(cb.equal(c.get("formation"), sf.getFormation().getId()),
+				  cb.or(
+					  cb.and(
+						  cb.greaterThanOrEqualTo(c.<Date>get("debut"), sf.getDebut()),
+						  cb.lessThan(c.<Date>get("debut"), sf.getFin())
+						  ),
+					  cb.and(
+							  cb.greaterThan(c.<Date>get("fin"), sf.getDebut()),
+							  cb.lessThanOrEqualTo(c.<Date>get("fin"), sf.getFin())
+						  ),
+					  cb.and(
+							  cb.lessThanOrEqualTo(c.<Date>get("debut"), sf.getDebut()),
+							  cb.greaterThanOrEqualTo(c.<Date>get("fin"), sf.getFin())
+						  )
+					  )
+		  );
+		  
+		  list = (Collection<SessionFormation>) em.createQuery(q).getResultList();
+		  
+		return !list.isEmpty();
+	}
 	
+	public boolean hasCorrectDates(SessionFormation mySessionFormation){
+		return mySessionFormation.getDebut().before(mySessionFormation.getFin());
+	}
 }

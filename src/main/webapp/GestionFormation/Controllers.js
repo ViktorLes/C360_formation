@@ -51,20 +51,36 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlSes', ['DatepickerService','$http',function(datepicker,$http) {
 			var self = this;
 			
-			var dataToSend = {
-				formation : 1,
-				debut : "45-avril-2016|10:72",
-				fin : "12-avril-2016|14:30",
-				lieu : "Paris"
-			};
-			
-			$http.post("api/formations", {titreformation:"Agile", nombredemijournee: 50}).success(function(data){		
-				$http.post("api/sessions", dataToSend).success(function(data){		
-					if(data == "true" || data == true){
-						console.log("success : sessionFormation");
-					}
-				});
-			});
+									var testAjoutSessionFormation = function(){
+										var dataToSend = {
+												formation : 1,
+												debut : "12-avril-2016|10:12",
+												fin : "12-avril-2016|14:30",
+												lieu : "Paris"
+											};
+											
+											$http.post("api/formations", {titreformation:"Angular", nombredemijournee: 50}).success(function(data){	
+											
+											$http.post("api/formations", {titreformation:"Agile", nombredemijournee: 50}).success(function(data){		
+												$http.post("api/sessions", dataToSend).success(function(data){		
+													if(data == "true" || data == true){
+														console.log("success : 1");
+													}
+													else console.log("fail : 1");
+												
+													dataToSend.formation = 2;
+													$http.post("api/sessions", dataToSend).success(function(data){		
+														if(data == "true" || data == true){
+															console.log("success : 2");
+														}
+														else console.log("fail : 2");
+													});
+												});
+						
+											});
+											});
+									};			
+			testAjoutSessionFormation();
 
 				self.d1 = datepicker.build();
 				self.d2 = datepicker.build();
