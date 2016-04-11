@@ -15,7 +15,7 @@
 	 
 	 <div class="col-md-4">
 		<div class="panel panel-default">
-		
+			
 			  <div class="panel-heading">
 			    <h3 class="panel-title">Déclaration d'une session</h3>
 			  </div>
@@ -26,7 +26,7 @@
 				 <!-- Nom de la Formation -->
 				     <div class="form-group">
 				    <h5> <span class="label label-default">Nom de la formation: </span></h5>
-     					 <select class="selectpicker form-control"></select>
+     					 <select class="selectpicker form-control" name="titreformation"></select>
 				    </div>
 				    
 			 <!-- Date -->
@@ -53,7 +53,6 @@
 				        </p>
 				      </div>
 				    </div>
-				  
 				   
 					      <!-- Heure de la session -->
 				     <div class="form-group">
@@ -63,15 +62,13 @@
 				     </select>
 				   	</div>
 				   	
-				     <div class="form-group">
  				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
 				        <h5> <span class="label label-default">Heure de fin: (Dernier Jour)</span></h5>
-				     
      					 <select class="selectpicker form-control">
  				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
 				     </select>
 				    </div>
-				    
+		 
 				    <!-- Lieu de la session -->
 				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
 				        <h5> <span class="label label-default">Lieu</span></h5>

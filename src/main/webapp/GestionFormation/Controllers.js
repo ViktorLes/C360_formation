@@ -80,6 +80,14 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 
 				self.monTab = myTab;
 		
+				$http.post("api/sessions", self.session).success(function(data){
+					 if(data == "true") {
+						self.isNewTitleFormation = true;
+						 document.location.href = 'pageblanche.html';
+					 }
+						self.isNewTitleFormation = true;
+				});
+				
 //				self.actionEnregistrer = function() {
 //				self.session.nomFormation= self.session.nomFormation.replace(/ +/g, " ");
 //				self.session.nomFormation= self.session.nomFormation.replace(/ +/g, " ");
