@@ -54,7 +54,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 			var dataToSend = {
 				formation : 1,
 				dateDebut : "10-avril-2016",
-				dateFin : "12-avril-2016",
+				dateFin : "12-aril-2016",
 				heureDebut : "10:30",
 				heureFin : "14:30",
 				lieu : "Paris"

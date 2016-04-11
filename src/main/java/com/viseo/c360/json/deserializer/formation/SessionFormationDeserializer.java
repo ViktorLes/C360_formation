@@ -57,6 +57,7 @@ public class SessionFormationDeserializer extends JsonDeserializer<SessionFormat
         	sf.setHeureFin(formatterHeure.parse(node.get("heureFin").asText()));
 		} catch (ParseException e) {
 			e.printStackTrace();
+			throw new FormationDAOException("Problème de format de date/heure.");
 		}
         
         //lieu

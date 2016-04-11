@@ -77,5 +77,19 @@ public class FormationDAO {
 		return em.find(SessionFormation.class, id);
 	}
 	
+//	public boolean isSessionFormationAlreadyPlanned(){
+//
+//		Collection<Formation> list = null;
+//		CriteriaBuilder cb = em.getCriteriaBuilder();
+//		 
+//		  CriteriaQuery<Formation> q = cb.createQuery(Formation.class);
+//		  Root<Formation> c = q.from(Formation.class);
+//		  //ParameterExpression<String> p = cb.parameter(String.class);
+//		  q.select(c).where(cb.equal(c.get("titreformation"), titreFormation));
+//		  
+//		  list = (Collection<Formation>) em.createQuery(q).getResultList();
+//		  
+//		return !list.isEmpty(); //return true if the list is not avoid
+//	}
 	
 }
