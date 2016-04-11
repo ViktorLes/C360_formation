@@ -8,7 +8,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 			var self = this;
 						
 			self.isNewTitleFormation = true;
-			
+
 			self.actionEnregistrer = function() {
 				self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
 				//self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, "");
@@ -17,7 +17,9 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 						self.isNewTitleFormation = true;
 				 		document.location.href = 'pageblancheformation.html';
 					}
-					else self.isNewTitleFormation = false;
+					else {
+						self.isNewTitleFormation = false;
+					}
 				});
 		    };
 		}]);

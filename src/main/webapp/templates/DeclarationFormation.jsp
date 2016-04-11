@@ -17,7 +17,7 @@
 		    <h3 class="panel-title">Déclaration de la formation</h3>
 		  </div>
 		  <div class="panel-body">
-			  <form name="formationForm" novalidate>
+			  <form name="formationForm" ng-submit="DF.actionEnregistrer()" novalidate>
 			
 			    <!-- Titre de la Formation -->
 			    <div class="form-group" ng-class="{ 'has-error' : formationForm.titreformation.$invalid && formationForm.titreformation.$dirty }">
@@ -38,8 +38,6 @@
 			    <div class="alert alert-danger" role="alert" ng-show="!DF.isNewTitleFormation">
 			      Une formation identique existe déjà dans le système
 			    </div> 
-			    <!-- {{DF.formation.nombredemijournee}}
-			    {{DF.formation.titreformation}} -->
 
 			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>		
 			  </form>
