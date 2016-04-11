@@ -1,6 +1,8 @@
 package com.viseo.c360.json.deserializer.formation;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.inject.Inject;
 
@@ -21,18 +23,23 @@ public class SessionFormationDeserializer extends JsonDeserializer<SessionFormat
 	@Override
 	public SessionFormation deserialize(JsonParser parser, DeserializationContext context)
 			throws IOException, JsonProcessingException {
-		
-		System.out.println("deserializer");
-		
+
+		SimpleDateFormat formatterDate = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat formatterHeure = new SimpleDateFormat("HH:mm");
+	
 		SessionFormation sf = new SessionFormation();
 		ObjectCodec oc = parser.getCodec();
         JsonNode node = oc.readTree(parser);
         
         sf.setFormation(formationDAO.getFormation(node.get("formation").asLong()));
-//        sf.setFirstDay(node.get("firstday").asText());
-//        node.get("lastday").asText();
-//        node.get("firsttime").asText();
-//        node.get("lasttime").asText();
+        try {
+        	sf.setDateDebut(formatterDate.parse(node.get("dateDebut").asText()));
+        	sf.setDateFin(formatterDate.parse(node.get("dateFin").asText()));
+        	sf.setHeureDebut(formatterHeure.parse(node.get("heureDebut").asText()));
+        	sf.setHeureFin(formatterHeure.parse(node.get("heureFin").asText()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
         sf.setLieu(node.get("lieu").asText());
         
 		return sf;

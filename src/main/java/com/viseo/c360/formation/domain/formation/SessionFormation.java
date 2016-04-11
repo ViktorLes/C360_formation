@@ -24,7 +24,7 @@ import com.viseo.c360.json.deserializer.formation.SessionFormationDeserializer;
 
 
 
-//@JsonDeserialize(using = SessionFormationDeserializer.class)
+@JsonDeserialize(using = SessionFormationDeserializer.class)
 @Entity
 public class SessionFormation {
 	
@@ -45,6 +45,18 @@ public class SessionFormation {
 	@ManyToOne
 	Formation formation;
 	
+	@Temporal(TemporalType.DATE)
+	Date dateDebut;
+	
+	@Temporal(TemporalType.DATE)
+	Date dateFin;
+	
+	@Temporal(TemporalType.TIME)
+	Date heureDebut;
+	
+	@Temporal(TemporalType.TIME)
+	Date heureFin;
+	
 	String lieu;
 	
 	
@@ -52,56 +64,53 @@ public class SessionFormation {
 	public SessionFormation() {
 		super();
 	}
-
 	public long getId() {
 		return id;
 	}
-
 	public long getVersion() {
 		return version;
 	}
-
 	public Formation getFormation() {
 		return formation;
 	}
-
+	public Date getDateDebut() {
+		return dateDebut;
+	}
+	public Date getDateFin() {
+		return dateFin;
+	}
+	public Date getHeureDebut() {
+		return heureDebut;
+	}
+	public Date getHeureFin() {
+		return heureFin;
+	}
 	public String getLieu() {
 		return lieu;
 	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 	public void setVersion(long version) {
 		this.version = version;
 	}
-
 	public void setFormation(Formation formation) {
 		this.formation = formation;
 	}
-
+	public void setDateDebut(Date dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+	public void setDateFin(Date dateFin) {
+		this.dateFin = dateFin;
+	}
+	public void setHeureDebut(Date heureDebut) {
+		this.heureDebut = heureDebut;
+	}
+	public void setHeureFin(Date heureFin) {
+		this.heureFin = heureFin;
+	}
 	public void setLieu(String lieu) {
 		this.lieu = lieu;
 	}
-	
-//	@NotNull
-//	@Pattern(regexp=SessionFormation.regexDate+"*")
-//	String date;
-//
-//	@NotNull
-//	@Size(min=8, max=18)
-//	@Pattern(regexp=SessionFormation.regexHeureDeb+"*")
-//	String heureDeb;
-//	
-//	@Size(min=8, max=18)
-//	@Pattern(regexp=SessionFormation.regexHeureFin+"*")
-//	String heureFin;
-//	
-//	@NotNull
-//	@Pattern(regexp=SessionFormation.regexLieu+"*")
-//	String lieu;
-	
-	
 
 }
