@@ -19,9 +19,9 @@
 	<a href="#/DeclarationFormation">DF</a>	
 	<a href="#/DeclarationSession">DS</a>	
 	<div ng-view></div>
-
-<div ng-controller="DatepickerDemoCtrl as ctrl">
-<!-- d1 -->
+	
+<!-- <div ng-controller="DatepickerDemoCtrl as ctrl">
+d1
     <div class="row">
       <div class="col-md-6">
         <p class="input-group">
@@ -32,7 +32,7 @@
         </p>
       </div>
    
-<!-- d2 -->   
+d2   
       <div class="row">
       <div class="col-md-6">
         <p class="input-group">
@@ -43,14 +43,14 @@
         </p>
       </div>
     </div>
-  
+   -->
   	<!-- JS -->
     <script src="lib/angular.js"></script>
     <script src="lib/angular-animate.js"></script> 
     <script src="lib/ui-bootstrap-tpls-1.2.5.js"></script>
 	
-	<script src="lib/angular-mocks.js"></script>
-	<script src="lib/angular-route.js"></script>
+<!-- 	<script src="lib/angular-mocks.js"></script>
+ -->	<script src="lib/angular-route.js"></script>
 	
 	<script src="lib/angular-locale_fr-fr.js"></script>
 

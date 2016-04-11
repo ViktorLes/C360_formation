@@ -48,13 +48,13 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		}]);
 
 		//Controleur DeclarationSession
-		GestForApp.controller('CtrlSes', ['$http',function($http) {
+		GestForApp.controller('CtrlSes', ['DatepickerService','$http',function(datepicker,$http) {
 			var self = this;
 			
 			var dataToSend = {
 				formation : 1,
 				dateDebut : "10-avril-2016",
-				dateFin : "12-aril-2016",
+				dateFin : "12-avril-2016",
 				heureDebut : "10:30",
 				heureFin : "14:30",
 				lieu : "Paris"
@@ -65,13 +65,17 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 					console.log("success");
 				}
 			});
+
+				self.d1 = datepicker.build();
+				self.d2 = datepicker.build();
+				
 			
-//			$http.get("api/getString").then(function(data){
-//				console.log(data)
-//			},
-//			function(){
-//				console.log("ERROOOOR")
-//			});
+			$http.get("api/formations").then(function(data){
+				console.log(data)
+			},
+			function(){
+				console.log("ERROOOOR")
+			});
 			
 			console.log("test DS");
 			
@@ -86,7 +90,6 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				var nbPasMinutes = (finM-debutM)/pas;
 
 				for(var compteur=0; compteur<(nbPasHeures+nbPasMinutes); compteur++)
-					
 					{
 						myTab.push(pad2((debutH + Math.floor(compteur/nbPasHeure))).toString() + ":" + pad2((compteur%nbPasHeure*pas)).toString());
 					}
@@ -103,9 +106,3 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 //		    };
 		}]);
 
-		GestForApp.controller('DatepickerDemoCtrl', ['DatepickerService', function(datepicker) {
-			var self = this;
-			self.d1 = datepicker.build();
-			self.d2 = datepicker.build();
-			
-		}]);

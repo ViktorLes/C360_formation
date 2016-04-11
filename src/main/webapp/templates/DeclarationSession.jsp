@@ -28,7 +28,33 @@
 				    <h5> <span class="label label-default">Nom de la formation: </span></h5>
      					 <select class="selectpicker form-control"></select>
 				    </div>
-					
+				    
+			 <!-- Date -->
+				<!-- d1 -->
+				     <div class="form-group">
+				     <h5> <span class="label label-default">Date (JJ/MM/AAAA): </span></h5>
+				      <div class="col-md-6">
+				        <p class="input-group">
+				          <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="ctrl.d1.dt" ng-click="ctrl.d1.open1()" is-open="ctrl.d1.popup1.opened" datepicker-options="ctrl.d1.dateOptions" ng-required="true" close-text="Close" alt-input-formats="ctrl.d1.altInputFormats" />
+				          <span class="input-group-btn">
+				            <button type="button" class="btn btn-default" ng-click="ctrl.d1.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+				          </span>
+				        </p>
+				      </div>
+				   
+				<!-- d2 -->   
+				     <div class="form-group">
+				      <div class="col-md-6">
+				        <p class="input-group">
+				          <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="ctrl.d2.dt" ng-click="ctrl.d2.open1()" is-open="ctrl.d2.popup1.opened" datepicker-options="ctrl.d2.dateOptions" ng-required="true" close-text="Close" alt-input-formats="ctrl.d2.altInputFormats" />
+				          <span class="input-group-btn">
+				            <button type="button" class="btn btn-default" ng-click="ctrl.d2.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+				          </span>
+				        </p>
+				      </div>
+				    </div>
+				  
+				   
 					      <!-- Heure de la session -->
 				     <div class="form-group">
 				        <h5> <span class="label label-default">Heure du Debut: (1er Jour)</span></h5>
