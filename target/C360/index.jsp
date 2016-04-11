@@ -19,9 +19,15 @@
 	<a href="#/DeclarationFormation">DF</a>	
 	<a href="#/DeclarationSession">DS</a>	
 	<div ng-view></div>
+<<<<<<< HEAD
+
+<div ng-controller="DatepickerDemoCtrl as ctrl">
+<!-- d1 -->
+=======
 	
 <!-- <div ng-controller="DatepickerDemoCtrl as ctrl">
 d1
+>>>>>>> 281d79ce63ab25fbea701f108405a034271c3045
     <div class="row">
       <div class="col-md-6">
         <p class="input-group">
@@ -32,7 +38,11 @@ d1
         </p>
       </div>
    
+<<<<<<< HEAD
+<!-- d2 -->   
+=======
 d2   
+>>>>>>> 281d79ce63ab25fbea701f108405a034271c3045
       <div class="row">
       <div class="col-md-6">
         <p class="input-group">
@@ -43,14 +53,23 @@ d2
         </p>
       </div>
     </div>
+<<<<<<< HEAD
+  
+=======
    -->
+>>>>>>> 281d79ce63ab25fbea701f108405a034271c3045
   	<!-- JS -->
     <script src="lib/angular.js"></script>
     <script src="lib/angular-animate.js"></script> 
     <script src="lib/ui-bootstrap-tpls-1.2.5.js"></script>
 	
+<<<<<<< HEAD
+	<script src="lib/angular-mocks.js"></script>
+	<script src="lib/angular-route.js"></script>
+=======
 <!-- 	<script src="lib/angular-mocks.js"></script>
  -->	<script src="lib/angular-route.js"></script>
+>>>>>>> 281d79ce63ab25fbea701f108405a034271c3045
 	
 	<script src="lib/angular-locale_fr-fr.js"></script>
 

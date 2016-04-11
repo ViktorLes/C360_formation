@@ -8,16 +8,18 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 			var self = this;
 						
 			self.isNewTitleFormation = true;
-			
+
 			self.actionEnregistrer = function() {
 				self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
 				//self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, "");
 				$http.post("api/formations", self.formation).success(function(data){		
-					if(data == "true"){
+					if(data == "true" || data == true){
 						self.isNewTitleFormation = true;
 				 		document.location.href = 'pageblancheformation.html';
 					}
-					else self.isNewTitleFormation = false;
+					else {
+						self.isNewTitleFormation = false;
+					}
 				});
 		    };
 		}]);
@@ -36,7 +38,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				
 				//post the form to the server
 				$http.post("api/collaborateurs", self.collaborateur).success(function(data){
-					 if(data == "true") {
+					 if(data == "true" || data == true) {
 						 self.isNewMatricule = true; 
 						 document.location.href = 'pageblanche.html';
 					 }
@@ -49,10 +51,24 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlSes', ['DatepickerService','$http',function(datepicker,$http) {
 			var self = this;
 			
+			var dataToSend = {
+				formation : 1,
+				debut : "45-avril-2016|10:72",
+				fin : "12-avril-2016|14:30",
+				lieu : "Paris"
+			};
+			
+			$http.post("api/formations", {titreformation:"Agile", nombredemijournee: 50}).success(function(data){		
+				$http.post("api/sessions", dataToSend).success(function(data){		
+					if(data == "true" || data == true){
+						console.log("success : sessionFormation");
+					}
+				});
+			});
+
 				self.d1 = datepicker.build();
 				self.d2 = datepicker.build();
-				
-			
+						
 			$http.get("api/formations").then(function(data){
 				console.log(data)
 			},
@@ -73,7 +89,6 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				var nbPasMinutes = (finM-debutM)/pas;
 
 				for(var compteur=0; compteur<(nbPasHeures+nbPasMinutes); compteur++)
-					
 					{
 						myTab.push(pad2((debutH + Math.floor(compteur/nbPasHeure))).toString() + ":" + pad2((compteur%nbPasHeure*pas)).toString());
 					}
@@ -97,10 +112,4 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 //				});
 //		    };
 		}]);
-//
-//		GestForApp.controller('DatepickerDemoCtrl', ['DatepickerService', function(datepicker) {
-//			var self = this;
-//			self.d1 = datepicker.build();
-//			self.d2 = datepicker.build();
-//			
-//		}]);
+
