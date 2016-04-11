@@ -38,17 +38,9 @@ public class SessionFormation {
 	@ManyToOne
 	Formation formation;
 	
-	@Temporal(TemporalType.DATE)
-	Date dateDebut;
+	Date debut;
 	
-	@Temporal(TemporalType.DATE)
-	Date dateFin;
-	
-	@Temporal(TemporalType.TIME)
-	Date heureDebut;
-	
-	@Temporal(TemporalType.TIME)
-	Date heureFin;
+	Date fin;
 	
 	String lieu;
 	
@@ -66,17 +58,11 @@ public class SessionFormation {
 	public Formation getFormation() {
 		return formation;
 	}
-	public Date getDateDebut() {
-		return dateDebut;
+	public Date getDebut() {
+		return debut;
 	}
-	public Date getDateFin() {
-		return dateFin;
-	}
-	public Date getHeureDebut() {
-		return heureDebut;
-	}
-	public Date getHeureFin() {
-		return heureFin;
+	public Date getFin() {
+		return fin;
 	}
 	public String getLieu() {
 		return lieu;
@@ -90,17 +76,11 @@ public class SessionFormation {
 	public void setFormation(Formation formation) {
 		this.formation = formation;
 	}
-	public void setDateDebut(Date dateDebut) {
-		this.dateDebut = dateDebut;
+	public void setDebut(Date dateDebut) {
+		this.debut = dateDebut;
 	}
-	public void setDateFin(Date dateFin) {
-		this.dateFin = dateFin;
-	}
-	public void setHeureDebut(Date heureDebut) {
-		this.heureDebut = heureDebut;
-	}
-	public void setHeureFin(Date heureFin) {
-		this.heureFin = heureFin;
+	public void setFin(Date dateFin) {
+		this.fin = dateFin;
 	}
 	public void setLieu(String lieu) {
 		this.lieu = lieu;

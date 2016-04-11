@@ -2,6 +2,7 @@ package com.viseo.c360.formation.dao;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -77,17 +78,25 @@ public class FormationDAO {
 		return em.find(SessionFormation.class, id);
 	}
 	
-//	public boolean isSessionFormationAlreadyPlanned(){
+//	public boolean isThereOneSessionFormationAlreadyPlanned(SessionFormation sf){
 //
-//		Collection<Formation> list = null;
+//		Collection<SessionFormation> list = null;
 //		CriteriaBuilder cb = em.getCriteriaBuilder();
 //		 
-//		  CriteriaQuery<Formation> q = cb.createQuery(Formation.class);
-//		  Root<Formation> c = q.from(Formation.class);
+//		  CriteriaQuery<SessionFormation> q = cb.createQuery(SessionFormation.class);
+//		  Root<SessionFormation> c = q.from(SessionFormation.class);
 //		  //ParameterExpression<String> p = cb.parameter(String.class);
-//		  q.select(c).where(cb.equal(c.get("titreformation"), titreFormation));
+//		  cb.and(
+//				  cb.between(c.<Date>get("dateDebut"), sf.getDateDebut(), sf.getDateFin()),
+//				  cb.greaterThan(c.<Date>get("heureDebut"), sf.getHeureDebut())
+//		   );
 //		  
-//		  list = (Collection<Formation>) em.createQuery(q).getResultList();
+//		  q.select(c).where(
+//				  ,
+//				  
+//				  );
+//		//  cb.greaterThan(arg0, arg1);
+//		  list = (Collection<SessionFormation>) em.createQuery(q).getResultList();
 //		  
 //		return !list.isEmpty(); //return true if the list is not avoid
 //	}

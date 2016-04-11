@@ -33,8 +33,7 @@ public class SessionFormationDeserializer extends JsonDeserializer<SessionFormat
 	@Override
 	public SessionFormation deserialize(JsonParser parser, DeserializationContext context) throws JsonProcessingException, IOException {
 
-		SimpleDateFormat formatterDate = new SimpleDateFormat("dd-MMM-yyyy");
-		SimpleDateFormat formatterHeure = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat formatterDate = new SimpleDateFormat("dd-MMM-yyyy|HH:mm");
 	
 		SessionFormation sf = new SessionFormation();
 		ObjectCodec oc = parser.getCodec();
@@ -51,10 +50,8 @@ public class SessionFormationDeserializer extends JsonDeserializer<SessionFormat
 		
 		//dates et heures
         try {
-        	sf.setDateDebut(formatterDate.parse(node.get("dateDebut").asText()));
-        	sf.setDateFin(formatterDate.parse(node.get("dateFin").asText()));
-        	sf.setHeureDebut(formatterHeure.parse(node.get("heureDebut").asText()));
-        	sf.setHeureFin(formatterHeure.parse(node.get("heureFin").asText()));
+        	sf.setDebut(formatterDate.parse(node.get("debut").asText()));
+        	sf.setFin(formatterDate.parse(node.get("fin").asText()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 			throw new FormationDAOException("Problème de format de date/heure.");

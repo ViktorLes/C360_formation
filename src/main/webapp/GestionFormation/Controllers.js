@@ -53,23 +53,22 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 			
 			var dataToSend = {
 				formation : 1,
-				dateDebut : "10-avril-2016",
-				dateFin : "12-avril-2016",
-				heureDebut : "10:30",
-				heureFin : "14:30",
+				debut : "45-avril-2016|10:72",
+				fin : "12-avril-2016|14:30",
 				lieu : "Paris"
 			};
 			
-			$http.post("api/sessions", dataToSend).success(function(data){		
-				if(data == "true" || data == true){
-					console.log("success");
-				}
+			$http.post("api/formations", {titreformation:"Agile", nombredemijournee: 50}).success(function(data){		
+				$http.post("api/sessions", dataToSend).success(function(data){		
+					if(data == "true" || data == true){
+						console.log("success : sessionFormation");
+					}
+				});
 			});
 
 				self.d1 = datepicker.build();
 				self.d2 = datepicker.build();
-				
-			
+						
 			$http.get("api/formations").then(function(data){
 				console.log(data)
 			},
