@@ -30,6 +30,7 @@ public class FormationWS {
 	@Inject
 	FormationDAO formationDAO;
 	
+	//Formation
 	
 	@RequestMapping(value="${endpoint.formations}", method = RequestMethod.POST)
     @Transactional
@@ -49,4 +50,17 @@ public class FormationWS {
     public List<Formation> ReadFormation(){	
 		return formationDAO.GetAllFormation();
 	}
+	
+	//SessionFormation
+	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
+    @Transactional
+    @ResponseBody
+    public boolean addSessionFormation(@Valid @RequestBody SessionFormation mySessionFormation, BindingResult bindingResult){
+		
+		if(!(bindingResult.hasErrors()) /*&& !formationDAO.isFormationAlreadySaved(mySessionFormation.getTitreformation()) **/){
+			formationDAO.addSessionFormation(mySessionFormation);
+			return true;
+		}
+		return false;
+    }
 }	

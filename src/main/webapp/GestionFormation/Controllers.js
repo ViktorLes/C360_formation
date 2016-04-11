@@ -49,12 +49,29 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlSes', ['$http',function($http) {
 			var self = this;
 			
-			$http.get("api/getString").then(function(data){
-				console.log(data)
-			},
-			function(){
-				console.log("ERROOOOR")
+			var dataToSend = {
+				formation : 1,
+				dateDebut : "10-avril-2016",
+				dateFin : "12-avril-2016",
+				heureDebut : "10:30",
+				heureFin : "14:30",
+				lieu : "Paris"
+			};
+			
+			$http.post("api/sessions", dataToSend).success(function(data){		
+				if(data == "true"){
+					self.isNewTitleFormation = true;
+			 		document.location.href = 'pageblancheformation.html';
+				}
+				else self.isNewTitleFormation = false;
 			});
+			
+//			$http.get("api/getString").then(function(data){
+//				console.log(data)
+//			},
+//			function(){
+//				console.log("ERROOOOR")
+//			});
 			
 			console.log("test DS");
 			

@@ -52,7 +52,7 @@ public class FormationDAO {
 		 
 		  CriteriaQuery<Formation> q = cb.createQuery(Formation.class);
 		  Root<Formation> c = q.from(Formation.class);
-		  ParameterExpression<String> p = cb.parameter(String.class);
+		  //ParameterExpression<String> p = cb.parameter(String.class);
 		  q.select(c).where(cb.equal(c.get("titreformation"), titreFormation));
 		  
 		  list = (Collection<Formation>) em.createQuery(q).getResultList();
@@ -73,53 +73,9 @@ public class FormationDAO {
 	}
 	
 	@Transactional
-	public SessionFormation getSessionFormation(long id){
+	public SessionFormation getSessionFormation(long id) {
 		return em.find(SessionFormation.class, id);
 	}
 	
-//	@Transactional
-//	public void addSession(){
-//		
-////		long idFormation = 1;
-////		em.find(Formation.class, idFormation);
-//
-//		Formation myFormation = new Formation();
-//		myFormation.setTitreformation("formationA");
-//		myFormation.setNombredemijournee(7);
-//		
-//		Formation myFormation2 = new Formation();
-//		myFormation2.setTitreformation("formationB");
-//		myFormation2.setNombredemijournee(10);
-//		
-//		Date firstDay = new Date();
-//		firstDay.setYear(1993);
-//		firstDay.setMonth(4);
-//		firstDay.setDate(30);
-//			
-//		Date lastDay = new Date();
-//		lastDay.setYear(1993);
-//		lastDay.setMonth(4);
-//		lastDay.setDate(30);
-//		
-//		Date firstTime = new Date();
-//			firstTime.setHours(10);
-//			firstTime.setMinutes(10);
-//
-//		Date lastTime = new Date();
-//			lastTime.setHours(10);
-//			lastTime.setMinutes(10);
-//
-//		
-//		this.addFormation(myFormation);
-//		
-//		SessionFormation sessionFormation = new SessionFormation();
-//		sessionFormation.setFormation(myFormation);
-//		sessionFormation.setFirstDay(firstDay);
-//		sessionFormation.setLastDay(lastDay);
-//		sessionFormation.setFirstTime(firstTime);
-//		sessionFormation.setLastTime(lastTime);
-//		em.persist(sessionFormation);
-//		em.flush();
-//	}
-
+	
 }
