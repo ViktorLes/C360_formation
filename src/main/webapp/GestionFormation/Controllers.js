@@ -13,7 +13,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
 				//self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, "");
 				$http.post("api/formations", self.formation).success(function(data){		
-					if(data == "true"){
+					if(data == "true" || data == true){
 						self.isNewTitleFormation = true;
 				 		document.location.href = 'pageblancheformation.html';
 					}
@@ -38,7 +38,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				
 				//post the form to the server
 				$http.post("api/collaborateurs", self.collaborateur).success(function(data){
-					 if(data == "true") {
+					 if(data == "true" || data == true) {
 						 self.isNewMatricule = true; 
 						 document.location.href = 'pageblanche.html';
 					 }
@@ -61,11 +61,9 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 			};
 			
 			$http.post("api/sessions", dataToSend).success(function(data){		
-				if(data == "true"){
-					self.isNewTitleFormation = true;
-			 		document.location.href = 'pageblancheformation.html';
+				if(data == "true" || data == true){
+					console.log("success");
 				}
-				else self.isNewTitleFormation = false;
 			});
 			
 //			$http.get("api/getString").then(function(data){

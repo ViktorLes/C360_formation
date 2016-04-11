@@ -5,7 +5,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +24,6 @@ public class FormationWS {
 	
 	//Formation
 	@RequestMapping(value="${endpoint.formations}", method = RequestMethod.POST)
-    @Transactional
     @ResponseBody
     public boolean addFormation(@Valid @RequestBody Formation myFormation, BindingResult bindingResult){
 		
@@ -44,7 +42,6 @@ public class FormationWS {
 	
 	//SessionFormation
 	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
-    @Transactional
     @ResponseBody
     public boolean addSessionFormation(@Valid @RequestBody SessionFormation mySessionFormation, BindingResult bindingResult){
 		
