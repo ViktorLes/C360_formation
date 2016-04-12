@@ -24,18 +24,21 @@
 				  <form name="sessionForm" ng-submit="DS.actionEnregistrer()" novalidate>
 				
 				 <!-- Nom de la Formation -->
-				     <div class="form-group">
-				    <h5> <span class="label label-default">Nom de la formation: </span></h5>
-     					 <select class="selectpicker form-control" name="titreformation"></select>
-				    </div>
+				    <div class="form-group">
+				   	<h5> <span class="label label-default">Nom de la formation: </span></h5>
+     				<select class="selectpicker form-control" name="titreformation"  ng-options="formation.titreformation for formation in formations">
+				   		<option value="">Sectionner une formation</option>
+					</select>
+					</div>
 				    
+				   
 			 <!-- Date -->
 				<!-- d1 -->
 				     <div class="form-group">
 				     <h5> <span class="label label-default">Date (JJ/MM/AAAA): </span></h5>
 				      <div class="col-md-6">
 				        <p class="input-group">
-				          <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="DS.d1.dt" ng-click="DS.d1.open1()" is-open="DS.d1.popup1.opened" datepicker-options="DS.d1.dateOptions" ng-required="true" close-text="Close" alt-input-formats="DS.d1.altInputFormats" />
+				          <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="DS.d1.dt" ng-click="DS.d1.open1()" is-open="DS.d1.popup1.opened" datepicker-options="DS.d1.dateOptions" ng-required="true" close-text="Close" alt-input-formats="DS.d1.altInputFormats" />
 				          <span class="input-group-btn">
 				            <button type="button" class="btn btn-default" ng-click="DS.d1.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
 				          </span>
@@ -46,7 +49,7 @@
 				     <div class="form-group">
 				      <div class="col-md-6">
 				        <p class="input-group">
-				          <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="DS.d2.dt" ng-click="DS.d2.open1()" is-open="DS.d2.popup1.opened" datepicker-options="DS.d2.dateOptions" ng-required="true" close-text="Close" alt-input-formats="DS.d2.altInputFormats" />
+				          <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="DS.d2.dt" ng-click="DS.d2.open1()" is-open="DS.d2.popup1.opened" datepicker-options="DS.d2.dateOptions" ng-required="true" close-text="Close" alt-input-formats="DS.d2.altInputFormats" />
 				          <span class="input-group-btn">
 				            <button type="button" class="btn btn-default" ng-click="DS.d2.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
 				          </span>
