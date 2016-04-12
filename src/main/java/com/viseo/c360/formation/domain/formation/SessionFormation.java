@@ -43,8 +43,7 @@ public class SessionFormation {
 	Date fin;
 	
 	String lieu;
-	
-	
+
 
 	public SessionFormation() {
 		super();

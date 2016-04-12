@@ -50,7 +50,11 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		//Controleur DeclarationSession
 		GestForApp.controller('CtrlSes', ['DatepickerService','$http',function(datepicker,$http) {
 			var self = this;
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> 8f777bc8c3dd915426458cfeb41209bd0e253651
 				self.d1 = datepicker.build();
 				self.d2 = datepicker.build();
 						
