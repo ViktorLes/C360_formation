@@ -50,18 +50,16 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		//Controleur DeclarationSession
 		GestForApp.controller('CtrlSes', ['DatepickerService','$http',function(datepicker,$http) {
 			var self = this;
-<<<<<<< HEAD
-			
-=======
 
->>>>>>> 8f777bc8c3dd915426458cfeb41209bd0e253651
+//			self.formation = [{titreformation: "test avant GET"}];
 				self.d1 = datepicker.build();
 				self.d2 = datepicker.build();
 						
-				var formation;
+				//var formation;
 			$http.get("api/formations").then(function(data){
 				console.log(data)
-				self.formation = data;
+				self.formation = [];
+				Array.prototype.push.apply(self.formation,data.data)
 			},
 			function(){
 				console.log("ERROOOOR")
