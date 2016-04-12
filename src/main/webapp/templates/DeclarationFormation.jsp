@@ -1,6 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="com.viseo.c360.formation.domain.formation.Formation" %>
 
@@ -38,6 +35,10 @@
 			    <div class="alert alert-danger" role="alert" ng-show="formationForm.$invalid && formationForm.$dirty">
 			      Veuillez remplir tous les champs
 			    </div>
+			    
+			    <div class="alert alert-danger" role="alert" ng-show="!DF.isNewTitleFormation">
+			      Une formation identique existe déjà dans le système
+			    </div> 
 			    <!-- {{DF.formation.nombredemijournee}}
 			    {{DF.formation.titreformation}} -->
 			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>		
@@ -45,8 +46,7 @@
 		  </div>
 		  
 		 <div class="col-md-4">
-		 </div>
-		 
+		 </div>	 
 	</div>
   </div>
 </div>
