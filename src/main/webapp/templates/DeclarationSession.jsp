@@ -27,8 +27,7 @@
 				    <div class="form-group">
 				   	<h5> <span class="label label-default">Nom de la formation: </span></h5>
 				   	   <select class="selectpicker form-control" name="titreformation">
-				   	   	<option> Javascript </option>
-				   	   	<option> Hibernate </option>
+				   	   	<option>Selectionner une formation </option>
 				   	   	 <option ng-repeat="titre in DS.formation track by $index">{{DS.formation[0].titreformation}}</option>
 				   	   </select>
 	
