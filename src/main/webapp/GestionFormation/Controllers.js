@@ -83,32 +83,33 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 					}
 
 				self.monTab = myTab;
-//		
+		
 //				$http.post("api/sessions", self.session).success(function(data){
 //					 if(data == "true") {
-//						self.isNewTitleFormation = true;
+//						//self.isNewTitleFormation = true;
 //						 document.location.href = 'pageblanche.html';
+//						 console.log("page blanche")
 //					 }
 //						self.isNewTitleFormation = true;
 //				});
 //			
 
-				
-				self.isNewFormation = true;
-
-				self.actionEnregistrer = function() {
-				self.SessionFormation.formation = self.SessionFormation.formation.replace(/ +/g, " ");
-					$http.post("api/sessions",self.formation).success(function(data){		
-						if(data == "true" || data == true){
-							self.isNewFormation = true;
-					 		document.location.href = 'pageblancheformation.html';
-						}
-						else {
-							self.isNewFormation = false;
-				
-						}
-						});
-					};
+//				
+//				self.isNewFormation = true;
+//
+//				self.actionEnregistrer = function() {
+//				self.SessionFormation.formation = self.SessionFormation.formation.replace(/ +/g, " ");
+//					$http.post("api/sessions",self.formation).success(function(data){		
+//						if(data == "true" || data == true){
+//							self.isNewFormation = true;
+//					 		document.location.href = 'pageblancheformation.html';
+//						}
+//						else {
+//							self.isNewFormation = false;
+//				
+//						}
+//						});
+//					};
 //				self.actionEnregistrer = function() {
 //				self.session.nomFormation= self.session.nomFormation.replace(/ +/g, " ");
 //				self.session.nomFormation= self.session.nomFormation.replace(/ +/g, " ");
