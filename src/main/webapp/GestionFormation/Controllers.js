@@ -4,6 +4,8 @@
 		//Controleur DeclarationFromation		
 		GestForApp.controller('CtrlFor', ['$http',function($http) {
 			var self = this;
+			self.regexTitredelaformation = "/^[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]+$/";
+			self.regexnombredemijournee = "/^[0-9]+$/";
 			
 			self.isNewTitleFormation = true;
 			
@@ -24,6 +26,10 @@
 		// Controleur EnregistrementCollab
 		GestForApp.controller('CtrlCol', ['$http',function($http) {
 			var self = this;
+			
+			self.regexMatricule = "/^[A-Z0-9]+$/";
+			self.regexNom = "/^[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]+$/";
+			self.regexPrenom = "/^[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]+$/";
 			
 			self.isNewMatricule = "true";	
 			self.actionEnregistrer = function() {
