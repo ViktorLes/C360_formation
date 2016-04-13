@@ -8,8 +8,8 @@ routeApp.config(['$routeProvider',function($routeProvider) {
                      $routeProvider
                      .when('/EnregistrementCollaborateur', {
                          templateUrl: 'templates/EnregistrementCollaborateur.html',
-                         controller: 'CtrlCol',
-                         controllerAs:'EC'
+                         controller: 'CtrlCol as EC',
+                        // controllerAs:'EC'
                      })
                      .when('/DeclarationFormation', {
                          templateUrl: 'templates/DeclarationFormation.html',
