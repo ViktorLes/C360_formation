@@ -26,9 +26,8 @@
 				 <!-- Nom de la Formation -->
 				    <div class="form-group">
 				   	<h5> <span class="label label-default">Nom de la formation: </span></h5>
-				   	   <select class="selectpicker form-control" name="titre">
-				   	   	<option>Selectionner une formation </option>
-				   	   	 <option ng-repeat="titre in DS.formation track by $index">{{titre.titreformation}}</option>
+				   	   <select class="selectpicker form-control" name="titre" ng-model="DS.SessionFormation.id">
+				   	   	 <option ng-repeat="titre in DS.formation track by $index" value="{{titre.id}}">{{titre.titreformation}}</option>
 				   	   </select>
 					</div>
 					
@@ -74,22 +73,22 @@
 					      <!-- Heure de la session -->
 				     <div class="form-group">
 				        <h5> <span class="label label-default">Heure du Debut: (1er Jour)</span></h5>
-				     <select class="selectpicker form-control">
+				     <select class="selectpicker form-control" ng-model="DS.heureDebut">
 				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
 				     </select>
 				   	</div>
 				   	
- 				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
+ 				    <div class="form-group">
 				        <h5> <span class="label label-default">Heure de fin: (Dernier Jour)</span></h5>
-     					 <select class="selectpicker form-control">
+     					 <select class="selectpicker form-control" ng-model="DS.heureFin">
  				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
 				     </select>
 				    </div>
 		 
 				    <!-- Lieu de la session -->
-				    <div class="form-group" ng-class="{ 'has-error' : sessionForm.titreformation.$invalid && sessionForm.titreformation.$dirty }">
+				    <div class="form-group">
 				        <h5> <span class="label label-default">Lieu</span></h5>
-     					 <select class="selectpicker form-control">
+     					 <select class="selectpicker form-control" ng-model="DS.lieuFormation">
 				     	<option>Salle Phuket</option>
 				     	<option>Salle Bali</option>
      				     </select>

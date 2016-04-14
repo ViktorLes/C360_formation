@@ -18,6 +18,7 @@ angular.module('Datepicker', ['ngAnimate', 'ui.bootstrap']).factory('DatepickerS
 		            today : function(date) {
 		                date = new Date();
 		            },
+		           
 		            dateOptions : {
 		                    dateDisabled: disabled,
 		                    formatYear: 'yy',
