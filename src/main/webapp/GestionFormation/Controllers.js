@@ -28,7 +28,13 @@
 		// Controleur EnregistrementCollab
 		GestForApp.controller('CtrlCol', ['$http',function($http) {
 			var self = this;
-			
+			/*$http.get('templates/EnregistrementCollaborateur.html').then(function(html) {
+				var template = angular.element(html);
+				scope = template.scope();
+				var linkFn = $compile(template);
+				element = linkFn(scope);
+				form = element.find("form");
+			});*/
 			self.regexMatricule = "/^[A-Z0-9]+$/";
 			self.regexNom = "/^[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]+$/";
 			self.regexPrenom = "/^[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]+$/";
