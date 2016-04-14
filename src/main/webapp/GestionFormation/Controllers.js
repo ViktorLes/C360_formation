@@ -2,11 +2,14 @@
 //Module de L'GestForapp
 		var GestForApp = angular.module('GestForController', []);
 		//Controleur DeclarationFromation		
-		GestForApp.controller('CtrlFor', ['$http',function($http) {
+		GestForApp.controller('CtrlFor', ['$http', '$templateCache',function($http,$templateCache) {
 			var self = this;
 			self.regexTitredelaformation = "/^[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]+$/";
 			self.regexnombredemijournee = "/^[0-9]+$/";
-			
+			console.log("test template");
+			var html = $templateCache.get('templates/EnregistrementCollaborateur.html');
+			console.log("test template");
+
 			self.isNewTitleFormation = true;
 			
 			self.actionEnregistrer = function() {

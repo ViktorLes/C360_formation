@@ -17,13 +17,12 @@ describe('first tests !', function () {
     ctrl = $controller('MainCtrl');
 
     var html = null;//get template in var template = ...;
+    $templateCache.get('.html');
     var template = angular.element(html);
     scope = template.scope();
     var linkFn = $compile(template);
     element = linkFn(scope);
-
-    //search the form directive in 'element'
-
+    form = element.find("form");
   }));
 
   it('should works because 3 = 3', function () {
