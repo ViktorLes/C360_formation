@@ -94,6 +94,10 @@
 			     	 Veuillez remplir correctement tous les champs
 			    	</div> 
 			    	
+			    	 <div class="alert alert-danger" role="alert" ng-show="!DS.isSessionAlreadyPlanned">
+					     Il existe déjà une session pour cette formation dans ces tranches horaires.
+					 </div> 
+			    	
 				    <button type="submit" class="btn btn-primary" ng-disabled="sessionForm.$invalid">Enregistrer</button>				  </form>
 				  </div>
 			</div>
