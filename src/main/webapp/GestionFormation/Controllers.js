@@ -51,24 +51,45 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlSes', ['DatepickerService','$http','$filter',function(datepicker,$http,$filter) {
 			var self = this;
 			
-			//var formation;
+			/*** Initialisation des données du formulaires **/
 			$http.get("api/formations").then(function(data){
-				//console.log(data)
 				self.formation = [];
-				Array.prototype.push.apply(self.formation,data.data)
-			},
-			function(){
-				console.log("erreur!!")
+				Array.prototype.push.apply(self.formation,data.data);
+				self.SessionFormationId = self.formation[0].id;
 			});
 
-				self.d1 = datepicker.build();
-				self.d2 = datepicker.build();
+			self.d1 = datepicker.build();
+			self.d2 = datepicker.build();
+
+				function initHoraireTab(){
+			
+					function pad2(number) {
+					   return (number < 10 ? '0' : '') + number;
+					}
+				
+				    var myTab =[];
+					var debutH=8; var finH=18; var pas=30; var finM=30; var debutM=0;
+					var nbPasHeure = 60/pas;
+					var nbPasHeures = (finH-debutH)*nbPasHeure;
+					var nbPasMinutes = (finM-debutM)/pas;
+	
+					for(var compteur=0; compteur<(nbPasHeures+nbPasMinutes); compteur++)
+					{
+						myTab.push(pad2((debutH + Math.floor(compteur/nbPasHeure))).toString() + ":" + pad2((compteur%nbPasHeure*pas)).toString());
+					}
+					self.monTab = myTab;
+				}
+				initHoraireTab();
+				self.heureDebut = self.monTab[0];
+				self.heureFin = self.monTab[0];
 				
 				
+				self.lieuFormation = 'Salle Phuket';
 				
+				/*** Enregistrement SessionFormation ***/
 				self.actionEnregistrer = function() {
 					var session = {
-							formation: self.SessionFormation.id,
+							formation: self.SessionFormationId,
 							debut: $filter('date')(self.d1.dt,"dd/MM/yyyy") + "|" + self.heureDebut,
 							fin:  $filter('date')(self.d2.dt,"dd/MM/yyyy") + "|" + self.heureFin,
 							lieu: self.lieuFormation
@@ -82,28 +103,6 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 								 }
 						});
 				}
-			
-			
-			
-			console.log("test DS");
-			
-			// Horaire
-			function pad2(number) {
-				   return (number < 10 ? '0' : '') + number
-				}
-			
-			var myTab =[];
-				var debutH=8; var finH=18; var pas=30; var finM=30; var debutM=0;
-				var nbPasHeure = 60/pas;
-				var nbPasHeures = (finH-debutH)*nbPasHeure;
-				var nbPasMinutes = (finM-debutM)/pas;
-
-				for(var compteur=0; compteur<(nbPasHeures+nbPasMinutes); compteur++)
-					{
-						myTab.push(pad2((debutH + Math.floor(compteur/nbPasHeure))).toString() + ":" + pad2((compteur%nbPasHeure*pas)).toString());
-					}
-
-				self.monTab = myTab;
 		
-				}]);
+		}]);
 

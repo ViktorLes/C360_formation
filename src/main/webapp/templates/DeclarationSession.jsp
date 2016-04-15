@@ -26,9 +26,7 @@
 				 <!-- Nom de la Formation -->
 				    <div class="form-group">
 				   	<h5> <span class="label label-default">Nom de la formation: </span></h5>
-				   	   <select class="selectpicker form-control" name="titre" ng-model="DS.SessionFormation.id">
-				   	   	 <option ng-repeat="titre in DS.formation track by $index" value="{{titre.id}}">{{titre.titreformation}}</option>
-				   	   </select>
+				   	   <select class="selectpicker form-control" name="sessionFormation" ng-model="DS.SessionFormationId" ng-options='formation.id as formation.titreformation for formation in DS.formation' ></select>
 					</div>
 					
 			 <!-- Date -->
@@ -61,8 +59,7 @@
 				          		 class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="DS.d2.dt" ng-click="DS.d2.open1()" is-open="DS.d2.popup1.opened" datepicker-options="DS.d2.dateOptions" ng-required="true" close-text="Close" alt-input-formats="DS.d2.altInputFormats" />				          
 				          <span class="input-group-btn">
 				            <button type="button" class="btn btn-default" ng-click="DS.d2.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-<!-- 				         	      <p ng-show="sessionForm.date.$invalid && sessionForm.date.$dirty" class="help-block">Date Invalide: Veuillez saisir une date sous le format (JJ/MM/AAAA)</p>
- -->				           </span>
+				           </span>
 				           <div class="alert alert-warning" ng-show="sessionForm.date2.$error.required">
  							 <strong>Attention :</strong> Veuillez saisir une date
 							</div>
@@ -76,24 +73,20 @@
 					      <!-- Heure de la session -->
 				     <div class="form-group">
 				        <h5> <span class="label label-default">Heure du Debut: (1er Jour)</span></h5>
-				     <select class="selectpicker form-control" ng-model="DS.heureDebut">
-				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
-				     </select>
+				     <select class="selectpicker form-control" ng-model="DS.heureDebut" ng-options='horaire as horaire for horaire in DS.monTab'></select>
 				   	</div>
 				   	
  				    <div class="form-group">
 				        <h5> <span class="label label-default">Heure de fin: (Dernier Jour)</span></h5>
-     					 <select class="selectpicker form-control" ng-model="DS.heureFin">
- 				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
-				     </select>
+     					 <select class="selectpicker form-control" ng-model="DS.heureFin" ng-options='horaire as horaire for horaire in DS.monTab'></select>
 				    </div>
 		 
 				    <!-- Lieu de la session -->
 				    <div class="form-group">
 				        <h5> <span class="label label-default">Lieu</span></h5>
      					 <select class="selectpicker form-control" ng-model="DS.lieuFormation">
-				     	<option>Salle Phuket</option>
-				     	<option>Salle Bali</option>
+				     		<option>Salle Phuket</option>
+				     		<option>Salle Bali</option>
      				     </select>
 				    </div>
 				  
