@@ -46,9 +46,10 @@ public class FormationWS {
     @ResponseBody
     public boolean addSessionFormation(@Valid @RequestBody SessionFormation mySessionFormation, BindingResult bindingResult){
 		
-		if(!bindingResult.hasErrors() 
+		if(!(bindingResult.hasErrors() )
 		&& !formationDAO.isThereOneSessionFormationAlreadyPlanned(mySessionFormation) 
-		&& formationDAO.hasCorrectDates(mySessionFormation)){
+		//&& formationDAO.hasCorrectDates(mySessionFormation)
+		){
 			
 			formationDAO.addSessionFormation(mySessionFormation);
 			return true;
