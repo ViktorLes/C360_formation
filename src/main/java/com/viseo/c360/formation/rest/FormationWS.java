@@ -44,16 +44,16 @@ public class FormationWS {
 	//SessionFormation
 	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addSessionFormation(@Valid @RequestBody String mySessionFormation, BindingResult bindingResult){
-//		
-//		if(!bindingResult.hasErrors() 
-//		&& !formationDAO.isThereOneSessionFormationAlreadyPlanned(mySessionFormation) 
-//		&& formationDAO.hasCorrectDates(mySessionFormation)){
-//			
-//			formationDAO.addSessionFormation(mySessionFormation);
-//			return true;
-//		}
-		System.out.println("test :" + mySessionFormation);
+    public boolean addSessionFormation(@Valid @RequestBody SessionFormation mySessionFormation, BindingResult bindingResult){
+		
+		if(!(bindingResult.hasErrors() )
+		&& !formationDAO.isThereOneSessionFormationAlreadyPlanned(mySessionFormation) 
+		//&& formationDAO.hasCorrectDates(mySessionFormation)
+		){
+			
+			formationDAO.addSessionFormation(mySessionFormation);
+			return true;
+		}
 		return false;
    }
 }	
