@@ -1,21 +1,25 @@
 
 //Module de L'GestForapp
-		var GestForApp = angular.module('GestForController', []);
+var GestForApp = angular.module('GestForController', ['Datepicker']);
+		
 		//Controleur DeclarationFromation		
 		GestForApp.controller('CtrlFor', ['$http',function($http) {
+		
 			var self = this;
-			
+						
 			self.isNewTitleFormation = true;
-			
+
 			self.actionEnregistrer = function() {
 				self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
 				//self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, "");
 				$http.post("api/formations", self.formation).success(function(data){		
-					if(data == "true"){
+					if(data == "true" || data == true){
 						self.isNewTitleFormation = true;
 				 		document.location.href = 'pageblancheformation.html';
 					}
-					else self.isNewTitleFormation = false;
+					else {
+						self.isNewTitleFormation = false;
+					}
 				});
 		    };
 		}]);
@@ -34,7 +38,7 @@
 				
 				//post the form to the server
 				$http.post("api/collaborateurs", self.collaborateur).success(function(data){
-					 if(data == "true") {
+					 if(data == "true" || data == true) {
 						 self.isNewMatricule = true; 
 						 document.location.href = 'pageblanche.html';
 					 }
@@ -42,4 +46,64 @@
 				});
 		    };
 		}]);
+
+		//Controleur DeclarationSession
+		GestForApp.controller('CtrlSes', ['DatepickerService','$http','$filter',function(datepicker,$http,$filter) {
+			var self = this;
+			
+			//var formation;
+			$http.get("api/formations").then(function(data){
+				//console.log(data)
+				self.formation = [];
+				Array.prototype.push.apply(self.formation,data.data)
+			},
+			function(){
+				console.log("erreur!!")
+			});
+
+				self.d1 = datepicker.build();
+				self.d2 = datepicker.build();
+				
+				
+				
+				self.actionEnregistrer = function() {
+					var session = {
+							formation: self.SessionFormation.id,
+							debut: $filter('date')(self.d1.dt,"dd/MM/yyyy") + "|" + self.heureDebut,
+							fin:  $filter('date')(self.d2.dt,"dd/MM/yyyy") + "|" + self.heureFin,
+							lieu: self.lieuFormation
+					};
+				
+					console.log("ma formation est: ",session);
+					
+						$http.post("api/sessions", self.session).success(function(data){
+								 if(data == "true" || data == true) {
+									 document.location.href = 'pageblanche.html';
+								 }
+						});
+				}
+			
+			
+			
+			console.log("test DS");
+			
+			// Horaire
+			function pad2(number) {
+				   return (number < 10 ? '0' : '') + number
+				}
+			
+			var myTab =[];
+				var debutH=8; var finH=18; var pas=30; var finM=30; var debutM=0;
+				var nbPasHeure = 60/pas;
+				var nbPasHeures = (finH-debutH)*nbPasHeure;
+				var nbPasMinutes = (finM-debutM)/pas;
+
+				for(var compteur=0; compteur<(nbPasHeures+nbPasMinutes); compteur++)
+					{
+						myTab.push(pad2((debutH + Math.floor(compteur/nbPasHeure))).toString() + ":" + pad2((compteur%nbPasHeure*pas)).toString());
+					}
+
+				self.monTab = myTab;
 		
+				}]);
+

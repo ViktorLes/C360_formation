@@ -59,28 +59,22 @@
 		app.controller('MyCtrl', function($http) {
 			var self = this;
 			
-			self.actionEnregistrer = function(data) {
-				$http.post("api/collaborateurs", data).success(function(d){
-			  		console.log(d);
-				});
-		    };
-		    
-		    self.obj = function(matricule, nom, prenom){
-				self.actionEnregistrer({matricule: matricule, nom: nom, prenom: prenom});
-			};
-			/*
-			self.obj("      ","      ","         ");
-			self.obj("","","");
-			self.obj("MMMM","THOMASÉéééùùùçäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄ","ÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒLECOMTEÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ");
-			self.obj("mkkq06625","THOMAS","LECOMTE");
-			self.obj("mkkq","THOMAS","LECOMTE");
-			self.obj("ézdds","","");
-			self.obj("mkkq","===","kji");
-			self.obj("KJK456","lol","kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-			self.obj("KJK457","mdr","kkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-		    
-		    */
-			self.obj("KJK457","mdr","kkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+			 var data = {
+					formation: 1,
+			 		//firstDay: "1993-04-30",
+			 		//lastDay: "1993-04-30",
+			 		//firstTime: "10:10",
+			 		//lastTime: "10:10", 
+		        	lieu: "Paris"
+			}; 
+			
+			//var data = {message:"message"};
+			
+			console.log(data);
+			
+			$http.post("api/sessions", data).success(function(d){
+		  		console.log(d);
+			});
 			
 		});
  	</script>

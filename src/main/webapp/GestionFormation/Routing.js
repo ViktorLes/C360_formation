@@ -1,4 +1,4 @@
-var routeApp = angular.module('routeApp', [
+var routeApp = angular.module('App', [
     // Dépendances du "module"
     'ngRoute',
     'GestForController']);
@@ -7,7 +7,7 @@ routeApp.config(['$routeProvider',function($routeProvider) {
                      // Système de routage
                      $routeProvider
                      .when('/EnregistrementCollaborateur', {
-                         templateUrl: 'templates/EnregistrementCollaborateur.jsp',
+                          templateUrl: 'templates/EnregistrementCollaborateur.jsp',
                          controller: 'CtrlCol',
                          controllerAs:'EC'
                      })
@@ -15,6 +15,11 @@ routeApp.config(['$routeProvider',function($routeProvider) {
                          templateUrl: 'templates/DeclarationFormation.jsp',
                          controller: 'CtrlFor',
                          controllerAs:'DF'
+                     })
+                     .when('/DeclarationSession', {
+                         templateUrl: 'templates/DeclarationSession.jsp',
+                         controller: 'CtrlSes',
+                         controllerAs:'DS'
                      });
                      /*
                      .otherwise({
