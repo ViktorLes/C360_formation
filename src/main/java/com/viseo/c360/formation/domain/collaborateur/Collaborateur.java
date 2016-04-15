@@ -8,11 +8,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
-
 @Entity
 public class Collaborateur {
 		
@@ -45,7 +40,6 @@ public class Collaborateur {
 	
 	public Collaborateur() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public long getId() {

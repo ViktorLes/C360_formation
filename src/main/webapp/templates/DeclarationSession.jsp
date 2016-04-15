@@ -1,14 +1,12 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	    pageEncoding="UTF-8"%>
-	
-	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-	<%-- 
-	<%@ page import="com.viseo.c360.session.domain.session.Session" %>
+
+	 <%@ page import="com.viseo.c360.formation.domain.formation.SessionFormation" %>
 	<%! 
 		
-		String regexNomsession = "\"/^"+Session.regexNomsession+"+$/\""; 
-		String regexDate = "\"/^"+Session.regexDate+"+$/\""; 
-	%> --%>
+		 String regexFormationSession = "\"/^"+SessionFormation.regextitreFormation+"+$/\""; 
+		String regexDate = "\"/^"+SessionFormation.regexDate+"+$/\""; 
+	%> 
 	<!-- CSS -->
 		
 	<div class="row"> 
@@ -17,7 +15,7 @@
 	 
 	 <div class="col-md-4">
 		<div class="panel panel-default">
-		
+			
 			  <div class="panel-heading">
 			    <h3 class="panel-title">Déclaration d'une session</h3>
 			  </div>
@@ -26,51 +24,84 @@
 				  <form name="sessionForm" ng-submit="DS.actionEnregistrer()" novalidate>
 				
 				 <!-- Nom de la Formation -->
-				   <div>
-				   	<label>Nom de la formation: </label>
-				    <select name="Formation"></select>
-				    </div>
-				    
-				     <!-- Date de la session -->
-					 <div>
-				     <label>Date de la formation: </label>
-					<!-- <input type="date" data-uk-datepicker="{format:'DD.MM.YYYY'}" id="exampleInput" name="datedebut" placeholder="jj/mm/aaaa" min="2016-01-01" max="2016-12-31" required />   -->
-					   <div>
-		      		 <div>
-					    <input type="text" ng-model="date" class="datepicker"></input>
+				    <div class="form-group">
+				   	<h5> <span class="label label-default">Nom de la formation: </span></h5>
+				   	   <select class="selectpicker form-control" name="titre" ng-model="DS.SessionFormation.id">
+				   	   	 <option ng-repeat="titre in DS.formation track by $index" value="{{titre.id}}">{{titre.titreformation}}</option>
+				   	   </select>
 					</div>
-					<label>au</label>
-					 <input type="date" id="exampleInput" name="datefin" placeholder="jj/mm/aaaa" min="2016-01-01" max="2016-12-31" required />
-				   	<calendar selected="day"></calendar>
-				    <!--  <span class="error" ng-show="sessionForm.input.$error.required">Date Valide!</span>
-				     <span class="error" ng-show="sessionForm.input.$error.date">Date Invalide!</span> -->
-					</div>
-	
-				      <!-- Heure de la session -->
-				    <div>
-					 <label>Heure du Debut: (1er Jour)</label>
-				     <select name="HeureDebut">
+					
+			 <!-- Date -->
+				<!-- d1 -->
+				     <div class="form-group">
+				     <h5> <span class="label label-default">Date (JJ/MM/AAAA): </span></h5>
+				      <div class="col-md-6">
+				        <p class="input-group">
+
+				          <input type="text" name="date1"  ng-pattern= '^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((1[6-9]|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$'
+				                 class="form-control" uib-datepicker-popup="dd/MM/yyyy"  ui-date="{ dateFormat: 'dd/MM/yyyy' }" ng-model="DS.d1.dt" ng-trim="true" ng-click="DS.d1.open1()" is-open="DS.d1.popup1.opened" datepicker-options="DS.d1.dateOptions" ng-required="true" close-text="Close" alt-input-formats="DS.d1.altInputFormats" />
+				          <span class="input-group-btn">
+				            <button type="button" class="btn btn-default" ng-click="DS.d1.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+				          </span>
+				           <div class="alert alert-warning" ng-show="sessionForm.date1.$error.required">
+ 							 <strong>Attention : </strong> Veuillez saisir une date
+							</div>
+							<div class="alert alert-danger" ng-show="sessionForm.date1.$error.pattern && sessionForm.date1.$dirty || sessionForm.date1.$invalid">
+							  <strong></strong> Date invalide! Saisissez une date sous le format : (JJ/MM/AAAA)
+							</div>
+				        </p>
+				      </div>
+				   </div>
+				<!-- d2 -->   
+				     <div class="form-group">
+				      <div class="col-md-6">
+				        <p class="input-group">
+
+				          <input type="text" name="date2"  ng-pattern= '^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((1[6-9]|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$' 
+				          		 class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="DS.d2.dt" ng-click="DS.d2.open1()" is-open="DS.d2.popup1.opened" datepicker-options="DS.d2.dateOptions" ng-required="true" close-text="Close" alt-input-formats="DS.d2.altInputFormats" />				          
+				          <span class="input-group-btn">
+				            <button type="button" class="btn btn-default" ng-click="DS.d2.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+<!-- 				         	      <p ng-show="sessionForm.date.$invalid && sessionForm.date.$dirty" class="help-block">Date Invalide: Veuillez saisir une date sous le format (JJ/MM/AAAA)</p>
+ -->				           </span>
+				           <div class="alert alert-warning" ng-show="sessionForm.date2.$error.required">
+ 							 <strong>Attention :</strong> Veuillez saisir une date
+							</div>
+							<div class="alert alert-danger" ng-show="sessionForm.date2.$error.pattern && sessionForm.date2.$dirty || sessionForm.date2.$invalid">
+							  <strong></strong> Date invalide! Saisissez une date sous le format : (JJ/MM/AAAA)
+							</div>
+
+				        </p>
+				      </div>
+				   
+					      <!-- Heure de la session -->
+				     <div class="form-group">
+				        <h5> <span class="label label-default">Heure du Debut: (1er Jour)</span></h5>
+				     <select class="selectpicker form-control" ng-model="DS.heureDebut">
 				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
 				     </select>
-				    </div>
-				    
-				    <div>
-					 <label>Heure de Fin: (Dernier Jour)</label>
-				     <select name="HeureFin" >
-				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
+				   	</div>
+				   	
+ 				    <div class="form-group">
+				        <h5> <span class="label label-default">Heure de fin: (Dernier Jour)</span></h5>
+     					 <select class="selectpicker form-control" ng-model="DS.heureFin">
+ 				   	<option ng-repeat="horaire in DS.monTab track by $index"> {{horaire}}</option> 
 				     </select>
 				    </div>
-				    
+		 
 				    <!-- Lieu de la session -->
-				    <div>
-					 <label>Lieu: </label>
-				     <select name="Lieu">
+				    <div class="form-group">
+				        <h5> <span class="label label-default">Lieu</span></h5>
+     					 <select class="selectpicker form-control" ng-model="DS.lieuFormation">
 				     	<option>Salle Phuket</option>
 				     	<option>Salle Bali</option>
-				     </select>
+     				     </select>
 				    </div>
-				    <button type="submit" class="btn btn-primary" ng-disabled="sessionForm.$invalid">Enregistrer</button>
-				  </form>
+				  
+				     <div class="alert alert-danger" role="alert" ng-show="sessionForm.$invalid && sessionForm.$dirty">
+			     	 Veuillez remplir correctement tous les champs
+			    	</div> 
+			    	
+				    <button type="submit" class="btn btn-primary" ng-disabled="sessionForm.$invalid">Enregistrer</button>				  </form>
 				  </div>
 			</div>
 		</div>
