@@ -97,10 +97,10 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				
 					console.log("ma formation est: ",session);
 					
-						$http.post("api/sessions", self.session).success(function(data){
-								 if(data == "true" || data == true) {
-									 document.location.href = 'pageblanche.html';
-								 }
+						$http.post("api/sessions", session).success(function(data){
+							if(data == "true" || data == true) {
+								document.location.href = 'pageblanche.html';
+							}
 						});
 				}
 		

@@ -8,14 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.viseo.c360.json.deserializer.formation.SessionFormationDeserializer;
-
-
 
 @JsonDeserialize(using = SessionFormationDeserializer.class)
 @Entity
