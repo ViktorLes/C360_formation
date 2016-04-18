@@ -4,9 +4,5 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-<<<<<<< HEAD
-    <orderEntry type="library" name="C360 node_modules" level="project" />
-=======
->>>>>>> 0ccd215bf6ea0e94906aef960ffb1f81a8beb167
   </component>
 </module>
