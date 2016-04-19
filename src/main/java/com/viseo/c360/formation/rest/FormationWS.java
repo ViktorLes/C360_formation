@@ -29,12 +29,12 @@ public class FormationWS {
 		
 		if(!(bindingResult.hasErrors()) 
 		&& !formationDAO.isFormationAlreadySaved(myFormation.getTitreformation())){
+
 			formationDAO.addFormation(myFormation);
-			return true;
-		}
+	
 		return false;
     }
-	
+	}
 	@RequestMapping(value = "${endpoint.formations}", method = RequestMethod.GET)
 	@ResponseBody
     public List<Formation> ReadFormation(){	

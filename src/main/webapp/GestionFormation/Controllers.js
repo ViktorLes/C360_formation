@@ -3,10 +3,19 @@
 var GestForApp = angular.module('GestForController', ['Datepicker']);
 		
 		//Controleur DeclarationFromation		
+<<<<<<< HEAD
+		GestForApp.controller('CtrlFor', ['$http', '$scope',function($http, $scope) {
+			var self = this;
+			//self.scope=$scope;
+			self.regexTitredelaformation = "/^[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]+$/";
+			self.regexnombredemijournee = "/^[0-9]+$/";
+			
+=======
 		GestForApp.controller('CtrlFor', ['$http',function($http) {
 		
 			var self = this;
 						
+>>>>>>> b4169f785023fbd5e0ee4a48795428f916d53cb9
 			self.isNewTitleFormation = true;
 
 			self.actionEnregistrer = function() {
@@ -26,10 +35,13 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		
 
 		// Controleur EnregistrementCollab
-		GestForApp.controller('CtrlCol', ['$http',function($http) {
+		GestForApp.controller('CtrlCol',['$http','$compile',function($http,$compile) {
 			var self = this;
+			self.regexMatricule = "/^[A-Z0-9]+$/";
+			self.regexNom = "/^[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]+$/";
+			self.regexPrenom = "/^[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]+$/";
 			
-			self.isNewMatricule = "true";	
+			self.isNewMatricule = "true";
 			self.actionEnregistrer = function() {
 				
 				//delete useless spaces between words 
