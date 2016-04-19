@@ -12,12 +12,12 @@ describe('first tests !', function () {
   var backend;
 
 
-  beforeEach(inject(function($controller, $httpBackend, $compile) {
+  beforeEach(inject(function($controller, $httpBackend, $compile, $templateCache) {
     backend = $httpBackend;
     ctrl = $controller('MainCtrl');
 
-    var html = null;//get template in var template = ...;
-    $templateCache.get('.html');
+    var html = $templateCache.get('templates/EnregistrementCollaborateur.html');
+    backend.flush();
     var template = angular.element(html);
     scope = template.scope();
     var linkFn = $compile(template);
@@ -29,5 +29,11 @@ describe('first tests !', function () {
     
     expect(4).toBe(4);
   });
+  
+  it('test template', function () {
+	    
+	   
+  });
+  
 });
 
