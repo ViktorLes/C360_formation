@@ -1,3 +1,4 @@
+
 //describe('first tests !', function () {
   //it('should works because 3 = 3', function () {
     //expect(4).toBe(4);
@@ -22,6 +23,16 @@ describe('GF1', function() {
 
     ctrl = $controller('CtrlCol');
 
+    /*
+     *     var html = $templateCache.get('templates/EnregistrementCollaborateur.html');
+    backend.flush();
+    var template = angular.element(html);
+    scope = template.scope();
+    var linkFn = $compile(template);
+    element = linkFn(scope);
+    form = element.find("form");
+     */
+    
    //$http.get('templates/EnregistrementCollaborateur.html').then(function(html) {
     var html = $templateCache.get('templates/EnregistrementCollaborateur.html');
     //var template = angular.element($templateCache.get('templates/EnregistrementCollaborateur.html')[1]);
@@ -29,9 +40,9 @@ describe('GF1', function() {
       var linkFn = $compile(template);
       element = linkFn(scope);
       form = element.find("form");
-    });
+    }));
 
-  }));
+ 
 
   describe('Test Enregistrement',function () {
     beforeEach(function () {
@@ -55,6 +66,9 @@ describe('GF1', function() {
       backend.flush();
       expect(ctrl.isNewMatricule).toBeFalsy();
     });
+
   });
+  
 });
+
 

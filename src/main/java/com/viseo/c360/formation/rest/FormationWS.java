@@ -31,9 +31,9 @@ public class FormationWS {
 		&& !formationDAO.isFormationAlreadySaved(myFormation.getTitreformation())){
 
 			formationDAO.addFormation(myFormation);
-	
-		return false;
+		return true;
     }
+		return false;
 	}
 	@RequestMapping(value = "${endpoint.formations}", method = RequestMethod.GET)
 	@ResponseBody
