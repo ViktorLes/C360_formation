@@ -3,14 +3,17 @@ describe('GF1', function() {
   var backend;
 
   beforeEach(module('App'));
+  beforeEach(module('ngAnimate'));
+  beforeEach(module('ui.bootstrap'));
+  beforeEach(module('Datepicker'));
   beforeEach(module('ngMock'));
   beforeEach(module('ngMockE2E'));
-/*
+
   beforeEach(inject(function($controller, $httpBackend){
     backend = $httpBackend;
     ctrl = $controller('CtrlCol');
     }));
-
+/*
   describe('Test Enregistrement',function () {
 
     beforeEach(function () {
