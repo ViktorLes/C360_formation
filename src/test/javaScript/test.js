@@ -2,16 +2,14 @@ describe('GF1', function() {
   var ctrl;
   var backend;
 
-  beforeEach(module('routeApp'));
+  beforeEach(module('App'));
   beforeEach(module('ngMock'));
   beforeEach(module('ngMockE2E'));
-
-  beforeEach(inject(function ($controller, $httpBackend, $http, $templateCache){
+/*
+  beforeEach(inject(function($controller, $httpBackend){
     backend = $httpBackend;
     ctrl = $controller('CtrlCol');
     }));
-
- 
 
   describe('Test Enregistrement',function () {
 
@@ -39,7 +37,11 @@ describe('GF1', function() {
     });
 
   });
-  
+  */
+  it("3 = 3", function(){
+      expect(3).toBe(3);
+  });
+
 });
 
 
