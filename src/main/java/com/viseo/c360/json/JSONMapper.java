@@ -14,7 +14,7 @@ public class JSONMapper extends ObjectMapper {
         SimpleModule module = new SimpleModule("JSONModule", new Version(2, 0, 0, null, null, null));
        
         //module.addSerializer(Formation.class, new FormationSerializer());
-       // module.addDeserializer(SessionFormation.class, new SessionFormationDeserializer());
+        module.addDeserializer(SessionFormation.class, new SessionFormationDeserializer());
         
         // Add more here ...
         registerModule(module);

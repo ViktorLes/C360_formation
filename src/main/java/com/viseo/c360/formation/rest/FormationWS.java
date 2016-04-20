@@ -48,7 +48,7 @@ public class FormationWS {
 		
 		if(!(bindingResult.hasErrors() )
 		&& !formationDAO.isThereOneSessionFormationAlreadyPlanned(mySessionFormation) 
-		//&& formationDAO.hasCorrectDates(mySessionFormation)
+		&& formationDAO.hasCorrectDates(mySessionFormation)
 		){
 			
 			formationDAO.addSessionFormation(mySessionFormation);
