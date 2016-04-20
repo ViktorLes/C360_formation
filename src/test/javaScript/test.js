@@ -3,18 +3,18 @@ describe('GF1', function() {
   var backend;
 
   beforeEach(module('App'));
+  beforeEach(module('ngMock'));
+  beforeEach(module('ngMockE2E'));
   beforeEach(module('ngAnimate'));
   beforeEach(module('ui.bootstrap'));
   beforeEach(module('Datepicker'));
-  beforeEach(module('ngMock'));
-  beforeEach(module('ngMockE2E'));
-
+ 
   beforeEach(inject(function($controller, $httpBackend){
     backend = $httpBackend;
     ctrl = $controller('CtrlCol');
     }));
-/*
-  describe('Test Enregistrement',function () {
+
+  describe('Test EnregistrementCollaborateur',function () {
 
     beforeEach(function () {
       ctrl.collaborateur = {};
@@ -22,9 +22,8 @@ describe('GF1', function() {
       ctrl.collaborateur.prenom = "ddsfs";
       ctrl.collaborateur.matricule = "BB554";
     });
-
-
-
+    
+    
     it('Valide', function () {
       ctrl.actionEnregistrer();
       backend.expectPOST('api/collaborateurs').respond('true');
@@ -40,11 +39,8 @@ describe('GF1', function() {
     });
 
   });
-  */
-  it("3 = 3", function(){
-      expect(3).toBe(3);
-  });
 
 });
+
 
 
