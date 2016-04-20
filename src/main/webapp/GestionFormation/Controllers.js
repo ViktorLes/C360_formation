@@ -8,7 +8,16 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 			var self = this;
 						
 			self.isNewTitleFormation = true;
-
+			self.isFalseForm = false;
+			
+			self.verifierForm=function(formationForm){
+				if(formationForm.$invalid == false){
+					self.actionEnregistrer();
+				}
+				else{
+					self.isFalseForm = true;
+				}
+			}
 			self.actionEnregistrer = function() {
 				self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
 				//self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, "");
@@ -29,7 +38,17 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlCol', ['$http',function($http) {
 			var self = this;
 			
-			self.isNewMatricule = "true";	
+			self.isNewMatricule = "true";
+			self.isFalseForm = false;
+			
+			self.verifierForm=function(collaborateurForm){
+				if(collaborateurForm.$invalid == false){
+					self.actionEnregistrer();
+				}
+				else{
+					self.isFalseForm = true;
+				}
+			}
 			self.actionEnregistrer = function() {
 				
 				//delete useless spaces between words 

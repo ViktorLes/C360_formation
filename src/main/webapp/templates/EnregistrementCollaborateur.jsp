@@ -22,7 +22,7 @@
 		  </div>
 		  
 		  <div class="panel-body">
-			  <form name="collaborateurForm" ng-submit="EC.actionEnregistrer()" novalidate>
+			  <form name="collaborateurForm" ng-submit="EC.verifierForm(collaborateurForm)" novalidate>
 			
 			   		    <!-- MATRICULE -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty }">
@@ -43,7 +43,7 @@
 			      <p ng-show="collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty" class="help-block">Veuillez entrer un prénom valide</p>
 			    </div>
 			
-			    <div class="alert alert-danger" role="alert" ng-show="collaborateurForm.$invalid && collaborateurForm.$dirty">
+			    <div class="alert alert-danger" role="alert" ng-show="EC.isFalseForm">
 			      Veuillez remplir tous les champs
 			    </div>
 			    
@@ -51,7 +51,7 @@
 			      Ce matricule a déjà été enregistré
 			    </div> 
 			    
-			    <button type="submit" class="btn btn-primary" ng-disabled="collaborateurForm.$invalid">Enregistrer</button>		
+			    <button type="submit" class="btn btn-primary" >Enregistrer</button>			
 			  </form>
 		  </div>
 		  
