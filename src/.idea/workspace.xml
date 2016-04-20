@@ -24,8 +24,8 @@
       <file leaf-file-name="test.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/javaScript/test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="16" column="44" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+            <state relative-caret-position="528">
+              <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -34,9 +34,13 @@
       <file leaf-file-name="Controllers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/webapp/GestionFormation/Controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="594">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+              <folding>
+                <marker date="1461147625107" expanded="true" signature="1577:1586" placeholder="{...}" />
+                <marker date="1461147625107" expanded="true" signature="1577:1632" placeholder="{...}" />
+                <marker date="1461147625107" expanded="true" signature="1577:1647" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -267,44 +271,44 @@
       <workItem from="1460447960048" duration="1931000" />
       <workItem from="1460540188638" duration="141000" />
       <workItem from="1461084045848" duration="175000" />
-      <workItem from="1461142920451" duration="3526000" />
+      <workItem from="1461142920451" duration="5085000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="C360 - 2016.04.20 at 11h 35m 33s.xml">
-      <configuration name="C360" configurationId="JavaScriptTestRunnerKarma" />
-    </history-entry>
-    <history-entry file="C360 - 2016.04.20 at 11h 36m 12s.xml">
-      <configuration name="C360" configurationId="JavaScriptTestRunnerKarma" />
-    </history-entry>
-    <history-entry file="C360 - 2016.04.20 at 11h 37m 50s.xml">
-      <configuration name="C360" configurationId="JavaScriptTestRunnerKarma" />
-    </history-entry>
-    <history-entry file="C360 - 2016.04.20 at 11h 40m 13s.xml">
-      <configuration name="C360" configurationId="JavaScriptTestRunnerKarma" />
-    </history-entry>
-    <history-entry file="C360 - 2016.04.20 at 11h 44m 05s.xml">
-      <configuration name="C360" configurationId="JavaScriptTestRunnerKarma" />
-    </history-entry>
-    <history-entry file="C360 - 2016.04.20 at 11h 44m 33s.xml">
-      <configuration name="C360" configurationId="JavaScriptTestRunnerKarma" />
-    </history-entry>
-    <history-entry file="C360 - 2016.04.20 at 11h 47m 58s.xml">
-      <configuration name="C360" configurationId="JavaScriptTestRunnerKarma" />
-    </history-entry>
-    <history-entry file="Test_Karma-Jasmine - 2016.04.20 at 11h 48m 48s.xml">
-      <configuration name="Test Karma-Jasmine" configurationId="JavaScriptTestRunnerKarma" />
-    </history-entry>
-    <history-entry file="Test_Karma-Jasmine - 2016.04.20 at 11h 58m 40s.xml">
-      <configuration name="Test Karma-Jasmine" configurationId="JavaScriptTestRunnerKarma" />
-    </history-entry>
     <history-entry file="Test_Karma-Jasmine - 2016.04.20 at 11h 58m 42s.xml">
+      <configuration name="Test Karma-Jasmine" configurationId="JavaScriptTestRunnerKarma" />
+    </history-entry>
+    <history-entry file="Test_Karma-Jasmine - 2016.04.20 at 12h 03m 10s.xml">
+      <configuration name="Test Karma-Jasmine" configurationId="JavaScriptTestRunnerKarma" />
+    </history-entry>
+    <history-entry file="Test_Karma-Jasmine - 2016.04.20 at 12h 05m 11s.xml">
+      <configuration name="Test Karma-Jasmine" configurationId="JavaScriptTestRunnerKarma" />
+    </history-entry>
+    <history-entry file="Test_Karma-Jasmine - 2016.04.20 at 12h 05m 36s.xml">
+      <configuration name="Test Karma-Jasmine" configurationId="JavaScriptTestRunnerKarma" />
+    </history-entry>
+    <history-entry file="Test_Karma-Jasmine - 2016.04.20 at 12h 05m 52s.xml">
+      <configuration name="Test Karma-Jasmine" configurationId="JavaScriptTestRunnerKarma" />
+    </history-entry>
+    <history-entry file="Test_Karma-Jasmine - 2016.04.20 at 12h 10m 07s.xml">
+      <configuration name="Test Karma-Jasmine" configurationId="JavaScriptTestRunnerKarma" />
+    </history-entry>
+    <history-entry file="Test_Karma-Jasmine - 2016.04.20 at 12h 20m 40s.xml">
+      <configuration name="Test Karma-Jasmine" configurationId="JavaScriptTestRunnerKarma" />
+    </history-entry>
+    <history-entry file="Test_Karma-Jasmine - 2016.04.20 at 12h 22m 09s.xml">
+      <configuration name="Test Karma-Jasmine" configurationId="JavaScriptTestRunnerKarma" />
+    </history-entry>
+    <history-entry file="Test_Karma-Jasmine - 2016.04.20 at 12h 26m 16s.xml">
+      <configuration name="Test Karma-Jasmine" configurationId="JavaScriptTestRunnerKarma" />
+    </history-entry>
+    <history-entry file="Test_Karma-Jasmine - 2016.04.20 at 12h 27m 04s.xml">
       <configuration name="Test Karma-Jasmine" configurationId="JavaScriptTestRunnerKarma" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5823000" />
+    <option name="totallyTimeSpent" value="7382000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -324,9 +328,9 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295711" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295711" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295711" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295711" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5045147" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -395,16 +399,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main/webapp/GestionFormation/Controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="594">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding>
+            <marker date="1461147625107" expanded="true" signature="1577:1586" placeholder="{...}" />
+            <marker date="1461147625107" expanded="true" signature="1577:1632" placeholder="{...}" />
+            <marker date="1461147625107" expanded="true" signature="1577:1647" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/javaScript/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="44" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+        <state relative-caret-position="528">
+          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
           <folding />
         </state>
       </provider>

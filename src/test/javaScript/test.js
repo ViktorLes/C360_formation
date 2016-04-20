@@ -1,16 +1,13 @@
 describe('GF1', function() {
   var ctrl;
   var backend;
+  var loc;
 
   beforeEach(module('App'));
-  beforeEach(module('ngMock'));
-  beforeEach(module('ngMockE2E'));
-  beforeEach(module('ngAnimate'));
-  beforeEach(module('ui.bootstrap'));
-  beforeEach(module('Datepicker'));
  
-  beforeEach(inject(function($controller, $httpBackend){
+  beforeEach(inject(function($controller, $httpBackend, $location){
     backend = $httpBackend;
+    loc = $location;
     ctrl = $controller('CtrlCol');
     }));
 
@@ -22,6 +19,11 @@ describe('GF1', function() {
       ctrl.collaborateur.prenom = "ddsfs";
       ctrl.collaborateur.matricule = "BB554";
     });
+
+    afterEach(function(){
+      backend.verifyNoOutstandingExpectation();
+      backend.verifyNoOutstandingRequest();
+    });
     
     
     it('Valide', function () {
@@ -29,6 +31,7 @@ describe('GF1', function() {
       backend.expectPOST('api/collaborateurs').respond('true');
       backend.flush();
       expect(ctrl.isNewMatricule).toBeTruthy();
+      //expect(loc.path()).toEqual('pageblanche.html');
     });
 
     it('Invalide', function () {
@@ -36,6 +39,7 @@ describe('GF1', function() {
       backend.expectPOST('api/collaborateurs').respond('false');
       backend.flush();
       expect(ctrl.isNewMatricule).toBeFalsy();
+      //expect(loc.path()).toEqual('#/EnregistrementCollaborateur');
     });
 
   });
