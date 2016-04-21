@@ -105,8 +105,19 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				
 				
 				self.lieuFormation = 'Salle Phuket';
+				self.isFalseForm = false;
+				
+				self.verifierForm=function(sessionForm){
+					if(sessionForm.$invalid == false){
+						self.actionEnregistrer();
+					}
+					else{
+						self.isFalseForm = true;
+					}
+				}
 				
 				/*** Enregistrement SessionFormation ***/
+				
 				self.actionEnregistrer = function() {
 					var session = {
 							formation: self.SessionFormationId,
