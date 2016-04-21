@@ -61,8 +61,8 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 
 			self.d1 = datepicker.build();
 			self.d2 = datepicker.build();
-			self.heureDebut ;
-			self.heureFin;
+			
+			
 				function initHoraireTab(){
 			
 					function pad2(number) {
@@ -87,12 +87,9 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				
 				self.lieuFormation = 'Salle Phuket';
 				
-				
-				
-				self.isCorrectDate = false;
-
-				self.DateCorrect = function(d1,d2) {
-					if (self.d1.dt<self.d2.dt){
+			
+				self.DateCorrect = function(heureDebut,heureFin) {
+					if ((self.d1.dt < self.d2.dt)||(self.heureDebut < self.heureFin)){
 						 return true;
 					}
 					else
@@ -100,7 +97,18 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 						return false;
 						}
 				}
+				
+				self.isWeekENDD2 = function(){
+					return (self.d2.dt.getDay()== 0 || self.d2.dt.getDay()== 6);
+				}
+				
+				self.isWeekENDD1 = function(){
+					return (self.d1.dt.getDay()== 0 || self.d1.dt.getDay()== 6);
+				}
 
+				self.showForm = function(form){
+					console.log("showForm >>>>>>>>>>>>>>>>>>>>>",form)
+				}
 				
 				/*** Enregistrement SessionFormation ***/
 				self.actionEnregistrer = function() {

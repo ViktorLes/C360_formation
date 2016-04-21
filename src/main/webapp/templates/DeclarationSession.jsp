@@ -44,10 +44,14 @@
 				           <div class="alert alert-warning" ng-show="sessionForm.date1.$error.required">
  							 <strong>Attention : </strong> Veuillez saisir une date
 							</div>
+							<div class="alert alert-warning" ng-show="DS.isWeekENDD1()">
+ 							 <strong>Attention :</strong> Le jour selectionné est un jour non ouvrable! 
+							</div>
 							<div class="alert alert-danger" ng-show="sessionForm.date1.$error.pattern && sessionForm.date1.$dirty || sessionForm.date1.$invalid">
 							  <strong></strong> Date invalide! Saisissez une date sous le format : (JJ/MM/AAAA)
 							</div>
-				         </p>
+						
+				         </p>         
 				      </div>	  
 				  
 				<!-- HEURE DEBUT !!!!!!!!!!!!!!!! --> 
@@ -73,7 +77,10 @@
 				           <div class="alert alert-warning" ng-show="sessionForm.date2.$error.required">
  							 <strong>Attention :</strong> Veuillez saisir une date
 							</div>
-							<div class="alert alert-danger" ng-show="sessionForm.date2.$error.pattern && sessionForm.date2.$dirty || sessionForm.date2.$invalid">
+							<div class="alert alert-warning" ng-show="DS.isWeekENDD2()">
+ 							 <strong>Attention :</strong> Le jour selectionné est un jour non ouvrable! 
+							</div>
+							<div class="alert alert-danger" ng-show="sessionForm.date2.$error.pattern &&   sessionForm.date2.$invalid">
 							  <strong></strong> Date invalide! Saisissez une date sous le format : (JJ/MM/AAAA)
 							</div>
 				        </p>
@@ -95,11 +102,16 @@
 				     		<option>Salle Bali</option>
      				     </select>
 				    </div>
-				  
+				    
+				    <!--    <div class="alert alert-danger" role="alert" ng-show="sessionForm.$invalid && sessionForm.$dirty">
+					      Veuillez remplir tous les champs
+					    </div>
+			    
+				   -->
 			    	 <div class="alert alert-danger" role="alert" ng-show="!DS.isSessionAlreadyPlanned">
 					     Il existe déjà une session pour cette formation dans ces tranches horaires.
 					 </div>  
-					 <div class="alert alert-danger" role="alert" ng-show="!DS.DateCorrect(d1,d2)">
+					 <div class="alert alert-danger" role="alert" ng-show="!DS.DateCorrect(d1,d2,heureDebut,heureFin)">
 					     Veuillez choisir une date de fin superieure à la date de debut.
 					 </div> 
 			    	

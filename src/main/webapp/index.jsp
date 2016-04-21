@@ -8,7 +8,7 @@
 	
 </head>
 
-<body ng-app="App">
+	<body ng-app="App">
 		<header class="bg-primary row">
 			    <div class="col-md-1"></div> 
 				<div id="titreAppliquette" class="col-md-9">Gestions des formations</div>
@@ -19,31 +19,8 @@
 	<a href="#/DeclarationFormation">DF</a>	
 	<a href="#/DeclarationSession">DS</a>	
 	<div ng-view></div>
-	
-<!-- <div ng-controller="DatepickerDemoCtrl as ctrl">
-d1
-    <div class="row">
-      <div class="col-md-6">
-        <p class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="ctrl.d1.dt" ng-click="ctrl.d1.open1()" is-open="ctrl.d1.popup1.opened" datepicker-options="ctrl.d1.dateOptions" ng-required="true" close-text="Close" alt-input-formats="ctrl.d1.altInputFormats" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="ctrl.d1.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-        </p>
-      </div>
-   
-d2   
-      <div class="row">
-      <div class="col-md-6">
-        <p class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="ctrl.d2.dt" ng-click="ctrl.d2.open1()" is-open="ctrl.d2.popup1.opened" datepicker-options="ctrl.d2.dateOptions" ng-required="true" close-text="Close" alt-input-formats="ctrl.d2.altInputFormats" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="ctrl.d2.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-        </p>
-      </div>
-    </div>
-   -->
+
+ 
   	<!-- JS -->
     <script src="lib/angular.js"></script>
     <script src="lib/angular-animate.js"></script> 
