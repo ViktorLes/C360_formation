@@ -21,7 +21,9 @@
 			  </div>
 			  
 			  <div class="panel-body">
-				  <form name="sessionForm" ng-submit="DS.actionEnregistrer()" novalidate class="from-inline">
+
+				  <form name="sessionForm" ng-submit="DS.verifierForm(sessionForm)" novalidate>
+
 				
 				 <!-- Nom de la Formation -->
 				    <div class="form-group">
@@ -103,11 +105,7 @@
      				     </select>
 				    </div>
 				    
-				    <!--    <div class="alert alert-danger" role="alert" ng-show="sessionForm.$invalid && sessionForm.$dirty">
-					      Veuillez remplir tous les champs
-					    </div>
-			    
-				   -->
+			
 			    	 <div class="alert alert-danger" role="alert" ng-show="!DS.isSessionAlreadyPlanned">
 					     Il existe déjà une session pour cette formation dans ces tranches horaires.
 					 </div>  
@@ -115,8 +113,11 @@
 					     Veuillez choisir une date de fin superieure à la date de debut.
 					 </div> 
 			    	
-				    <button type="submit" class="btn btn-primary" ng-disabled="sessionForm.$invalid">Enregistrer</button>				  </form>
+				      <button type="submit" class="btn btn-primary" >Enregistrer</button>	
+				       <div class="alert alert-danger" role="alert" ng-show="DS.isFalseForm">
+			     	 Veuillez remplir tous les champs		  
 				  </div>
+				  </form>
 			</div>
 		</div>
 	</div>

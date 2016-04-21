@@ -3,12 +3,21 @@
 var GestForApp = angular.module('GestForController', ['Datepicker']);
 		
 		//Controleur DeclarationFromation		
-		GestForApp.controller('CtrlFor', ['$http',function($http) {
+		GestForApp.controller('CtrlFor', ['$http', '$location',function($http, $location) {
 		
 			var self = this;
-						
-			self.isNewTitleFormation = true;
 
+			self.isNewTitleFormation = true;
+			self.isFalseForm = false;
+			
+			self.verifierForm=function(formationForm){
+				if(formationForm.$invalid == false){
+					self.actionEnregistrer();
+				}
+				else{
+					self.isFalseForm = true;
+				}
+			}
 			self.actionEnregistrer = function() {
 				self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
 				//self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, "");
@@ -16,6 +25,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 					if(data == "true" || data == true){
 						self.isNewTitleFormation = true;
 				 		document.location.href = 'pageblancheformation.html';
+				 		//$location.path('pageblancheformation.html');
 					}
 					else {
 						self.isNewTitleFormation = false;
@@ -26,10 +36,22 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		
 
 		// Controleur EnregistrementCollab
-		GestForApp.controller('CtrlCol', ['$http',function($http) {
+		GestForApp.controller('CtrlCol',['$http', '$location',function($http, $location) {
 			var self = this;
+
 			
-			self.isNewMatricule = "true";	
+			self.isNewMatricule = "true";
+			self.isFalseForm = false;
+			
+			self.verifierForm=function(collaborateurForm){
+				if(collaborateurForm.$invalid == false){
+					self.actionEnregistrer();
+				}
+				else{
+					self.isFalseForm = true;
+				}
+			}
+
 			self.actionEnregistrer = function() {
 				
 				//delete useless spaces between words 
@@ -41,6 +63,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 					 if(data == "true" || data == true) {
 						 self.isNewMatricule = true; 
 						 document.location.href = 'pageblanche.html';
+						 //$location.path('pageblanche.html');
 					 }
 					 else self.isNewMatricule = false;
 				});
@@ -86,6 +109,16 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				self.heureFin = self.monTab[0];
 				
 				self.lieuFormation = 'Salle Phuket';
+				self.isFalseForm = false;
+				
+				self.verifierForm=function(sessionForm){
+					if(sessionForm.$invalid == false){
+						self.actionEnregistrer();
+					}
+					else{
+						self.isFalseForm = true;
+					}
+				}
 				
 			
 				self.DateCorrect = function(heureDebut,heureFin) {
@@ -111,6 +144,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				}
 				
 				/*** Enregistrement SessionFormation ***/
+				
 				self.actionEnregistrer = function() {
 					var session = {
 							formation: self.SessionFormationId,
