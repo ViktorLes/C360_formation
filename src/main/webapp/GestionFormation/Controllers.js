@@ -51,7 +51,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlSes', ['DatepickerService','$http','$filter',function(datepicker,$http,$filter) {
 			var self = this;
 			self.isSessionAlreadyPlanned = true;
-			self.hasCorrectDate = true;
+			//self.hasCorrectDate = true;
 			/*** Initialisation des données du formulaires **/
 			$http.get("api/formations").then(function(data){
 				self.formation = [];
@@ -84,8 +84,22 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				self.heureDebut = self.monTab[0];
 				self.heureFin = self.monTab[0];
 				
-				
 				self.lieuFormation = 'Salle Phuket';
+				
+				
+				
+				self.isCorrectDate = false;
+
+				self.DateCorrect = function(d1,d2) {
+					if (self.d1.dt<self.d2.dt){
+						 return true;
+					}
+					else
+						{
+						return false;
+						}
+				}
+
 				
 				/*** Enregistrement SessionFormation ***/
 				self.actionEnregistrer = function() {
@@ -98,13 +112,13 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				
 						$http.post("api/sessions", session).success(function(data){
 							if(data == "true" || data == true) {
-								self.hasCorrectDate = true;
+								//self.hasCorrectDate = true;
 								self.isSessionAlreadyPlanned = true;
 								document.location.href = 'pageblanche.html';
 							}else 
 								{
 								self.isSessionAlreadyPlanned = false;
-								self.hasCorrectDate = false;
+								//self.hasCorrectDate = false;
 								}
 						});
 				}

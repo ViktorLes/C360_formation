@@ -96,14 +96,14 @@
      				     </select>
 				    </div>
 				  
-				     <div class="alert alert-danger" role="alert" ng-show="sessionForm.$invalid && sessionForm.$dirty">
+				    <!--  <div class="alert alert-danger" role="alert" ng-show="sessionForm.$invalid && sessionForm.$dirty">
 			     	 Veuillez remplir correctement tous les champs
-			    	</div> 
+			    	</div>  -->
 			    	
-			    	 <div class="alert alert-danger" role="alert" ng-show="!DS.isSessionAlreadyPlanned">
+			    	<!--  <div class="alert alert-danger" role="alert" ng-show="!DS.isSessionAlreadyPlanned">
 					     Il existe déjà une session pour cette formation dans ces tranches horaires.
-					 </div>  
-					 <div class="alert alert-danger" role="alert" ng-show="!DS.hasCorrectDate">
+					 </div>  --> 
+					 <div class="alert alert-danger" role="alert" ng-show="!DS.DateCorrect(d1,d2)">
 					     Veuillez choisir une date de fin superieure à la date de debut.
 					 </div> 
 			    	
