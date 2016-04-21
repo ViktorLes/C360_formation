@@ -38,8 +38,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		// Controleur EnregistrementCollab
 		GestForApp.controller('CtrlCol',['$http', '$location',function($http, $location) {
 			var self = this;
-<<<<<<< HEAD
-			
+	
 			self.isNewMatricule = "true";
 			self.isFalseForm = false;
 			
@@ -51,10 +50,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 					self.isFalseForm = true;
 				}
 			}
-=======
 
-			self.isNewMatricule = "true";
->>>>>>> a0e7352acd823724d05b271bead435f7e5e3e87f
 			self.actionEnregistrer = function() {
 				
 				//delete useless spaces between words 
