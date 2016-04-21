@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 public class Formation {
 
 	
-	public static final String regexTitreFormation = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+	public static final String regexTitreFormation = "[a-zA-Z.+#0-9-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
 	public static final String regexNombreDemiJournee = "[0-9]";
 	
 		@Id

@@ -7,8 +7,8 @@ routeApp.config(['$routeProvider',function($routeProvider) {
                      // Système de routage
                      $routeProvider
                      .when('/EnregistrementCollaborateur', {
-                          templateUrl: 'templates/EnregistrementCollaborateur.jsp',
-                         controller: 'CtrlCol',
+                         templateUrl: 'templates/EnregistrementCollaborateur.jsp',
+                         controller: 'CtrlCol as EC',
                          controllerAs:'EC'
                      })
                      .when('/DeclarationFormation', {
