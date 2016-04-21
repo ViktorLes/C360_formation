@@ -3,7 +3,6 @@ package com.viseo.c360.formation.domain.formation;
 
 import java.util.Date;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,8 +13,6 @@ import javax.persistence.Version;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.viseo.c360.json.deserializer.formation.SessionFormationDeserializer;
-
-
 
 @JsonDeserialize(using = SessionFormationDeserializer.class)
 @Entity
@@ -38,8 +35,10 @@ public class SessionFormation {
 	@ManyToOne
 	Formation formation;
 	
+	//@Temporal(TemporalType.TIMESTAMP)
 	Date debut;
 	
+	//@Temporal(TemporalType.TIMESTAMP)
 	Date fin;
 	
 	String lieu;

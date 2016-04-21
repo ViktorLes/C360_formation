@@ -29,12 +29,12 @@ public class FormationWS {
 		
 		if(!(bindingResult.hasErrors()) 
 		&& !formationDAO.isFormationAlreadySaved(myFormation.getTitreformation())){
+
 			formationDAO.addFormation(myFormation);
-			return true;
-		}
-		return false;
+		return true;
     }
-	
+		return false;
+	}
 	@RequestMapping(value = "${endpoint.formations}", method = RequestMethod.GET)
 	@ResponseBody
     public List<Formation> ReadFormation(){	
@@ -44,16 +44,16 @@ public class FormationWS {
 	//SessionFormation
 	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addSessionFormation(@Valid @RequestBody String mySessionFormation, BindingResult bindingResult){
-//		
-//		if(!bindingResult.hasErrors() 
-//		&& !formationDAO.isThereOneSessionFormationAlreadyPlanned(mySessionFormation) 
-//		&& formationDAO.hasCorrectDates(mySessionFormation)){
-//			
-//			formationDAO.addSessionFormation(mySessionFormation);
-//			return true;
-//		}
-		System.out.println("test :" + mySessionFormation);
+    public boolean addSessionFormation(@Valid @RequestBody SessionFormation mySessionFormation, BindingResult bindingResult){
+		
+		if(!(bindingResult.hasErrors() )
+		&& !formationDAO.isThereOneSessionFormationAlreadyPlanned(mySessionFormation) 
+		//&& formationDAO.hasCorrectDates(mySessionFormation)
+		){
+			
+			formationDAO.addSessionFormation(mySessionFormation);
+			return true;
+		}
 		return false;
    }
 }	

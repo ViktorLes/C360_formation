@@ -34,7 +34,7 @@ public class SessionFormationDeserializer extends JsonDeserializer<SessionFormat
 	@Override
 	public SessionFormation deserialize(JsonParser parser, DeserializationContext context) throws JsonProcessingException, IOException {
 
-		SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy| HH:mm");
+		SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy|HH:mm");
 		Date debut = null;
 		Date fin = null;
 	

@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.viseo.c360.formation.domain.formation.Formation" %>
+
 <%! 
 	String regexnombredemijournee = "\"/^"+Formation.regexNombreDemiJournee+"+$/\""; 
 	String regexTitredelaformation = "\"/^"+Formation.regexTitreFormation+"+$/\""; 
@@ -21,13 +21,13 @@
 			
 			    <!-- Titre de la Formation -->
 			    <div class="form-group" ng-class="{ 'has-error' : formationForm.titreformation.$invalid && formationForm.titreformation.$dirty }">
-			      <input type="text" name="titreformation" class="form-control" ng-model="DF.formation.titreformation" required ng-pattern=<%=regexTitredelaformation %> ng-trim="true"  placeholder="Titre de la formation"> <!-- ng-minlength="2" ng-maxlength="20" -->
+			      <input type="text" name="titreformation" class="form-control" ng-model="DF.formation.titreformation" required ng-pattern=<%= regexTitredelaformation%> ng-trim="true"  placeholder="Titre de la formation"> <!-- ng-minlength="2" ng-maxlength="20" -->
 			      <p ng-show="formationForm.titreformation.$invalid && formationForm.titreformation.$dirty" class="help-block">Veuillez entrer un titre de formation valide</p>
 			    </div>
 			
 			   <!-- Nombre de 1/2 journée -->
 			    <div class="form-group" ng-class="{ 'has-error' : formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty }">
-			      <input type="number" name="nombredemijournee" class="form-control no-spinner" ng-model="DF.formation.nombredemijournee" required ng-pattern=<%=regexnombredemijournee %> min="1" max="200"  placeholder="Nombre de 1/2 journée">
+			      <input type="number" name="nombredemijournee" class="form-control no-spinner" ng-model="DF.formation.nombredemijournee" required ng-pattern=<%= regexnombredemijournee%> min="1" max="200"  placeholder="Nombre de 1/2 journée">
 			      <p ng-show="formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty" class="help-block">Veuillez entrer un nombre de formation valide (Entre 1 et 200)</p>
 			    </div>	
 			
@@ -38,8 +38,8 @@
 			    <div class="alert alert-danger" role="alert" ng-show="!DF.isNewTitleFormation">
 			      Une formation identique existe déjà dans le système
 			    </div> 
-
-			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>		
+			    
+			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>
 			  </form>
 		  </div>
 
