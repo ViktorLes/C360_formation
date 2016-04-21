@@ -1,3 +1,4 @@
+/*
 describe('GF5', function() {
     var ctrl;
     var backend;
@@ -49,5 +50,5 @@ describe('GF5', function() {
 
 });
 
-
+*/
 
