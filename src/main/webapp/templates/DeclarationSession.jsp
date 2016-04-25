@@ -1,14 +1,4 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
-	    pageEncoding="UTF-8"%>
 
-	 <%@ page import="com.viseo.c360.formation.domain.formation.SessionFormation" %>
-	<%! 
-		
-		 String regexFormationSession = "\"/^"+SessionFormation.regextitreFormation+"+$/\""; 
-		String regexDate = "\"/^"+SessionFormation.regexDate+"+$/\""; 
-	%> 
-	<!-- CSS -->
-		
 	<div class="row"> 
 	  <div class="col-md-4">
 	  </div>
@@ -17,7 +7,7 @@
 		<div class="panel panel-default">
 			
 			  <div class="panel-heading">
-			    <h3 class="panel-title">D√©claration d'une session</h3>
+			    <h3 class="panel-title">DÈclaration d'une session</h3>
 			  </div>
 			  
 			  <div class="panel-body">
@@ -47,7 +37,7 @@
  							 <strong>Attention : </strong> Veuillez saisir une date
 							</div>
 							<div class="alert alert-warning" ng-show="DS.isWeekENDD1()">
- 							 <strong>Attention :</strong> Le jour selectionn√© est un jour non ouvrable! 
+ 							 <strong>Attention :</strong> Le jour selectionnÈ est un jour non ouvrable! 
 							</div>
 							<div class="alert alert-danger" ng-show="sessionForm.date1.$error.pattern && sessionForm.date1.$dirty || sessionForm.date1.$invalid">
 							  <strong></strong> Date invalide! Saisissez une date sous le format : (JJ/MM/AAAA)
@@ -80,7 +70,7 @@
  							 <strong>Attention :</strong> Veuillez saisir une date
 							</div>
 							<div class="alert alert-warning" ng-show="DS.isWeekENDD2()">
- 							 <strong>Attention :</strong> Le jour selectionn√© est un jour non ouvrable! 
+ 							 <strong>Attention :</strong> Le jour selectionnÈ est un jour non ouvrable! 
 							</div>
 							<div class="alert alert-danger" ng-show="sessionForm.date2.$error.pattern &&   sessionForm.date2.$invalid">
 							  <strong></strong> Date invalide! Saisissez une date sous le format : (JJ/MM/AAAA)
@@ -107,10 +97,10 @@
 				    
 			
 			    	 <div class="alert alert-danger" role="alert" ng-show="!DS.isSessionAlreadyPlanned">
-					     Il existe d√©j√† une session pour cette formation dans ces tranches horaires.
+					     Il existe dÈj‡ une session pour cette formation dans ces tranches horaires.
 					 </div>  
 					 <div class="alert alert-danger" role="alert" ng-show="!DS.DateCorrect(d1,d2,heureDebut,heureFin)">
-					     Veuillez choisir une date de fin superieure √† la date de debut.
+					     Veuillez choisir une date de fin superieure ‡ la date de debut.
 					 </div> 
 			    	
 				      <button type="submit" class="btn btn-primary" >Enregistrer</button>	

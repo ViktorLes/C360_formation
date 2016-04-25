@@ -6,6 +6,12 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlFor', ['$http', '$location',function($http, $location) {
 		
 			var self = this;
+			
+			/*** Recupération des regex **/
+			$http.get("api/formations/regex").then(function(data){
+				self.regex = [];
+				Array.prototype.push.apply(self.regex, data.data);
+			});
 
 			self.isNewTitleFormation = true;
 			self.isFalseForm = false;
@@ -38,6 +44,13 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		// Controleur EnregistrementCollab
 		GestForApp.controller('CtrlCol',['$http', '$location',function($http, $location) {
 			var self = this;
+			
+			/*** Recupération des regex **/
+			$http.get("api/formations/regex").then(function(data){
+				self.regex = [];
+				Array.prototype.push.apply(self.regex, data.data);
+			});
+			
 			self.isNewMatricule = "true";
 			self.isFalseForm = false;
 			

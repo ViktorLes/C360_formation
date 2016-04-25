@@ -1,11 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.viseo.c360.formation.domain.collaborateur.Collaborateur" %>
-<%! 
-	//Déclaration des regex 
-	String regexMatricule = "\"/^"+Collaborateur.regexMatricule+"+$/\""; 
-	String regexNom = "\"/^"+Collaborateur.regexNom+"+$/\""; 
-	String regexPrenom = "\"/^"+Collaborateur.regexPrenom+"+$/\""; 
-%>
 
 <div class="row">
 
@@ -25,20 +17,20 @@
 			   		    <!-- MATRICULE -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty }">
 
-			      <input type="text" name="matricule" class="form-control" ng-model="EC.collaborateur.matricule" required ng-pattern=<%=regexMatricule%> ng-minlength="3" ng-maxlength="20"  placeholder="Matricule">
+			      <input type="text" name="matricule" class="form-control" ng-model="EC.collaborateur.matricule" required ng-pattern="{{EC.regex.matricule}}" ng-minlength="3" ng-maxlength="20"  placeholder="Matricule">
 			      <p ng-show="collaborateurForm.matricule.$invalid && collaborateurForm.matricule.$dirty" class="help-block">Numéro de matricule invalide (Exemple valide : ABC1234)</p>
 
 			    </div>
 			
 			    <!-- NOM -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.nom.$invalid && collaborateurForm.nom.$dirty }">
-			      <input type="text" name="nom" class="form-control" ng-model="EC.collaborateur.nom" required ng-pattern=<%=regexNom%> ng-minlength="2" ng-maxlength="120" ng-trim="true"  placeholder="Nom">
+			      <input type="text" name="nom" class="form-control" ng-model="EC.collaborateur.nom" required ng-pattern="{{EC.regex.nom}}" ng-minlength="2" ng-maxlength="120" ng-trim="true"  placeholder="Nom">
 			      <p ng-show="collaborateurForm.nom.$invalid && collaborateurForm.nom.$dirty" class="help-block">Veuillez entrer un nom valide</p>
 			    </div>
 			
 			    <!-- PRENOM -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty }">
-			      <input type="text" name="prenom" class="form-control" ng-model="EC.collaborateur.prenom" required ng-pattern=<%=regexPrenom%> ng-minlength="2" ng-maxlength="120" ng-trim="true" placeholder="Prénom">
+			      <input type="text" name="prenom" class="form-control" ng-model="EC.collaborateur.prenom" required ng-pattern="{{EC.regex.prenom}}" ng-minlength="2" ng-maxlength="120" ng-trim="true" placeholder="Prénom">
 			      <p ng-show="collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty" class="help-block">Veuillez entrer un prénom valide</p>
 			    </div>
 			
