@@ -13,9 +13,10 @@ import javax.validation.constraints.Pattern;
 //@JsonSerialize(using = FormationSerializer.class)
 public class Formation {
 
-	
-	public static final String regexTitreFormation = "[a-zA-Z.+#0-9-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
-	public static final String regexNombreDemiJournee = "[0-9]";
+	public static class Regex{
+		public static final String titreFormation = "[a-zA-Z0-9+#'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+		public static final String nombreDemiJournee = "[0-9]";
+	}
 	
 		@Id
 		@GeneratedValue
@@ -25,7 +26,7 @@ public class Formation {
 		long version;
 		
 		@NotNull
-		@Pattern(regexp=Formation.regexTitreFormation+"*")
+		@Pattern(regexp=Formation.Regex.titreFormation+"*")
 		String titreformation;
 		
 		@NotNull

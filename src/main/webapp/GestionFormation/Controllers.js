@@ -6,9 +6,25 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlFor', ['$http', '$location',function($http, $location) {
 		
 			var self = this;
+			self.regex = {};
+			
+			/*** Recupération des regex **/
+			$http.get("api/formations/regex").then(function(data){
+				self.regex.titreformation = new RegExp(data.data.titreformation);
+				self.regex.nombredemijournee = new RegExp(data.data.nombredemijournee);
+			});
 
 			self.isNewTitleFormation = true;
-
+			self.isFalseForm = false;
+			
+			self.verifierForm=function(formationForm){
+				if(formationForm.$invalid == false){
+					self.actionEnregistrer();
+				}
+				else{
+					self.isFalseForm = true;
+				}
+			}
 			self.actionEnregistrer = function() {
 				self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
 				//self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, "");
@@ -29,8 +45,27 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		// Controleur EnregistrementCollab
 		GestForApp.controller('CtrlCol',['$http', '$location',function($http, $location) {
 			var self = this;
+			self.regex = {};
 
+			/*** Recupération des regex **/
+			$http.get("api/collaborateurs/regex").then(function(data){
+				self.regex.matricule = new RegExp(data.data.matricule);
+				self.regex.nom = new RegExp(data.data.nom);
+				self.regex.prenom = new RegExp(data.data.prenom);
+			});
+			
 			self.isNewMatricule = "true";
+			self.isFalseForm = false;
+			
+			self.verifierForm=function(collaborateurForm){
+				if(collaborateurForm.$invalid == false){
+					self.actionEnregistrer();
+				}
+				else{
+					self.isFalseForm = true;
+				}
+			}
+
 			self.actionEnregistrer = function() {
 				
 				//delete useless spaces between words 
@@ -53,17 +88,11 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlSes', ['DatepickerService','$http','$filter',function(datepicker,$http,$filter) {
 			var self = this;
 			self.isSessionAlreadyPlanned = true;
-			
-			/*** Initialisation des données du formulaires **/
-			$http.get("api/formations").then(function(data){
-				self.formation = [];
-				Array.prototype.push.apply(self.formation,data.data);
-				self.SessionFormationId = self.formation[0].id;
-			});
 
 			self.d1 = datepicker.build();
 			self.d2 = datepicker.build();
-
+			
+			
 				function initHoraireTab(){
 			
 					function pad2(number) {
@@ -86,10 +115,43 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				self.heureDebut = self.monTab[0];
 				self.heureFin = self.monTab[0];
 				
-				
 				self.lieuFormation = 'Salle Phuket';
+				self.isFalseForm = false;
+				
+				self.verifierForm=function(sessionForm){
+					if(sessionForm.$invalid == false){
+						self.actionEnregistrer();
+					}
+					else{
+						self.isFalseForm = true;
+					}
+				}
+				
+			
+				self.DateCorrect = function(heureDebut,heureFin) {
+					if ((self.d1.dt < self.d2.dt)||(self.heureDebut < self.heureFin)){
+						 return true;
+					}
+					else
+						{
+						return false;
+						}
+				}
+				
+				self.isWeekENDD2 = function(){
+					return (self.d2.dt.getDay()== 0 || self.d2.dt.getDay()== 6);
+				}
+				
+				self.isWeekENDD1 = function(){
+					return (self.d1.dt.getDay()== 0 || self.d1.dt.getDay()== 6);
+				}
+
+				self.showForm = function(form){
+					console.log("showForm >>>>>>>>>>>>>>>>>>>>>",form)
+				}
 				
 				/*** Enregistrement SessionFormation ***/
+				
 				self.actionEnregistrer = function() {
 					var session = {
 							formation: self.SessionFormationId,
@@ -102,7 +164,10 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 							if(data == "true" || data == true) {
 								self.isSessionAlreadyPlanned = true;
 								document.location.href = 'pageblanche.html';
-							}else self.isSessionAlreadyPlanned = false;
+							}else 
+								{
+								self.isSessionAlreadyPlanned = false;
+								}
 						});
 				}
 		

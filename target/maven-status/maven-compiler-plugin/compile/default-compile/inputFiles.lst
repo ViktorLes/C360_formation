@@ -1,9 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> TestAngularJS
+>>>>>>> master
+=======
 >>>>>>> master
 C:\projects\C360\src\main\java\com\viseo\c360\formation\domain\formation\SessionFormation.java
 C:\projects\C360\src\main\java\com\viseo\c360\formation\dao\CollaborateurDAO.java
@@ -12,10 +15,12 @@ C:\projects\C360\src\main\java\com\viseo\c360\json\serializer\formation\Formatio
 C:\projects\C360\src\main\java\com\viseo\c360\formation\domain\collaborateur\Collaborateur.java
 C:\projects\C360\src\main\java\com\viseo\c360\formation\dao\SessionFormation.java
 C:\projects\C360\src\main\java\com\viseo\c360\formation\rest\CollaborateurWS.java
+C:\projects\C360\src\main\java\com\viseo\c360\formation\rest\RegexWS.java
 C:\projects\C360\src\main\java\com\viseo\c360\formation\dao\FormationDAO.java
 C:\projects\C360\src\main\java\com\viseo\c360\formation\domain\formation\Formation.java
 C:\projects\C360\src\main\java\com\viseo\c360\json\JSONMapper.java
 C:\projects\C360\src\main\java\com\viseo\c360\json\deserializer\formation\SessionFormationDeserializer.java
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
@@ -33,4 +38,6 @@ C:\Users\RHA3507\workspace\C360\src\main\java\com\viseo\c360\formation\dao\Colla
 >>>>>>> d444f93793397d61edcd4278f8720f118383b648
 =======
 >>>>>>> TestAngularJS
+>>>>>>> master
+=======
 >>>>>>> master

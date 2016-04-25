@@ -18,13 +18,6 @@ import com.viseo.c360.json.deserializer.formation.SessionFormationDeserializer;
 @Entity
 public class SessionFormation {
 	
-	public static final String regextitreFormation = "[A-Z0-9]";
-	public static final String regexDate = "[0-9]";
-	public static final String regexHeureDeb = "[0-9]";
-	public static final String regexHeureFin= "[0-9]"; 
-	public static final String regexLieu = "[A-Z]";
-	
-	
 	@Id
 	@GeneratedValue
 	long id;
