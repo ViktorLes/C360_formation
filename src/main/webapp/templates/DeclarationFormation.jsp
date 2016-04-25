@@ -39,7 +39,6 @@
 			    <div class="alert alert-danger" role="alert" ng-show="DF.isFalseForm">
 			      Veuillez remplir tous les champs
 			    </div>	
-			    
 			  </form>
 		  </div>
 

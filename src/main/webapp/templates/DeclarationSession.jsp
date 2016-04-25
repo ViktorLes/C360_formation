@@ -21,7 +21,9 @@
 			  </div>
 			  
 			  <div class="panel-body">
+
 				  <form name="sessionForm" ng-submit="DS.verifierForm(sessionForm)" novalidate>
+
 				
 				 <!-- Nom de la Formation -->
 				    <div class="form-group">
@@ -32,7 +34,7 @@
 			 <!-- Date -->
 				<!-- d1 -->
 				     <div class="form-group">
-				     <h5> <span class="label label-default">Date (JJ/MM/AAAA): </span></h5>
+				     <h5> <span class="label label-default">Date de debut: </span></h5>
 				      <div class="col-md-6">
 				        <p class="input-group">
 
@@ -44,14 +46,28 @@
 				           <div class="alert alert-warning" ng-show="sessionForm.date1.$error.required">
  							 <strong>Attention : </strong> Veuillez saisir une date
 							</div>
+							<div class="alert alert-warning" ng-show="DS.isWeekENDD1()">
+ 							 <strong>Attention :</strong> Le jour selectionné est un jour non ouvrable! 
+							</div>
 							<div class="alert alert-danger" ng-show="sessionForm.date1.$error.pattern && sessionForm.date1.$dirty || sessionForm.date1.$invalid">
 							  <strong></strong> Date invalide! Saisissez une date sous le format : (JJ/MM/AAAA)
 							</div>
-				        </p>
-				      </div>
-				   </div>
-				<!-- d2 -->   
+						
+				         </p>         
+				      </div>	  
+				  
+				<!-- HEURE DEBUT !!!!!!!!!!!!!!!! --> 
+				 <div class="form-group">
+				 <h5> <span class="label label-default">Heure du Debut: (1er Jour)</span></h5>
+				  <div class="col-md-6">
+				     <select class="selectpicker form-control" ng-model="DS.heureDebut" ng-options='horaire as horaire for horaire in DS.monTab'></select>
+				   	</div>
+				    </div>
+				    
+				    
+				   	  <!-- d2 -->
 				     <div class="form-group">
+				      <h5> <span class="label label-default">Date de fin: </span></h5>
 				      <div class="col-md-6">
 				        <p class="input-group">
 
@@ -63,21 +79,20 @@
 				           <div class="alert alert-warning" ng-show="sessionForm.date2.$error.required">
  							 <strong>Attention :</strong> Veuillez saisir une date
 							</div>
-							<div class="alert alert-danger" ng-show="sessionForm.date2.$error.pattern && sessionForm.date2.$dirty || sessionForm.date2.$invalid">
+							<div class="alert alert-warning" ng-show="DS.isWeekENDD2()">
+ 							 <strong>Attention :</strong> Le jour selectionné est un jour non ouvrable! 
+							</div>
+							<div class="alert alert-danger" ng-show="sessionForm.date2.$error.pattern &&   sessionForm.date2.$invalid">
 							  <strong></strong> Date invalide! Saisissez une date sous le format : (JJ/MM/AAAA)
 							</div>
-
 				        </p>
 				      </div>
 				   
-					      <!-- Heure de la session -->
-				     <div class="form-group">
-				        <h5> <span class="label label-default">Heure du Debut: (1er Jour)</span></h5>
-				     <select class="selectpicker form-control" ng-model="DS.heureDebut" ng-options='horaire as horaire for horaire in DS.monTab'></select>
-				   	</div>
-				   	
+					      <!-- HEURE FIN !!!!!!!!!!!!!! -->
+				    
  				    <div class="form-group">
 				        <h5> <span class="label label-default">Heure de fin: (Dernier Jour)</span></h5>
+				   		  <div class="col-md-6">
      					 <select class="selectpicker form-control" ng-model="DS.heureFin" ng-options='horaire as horaire for horaire in DS.monTab'></select>
 				    </div>
 		 
@@ -89,11 +104,13 @@
 				     		<option>Salle Bali</option>
      				     </select>
 				    </div>
-				  
-				      
-			    	
+				    
+			
 			    	 <div class="alert alert-danger" role="alert" ng-show="!DS.isSessionAlreadyPlanned">
 					     Il existe déjà une session pour cette formation dans ces tranches horaires.
+					 </div>  
+					 <div class="alert alert-danger" role="alert" ng-show="!DS.DateCorrect(d1,d2,heureDebut,heureFin)">
+					     Veuillez choisir une date de fin superieure à la date de debut.
 					 </div> 
 			    	
 				      <button type="submit" class="btn btn-primary" >Enregistrer</button>	
