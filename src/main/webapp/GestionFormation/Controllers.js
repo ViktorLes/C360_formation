@@ -6,10 +6,12 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlFor', ['$http', '$location',function($http, $location) {
 		
 			var self = this;
+			self.regex = {};
 			
 			/*** Recupération des regex **/
 			$http.get("api/formations/regex").then(function(data){
-				self.regex = JSON.parse(JSON.stringify(data.data));
+				self.regex.titreformation = new RegExp(data.data.titreformation);
+				self.regex.nombredemijournee = new RegExp(data.data.nombredemijournee);
 			});
 
 			self.isNewTitleFormation = true;
@@ -43,10 +45,13 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		// Controleur EnregistrementCollab
 		GestForApp.controller('CtrlCol',['$http', '$location',function($http, $location) {
 			var self = this;
+			self.regex = {};
 
 			/*** Recupération des regex **/
 			$http.get("api/collaborateurs/regex").then(function(data){
-				self.regex = JSON.parse(JSON.stringify(data.data));
+				self.regex.matricule = new RegExp(data.data.matricule);
+				self.regex.nom = new RegExp(data.data.nom);
+				self.regex.prenom = new RegExp(data.data.prenom);
 			});
 			
 			self.isNewMatricule = "true";
