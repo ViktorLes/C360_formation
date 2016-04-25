@@ -45,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/main/webapp/templates/EnregistrementCollaborateur.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="171">
-              <caret line="19" column="122" selection-start-line="19" selection-start-column="122" selection-end-line="19" selection-end-column="122" />
+              <caret line="19" column="152" selection-start-line="19" selection-start-column="152" selection-end-line="19" selection-end-column="152" />
               <folding />
             </state>
           </provider>
@@ -61,6 +61,7 @@
         <option value="$PROJECT_DIR$/test/javaScript/GF5.js" />
         <option value="$PROJECT_DIR$/main/webapp/templates/DeclarationFormation.html" />
         <option value="$PROJECT_DIR$/main/webapp/GestionFormation/Controllers.js" />
+        <option value="$PROJECT_DIR$/main/webapp/templates/EnregistrementCollaborateur.html" />
       </list>
     </option>
   </component>
@@ -365,7 +366,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12672000" />
+    <option name="totallyTimeSpent" value="13314000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1473,7 +1474,7 @@
     <entry file="file://$PROJECT_DIR$/main/webapp/templates/EnregistrementCollaborateur.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
-          <caret line="19" column="122" selection-start-line="19" selection-start-column="122" selection-end-line="19" selection-end-column="122" />
+          <caret line="19" column="152" selection-start-line="19" selection-start-column="152" selection-end-line="19" selection-end-column="152" />
           <folding />
         </state>
       </provider>
