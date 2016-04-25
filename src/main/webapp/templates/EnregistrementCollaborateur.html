@@ -30,7 +30,7 @@
 			
 			    <!-- PRENOM -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty }">
-			      <input type="text" name="prenom" class="form-control" ng-model="EC.collaborateur.prenom" required ng-pattern="{{EC.regex.prenom}}" ng-minlength="2" ng-maxlength="120" ng-trim="true" placeholder="Prénom">
+			      <input type="text" name="prenom" class="form-control" ng-model="EC.collaborateur.prenom" required ng-pattern="EC.regex.prenom" ng-minlength="2" ng-maxlength="120" ng-trim="true" placeholder="Prénom">
 			      <p ng-show="collaborateurForm.prenom.$invalid && collaborateurForm.prenom.$dirty" class="help-block">Veuillez entrer un prénom valide</p>
 			    </div>
 			

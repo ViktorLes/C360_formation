@@ -18,8 +18,8 @@ public class RegexWS {
     @ResponseBody
     public Map<String,String> getRegexFormations(){
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("titreformation", "/^"+Formation.Regex.titreFormation+"+$/");
-		map.put("nombredemijournee","/^"+Formation.Regex.nombreDemiJournee+"+$/");
+		map.put("titreformation", "^"+Formation.Regex.titreFormation+"+$");
+		map.put("nombredemijournee","^"+Formation.Regex.nombreDemiJournee+"+$");
 		return map;
 	}
 	
@@ -27,9 +27,9 @@ public class RegexWS {
     @ResponseBody
     public Map<String,String> getRegexCollaborateurs(){
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("matricule", "/^"+Collaborateur.Regex.matricule+"+$/");
-		map.put("nom","/^"+Collaborateur.Regex.nom+"+$/");
-		map.put("prenom","/^"+Collaborateur.Regex.prenom+"+$/");
+		map.put("matricule", "^"+Collaborateur.Regex.matricule+"+$");
+		map.put("nom","^"+Collaborateur.Regex.nom+"+$");
+		map.put("prenom","^"+Collaborateur.Regex.prenom+"+$");
 		return map;
 	}
 }
