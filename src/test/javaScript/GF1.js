@@ -14,6 +14,7 @@ describe('GF1', function() {
   describe('Test EnregistrementCollaborateur',function () {
 
     beforeEach(function () {
+      backend.expectGET('api/collaborateurs/regex').respond('{"matricule":"^[A-Z0-9]+$","nom":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$","prenom":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$"}');
       ctrl.collaborateur = {};
       ctrl.collaborateur.nom = "Henri";
       ctrl.collaborateur.prenom = "ddsfs";
