@@ -1,7 +1,82 @@
 
 //Module de L'GestForapp
-var GestForApp = angular.module('GestForController', ['Datepicker']);
-		
+var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter']);
+
+//************************************************************************************//
+//***** NAME: Controller Affectation session
+//***** Description: moveItem / moveAll / CtrlItemIsSelectedTOEnableOrDisableButton
+//*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
+//************************************************************************************//
+		GestForApp.controller('CtrlAffectationSession', function($scope) {
+
+			$scope.moveItem = function(item,from,to){
+				var idx=from.indexOf(item);
+		        if (idx != -1) {
+		            from.splice(idx, 1);
+		            to.push(item);      
+		        }
+			};
+			$scope.moveAll = function(from, to) {
+		        if((to.length+from.length)<=10){
+		        	angular.forEach(from, function(item) {
+			            to.push(item);
+			        });
+			        from.length = 0;
+		        }				
+			};
+			$scope.moveAllFromSelectedToDisponible = function(from, to) {
+		        angular.forEach(from, function(item) {
+		            to.push(item);
+		        });
+		        from.length = 0;
+			};
+		    $scope.CtrlSelectedItemTOEnableOrDisableButton = function(disponibleCollaborateur) {
+		    	if(typeof(disponibleCollaborateur) == "undefined" || disponibleCollaborateur.length ==0){
+		    		return false;
+		    	}
+		    	else
+		    		return true;
+		    };
+		    $scope.CtrlMoveAllTOEnableOrDisableButton = function(listDesCollaborateurs) {
+		    	if(listDesCollaborateurs.length==0){
+		    		return true;
+		    	}
+		    	else
+		    		return false;    	
+		    };
+		    $scope.CtrlMaxCollaborateurSelectionnee = function(listDesCollaborateursSelectionnee) {
+		    	if(listDesCollaborateursSelectionnee.length==10){
+		    		return true;
+		    	}
+		    	else
+		    		return false;    	
+		    };
+  // A retirer après l'intégration du Back
+    $scope.listDesCollaborateursDisponibles = [
+        {'id': '1','firstName': 'Gym',  'name': 'SEBASTIEN'},
+        {'id': '2','firstName': 'Lee', 'name': 'MARION'},
+        {'id': '3','firstName': 'Belloum',  'name': 'YOUSSEF'},
+        {'id': '4','firstName': 'Thomas', 'name': 'ROMAIN'},
+        {'id': '5','firstName': 'Alssandro', 'name': 'LAURA'},
+        {'id': '6','firstName': 'Aurelian', 'name': 'JULIEN'},
+        {'id': '7','firstName': 'Karieene',  'name': 'MARIE'},
+        {'id': '4','firstName': 'ee', 'name': 'ROMAIN'},
+        {'id': '5','firstName': 'ddd', 'name': 'LAURA'},
+        {'id': '7','firstName': 'Jihad',  'name': 'Elkadir'},
+        {'id': '5','firstName': 'ddd', 'name': 'LAURA'},
+        {'id': '7','firstName': 'Jihad',  'name': 'Elkadir'}
+    ];
+
+    $scope.listDesCollaborateursSelectionnes = [];
+    
+    $scope.listDesSessionsDisponibles = [
+        {'id': '1','version': 'V1','name': 'JAVA','debut': '01/01/2001 00:00:00','fin':'01/01/2000 00:00:00','lieu':'Salle Amilcar'},
+        {'id': '2','version': 'V2','name': '.Net','debut': '02/02/2002 00:00:00','fin':'01/01/2000 00:00:00','lieu':'Salle Didon'},
+        {'id': '3','version': 'V3','name': 'AngularJS','debut': '03/03/2003 00:00:00','fin':'03/03/2003 00:00:00','lieu':'Salle Paris'}
+    ];
+});
+//************************************************************************************//
+
 		//Controleur DeclarationFromation		
 		GestForApp.controller('CtrlFor', ['$http', '$location',function($http, $location) {
 		
