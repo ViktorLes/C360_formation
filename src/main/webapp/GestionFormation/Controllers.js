@@ -9,8 +9,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 			
 			/*** Recupération des regex **/
 			$http.get("api/formations/regex").then(function(data){
-				self.regex = [];
-				Array.prototype.push.apply(self.regex, data.data);
+				self.regex = JSON.parse(JSON.stringify(data.data));
 			});
 
 			self.isNewTitleFormation = true;
@@ -44,11 +43,10 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		// Controleur EnregistrementCollab
 		GestForApp.controller('CtrlCol',['$http', '$location',function($http, $location) {
 			var self = this;
-			
+
 			/*** Recupération des regex **/
-			$http.get("api/formations/regex").then(function(data){
-				self.regex = [];
-				Array.prototype.push.apply(self.regex, data.data);
+			$http.get("api/collaborateurs/regex").then(function(data){
+				self.regex = JSON.parse(JSON.stringify(data.data));
 			});
 			
 			self.isNewMatricule = "true";
@@ -85,13 +83,6 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlSes', ['DatepickerService','$http','$filter',function(datepicker,$http,$filter) {
 			var self = this;
 			self.isSessionAlreadyPlanned = true;
-
-			/*** Initialisation des données du formulaires **/
-			$http.get("api/formations").then(function(data){
-				self.formation = [];
-				Array.prototype.push.apply(self.formation,data.data);
-				self.SessionFormationId = self.formation[0].id;
-			});
 
 			self.d1 = datepicker.build();
 			self.d2 = datepicker.build();

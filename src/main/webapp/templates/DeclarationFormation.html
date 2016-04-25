@@ -17,7 +17,6 @@
 			      <input type="text" name="titreformation" class="form-control" ng-model="DF.formation.titreformation" required ng-pattern="{{DF.regex.titreformation}}" ng-trim="true"  placeholder="Titre de la formation"> <!-- ng-minlength="2" ng-maxlength="20" -->
 			      <p ng-show="formationForm.titreformation.$invalid && formationForm.titreformation.$dirty" class="help-block">Veuillez entrer un titre de formation valide</p>
 			    </div>
-			
 			   <!-- Nombre de 1/2 journée -->
 			    <div class="form-group" ng-class="{ 'has-error' : formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty }">
 			      <input type="number" name="nombredemijournee" class="form-control no-spinner" ng-model="DF.formation.nombredemijournee" required ng-pattern="{{DF.regex.nombredemijournee}}" min="1" max="200"  placeholder="Nombre de 1/2 journée">

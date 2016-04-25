@@ -7,17 +7,17 @@ routeApp.config(['$routeProvider',function($routeProvider) {
                      // Système de routage
                      $routeProvider
                      .when('/EnregistrementCollaborateur', {
-                         templateUrl: 'templates/EnregistrementCollaborateur.jsp',
+                         templateUrl: 'templates/EnregistrementCollaborateur.html',
                          controller: 'CtrlCol as EC',
                          controllerAs:'EC'
                      })
                      .when('/DeclarationFormation', {
-                         templateUrl: 'templates/DeclarationFormation.jsp',
+                         templateUrl: 'templates/DeclarationFormation.html',
                          controller: 'CtrlFor',
                          controllerAs:'DF'
                      })
                      .when('/DeclarationSession', {
-                         templateUrl: 'templates/DeclarationSession.jsp',
+                         templateUrl: 'templates/DeclarationSession.html',
                          controller: 'CtrlSes',
                          controllerAs:'DS'
                      });
