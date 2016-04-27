@@ -172,13 +172,21 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlDemandeForm',['$http', '$location',function($http, $location) {
 			var self = this;
 			
+			self.loadSessionFormation=function(){
+				$http.get("api/sessions").then(function(data){
+					self.SessionFormation = [];
+					Array.prototype.push.apply(self.SessionFormation,data.data);
+					console.log(self.SessionFormation);
+					
+				});
+			}
 			//self.isdemandeAlreadyPlanned = true;
 			$http.get("api/formations").then(function(data){
 				self.formation = [];
 				Array.prototype.push.apply(self.formation,data.data);
 				
 			});
-		
+			
 		   
 		}]);
 		

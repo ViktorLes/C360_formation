@@ -61,16 +61,19 @@ public class FormationDAO {
 		return !list.isEmpty(); //return true if the list is not avoid
 	}
 	
+	public List<Formation> GetAllFormation() {
+		return em.createQuery("select a from Formation a", Formation.class).getResultList();
+	}
 	
 	/*** Session Formation ***/
+	
+	public List<SessionFormation> GetAllSessionFormation() {
+		return em.createQuery("select a from SessionFormation a", SessionFormation.class).getResultList();
+	}
 	
 	@Transactional
 	public void addSessionFormation(SessionFormation sf){
 		em.persist(sf);
-	}
-	
-	public List<Formation> GetAllFormation() {
-		return em.createQuery("select a from Formation a", Formation.class).getResultList();
 	}
 	
 	@Transactional
