@@ -62,4 +62,10 @@ public class FormationWS {
 		return formationDAO.GetAllSessionFormation();
 		
 	}
+	@RequestMapping(value = "/sessions/id", method = RequestMethod.GET)
+	@ResponseBody
+    public List<SessionFormation> ReadSessionByFormation(long id){	
+		return formationDAO.GetSessionByFormation(1);
+		
+	}
 }	
