@@ -23,9 +23,9 @@
 	          	
 	          	<input ng-model="SessionSelectionnee" title="Selectionner une session" class="filter form-control filter-unselected" list="SessionDataListFilter" placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
 	          	<datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">  
-	                <option data-ng-repeat="session in AS.SessionFormationList" value="{{session.formation.titreformation}}- {{session.debut}} - {{session.fin}}- {{session.lieu}}"></option> 
+	                <option data-ng-repeat="session in AS.SessionFormationListConverted" value="{{session.nom}}- {{session.debut}} à {{session.fin}}- {{session.lieu}}"></option> 
 	             </datalist>           
-	             
+
 	          <hr>
 	          <!-- <h5><input type="checkbox" value="" checked>Afficher les demandes</h5> -->
 		      <body class="form-group" id="wrapper" ng-controller="CtrlAffectationSession">  

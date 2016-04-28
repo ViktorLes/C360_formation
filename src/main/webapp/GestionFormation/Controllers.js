@@ -7,7 +7,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 //***** Description: moveItem / moveAll / CtrlItemIsSelectedTOEnableOrDisableButton
 //*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
 //************************************************************************************//
-		GestForApp.controller('CtrlAffectationSession',['$http', '$location',function($http, $location){
+		GestForApp.controller('CtrlAffectationSession',['$http','$location','$filter',function($http, $location,$filter){
 			
 			var self = this;
 			
@@ -15,6 +15,22 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 			$http.get("api/sessions").then(function(data){
 				self.SessionFormationList = [];
 				Array.prototype.push.apply(self.SessionFormationList,data.data);
+
+				function NouvelleSession(){
+					var SessionConvertedList=[]; 
+					for(var i=0 ; i<self.SessionFormationList.length ; i++){
+						var SessionObjectConverted={
+								nom: self.SessionFormationList[i].formation.titreformation,
+								debut: $filter('date')(self.SessionFormationList[i].debut, 'dd/MM/yyyy'),
+								fin: $filter('date')(self.SessionFormationList[i].fin, 'dd/MM/yyyy'),
+								lieu: self.SessionFormationList[i].lieu
+						}
+						SessionConvertedList.push(SessionObjectConverted);	
+					}
+					return SessionConvertedList;
+				};
+				self.SessionFormationListConverted= [];
+				Array.prototype.push.apply(self.SessionFormationListConverted,NouvelleSession());			
 			});
 	
 			self.moveItem = function(item,from,to){
@@ -221,7 +237,6 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 				}
 				
 				/*** Enregistrement SessionFormation ***/
-				
 				
 				self.actionEnregistrer = function() {
 					var session = {
