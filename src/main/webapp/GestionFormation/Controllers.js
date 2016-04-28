@@ -153,6 +153,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 							fin:  $filter('date')(self.d2.dt,"dd/MM/yyyy") + "|" + self.heureFin,
 							lieu: self.lieuFormation
 					};
+					
 				
 						$http.post("api/sessions", session).success(function(data){
 							if(data == "true" || data == true) {
@@ -172,11 +173,15 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		GestForApp.controller('CtrlDemandeForm',['$http', '$location',function($http, $location) {
 			var self = this;
 			
+			
 			self.loadSessionFormation=function(){
-				$http.get("api/sessions").then(function(data){
+				$http.get("api/sessions/"+self.DemandeFormation).then(function(data){
 					self.SessionFormation = [];
 					Array.prototype.push.apply(self.SessionFormation,data.data);
-					console.log(self.SessionFormation);
+					
+						if(true){
+							
+						}
 					
 				});
 			}
