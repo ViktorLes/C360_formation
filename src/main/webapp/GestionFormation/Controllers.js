@@ -271,7 +271,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 					self.listSessionFormation = [];
 					Array.prototype.push.apply(self.listSessionFormation,data.data);
 					
-						if(DemandeFormation){
+						if(true){
 							
 						}
 					
