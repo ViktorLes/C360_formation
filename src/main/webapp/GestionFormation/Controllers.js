@@ -271,11 +271,16 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 					self.listSessionFormation = [];
 					Array.prototype.push.apply(self.listSessionFormation,data.data);
 					
-						if(typeof self.listSessionFormation !== 'undefined' && self.listSessionFormation.length === 0){
+						if(self.listSessionFormation.length === 0){
 							self.isListEmpty = true;
+						}
+						console.log(self.listSessionFormation);
+						console.log(self.listSessionFormation.some(function(elem){return elem.isChecked;}));
+						if(self.listSessionFormation.some(function(elem){return elem.isChecked;})){
+							
+							self.atLeastOneSelected = true;
 							
 						}
-					
 				});
 			}
 			//self.isdemandeAlreadyPlanned = true;

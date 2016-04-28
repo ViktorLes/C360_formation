@@ -24,7 +24,8 @@
  							{{s.debut | date:"dd LLLL yyyy"}} - {{s.fin | date:"dd LLLL yyyy"}} - {{s.lieu}}
  							</li>
  						</ul>		
- 						<div ng-show="DmF.isListEmpty">Aucune session n'est prévue, vous pouvez néaomoins envoyer une demande</div>			
+ 						<div ng-show="DmF.isListEmpty">Aucune session n'est prévue, vous pouvez néaomoins envoyer une demande</div>	
+ 						<div ng-hide="DmF.atLeastOneSelected">Veuillez sélectionner une session</div>		
 
 				</div>
 				<button type="submit" class="btn btn-primary" >Envoyer demande</button>	
