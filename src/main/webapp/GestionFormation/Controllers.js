@@ -175,9 +175,9 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 			InitBddService.init($http);
 			
 			self.loadSessionFormation=function(){
-				$http.get("api/sessions/"+self.DemandeFormation).then(function(data){
-					self.SessionFormation = [];
-					Array.prototype.push.apply(self.SessionFormation,data.data);
+				$http.get("api/sessions/"+self.DemandeFormationId).then(function(data){
+					self.listSessionFormation = [];
+					Array.prototype.push.apply(self.listSessionFormation,data.data);
 					
 						if(true){
 							
