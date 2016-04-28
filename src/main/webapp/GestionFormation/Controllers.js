@@ -170,9 +170,9 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		
 		//controleur demande formation
 		
-		GestForApp.controller('CtrlDemandeForm',['$http', '$location',function($http, $location) {
+		GestForApp.controller('CtrlDemandeForm',['$http', '$location','InitBddService',function($http, $location,InitBddService) {
 			var self = this;
-			
+			InitBddService.init($http);
 			
 			self.loadSessionFormation=function(){
 				$http.get("api/sessions/"+self.DemandeFormation).then(function(data){
