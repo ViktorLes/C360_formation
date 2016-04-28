@@ -25,12 +25,11 @@ routeApp.config(['$routeProvider',function($routeProvider) {
                          templateUrl: 'templates/AffectationSession.jsp',
                          controller: 'CtrlAffectationSession',
                          controllerAs:'AS'
-                     });
-                     /*
-                     .otherwise({
-                         redirectTo: '/'
-                        
-                     });
-                      */
+                     })
+                     .when('/DemandeFormation', {
+                         templateUrl: 'templates/DemandeFormation.jsp',
+                         controller: 'CtrlDemandeForm',
+                         controllerAs:'DmF'
+                     });  
                  }
              ]);

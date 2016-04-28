@@ -56,4 +56,16 @@ public class FormationWS {
 		}
 		return false;
    }
+	@RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.GET)
+	@ResponseBody
+    public List<SessionFormation> ReadSessionFormation(){	
+		return formationDAO.GetAllSessionFormation();
+		
+	}
+	@RequestMapping(value = "/sessions/id", method = RequestMethod.GET)
+	@ResponseBody
+    public List<SessionFormation> ReadSessionByFormation(long id){	
+		return formationDAO.GetSessionByFormation(1);
+		
+	}
 }	

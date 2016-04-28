@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 //import javax.persistence.criteria.ParameterExpression;
@@ -61,16 +62,25 @@ public class FormationDAO {
 		return !list.isEmpty(); //return true if the list is not avoid
 	}
 	
+	public List<Formation> GetAllFormation() {
+		return em.createQuery("select a from Formation a", Formation.class).getResultList();
+	}
 	
 	/*** Session Formation ***/
+	
+	public List<SessionFormation> GetSessionByFormation(long myFormationId) {
+		Query q=em.createQuery("select s from SessionFormation s where s.formation.id=:myFormationId").setParameter("myFormationId",myFormationId);
+		
+		return q.getResultList();
+	}
+	
+	public List<SessionFormation> GetAllSessionFormation() {
+		return em.createQuery("select a from SessionFormation a", SessionFormation.class).getResultList();
+	}
 	
 	@Transactional
 	public void addSessionFormation(SessionFormation sf){
 		em.persist(sf);
-	}
-	
-	public List<Formation> GetAllFormation() {
-		return em.createQuery("select a from Formation a", Formation.class).getResultList();
 	}
 	
 	@Transactional

@@ -23,11 +23,11 @@
 	          	
 	          	<input ng-model="SessionSelectionnee" title="Selectionner une session" class="filter form-control filter-unselected" list="SessionDataListFilter" placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
 	          	<datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">  
-	                <option data-ng-repeat="SessionHTML in listDesSessionsDisponibles" value="{{SessionHTML.version+'-'+SessionHTML.name+'-'+SessionHTML.debut}}"></option> 
-	             </datalist>
-
+	                <option data-ng-repeat="session in AS.SessionFormationList" value="{{session.formation.titreformation}}- {{session.debut}} - {{session.fin}}- {{session.lieu}}"></option> 
+	             </datalist>           
+	             
 	          <hr>
-	          <h5><input type="checkbox" value="" checked>Afficher les demandes</h5>
+	          <!-- <h5><input type="checkbox" value="" checked>Afficher les demandes</h5> -->
 		      <body class="form-group" id="wrapper" ng-controller="CtrlAffectationSession">  
 		      		<div id="dual-list-box-employees" class="form-group row">
            				<div class="col-md-5">       
@@ -35,8 +35,7 @@
            					<input ng-model="searchCollaborateurField" class="filter form-control filter-unselected" type="text" placeholder="Écrire le nom du collaborateur ..." style="margin-bottom: 5px;" autofocus> 
  				   				
            					<select ng-options="collaborateurHTML as (collaborateur.firstName +', '+collaborateur.name) for collaborateur in filterCollaborateur =(listDesCollaborateursDisponibles  | objectToString:searchCollaborateurField)" class="unselected form-control" style="height: 200px; width: 100%;" size="12" ng-model="disponibleCollaborateurs" ></select> 
-           					
-           					
+           					   					
            					<div class="row">
 							  <div class="small-2 small-centered columns" ng-show="(filterCollaborateur.length == 0)&&(searchCollaborateurField.length != Null)">
 							    <div data-alert class="alert-box info">
@@ -61,7 +60,6 @@
             <div><button type="submit" class="btn btn-primary">Enregistrer</button></div>                      
        </div>
   
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
     <script src="Controllers.js"></script>
     
