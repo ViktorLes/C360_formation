@@ -9,7 +9,7 @@ AppFilter.filter('objectToString',[function(){
 					var listeObjetFiltre=[];
 					for (var i=0;i<object.length;i++){					
 						
-						if(object[i].name.toUpperCase().substr(0,collaborateur.length)== collaborateur.toUpperCase())
+						if(object[i].nom.toUpperCase().substr(0,collaborateur.length)== collaborateur.toUpperCase())
 							{
 							listeObjetFiltre.push(object[i]);
 							}

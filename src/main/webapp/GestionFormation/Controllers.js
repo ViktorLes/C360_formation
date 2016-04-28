@@ -32,7 +32,8 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 				self.SessionFormationListConverted= [];
 				Array.prototype.push.apply(self.SessionFormationListConverted,NouvelleSession());			
 			});
-	
+			
+			//moveItem d'une liste à une autre
 			self.moveItem = function(item,from,to){
 				var idx=from.indexOf(item);
 		        if (idx != -1) {
@@ -75,6 +76,12 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 		    	else
 		    		return false;    	
 		    };
+		    
+		  //Récupérer la liste des collaborateur disponible
+			$http.get("api/collaborateurs").then(function(data){
+				self.CollaborateurDisponibleList = [];
+				Array.prototype.push.apply(self.CollaborateurDisponibleList,data.data);	
+			});
   // A retirer après l'intégration du Back
     self.listDesCollaborateursDisponibles = [
         {'id': '1','firstName': 'Gym',  'name': 'SEBASTIEN'},

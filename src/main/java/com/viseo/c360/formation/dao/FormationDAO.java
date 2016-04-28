@@ -70,7 +70,6 @@ public class FormationDAO {
 	
 	public List<SessionFormation> GetSessionByFormation(long myFormationId) {
 		Query q=em.createQuery("select s from SessionFormation s where s.formation.id=:myFormationId").setParameter("myFormationId",myFormationId);
-		
 		return q.getResultList();
 	}
 	
