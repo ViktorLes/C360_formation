@@ -271,7 +271,8 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 					self.listSessionFormation = [];
 					Array.prototype.push.apply(self.listSessionFormation,data.data);
 					
-						if(true){
+						if(typeof self.listSessionFormation !== 'undefined' && self.listSessionFormation.length === 0){
+							self.isListEmpty = true;
 							
 						}
 					
