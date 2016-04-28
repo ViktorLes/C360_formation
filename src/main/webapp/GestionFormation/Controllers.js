@@ -83,7 +83,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				});
 		    };
 		}]);
-
+		
 		//Controleur DeclarationSession
 		GestForApp.controller('CtrlSes', ['DatepickerService','$http','$filter',function(datepicker,$http,$filter) {
 			var self = this;
@@ -152,6 +152,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				
 				/*** Enregistrement SessionFormation ***/
 				
+				
 				self.actionEnregistrer = function() {
 					var session = {
 							formation: self.SessionFormationId,
@@ -172,4 +173,29 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				}
 		
 		}]);
+		
+		//controleur demande formation
+		
+		GestForApp.controller('CtrlDemandeForm',['$http', '$location',function($http, $location) {
+			var self = this;
+			
+			self.loadSessionFormation=function(){
+				$http.get("api/sessions").then(function(data){
+					self.SessionFormation = [];
+					Array.prototype.push.apply(self.SessionFormation,data.data);
+					console.log(self.SessionFormation);
+					
+				});
+			}
+			//self.isdemandeAlreadyPlanned = true;
+			$http.get("api/formations").then(function(data){
+				self.formation = [];
+				Array.prototype.push.apply(self.formation,data.data);
+				
+			});
+			
+		   
+		}]);
+		
+		
 
