@@ -20,9 +20,10 @@
  						</select>
  						<ul>
  							<li ng-repeat="s in DmF.listSessionFormation">
- 							{{s.debut}}{{s.fin}}{{s.lieu}}
+ 							{{s.debut | date:"dd LLLL yyyy"}} - {{s.fin | date:"dd LLLL yyyy"}} - {{s.lieu}}
  							</li>
  						</ul>					
+
 				</div>
 				<button type="submit" class="btn btn-primary" >Envoyer demande</button>	
 			  </form>
