@@ -272,30 +272,36 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 		GestForApp.controller('CtrlDemandeForm',['$http', '$location','InitBddService',function($http, $location,InitBddService) {
 			var self = this;
 			InitBddService.init($http);
-			
-			self.loadSessionFormation=function(){
-				$http.get("api/sessions/"+self.DemandeFormationId).then(function(data){
-					self.listSessionFormation = [];
-					Array.prototype.push.apply(self.listSessionFormation,data.data);
-					
-						if(self.listSessionFormation.length === 0){
-							self.isListEmpty = true;
-						}
-						console.log(self.listSessionFormation);
-						console.log(self.listSessionFormation.some(function(elem){return elem.isChecked;}));
-						if(self.listSessionFormation.some(function(elem){return elem.isChecked;})){
-							
-							self.atLeastOneSelected = true;
-							
-						}
-				});
-			}
-			//self.isdemandeAlreadyPlanned = true;
+
+			//Charge la liste de formations affiché dans le select box des formations
 			$http.get("api/formations").then(function(data){
 				self.formation = [];
 				Array.prototype.push.apply(self.formation,data.data);
 			});
 			
+			//Charge la liste de sessions disponible en fonction de l'ID de formation
+			//selectionné grâce au 'select box' 
+			self.loadSessionFormation=function() {
+				if (self.DemandeFormationId > 0) $http.get("api/sessions/" + self.DemandeFormationId).then(function (data) {
+					self.listSessionFormation = [];
+					Array.prototype.push.apply(self.listSessionFormation, data.data);
+					if (self.listSessionFormation.length === 0) {
+						self.isListEmpty = true;
+					}
+				});
+			}
+			
+			self.actionEnregistrer = function() {
+				console.log(self.listSessionFormation);
+				console.log(self.listSessionFormation.some(function (elem) {
+					return elem.isChecked;
+				}));
+				if (self.listSessionFormation.some(function (elem) {
+						return elem.isChecked;
+					})) {
+					self.atLeastOneSelected = true;
+				}
+			}
 		   
 		}]);
 		

@@ -7,7 +7,7 @@
 		    <h3 class="panel-title">Demande Formation</h3>
 		  </div>
 		  <div class="panel-body">
-			  <form name="formationForm" ng-submit="DmF.verifierForm(demandeForm)" novalidate >
+			  <form name="formationForm" ng-submit="DmF.actionEnregistrer()" novalidate >
 				<div class="form-group">
 				<label>Selectionner formation</label>
  						<select class="selectpicker form-control" ng-model="DmF.DemandeFormationId" ng-options="formation.id as formation.titreformation for formation in DmF.formation" ng-change="DmF.loadSessionFormation()">
