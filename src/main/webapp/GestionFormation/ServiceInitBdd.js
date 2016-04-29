@@ -27,6 +27,7 @@ angular.module('GestForController').factory('InitBddService',[function(){
 						console.log("ajout session2",session2);
 					});
 				});
+				
 			});
 			
 			

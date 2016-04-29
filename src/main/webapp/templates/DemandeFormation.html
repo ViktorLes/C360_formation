@@ -7,7 +7,7 @@
 		    <h3 class="panel-title">Demande Formation</h3>
 		  </div>
 		  <div class="panel-body">
-			  <form name="formationForm" ng-submit="DmF.actionEnregistrer()" novalidate >
+			  <form name="formationForm" ng-submit="DmF.verifierForm()" novalidate >
 				<div class="form-group">
 				<label>Selectionner formation</label>
  						<select class="selectpicker form-control" ng-model="DmF.DemandeFormationId" ng-options="formation.id as formation.titreformation for formation in DmF.formation" ng-change="DmF.loadSessionFormation()">
@@ -19,8 +19,9 @@
  							{{s.debut | date:"dd LLLL yyyy"}} - {{s.fin | date:"dd LLLL yyyy"}} - {{s.lieu}}
  							</li>
  						</ul>		
- 						<div ng-show="DmF.isListEmpty">Aucune session n'est prévue, vous pouvez néaomoins envoyer une demande</div>	
- 						<div ng-hide="DmF.atLeastOneSelected">Veuillez sélectionner une session</div>		
+ 						<div ng-show="DmF.isListEmpty" class="info-text">Aucune session n'est prévue, vous pouvez néanmoins envoyer une demande</div>
+						<div ng-show="DmF.noneSessionSelected" class="warning-text">Vous n'avez sélectionné aucune session</div>
+						<div ng-show="DmF.hasToChooseOneFormation" class="warning-text">Veuillez sélectionner une session</div>
 
 				</div>
 				<button type="submit" class="btn btn-primary" >Envoyer demande</button>	

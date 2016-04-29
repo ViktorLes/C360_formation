@@ -282,8 +282,10 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 			//Charge la liste de sessions disponible en fonction de l'ID de formation
 			//selectionné grâce au 'select box' 
 			self.loadSessionFormation=function() {
-				if (self.DemandeFormationId > 0) $http.get("api/sessions/" + self.DemandeFormationId).then(function (data) {
-					self.listSessionFormation = [];
+				self.noneSessionSelected = false;
+				self.hasToChooseOneFormation = false;
+				self.listSessionFormation = [];
+				if (Number.isInteger(self.DemandeFormationId)) $http.get("api/sessions/" + self.DemandeFormationId).then(function (data) {
 					Array.prototype.push.apply(self.listSessionFormation, data.data);
 					if (self.listSessionFormation.length === 0) {
 						self.isListEmpty = true;
@@ -291,16 +293,25 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 				});
 			}
 			
-			self.actionEnregistrer = function() {
-				console.log(self.listSessionFormation);
-				console.log(self.listSessionFormation.some(function (elem) {
-					return elem.isChecked;
-				}));
-				if (self.listSessionFormation.some(function (elem) {
-						return elem.isChecked;
-					})) {
-					self.atLeastOneSelected = true;
+			self.verifierForm = function () {
+				self.noneSessionSelected = false;
+				if (Number.isInteger(self.DemandeFormationId)) {
+					if (typeof self.listSessionFormation !== 'undefined' ) {
+						if(self.isListEmpty){
+							//envoi au serveur une demande de session non programmée
+						}else if(self.listSessionFormation.some(function (elem) {return elem.isChecked;})){
+							//envoi 'des' sessions selectionné par le collaborateur au serveur
+						}else{
+							self.noneSessionSelected = true;
+						}
+					}
+				}else {
+					self.hasToChooseOneFormation = true;
 				}
+			}
+			
+			self.actionEnregistrer = function(demande) {
+				
 			}
 		   
 		}]);
