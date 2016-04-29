@@ -21,16 +21,15 @@ routeApp.config(['$routeProvider',function($routeProvider) {
                          controller: 'CtrlSes',
                          controllerAs:'DS'
                      })
+                     .when('/AffectationSession', {
+                         templateUrl: 'templates/AffectationSession.html',
+                         controller: 'CtrlAffectationSession',
+                         controllerAs:'AS'
+                     })
                      .when('/DemandeFormation', {
-                         templateUrl: 'templates/DemandeFormation.jsp',
+                         templateUrl: 'templates/DemandeFormation.html',
                          controller: 'CtrlDemandeForm',
                          controllerAs:'DmF'
-                     });
-                     /*
-                     .otherwise({
-                         redirectTo: '/'
-                        
-                     });
-                      */
+                     });  
                  }
              ]);

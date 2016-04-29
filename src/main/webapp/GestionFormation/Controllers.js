@@ -1,7 +1,100 @@
 
 //Module de L'GestForapp
-var GestForApp = angular.module('GestForController', ['Datepicker']);
-		
+var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter']);
+
+//************************************************************************************//
+//***** NAME: Controller Affectation session
+//***** Description: moveItem / moveAll / CtrlItemIsSelectedTOEnableOrDisableButton
+//*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
+//************************************************************************************//
+		GestForApp.controller('CtrlAffectationSession',['$http','$location','$filter',function($http, $location,$filter){
+			
+			var self = this;
+			
+			//Récupérer la liste des sessions disponible
+			$http.get("api/sessions").then(function(data){
+				self.SessionFormationList = [];
+				Array.prototype.push.apply(self.SessionFormationList,data.data);
+
+				function NouvelleSession(){
+					var SessionConvertedList=[]; 
+					for(var i=0 ; i<self.SessionFormationList.length ; i++){
+						var SessionObjectConverted={
+								nom: self.SessionFormationList[i].formation.titreformation,
+								debut: $filter('date')(self.SessionFormationList[i].debut, 'dd/MM/yyyy'),
+								fin: $filter('date')(self.SessionFormationList[i].fin, 'dd/MM/yyyy'),
+								lieu: self.SessionFormationList[i].lieu
+						}
+						SessionConvertedList.push(SessionObjectConverted);	
+					}
+					return SessionConvertedList;
+				};
+				self.SessionFormationListConverted= [];
+				Array.prototype.push.apply(self.SessionFormationListConverted,NouvelleSession());			
+			});
+	
+			self.moveItem = function(item,from,to){
+				var idx=from.indexOf(item);
+		        if (idx != -1) {
+		            from.splice(idx, 1);
+		            to.push(item);      
+		        }
+			};
+			self.moveAll = function(from, to) {
+		        if((to.length+from.length)<=10){
+		        	angular.forEach(from, function(item) {
+			            to.push(item);
+			        });
+			        from.length = 0;
+		        }				
+			};
+			self.moveAllFromSelectedToDisponible = function(from, to) {
+		        angular.forEach(from, function(item) {
+		            to.push(item);
+		        });
+		        from.length = 0;
+			};
+		    self.CtrlSelectedItemTOEnableOrDisableButton = function(disponibleCollaborateur) {
+		    	if(typeof(disponibleCollaborateur) == "undefined" || disponibleCollaborateur.length ==0){
+		    		return false;
+		    	}
+		    	else
+		    		return true;
+		    };
+		    self.CtrlMoveAllTOEnableOrDisableButton = function(listDesCollaborateurs) {
+		    	if(listDesCollaborateurs.length==0){
+		    		return true;
+		    	}
+		    	else
+		    		return false;    	
+		    };
+		    self.CtrlMaxCollaborateurSelectionnee = function(listDesCollaborateursSelectionnee) {
+		    	if(listDesCollaborateursSelectionnee.length==10){
+		    		return true;
+		    	}
+		    	else
+		    		return false;    	
+		    };
+  // A retirer après l'intégration du Back
+    self.listDesCollaborateursDisponibles = [
+        {'id': '1','firstName': 'Gym',  'name': 'SEBASTIEN'},
+        {'id': '2','firstName': 'Lee', 'name': 'MARION'},
+        {'id': '3','firstName': 'Belloum',  'name': 'YOUSSEF'},
+        {'id': '4','firstName': 'Thomas', 'name': 'ROMAIN'},
+        {'id': '5','firstName': 'Alssandro', 'name': 'LAURA'},
+        {'id': '6','firstName': 'Aurelian', 'name': 'JULIEN'},
+        {'id': '7','firstName': 'Karieene',  'name': 'MARIE'},
+        {'id': '4','firstName': 'ee', 'name': 'ROMAIN'},
+        {'id': '5','firstName': 'ddd', 'name': 'LAURA'},
+        {'id': '7','firstName': 'Jihad',  'name': 'Elkadir'},
+        {'id': '5','firstName': 'ddd', 'name': 'LAURA'},
+        {'id': '7','firstName': 'Jihad',  'name': 'Elkadir'}
+    ];
+
+    self.listDesCollaborateursSelectionnes = [];
+}]);
+//************************************************************************************//
+
 		//Controleur DeclarationFromation		
 		GestForApp.controller('CtrlFor', ['$http', '$location',function($http, $location) {
 		
@@ -152,7 +245,6 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				
 				/*** Enregistrement SessionFormation ***/
 				
-				
 				self.actionEnregistrer = function() {
 					var session = {
 							formation: self.SessionFormationId,
@@ -160,6 +252,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 							fin:  $filter('date')(self.d2.dt,"dd/MM/yyyy") + "|" + self.heureFin,
 							lieu: self.lieuFormation
 					};
+					
 				
 						$http.post("api/sessions", session).success(function(data){
 							if(data == "true" || data == true) {
@@ -176,22 +269,31 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 		
 		//controleur demande formation
 		
-		GestForApp.controller('CtrlDemandeForm',['$http', '$location',function($http, $location) {
+		GestForApp.controller('CtrlDemandeForm',['$http', '$location','InitBddService',function($http, $location,InitBddService) {
 			var self = this;
+			InitBddService.init($http);
 			
 			self.loadSessionFormation=function(){
-				$http.get("api/sessions").then(function(data){
-					self.SessionFormation = [];
-					Array.prototype.push.apply(self.SessionFormation,data.data);
-					console.log(self.SessionFormation);
+				$http.get("api/sessions/"+self.DemandeFormationId).then(function(data){
+					self.listSessionFormation = [];
+					Array.prototype.push.apply(self.listSessionFormation,data.data);
 					
+						if(self.listSessionFormation.length === 0){
+							self.isListEmpty = true;
+						}
+						console.log(self.listSessionFormation);
+						console.log(self.listSessionFormation.some(function(elem){return elem.isChecked;}));
+						if(self.listSessionFormation.some(function(elem){return elem.isChecked;})){
+							
+							self.atLeastOneSelected = true;
+							
+						}
 				});
 			}
 			//self.isdemandeAlreadyPlanned = true;
 			$http.get("api/formations").then(function(data){
 				self.formation = [];
 				Array.prototype.push.apply(self.formation,data.data);
-				
 			});
 			
 		   
