@@ -30,5 +30,11 @@ public class CollaborateurWS {
 		}
 		return false;
     }
+
+	@RequestMapping(method = RequestMethod.GET)
+	@ResponseBody
+	public String message(){
+		return "Hello world";
+	}
     
 }
