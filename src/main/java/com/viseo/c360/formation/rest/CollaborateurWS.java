@@ -3,6 +3,7 @@ package com.viseo.c360.formation.rest;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import com.viseo.c360.formation.domain.collaborateur.DemandeFormation;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,8 @@ public class CollaborateurWS {
 
 	@Inject
 	CollaborateurDAO collaborateurDAO;
-		
+
+	/***Collaborateur***/
 	@RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public boolean addCollaborateur(@Valid @RequestBody Collaborateur myCollaborateur, BindingResult bindingResult){
@@ -36,5 +38,15 @@ public class CollaborateurWS {
 	public String message(){
 		return "Hello world";
 	}
-    
+
+	/***DemandeFormation***/
+	@RequestMapping(method = RequestMethod.POST)
+	@ResponseBody
+	public boolean addDemandeFormation(@Valid @RequestBody DemandeFormation myDMF, BindingResult bindingResult){
+		if(!bindingResult.hasErrors()){
+			collaborateurDAO.addDemandeFormation(myDMF);
+			return true;
+		}
+		return false;
+	}
 }

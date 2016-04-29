@@ -56,11 +56,6 @@ public class SessionFormationDeserializer extends JsonDeserializer<SessionFormat
         	debut = formatterDate.parse(node.get("debut").asText());
         	fin = formatterDate.parse(node.get("fin").asText());
         	
-//        	if(!debut.before(fin)) {
-//        		System.err.println("L'ordre des dates ne concorde pas ( debut : "+debut.toString()+" <= fin : "+fin.toString());
-//        		throw new FormationDAOException("L'ordre des dates ne concorde pas ( debut : "+debut.toString()+" <= fin : "+fin.toString());
-//        	}
-        	
         	sf.setDebut(debut);
         	sf.setFin(fin);
 		} catch (ParseException e) {

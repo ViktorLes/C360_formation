@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 //import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
+import com.viseo.c360.formation.domain.collaborateur.DemandeFormation;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,10 @@ public class CollaborateurDAO {
 	
 	@PersistenceContext
 	EntityManager em;
-	
+
+	/***Collaborateur***/
+	public Collaborateur getCollaborateur(long id) {return em.find(Collaborateur.class, id);}
+
 	@Transactional
 	public void addCollaborateur(Collaborateur c){
 		em.persist(c);
@@ -40,5 +44,12 @@ public class CollaborateurDAO {
 		  
 		return !list.isEmpty();
 	}
-	
+
+	/***DemandeFormation***/
+	@Transactional
+	public void addDemandeFormation(DemandeFormation dmf){
+		em.persist(dmf);
+	}
+
+
 }

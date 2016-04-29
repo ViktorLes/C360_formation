@@ -22,7 +22,7 @@ public class DemandeFormation {
     @ManyToOne
     Collaborateur collaborateur;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     List<SessionFormation> listSession;
 
     public DemandeFormation() {super();}
