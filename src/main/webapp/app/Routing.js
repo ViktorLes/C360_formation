@@ -1,10 +1,5 @@
-var routeApp = angular.module('App', [
-    // Dépendances du "module"
-    'ngRoute',
-    'GestForController']);
-
-routeApp.config(['$routeProvider',function($routeProvider) {  
-                     // Système de routage
+angular.module('App')
+    .config(['$routeProvider',function($routeProvider) {
                      $routeProvider
                      .when('/EnregistrementCollaborateur', {
                          templateUrl: 'templates/EnregistrementCollaborateur.html',

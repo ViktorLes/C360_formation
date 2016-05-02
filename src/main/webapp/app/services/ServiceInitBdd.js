@@ -29,8 +29,6 @@ angular.module('GestForController').factory('InitBddService',[function(){
 				});
 				
 			});
-			
-			
 		}
 	};
 }]);

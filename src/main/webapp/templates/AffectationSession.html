@@ -26,7 +26,7 @@
 	           				<h5><span class="label label-default" id="gauche">Collaborateurs disponibles: {{FilterResultList.length}} affichés</span></h5>  	 
            					<input ng-model="searchCollaborateurField" class="filter form-control filter-unselected" type="text" placeholder="Écrire le nom du collaborateur ..." style="margin-bottom: 5px;" autofocus> 
  				   				
-           					<select ng-options="(collaborateur.prenom +' '+collaborateur.nom) for collaborateur in FilterResultList = (AS.CollaborateurDisponibleList | objectToString:searchCollaborateurField)" ng-model="AS.SelectedCollaborateur" class="unselected form-control" style="height: 200px; width: 100%;" size="12"></select> 
+           					<select ng-options="(collaborateur.prenom +' '+collaborateur.nom) for collaborateur in FilterResultList = (AS.CollaborateurDisponibleList | searchByName:searchCollaborateurField)" ng-model="AS.SelectedCollaborateur" class="unselected form-control" style="height: 200px; width: 100%;" size="12"></select>
            					<div class="row">
 							  <div class="small-2 small-centered columns" ng-show="(filterCollaborateur.length == 0)&&(searchCollaborateurField.length != Null)">
 							    <div data-alert class="alert-box info">

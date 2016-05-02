@@ -1,6 +1,6 @@
 
 //Module de L'GestForapp
-var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter']);
+var GestForApp = angular.module('GestForController');
 
 //************************************************************************************//
 //***** NAME: Controller Affectation session
@@ -109,7 +109,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 				$http.post("api/formations", self.formation).success(function(data){		
 					if(data == "true" || data == true){
 						self.isNewTitleFormation = true;
-				 		document.location.href = 'pageblancheformation.html';
+				 		document.location.href = '../pageblancheformation.html';
 				 		//$location.path('pageblancheformation.html');
 					}
 					else {
@@ -154,7 +154,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 				$http.post("api/collaborateurs", self.collaborateur).success(function(data){
 					 if(data == "true" || data == true) {
 						 self.isNewMatricule = true; 
-						 document.location.href = 'pageblanche.html';
+						 document.location.href = '../pageblanche.html';
 						 //$location.path('pageblanche.html');
 					 }
 					 else self.isNewMatricule = false;
@@ -250,7 +250,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 						$http.post("api/sessions", session).success(function(data){
 							if(data == "true" || data == true) {
 								self.isSessionAlreadyPlanned = true;
-								document.location.href = 'pageblanche.html';
+								document.location.href = '../pageblanche.html';
 							}else 
 								{
 								self.isSessionAlreadyPlanned = false;
