@@ -283,11 +283,13 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 					if (self.listSessionFormation.length === 0) {
 						self.isListEmpty = true;
 					}
+					else self.isListEmpty = false;
 				});
 			}
 			
 			self.verifierForm = function () {
 				self.noneSessionSelected = false;
+				self.hasToChooseOneFormation = false;
 				if (Number.isInteger(self.DemandeFormationId)) {
 					if (typeof self.listSessionFormation !== 'undefined' ) {
 						if(self.isListEmpty){
