@@ -7,10 +7,9 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 //***** Description: moveItem / moveAll / CtrlItemIsSelectedTOEnableOrDisableButton
 //*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
 //************************************************************************************//
-		GestForApp.controller('CtrlAffectationSession',['$http','$location','$filter',function($http, $location,$filter){
+		GestForApp.controller('CtrlAffectationSession',['$scope','$http','$location','$filter',function($scope,$http, $location,$filter){
 			
 			var self = this;
-			
 			//Récupérer la liste des sessions disponible
 			$http.get("api/sessions").then(function(data){
 				self.SessionFormationList = [];
@@ -30,23 +29,16 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 					return SessionConvertedList;
 				};
 				self.SessionFormationListConverted= [];
-				Array.prototype.push.apply(self.SessionFormationListConverted,NouvelleSession());			
+				Array.prototype.push.apply(self.SessionFormationListConverted,NouvelleSession());	
 			});
-	
-			self.moveItem = function(item,from,to){
+			
+			//moveItem d'une liste à une autre
+			$scope.moveItem = function(item,from,to){
 				var idx=from.indexOf(item);
 		        if (idx != -1) {
 		            from.splice(idx, 1);
-		            to.push(item);      
+		            to.push(item);         
 		        }
-			};
-			self.moveAll = function(from, to) {
-		        if((to.length+from.length)<=10){
-		        	angular.forEach(from, function(item) {
-			            to.push(item);
-			        });
-			        from.length = 0;
-		        }				
 			};
 			self.moveAllFromSelectedToDisponible = function(from, to) {
 		        angular.forEach(from, function(item) {
@@ -75,8 +67,14 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 		    	else
 		    		return false;    	
 		    };
-
-
+  
+		  //Récupérer la liste des collaborateur disponible
+			$http.get("api/collaborateurs").then(function(data){
+				self.CollaborateurDisponibleList = [];
+				self.SelectedCollaborateurList =[];
+				Array.prototype.push.apply(self.CollaborateurDisponibleList,data.data);
+				$scope.SelectedCollaborateur=self.CollaborateurDisponibleList[0];
+			});	
 }]);
 //************************************************************************************//
 
@@ -166,9 +164,17 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 		GestForApp.controller('CtrlSes', ['DatepickerService','$http','$filter',function(datepicker,$http,$filter) {
 			var self = this;
 			self.isSessionAlreadyPlanned = true;
+			
+			$http.get("api/formations").then(function(data){
+				self.formation =[];
+				Array.prototype.push.apply(self.formation,data.data);
+				self.SessionFormationId = self.formation[0].id;
+			});	
 
 			self.d1 = datepicker.build();
 			self.d2 = datepicker.build();
+			
+			
 			
 			
 				function initHoraireTab(){
@@ -256,7 +262,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 		
 		GestForApp.controller('CtrlDemandeForm',['$http', '$location','InitBddService',function($http, $location,InitBddService) {
 			var self = this;
-			InitBddService.init($http);
+			//InitBddService.init($http);
 
 			//Charge la liste de formations affiché dans le select box des formations
 			$http.get("api/formations").then(function(data){
