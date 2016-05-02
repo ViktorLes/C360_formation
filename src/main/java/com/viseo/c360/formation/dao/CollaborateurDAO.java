@@ -1,6 +1,7 @@
 package com.viseo.c360.formation.dao;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viseo.c360.formation.domain.collaborateur.Collaborateur;
+import com.viseo.c360.formation.domain.formation.Formation;
 
 @Repository
 public class CollaborateurDAO {
@@ -39,6 +41,10 @@ public class CollaborateurDAO {
 		  list = (Collection<Collaborateur>) em.createQuery(q).getResultList();
 		  
 		return !list.isEmpty();
+	}
+	
+	public List<Collaborateur> GetAllCollaborateur() {
+		return em.createQuery("select a from Collaborateur a", Collaborateur.class).getResultList();
 	}
 	
 }

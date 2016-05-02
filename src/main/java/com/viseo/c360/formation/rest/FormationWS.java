@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,4 +57,15 @@ public class FormationWS {
 		}
 		return false;
    }
+	@RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.GET)
+	@ResponseBody
+    public List<SessionFormation> ReadSessionFormation(){	
+		return formationDAO.GetAllSessionFormation();
+		
+	}
+	@RequestMapping(value = "${endpoint.sessionsbyid}", method = RequestMethod.GET)
+	@ResponseBody
+    public List<SessionFormation> ReadSessionByFormation(@PathVariable String id){
+		return formationDAO.GetSessionByFormation(Long.parseLong(id));
+	}
 }	

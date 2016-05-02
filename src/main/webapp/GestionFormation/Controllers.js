@@ -1,7 +1,83 @@
 
 //Module de L'GestForapp
-var GestForApp = angular.module('GestForController', ['Datepicker']);
-		
+var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter']);
+
+//************************************************************************************//
+//***** NAME: Controller Affectation session
+//***** Description: moveItem / moveAll / CtrlItemIsSelectedTOEnableOrDisableButton
+//*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
+//************************************************************************************//
+		GestForApp.controller('CtrlAffectationSession',['$scope','$http','$location','$filter',function($scope,$http, $location,$filter){
+			
+			var self = this;
+			//Récupérer la liste des sessions disponible
+			$http.get("api/sessions").then(function(data){
+				self.SessionFormationList = [];
+				Array.prototype.push.apply(self.SessionFormationList,data.data);
+
+				function NouvelleSession(){
+					var SessionConvertedList=[]; 
+					for(var i=0 ; i<self.SessionFormationList.length ; i++){
+						var SessionObjectConverted={
+								nom: self.SessionFormationList[i].formation.titreformation,
+								debut: $filter('date')(self.SessionFormationList[i].debut, 'dd/MM/yyyy'),
+								fin: $filter('date')(self.SessionFormationList[i].fin, 'dd/MM/yyyy'),
+								lieu: self.SessionFormationList[i].lieu
+						}
+						SessionConvertedList.push(SessionObjectConverted);	
+					}
+					return SessionConvertedList;
+				};
+				self.SessionFormationListConverted= [];
+				Array.prototype.push.apply(self.SessionFormationListConverted,NouvelleSession());	
+			});
+			
+			//moveItem d'une liste à une autre
+			$scope.moveItem = function(item,from,to){
+				var idx=from.indexOf(item);
+		        if (idx != -1) {
+		            from.splice(idx, 1);
+		            to.push(item);         
+		        }
+			};
+			self.moveAllFromSelectedToDisponible = function(from, to) {
+		        angular.forEach(from, function(item) {
+		            to.push(item);
+		        });
+		        from.length = 0;
+			};
+		    self.CtrlSelectedItemTOEnableOrDisableButton = function(disponibleCollaborateur) {
+		    	if(typeof(disponibleCollaborateur) == "undefined" || disponibleCollaborateur.length ==0){
+		    		return false;
+		    	}
+		    	else
+		    		return true;
+		    };
+		    self.CtrlMoveAllTOEnableOrDisableButton = function(listDesCollaborateurs) {
+		    	if(listDesCollaborateurs.length==0){
+		    		return true;
+		    	}
+		    	else
+		    		return false;    	
+		    };
+		    self.CtrlMaxCollaborateurSelectionnee = function(listDesCollaborateursSelectionnee) {
+		    	if(listDesCollaborateursSelectionnee.length==10){
+		    		return true;
+		    	}
+		    	else
+		    		return false;    	
+		    };
+  
+		  //Récupérer la liste des collaborateur disponible
+			$http.get("api/collaborateurs").then(function(data){
+				self.CollaborateurDisponibleList = [];
+				self.SelectedCollaborateurList =[];
+				Array.prototype.push.apply(self.CollaborateurDisponibleList,data.data);
+				$scope.SelectedCollaborateur=self.CollaborateurDisponibleList[0];
+			});	
+}]);
+//************************************************************************************//
+
 		//Controleur DeclarationFromation		
 		GestForApp.controller('CtrlFor', ['$http', '$location',function($http, $location) {
 		
@@ -83,14 +159,22 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				});
 		    };
 		}]);
-
+		
 		//Controleur DeclarationSession
 		GestForApp.controller('CtrlSes', ['DatepickerService','$http','$filter',function(datepicker,$http,$filter) {
 			var self = this;
 			self.isSessionAlreadyPlanned = true;
+			
+			$http.get("api/formations").then(function(data){
+				self.formation =[];
+				Array.prototype.push.apply(self.formation,data.data);
+				self.SessionFormationId = self.formation[0].id;
+			});	
 
 			self.d1 = datepicker.build();
 			self.d2 = datepicker.build();
+			
+			
 			
 			
 				function initHoraireTab(){
@@ -159,6 +243,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 							fin:  $filter('date')(self.d2.dt,"dd/MM/yyyy") + "|" + self.heureFin,
 							lieu: self.lieuFormation
 					};
+					
 				
 						$http.post("api/sessions", session).success(function(data){
 							if(data == "true" || data == true) {
@@ -172,4 +257,52 @@ var GestForApp = angular.module('GestForController', ['Datepicker']);
 				}
 		
 		}]);
+		
+		//controleur demande formation
+		
+		GestForApp.controller('CtrlDemandeForm',['$http', '$location','InitBddService',function($http, $location,InitBddService) {
+			var self = this;
+			//InitBddService.init($http);
 
+			//Charge la liste de formations affiché dans le select box des formations
+			$http.get("api/formations").then(function(data){
+				self.formation = [];
+				Array.prototype.push.apply(self.formation,data.data);
+			});
+			
+			//Charge la liste de sessions disponible en fonction de l'ID de formation
+			//selectionné grâce au 'select box' 
+			self.loadSessionFormation=function() {
+				self.noneSessionSelected = false;
+				self.hasToChooseOneFormation = false;
+				self.listSessionFormation = [];
+				if (Number.isInteger(self.DemandeFormationId)) $http.get("api/sessions/" + self.DemandeFormationId).then(function (data) {
+					Array.prototype.push.apply(self.listSessionFormation, data.data);
+					if (self.listSessionFormation.length === 0) {
+						self.isListEmpty = true;
+					}
+				});
+			}
+			
+			self.verifierForm = function () {
+				self.noneSessionSelected = false;
+				if (Number.isInteger(self.DemandeFormationId)) {
+					if (typeof self.listSessionFormation !== 'undefined' ) {
+						if(self.isListEmpty){
+							//envoi au serveur une demande de session non programmée
+						}else if(self.listSessionFormation.some(function (elem) {return elem.isChecked;})){
+							//envoi 'des' sessions selectionné par le collaborateur au serveur
+						}else{
+							self.noneSessionSelected = true;
+						}
+					}
+				}else {
+					self.hasToChooseOneFormation = true;
+				}
+			}
+			
+			self.actionEnregistrer = function(demande) {
+								
+			}
+		   
+		}]);

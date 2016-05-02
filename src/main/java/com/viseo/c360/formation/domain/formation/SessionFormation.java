@@ -27,11 +27,9 @@ public class SessionFormation {
 	
 	@ManyToOne
 	Formation formation;
-	
-	//@Temporal(TemporalType.TIMESTAMP)
+
 	Date debut;
-	
-	//@Temporal(TemporalType.TIMESTAMP)
+
 	Date fin;
 	
 	String lieu;
