@@ -75,23 +75,8 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 		    	else
 		    		return false;    	
 		    };
-  // A retirer après l'intégration du Back
-    self.listDesCollaborateursDisponibles = [
-        {'id': '1','firstName': 'Gym',  'name': 'SEBASTIEN'},
-        {'id': '2','firstName': 'Lee', 'name': 'MARION'},
-        {'id': '3','firstName': 'Belloum',  'name': 'YOUSSEF'},
-        {'id': '4','firstName': 'Thomas', 'name': 'ROMAIN'},
-        {'id': '5','firstName': 'Alssandro', 'name': 'LAURA'},
-        {'id': '6','firstName': 'Aurelian', 'name': 'JULIEN'},
-        {'id': '7','firstName': 'Karieene',  'name': 'MARIE'},
-        {'id': '4','firstName': 'ee', 'name': 'ROMAIN'},
-        {'id': '5','firstName': 'ddd', 'name': 'LAURA'},
-        {'id': '7','firstName': 'Jihad',  'name': 'Elkadir'},
-        {'id': '5','firstName': 'ddd', 'name': 'LAURA'},
-        {'id': '7','firstName': 'Jihad',  'name': 'Elkadir'}
-    ];
 
-    self.listDesCollaborateursSelectionnes = [];
+
 }]);
 //************************************************************************************//
 
@@ -311,10 +296,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 			}
 			
 			self.actionEnregistrer = function(demande) {
-				
+								
 			}
 		   
 		}]);
-		
-		
-

@@ -1,30 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-C:\projects\C360\src\main\java\com\viseo\c360\formation\domain\formation\SessionFormation.java
-C:\projects\C360\src\main\java\com\viseo\c360\formation\dao\CollaborateurDAO.java
-C:\projects\C360\src\main\java\com\viseo\c360\formation\rest\FormationWS.java
-C:\projects\C360\src\main\java\com\viseo\c360\json\serializer\formation\FormationSerializer.java
-C:\projects\C360\src\main\java\com\viseo\c360\formation\domain\collaborateur\Collaborateur.java
-C:\projects\C360\src\main\java\com\viseo\c360\formation\rest\CollaborateurWS.java
-C:\projects\C360\src\main\java\com\viseo\c360\formation\rest\RegexWS.java
-C:\projects\C360\src\main\java\com\viseo\c360\formation\dao\FormationDAO.java
-C:\projects\C360\src\main\java\com\viseo\c360\formation\domain\formation\Formation.java
-C:\projects\C360\src\main\java\com\viseo\c360\json\JSONMapper.java
-C:\projects\C360\src\main\java\com\viseo\c360\json\deserializer\formation\SessionFormationDeserializer.java
-=======
-C:\Users\RHA3507\workspace\C360\src\main\java\com\viseo\c360\json\JSONMapper.java
-C:\Users\RHA3507\workspace\C360\src\main\java\com\viseo\c360\formation\domain\formation\Formation.java
-C:\Users\RHA3507\workspace\C360\src\main\java\com\viseo\c360\formation\domain\formation\SessionFormation.java
-C:\Users\RHA3507\workspace\C360\src\main\java\com\viseo\c360\formation\rest\CollaborateurWS.java
-C:\Users\RHA3507\workspace\C360\src\main\java\com\viseo\c360\json\serializer\formation\FormationSerializer.java
-C:\Users\RHA3507\workspace\C360\src\main\java\com\viseo\c360\formation\rest\FormationWS.java
-C:\Users\RHA3507\workspace\C360\src\main\java\com\viseo\c360\formation\dao\FormationDAO.java
-C:\Users\RHA3507\workspace\C360\src\main\java\com\viseo\c360\formation\domain\collaborateur\Collaborateur.java
-C:\Users\RHA3507\workspace\C360\src\main\java\com\viseo\c360\json\deserializer\formation\SessionFormationDeserializer.java
-C:\Users\RHA3507\workspace\C360\src\main\java\com\viseo\c360\formation\dao\CollaborateurDAO.java
->>>>>>> b06d5f1006b0026caa2e3a7522f9e060b24d8baa
-=======
 C:\Users\BMO3506\workspace\C360\src\main\java\com\viseo\c360\formation\domain\collaborateur\Collaborateur.java
+C:\Users\BMO3506\workspace\C360\src\main\java\com\viseo\c360\formation\rest\RegexWS.java
 C:\Users\BMO3506\workspace\C360\src\main\java\com\viseo\c360\formation\domain\formation\Formation.java
 C:\Users\BMO3506\workspace\C360\src\main\java\com\viseo\c360\formation\rest\FormationWS.java
 C:\Users\BMO3506\workspace\C360\src\main\java\com\viseo\c360\formation\dao\FormationDAO.java
@@ -34,4 +9,4 @@ C:\Users\BMO3506\workspace\C360\src\main\java\com\viseo\c360\formation\domain\fo
 C:\Users\BMO3506\workspace\C360\src\main\java\com\viseo\c360\json\deserializer\formation\SessionFormationDeserializer.java
 C:\Users\BMO3506\workspace\C360\src\main\java\com\viseo\c360\json\serializer\formation\FormationSerializer.java
 C:\Users\BMO3506\workspace\C360\src\main\java\com\viseo\c360\formation\dao\CollaborateurDAO.java
->>>>>>> 99b73ba235377c9966bdbf285c7a9a31ff167fb2
+C:\Users\BMO3506\workspace\C360\src\main\java\com\viseo\c360\formation\domain\collaborateur\DemandeFormation.java

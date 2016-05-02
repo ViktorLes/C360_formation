@@ -1,9 +1,12 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
-encoding//src/main/webapp/templates/DeclarationFormation.html=UTF-8
-encoding//src/main/webapp/templates/EnregistrementCollaborateur.html=UTF-8
 encoding//src/main/webapp/css/formations.css=UTF-8
+encoding//src/main/webapp/templates/AffectationSession.html=UTF-8
+encoding//src/main/webapp/templates/DeclarationFormation.html=UTF-8
+encoding//src/main/webapp/templates/DeclarationSession.html=UTF-8
+encoding//src/main/webapp/templates/DemandeFormation.html=UTF-8
+encoding//src/main/webapp/templates/EnregistrementCollaborateur.html=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8
 encoding/<project>=UTF-8
