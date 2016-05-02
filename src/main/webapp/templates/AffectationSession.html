@@ -26,7 +26,7 @@
 	           				<h5><span class="label label-default" id="gauche">Collaborateurs disponibles: {{FilterResultList.length}} affichés</span></h5>  	 
            					<input ng-model="searchCollaborateurField" class="filter form-control filter-unselected" type="text" placeholder="Écrire le nom du collaborateur ..." style="margin-bottom: 5px;" autofocus> 
  				   				
-           					<select ng-options="collaborateur as (collaborateur.prenom +' '+collaborateur.nom) for collaborateur in FilterResultList = (AS.CollaborateurDisponibleList | objectToString:searchCollaborateurField)" ng-model="AS.SelectedCollaborateur" class="unselected form-control" style="height: 200px; width: 100%;" size="12"></select> 
+           					<select ng-options="(collaborateur.prenom +' '+collaborateur.nom) for collaborateur in FilterResultList = (AS.CollaborateurDisponibleList | objectToString:searchCollaborateurField)" ng-model="AS.SelectedCollaborateur" class="unselected form-control" style="height: 200px; width: 100%;" size="12"></select> 
            					<div class="row">
 							  <div class="small-2 small-centered columns" ng-show="(filterCollaborateur.length == 0)&&(searchCollaborateurField.length != Null)">
 							    <div data-alert class="alert-box info">
@@ -37,13 +37,13 @@
 						</div>
 						<div class="col-md-2 center-block" style="margin-top: 80px">       
 							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 str" title="Ajouter à la session" data-type="str" style="margin-bottom: 20px;" ng-click="moveItem(AS.SelectedCollaborateur, AS.CollaborateurDisponibleList , AS.SelectedCollaborateurList)"><span class="glyphicon glyphicon-chevron-right"></span></button>       
-							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 stl" title="Retirer de la formation" data-type="stl" style="margin-bottom: 10px;" ng-click="moveItem(AS.disponibleCollaborateurSelectionnee, AS.SelectedCollaborateurList , AS.CollaborateurDisponibleList)"><span class="glyphicon glyphicon-chevron-left"></span></button>       
-							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 atl" title="Retirer tous de la formation" data-type="atl" style="margin-bottom: 10px;" ng-click="moveAllFromSelectedToDisponible( AS.SelectedCollaborateurList, AS.CollaborateurDisponibleList )" ng-disabled="CtrlMoveAllTOEnableOrDisableButton(listDesCollaborateursSelectionnes)"><span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-list"></span></button>   
+							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 stl" title="Retirer de la formation" data-type="stl" style="margin-bottom: 10px;" ng-click="moveItem(AS.SelectedCollaborateurInAffectedList[0], AS.SelectedCollaborateurList , AS.CollaborateurDisponibleList)"><span class="glyphicon glyphicon-chevron-left"></span></button>       
+							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 atl" title="Retirer tous de la formation" data-type="atl" style="margin-bottom: 10px;" ng-click="moveAll( AS.SelectedCollaborateurList, AS.CollaborateurDisponibleList )" ng-disabled="CtrlMoveAllTOEnableOrDisableButton(listDesCollaborateursSelectionnes)"><span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-list"></span></button>   
 						</div>   
 						<div class="col-md-5"><br>       
-							<h5><span class="label label-default">Collaborateurs selectionnées: {{listDesCollaborateursSelectionnes.length}} affichés</span></h5>       
+							<h5><span class="label label-default">Collaborateurs selectionnées: {{AS.SelectedCollaborateurList.length}} affichés</span></h5>       	
 							<br>       
-							<select class="selected form-control" ng-options="(collaborateur.prenom +' '+collaborateur.nom) for collaborateur in AS.SelectedCollaborateurList" ng-model="disponibleCollaborateurSelectionnee" style="height: 200px; width: 100%;" multiple="" name=""></select>   
+							<select class="selected form-control" ng-options="(collaborateur.prenom +' '+collaborateur.nom) for collaborateur in AS.SelectedCollaborateurList" ng-model="AS.SelectedCollaborateurInAffectedList" style="height: 200px; width: 100%;" multiple="" name=""></select>  
 						</div>
 					</div>        
        		 </body>  

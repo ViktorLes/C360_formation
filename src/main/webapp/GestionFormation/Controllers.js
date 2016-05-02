@@ -19,6 +19,8 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 					var SessionConvertedList=[]; 
 					for(var i=0 ; i<self.SessionFormationList.length ; i++){
 						var SessionObjectConverted={
+								idSession: self.SessionFormationList[i].id,
+								idFormation: self.SessionFormationList[i].formation.id,
 								nom: self.SessionFormationList[i].formation.titreformation,
 								debut: $filter('date')(self.SessionFormationList[i].debut, 'dd/MM/yyyy'),
 								fin: $filter('date')(self.SessionFormationList[i].fin, 'dd/MM/yyyy'),
@@ -31,6 +33,14 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 				self.SessionFormationListConverted= [];
 				Array.prototype.push.apply(self.SessionFormationListConverted,NouvelleSession());	
 			});
+
+			  //Récupérer la liste des collaborateur disponible
+				$http.get("api/collaborateurs").then(function(data){
+					self.CollaborateurDisponibleList = [];
+					self.SelectedCollaborateurList =[];
+					Array.prototype.push.apply(self.CollaborateurDisponibleList,data.data);	
+					self.SelectedCollaborateur=self.CollaborateurDisponibleList[0];
+				});
 			
 			//moveItem d'une liste à une autre
 			$scope.moveItem = function(item,from,to){
@@ -40,7 +50,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 		            to.push(item);         
 		        }
 			};
-			self.moveAllFromSelectedToDisponible = function(from, to) {
+			$scope.moveAll = function(from, to) {
 		        angular.forEach(from, function(item) {
 		            to.push(item);
 		        });
@@ -66,15 +76,7 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 		    	}
 		    	else
 		    		return false;    	
-		    };
-  
-		  //Récupérer la liste des collaborateur disponible
-			$http.get("api/collaborateurs").then(function(data){
-				self.CollaborateurDisponibleList = [];
-				self.SelectedCollaborateurList =[];
-				Array.prototype.push.apply(self.CollaborateurDisponibleList,data.data);
-				$scope.SelectedCollaborateur=self.CollaborateurDisponibleList[0];
-			});	
+		    };	
 }]);
 //************************************************************************************//
 
