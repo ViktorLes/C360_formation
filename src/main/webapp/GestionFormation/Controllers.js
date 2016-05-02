@@ -7,10 +7,9 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 //***** Description: moveItem / moveAll / CtrlItemIsSelectedTOEnableOrDisableButton
 //*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
 //************************************************************************************//
-		GestForApp.controller('CtrlAffectationSession',['$http','$location','$filter',function($http, $location,$filter){
+		GestForApp.controller('CtrlAffectationSession',['$scope','$http','$location','$filter',function($scope,$http, $location,$filter){
 			
 			var self = this;
-			
 			//Récupérer la liste des sessions disponible
 			$http.get("api/sessions").then(function(data){
 				self.SessionFormationList = [];
@@ -30,24 +29,16 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 					return SessionConvertedList;
 				};
 				self.SessionFormationListConverted= [];
-				Array.prototype.push.apply(self.SessionFormationListConverted,NouvelleSession());			
+				Array.prototype.push.apply(self.SessionFormationListConverted,NouvelleSession());	
 			});
 			
 			//moveItem d'une liste à une autre
-			self.moveItem = function(item,from,to){
+			$scope.moveItem = function(item,from,to){
 				var idx=from.indexOf(item);
 		        if (idx != -1) {
 		            from.splice(idx, 1);
-		            to.push(item);      
+		            to.push(item);         
 		        }
-			};
-			self.moveAll = function(from, to) {
-		        if((to.length+from.length)<=10){
-		        	angular.forEach(from, function(item) {
-			            to.push(item);
-			        });
-			        from.length = 0;
-		        }				
 			};
 			self.moveAllFromSelectedToDisponible = function(from, to) {
 		        angular.forEach(from, function(item) {
@@ -80,25 +71,10 @@ var GestForApp = angular.module('GestForController', ['Datepicker','AppFilter'])
 		  //Récupérer la liste des collaborateur disponible
 			$http.get("api/collaborateurs").then(function(data){
 				self.CollaborateurDisponibleList = [];
-				Array.prototype.push.apply(self.CollaborateurDisponibleList,data.data);	
-			});
-  // A retirer après l'intégration du Back
-    self.listDesCollaborateursDisponibles = [
-        {'id': '1','firstName': 'Gym',  'name': 'SEBASTIEN'},
-        {'id': '2','firstName': 'Lee', 'name': 'MARION'},
-        {'id': '3','firstName': 'Belloum',  'name': 'YOUSSEF'},
-        {'id': '4','firstName': 'Thomas', 'name': 'ROMAIN'},
-        {'id': '5','firstName': 'Alssandro', 'name': 'LAURA'},
-        {'id': '6','firstName': 'Aurelian', 'name': 'JULIEN'},
-        {'id': '7','firstName': 'Karieene',  'name': 'MARIE'},
-        {'id': '4','firstName': 'ee', 'name': 'ROMAIN'},
-        {'id': '5','firstName': 'ddd', 'name': 'LAURA'},
-        {'id': '7','firstName': 'Jihad',  'name': 'Elkadir'},
-        {'id': '5','firstName': 'ddd', 'name': 'LAURA'},
-        {'id': '7','firstName': 'Jihad',  'name': 'Elkadir'}
-    ];
-
-    self.listDesCollaborateursSelectionnes = [];
+				self.SelectedCollaborateurList =[];
+				Array.prototype.push.apply(self.CollaborateurDisponibleList,data.data);
+				$scope.SelectedCollaborateur=self.CollaborateurDisponibleList[0];
+			});	
 }]);
 //************************************************************************************//
 

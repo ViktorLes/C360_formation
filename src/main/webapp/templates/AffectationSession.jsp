@@ -31,11 +31,10 @@
 		      <body class="form-group" id="wrapper" ng-controller="CtrlAffectationSession">  
 		      		<div id="dual-list-box-employees" class="form-group row">
            				<div class="col-md-5">       
-	           				<h5><span class="label label-default" id="gauche">Collaborateurs disponibles: {{listDesCollaborateursDisponibles.length}} affichés</span></h5>  	 
+	           				<h5><span class="label label-default" id="gauche">Collaborateurs disponibles: {{FilterResultList.length}} affichés</span></h5>  	 
            					<input ng-model="searchCollaborateurField" class="filter form-control filter-unselected" type="text" placeholder="Écrire le nom du collaborateur ..." style="margin-bottom: 5px;" autofocus> 
  				   				
-           					<select ng-options="collaborateurHTML as (collaborateur.prenom +' '+collaborateur.nom) for collaborateur in (AS.CollaborateurDisponibleList | objectToString:searchCollaborateurField)"  class="unselected form-control" style="height: 200px; width: 100%;" size="12" ng-model="disponibleCollaborateurs" ></select> 
-			
+           					<select ng-options="collaborateur as (collaborateur.prenom +' '+collaborateur.nom) for collaborateur in FilterResultList = (AS.CollaborateurDisponibleList | objectToString:searchCollaborateurField)" ng-model="AS.SelectedCollaborateur" class="unselected form-control" style="height: 200px; width: 100%;" size="12"></select> 
            					<div class="row">
 							  <div class="small-2 small-centered columns" ng-show="(filterCollaborateur.length == 0)&&(searchCollaborateurField.length != Null)">
 							    <div data-alert class="alert-box info">
@@ -45,15 +44,14 @@
 							</div>
 						</div>
 						<div class="col-md-2 center-block" style="margin-top: 80px">       
-							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 atr" title="Ajouter tous à la session" data-type="atr" style="margin-bottom: 10px;" ng-click="moveAll(listDesCollaborateursDisponibles, listDesCollaborateursSelectionnes)" ng-disabled="CtrlMoveAllTOEnableOrDisableButton(listDesCollaborateursDisponibles) || CtrlMoveAllTOEnableOrDisableButton(listDesCollaborateursDisponibles) || CtrlMaxCollaborateurSelectionnee(listDesCollaborateursSelectionnes)"><span class="glyphicon glyphicon-list"></span><span class="glyphicon glyphicon-chevron-right"></span></button>       
-							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 str" title="Ajouter à la session" data-type="str" style="margin-bottom: 20px;" ng-click="moveItem(filterCollaborateur[0], listDesCollaborateursDisponibles,listDesCollaborateursSelectionnes)" ng-disabled="!(CtrlSelectedItemTOEnableOrDisableButton(listDesCollaborateursDisponibles)== true) || CtrlMaxCollaborateurSelectionnee(listDesCollaborateursSelectionnes)"><span class="glyphicon glyphicon-chevron-right"></span></button>       
-							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 stl" title="Retirer de la formation" data-type="stl" style="margin-bottom: 10px;" ng-click="moveItem(disponibleCollaborateurSelectionnee[0], listDesCollaborateursSelectionnes, listDesCollaborateursDisponibles)" ng-disabled="!(CtrlSelectedItemTOEnableOrDisableButton(disponibleCollaborateurSelectionnee)== true)"><span class="glyphicon glyphicon-chevron-left"></span></button>       
+							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 str" title="Ajouter à la session" data-type="str" style="margin-bottom: 20px;" ng-click="moveItem(AS.SelectedCollaborateur, AS.CollaborateurDisponibleList , AS.SelectedCollaborateurList)"><span class="glyphicon glyphicon-chevron-right"></span></button>       
+							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 stl" title="Retirer de la formation" data-type="stl" style="margin-bottom: 10px;" ng-click="moveItem(disponibleCollaborateurSelectionnee[0], listDesCollaborateursSelectionnes, listDesCollaborateursDisponibles)"><span class="glyphicon glyphicon-chevron-left"></span></button>       
 							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 atl" title="Retirer tous de la formation" data-type="atl" style="margin-bottom: 10px;" ng-click="moveAllFromSelectedToDisponible(listDesCollaborateursSelectionnes, listDesCollaborateursDisponibles)" ng-disabled="CtrlMoveAllTOEnableOrDisableButton(listDesCollaborateursSelectionnes)"><span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-list"></span></button>   
 						</div>   
 						<div class="col-md-5"><br>       
 							<h5><span class="label label-default">Collaborateurs selectionnées: {{listDesCollaborateursSelectionnes.length}} affichés</span></h5>       
 							<br>       
-							<select class="selected form-control" style="height: 200px; width: 100%;" multiple="" name="" ng-model="disponibleCollaborateurSelectionnee" ng-options="collaborateur as (collaborateur.firstName +', '+collaborateur.name) for collaborateur in listDesCollaborateursSelectionnes"></select>   
+							<select class="selected form-control" ng-options="(collaborateur.prenom +' '+collaborateur.nom) for collaborateur in AS.SelectedCollaborateurList" ng-model="disponibleCollaborateurSelectionnee" style="height: 200px; width: 100%;" multiple="" name=""></select>   
 						</div>
 					</div>        
        		 </body>  
