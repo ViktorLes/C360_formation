@@ -28,7 +28,7 @@ angular.module('GestForController')
             $http.post("api/formations", self.formation).success(function(data){
                 if(data == "true" || data == true){
                     self.isNewTitleFormation = true;
-                    document.location.href = '../pageblancheformation.html';
+                    document.location.href = '../../pageblancheformation.html';
                     //$location.path('pageblancheformation.html');
                 }
                 else {

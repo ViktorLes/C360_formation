@@ -32,7 +32,7 @@ angular.module('GestForController')
             $http.post("api/collaborateurs", self.collaborateur).success(function(data){
                 if(data == "true" || data == true) {
                     self.isNewMatricule = true;
-                    document.location.href = '../pageblanche.html';
+                    document.location.href = '../../pageblanche.html';
                     //$location.path('pageblanche.html');
                 }
                 else self.isNewMatricule = false;
