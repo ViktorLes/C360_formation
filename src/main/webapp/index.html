@@ -17,11 +17,13 @@
 	<div ng-controller="globalController as ctrl">
 		<button ng-click="ctrl.initBase()">alimenter la base</button>
 	</div>
-	<a href="#/EnregistrementCollaborateur">EC</a>
-	<a href="#/DeclarationFormation">DF</a>
-	<a href="#/DeclarationSession">DS</a>
-	<a href="#/AffectationSession">AS</a>	
-	<a href="#/DemandeFormation">DmF</a>
+	<nav>
+		<a href="#/EnregistrementCollaborateur">EnregistrementCollaborateur</a>|
+		<a href="#/DeclarationFormation">DeclarationFormation</a>|
+		<a href="#/DeclarationSession">DeclarationSession</a>|
+		<a href="#/AffectationSession">AffectationSession</a>|
+		<a href="#/DemandeFormation">DemandeFormation</a>
+	</nav>
 	<div ng-view></div>
 
 
