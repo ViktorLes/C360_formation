@@ -4,9 +4,9 @@ angular.module('GestForController')
         self.isSessionAlreadyPlanned = true;
 
         $http.get("api/formations").then(function(data){
-            self.formation =[];
-            Array.prototype.push.apply(self.formation,data.data);
-            self.SessionFormationId = self.formation[0].id;
+            self.training =[];
+            Array.prototype.push.apply(self.training,data.data);
+            self.trainingSessionId = self.training[0].id;
         });
 
         self.d1 = datepicker.build();
@@ -15,29 +15,29 @@ angular.module('GestForController')
 
 
 
-        function initHoraireTab(){
+        function initTimeSlot(){
 
             function pad2(number) {
                 return (number < 10 ? '0' : '') + number;
             }
 
-            var myTab =[];
-            var debutH=8; var finH=18; var pas=30; var finM=30; var debutM=0;
-            var nbPasHeure = 60/pas;
-            var nbPasHeures = (finH-debutH)*nbPasHeure;
-            var nbPasMinutes = (finM-debutM)/pas;
+            var myArray =[];
+            var beginningHour=8; var endHour=18; var feet=30; var endMinute=30; var beginningMinute=0;
+            var numberFeetHour = 60/feet;
+            var numberHours = (endHour-beginningHour)*numberFeetHour;
+            var numberFeetMinutes = (endMinute-beginningMinute)/feet;
 
-            for(var compteur=0; compteur<(nbPasHeures+nbPasMinutes); compteur++)
+            for(var recorder=0; recorder<(numberHours+numberFeetMinutes); recorder++)
             {
-                myTab.push(pad2((debutH + Math.floor(compteur/nbPasHeure))).toString() + ":" + pad2((compteur%nbPasHeure*pas)).toString());
+                myArray.push(pad2((beginningHour + Math.floor(recorder/numberFeetHour))).toString() + ":" + pad2((recorder%numberFeetHour*feet)).toString());
             }
-            self.monTab = myTab;
+            self.myArray2 = myArray;
         }
-        initHoraireTab();
-        self.heureDebut = self.monTab[0];
-        self.heureFin = self.monTab[0];
+        initTimeSlot();
+        self.beginningHour = self.myArray2[0];
+        self.endHour = self.myArray2[0];
 
-        self.lieuFormation = 'Salle Phuket';
+        self.trainingLocation = 'Salle Phuket';
         self.isFalseForm = false;
 
         self.verifierForm=function(sessionForm){
@@ -47,11 +47,11 @@ angular.module('GestForController')
             else{
                 self.isFalseForm = true;
             }
-        }
+        };
 
 
-        self.DateCorrect = function(heureDebut,heureFin) {
-            if ((self.d1.dt < self.d2.dt)||(self.heureDebut < self.heureFin)){
+        self.DateCorrect = function(beginningHour,endHour) {
+            if ((self.d1.dt < self.d2.dt)||(self.beginningHour < self.endHour)){
                 return true;
             }
             else
@@ -76,12 +76,11 @@ angular.module('GestForController')
 
         self.actionEnregistrer = function() {
             var session = {
-                formation: self.SessionFormationId,
-                debut: $filter('date')(self.d1.dt,"dd/MM/yyyy") + "|" + self.heureDebut,
-                fin:  $filter('date')(self.d2.dt,"dd/MM/yyyy") + "|" + self.heureFin,
-                lieu: self.lieuFormation
+                training: self.trainingSessionId,
+                debut: $filter('date')(self.d1.dt,"dd/MM/yyyy") + "|" + self.beginningHour,
+                fin:  $filter('date')(self.d2.dt,"dd/MM/yyyy") + "|" + self.endHour,
+                lieu: self.trainingLocation
             };
-
 
             $http.post("api/sessions", session).success(function(data){
                 if(data == "true" || data == true) {

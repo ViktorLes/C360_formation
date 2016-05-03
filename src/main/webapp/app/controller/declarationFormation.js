@@ -7,15 +7,15 @@ angular.module('GestForController')
 
         /*** Recupération des regex **/
         $http.get("api/formations/regex").then(function(data){
-            self.regex.titreformation = new RegExp(data.data.titreformation);
-            self.regex.nombredemijournee = new RegExp(data.data.nombredemijournee);
+            self.regex.trainingTitle = new RegExp(data.data.trainingTitle);
+            self.regex.numberHalfDays = new RegExp(data.data.numberHalfDays);
         });
 
-        self.isNewTitleFormation = true;
+        self.isNewTrainingTitle = true;
         self.isFalseForm = false;
 
-        self.verifierForm=function(formationForm){
-            if(formationForm.$invalid == false){
+        self.verifierForm=function(trainingForm){
+            if(trainingForm.$invalid == false){
                 self.actionEnregistrer();
             }
             else{
@@ -23,16 +23,16 @@ angular.module('GestForController')
             }
         }
         self.actionEnregistrer = function() {
-            self.formation.titreformation= self.formation.titreformation.replace(/ +/g, " ");
-            //self.formation.nombredemijournee= self.formation.nombredemijournee.replace(/ +/g, "");
-            $http.post("api/formations", self.formation).success(function(data){
+            self.training.trainingTitle= self.training.trainingTitle.replace(/ +/g, " ");
+            //self.training.numberHalfDays= self.training.numberHalfDays.replace(/ +/g, "");
+            $http.post("api/formations", self.training).success(function(data){
                 if(data == "true" || data == true){
-                    self.isNewTitleFormation = true;
+                    self.isNewTrainingTitle = true;
                     document.location.href = '../../pageblancheformation.html';
                     //$location.path('pageblancheformation.html');
                 }
                 else {
-                    self.isNewTitleFormation = false;
+                    self.isNewTrainingTitle = false;
                 }
             });
         };

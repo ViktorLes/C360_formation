@@ -23,8 +23,9 @@
 			      <p ng-show="formationForm.numberHalfDays.$invalid && formationForm.numberHalfDays.$dirty" class="help-block">Veuillez entrer un nombre de training valide (Entre 1 et 200)</p>
 			    </div>	
 			    
-			    <div class="alert alert-danger" role="alert" ng-show="!DF.isNewTitleFormation">
-			      Une training identique existe déjà dans le système
+
+			    <div class="alert alert-danger" role="alert" ng-show="!DF.isNewTrainingTitle">
+			      Une formation identique existe déjà dans le système
 			    </div> 
 			    <button type="submit" class="btn btn-primary" >Enregistrer</button>	
 			    
