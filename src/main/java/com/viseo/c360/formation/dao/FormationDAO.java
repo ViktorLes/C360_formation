@@ -33,11 +33,11 @@ public class FormationDAO {
 	}
 
 	@Transactional
-	public void addFormation(String titreformation,int nombredemijournee){
+	public void addFormation(String titleCourse,int numberHalfDays){
 		
 		Formation F = new Formation();
-		F.setTitreformation(titreformation);
-		F.setNombredemijournee(nombredemijournee);
+		F.setTitreFormation(titleCourse);
+		F.setNombreDemiJournee(numberHalfDays);
 		em.persist(F);
 	}
 	
@@ -47,7 +47,7 @@ public class FormationDAO {
 	}
 	
 	
-	public boolean isFormationAlreadySaved(String titreFormation){
+	public boolean isFormationPersistent(String titreFormation){
 
 		Collection<Formation> list = null;
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -62,18 +62,18 @@ public class FormationDAO {
 		return !list.isEmpty(); //return true if the list is not avoid
 	}
 	
-	public List<Formation> GetAllFormation() {
+	public List<Formation> getAllFormation() {
 		return em.createQuery("select a from Formation a", Formation.class).getResultList();
 	}
 	
 	/*** Session Formation ***/
 	
-	public List<SessionFormation> GetSessionByFormation(long myFormationId) {
+	public List<SessionFormation> getSessionByFormation(long myFormationId) {
 		Query q=em.createQuery("select s from SessionFormation s where s.formation.id=:myFormationId").setParameter("myFormationId",myFormationId);
 		return q.getResultList();
 	}
 	
-	public List<SessionFormation> GetAllSessionFormation() {
+	public List<SessionFormation> getAllSessionFormation() {
 		return em.createQuery("select a from SessionFormation a", SessionFormation.class).getResultList();
 	}
 	

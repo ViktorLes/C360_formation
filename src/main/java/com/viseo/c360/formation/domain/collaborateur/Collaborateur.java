@@ -1,5 +1,7 @@
 package com.viseo.c360.formation.domain.collaborateur;
 
+import com.viseo.c360.formation.domain.BaseEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,23 +11,14 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Collaborateur {
-		
-	
+public class Collaborateur extends BaseEntity {
+
 	public static class Regex{
 		public static final String matricule = "[A-Z0-9]";
 		public static final String nom = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
 		public static final String prenom = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
 	}
-	
-	
-	@Id
-	@GeneratedValue
-	long id;
-	
-	@Version
-	long version;
-	
+
 	@NotNull
 	@Size(min=3, max=20)
 	@Pattern(regexp=Collaborateur.Regex.matricule+"*")
@@ -44,13 +37,7 @@ public class Collaborateur {
 	public Collaborateur() {
 		super();
 	}
-	
-	public long getId() {
-		return id;
-	}
-	public long getVersion() {
-		return version;
-	}
+
 	public String getMatricule() {
 		return matricule;
 	}
@@ -60,12 +47,7 @@ public class Collaborateur {
 	public String getPrenom() {
 		return prenom;
 	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public void setVersion(long version) {
-		this.version = version;
-	}
+
 	public void setMatricule(String matricule) {
 		this.matricule = matricule.trim();
 	}

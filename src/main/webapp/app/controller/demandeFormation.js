@@ -5,11 +5,11 @@ angular.module('GestForController')
 
         //Charge la liste de formations affiché dans le select box des formations
         $http.get("api/formations").then(function(data){
-            self.formation = [];
-            Array.prototype.push.apply(self.formation,data.data);
+            self.training = [];
+            Array.prototype.push.apply(self.training,data.data);
         });
 
-        //Charge la liste de sessions disponible en fonction de l'ID de formation
+        //Charge la liste de sessions disponible en fonction de l'ID de training
         //selectionné grâce au 'select box' 
         self.loadSessionFormation=function() {
             self.noneSessionSelected = false;

@@ -4,74 +4,64 @@
 //*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
 //************************************************************************************//
 angular.module('GestForController').
-controller('CtrlAffectationSession',['$scope','$http','$location','$filter',function($scope,$http, $location,$filter){
+controller('CtrlAffectationSession',['$http','$location','$filter',function($http, $location,$filter){
 
     var self = this;
     //Récupérer la liste des sessions disponible
     $http.get("api/sessions").then(function(data){
-        self.SessionFormationList = [];
-        Array.prototype.push.apply(self.SessionFormationList,data.data);
+        self.trainingSessionList = [];
+        Array.prototype.push.apply(self.trainingSessionList,data.data);
 
-        function NouvelleSession(){
-            var SessionConvertedList=[];
-            for(var i=0 ; i<self.SessionFormationList.length ; i++){
-                var SessionObjectConverted={
-                    idSession: self.SessionFormationList[i].id,
-                    idFormation: self.SessionFormationList[i].formation.id,
-                    nom: self.SessionFormationList[i].formation.titreformation,
-                    debut: $filter('date')(self.SessionFormationList[i].debut, 'dd/MM/yyyy'),
-                    fin: $filter('date')(self.SessionFormationList[i].fin, 'dd/MM/yyyy'),
-                    lieu: self.SessionFormationList[i].lieu
-                }
-                SessionConvertedList.push(SessionObjectConverted);
+        function newSession(){
+            var sessionConvertedList=[];
+            for(var i=0 ; i<self.trainingSessionList.length ; i++){
+                var sessionObjectConverted={
+                    idSession: self.trainingSessionList[i].id,
+                    idFormation: self.trainingSessionList[i].training.id,
+                    nom: self.trainingSessionList[i].training.trainingTitle,
+                    debut: $filter('date')(self.trainingSessionList[i].debut, 'dd/MM/yyyy'),
+                    fin: $filter('date')(self.trainingSessionList[i].fin, 'dd/MM/yyyy'),
+                    lieu: self.trainingSessionList[i].lieu
+                };
+                sessionConvertedList.push(sessionObjectConverted);
             }
-            return SessionConvertedList;
-        };
-        self.SessionFormationListConverted= [];
-        Array.prototype.push.apply(self.SessionFormationListConverted,NouvelleSession());
+            return sessionConvertedList;
+        }
+        self.trainingSessionListConverted= [];
+        Array.prototype.push.apply(self.trainingSessionListConverted,newSession());
     });
 
-    //Récupérer la liste des collaborateur disponible
+    //Récupérer la liste des collaborateurs disponibles
     $http.get("api/collaborateurs").then(function(data){
-        self.CollaborateurDisponibleList = [];
+        self.AvailableCollaboratorList = [];
         self.SelectedCollaborateurList =[];
-        Array.prototype.push.apply(self.CollaborateurDisponibleList,data.data);
-        self.SelectedCollaborateur=self.CollaborateurDisponibleList[0];
+        Array.prototype.push.apply(self.AvailableCollaboratorList,data.data);
+        console.log("liste : ",self.AvailableCollaboratorList);
+       // self.SelectedCollaborateur=self.AvailableCollaboratorList[0];
     });
 
-    //moveItem d'une liste à une autre
-    $scope.moveItem = function(item,from,to){
+    //déplace d'une liste à une autre
+    self.moveItem = function(item,from,to){
         var idx=from.indexOf(item);
         if (idx != -1) {
             from.splice(idx, 1);
             to.push(item);
+            self.SelectedCollaborator.splice(0,self.SelectedCollaborator.length);
         }
     };
-    $scope.moveAll = function(from, to) {
+    self.moveAll = function(from, to) {
         angular.forEach(from, function(item) {
             to.push(item);
         });
         from.length = 0;
     };
-    self.CtrlSelectedItemTOEnableOrDisableButton = function(disponibleCollaborateur) {
-        if(typeof(disponibleCollaborateur) == "undefined" || disponibleCollaborateur.length ==0){
-            return false;
-        }
-        else
-            return true;
+    self.CtrlSelectedItemTOEnableOrDisableButton = function(availableCollaborator) {
+        return typeof(availableCollaborator) !== "undefined" && availableCollaborator.length !== 0;
     };
-    self.CtrlMoveAllTOEnableOrDisableButton = function(listDesCollaborateurs) {
-        if(listDesCollaborateurs.length==0){
-            return true;
-        }
-        else
-            return false;
+    self.CtrlMoveAllTOEnableOrDisableButton = function(collaboratorList) {
+        return collaboratorList.length === 0;
     };
-    self.CtrlMaxCollaborateurSelectionnee = function(listDesCollaborateursSelectionnee) {
-        if(listDesCollaborateursSelectionnee.length==10){
-            return true;
-        }
-        else
-            return false;
+    self.CtrlMaxCollaborateurSelectionnee = function(selectedCollaboratorList) {
+        return selectedCollaboratorList.length === 10;
     };
 }]);

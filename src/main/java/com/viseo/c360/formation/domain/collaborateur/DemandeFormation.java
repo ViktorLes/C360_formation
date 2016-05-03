@@ -1,20 +1,17 @@
 package com.viseo.c360.formation.domain.collaborateur;
 
+import com.viseo.c360.formation.domain.BaseEntity;
 import com.viseo.c360.formation.domain.formation.Formation;
 import com.viseo.c360.formation.domain.formation.SessionFormation;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
 @Entity
-public class DemandeFormation {
-    @Id
-    @GeneratedValue
-    long id;
-
-    @Version
-    long version;
+public class DemandeFormation extends BaseEntity {
 
     @ManyToOne
     Formation formation;
@@ -25,7 +22,10 @@ public class DemandeFormation {
     @ManyToMany
     List<SessionFormation> listSession;
 
-    public DemandeFormation() {super();}
+    public DemandeFormation() {
+        super();
+        this.listSession = new ArrayList<>();
+    }
 
     public Collaborateur getCollaborateur() {
         return collaborateur;
@@ -43,27 +43,15 @@ public class DemandeFormation {
         this.formation = formation;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public List<SessionFormation> getListSession() {
-        return listSession;
+        return Collections.unmodifiableList(listSession);
     }
 
-    public void setListSession(List<SessionFormation> listSession) {
-        this.listSession = listSession;
+    public void addListSession(SessionFormation sessionFormation) {
+        this.listSession.add(sessionFormation);
     }
 
-    public long getVersion() {
-        return version;
-    }
-
-    public void setVersion(long version) {
-        this.version = version;
+    public void removeListSession(SessionFormation sessionFormation) {
+        this.listSession.remove(sessionFormation);
     }
 }

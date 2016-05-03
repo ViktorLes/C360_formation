@@ -18,7 +18,7 @@
 				 <!-- Nom de la Formation -->
 				    <div class="form-group">
 				   	<h5> <span class="label label-default">Nom de la formation: </span></h5>
-				   	   <select class="selectpicker form-control" name="sessionFormation" ng-model="DS.SessionFormationId" ng-options='formation.id as formation.titreformation for formation in DS.formation' ></select>
+				   	   <select class="selectpicker form-control" name="sessionFormation" ng-model="DS.SessionFormationId" ng-options='formation.id as formation.titreFormation for formation in DS.formation' ></select>
 					</div>
 					
 			 <!-- Date -->
@@ -99,7 +99,7 @@
 			    	 <div class="alert alert-danger" role="alert" ng-show="!DS.isSessionAlreadyPlanned">
 					     Il existe déjà une session pour cette formation dans ces tranches horaires.
 					 </div>  
-					 <div class="alert alert-danger" role="alert" ng-show="!DS.DateCorrect(d1,d2,heureDebut,heureFin)">
+					 <div class="alert alert-danger" role="alert" ng-show="!DS.DateCorrect(d1,d2,beginningHour,endHour)">
 					     Veuillez choisir une date de fin superieure à la date de debut.
 					 </div> 
 			    	

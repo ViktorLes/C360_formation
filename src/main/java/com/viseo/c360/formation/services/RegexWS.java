@@ -1,4 +1,4 @@
-package com.viseo.c360.formation.rest;
+package com.viseo.c360.formation.services;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +18,8 @@ public class RegexWS {
     @ResponseBody
     public Map<String,String> getRegexFormations(){
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("titreformation", "^"+Formation.Regex.titreFormation+"+$");
-		map.put("nombredemijournee","^"+Formation.Regex.nombreDemiJournee+"+$");
+		map.put("titreformation", "^"+Formation.Regex.TITRE_FORMATION+"+$");
+		map.put("nombredemijournee","^"+Formation.Regex.NOMBRE_DEMI_JOURNEE +"+$");
 		return map;
 	}
 	
