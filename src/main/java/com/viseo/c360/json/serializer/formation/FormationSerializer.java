@@ -21,7 +21,7 @@ public class FormationSerializer  extends JsonSerializer<Formation> {
 			
 			gson.writeStartObject();
 			
-			gson.writeStringField("label", value.getTitreformation());
+			gson.writeStringField("label", value.getTitreFormation());
 			gson.writeStringField("Id",Long.toString(value.getId()));
 
 			gson.writeEndObject();

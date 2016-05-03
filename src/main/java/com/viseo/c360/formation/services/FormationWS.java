@@ -1,4 +1,4 @@
-package com.viseo.c360.formation.rest;
+package com.viseo.c360.formation.services;
 
 import java.util.List;
 
@@ -27,45 +27,44 @@ public class FormationWS {
 	@RequestMapping(value="${endpoint.formations}", method = RequestMethod.POST)
     @ResponseBody
     public boolean addFormation(@Valid @RequestBody Formation myFormation, BindingResult bindingResult){
-		
-		if(!(bindingResult.hasErrors()) 
-		&& !formationDAO.isFormationAlreadySaved(myFormation.getTitreformation())){
-
+		if(!(bindingResult.hasErrors())
+			&& !formationDAO.isFormationPersistent(myFormation.getTitreFormation()))
+		{
 			formationDAO.addFormation(myFormation);
-		return true;
-    }
+			return true;
+    	}
 		return false;
 	}
+
 	@RequestMapping(value = "${endpoint.formations}", method = RequestMethod.GET)
 	@ResponseBody
     public List<Formation> ReadFormation(){	
-		return formationDAO.GetAllFormation();
+		return formationDAO.getAllFormation();
 	}
 	
 	//SessionFormation
 	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
     @ResponseBody
     public boolean addSessionFormation(@Valid @RequestBody SessionFormation mySessionFormation, BindingResult bindingResult){
-		
 		if(!(bindingResult.hasErrors() )
-		&& !formationDAO.isThereOneSessionFormationAlreadyPlanned(mySessionFormation) 
-		&& formationDAO.hasCorrectDates(mySessionFormation)
-		){
-			
+			&& !formationDAO.isThereOneSessionFormationAlreadyPlanned(mySessionFormation)
+			&& formationDAO.hasCorrectDates(mySessionFormation))
+		{
 			formationDAO.addSessionFormation(mySessionFormation);
 			return true;
 		}
 		return false;
-   }
+    }
+
 	@RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.GET)
 	@ResponseBody
-    public List<SessionFormation> ReadSessionFormation(){	
-		return formationDAO.GetAllSessionFormation();
-		
+    public List<SessionFormation> readSessionFormation(){
+		return formationDAO.getAllSessionFormation();
 	}
+
 	@RequestMapping(value = "${endpoint.sessionsbyid}", method = RequestMethod.GET)
 	@ResponseBody
-    public List<SessionFormation> ReadSessionByFormation(@PathVariable String id){
-		return formationDAO.GetSessionByFormation(Long.parseLong(id));
+    public List<SessionFormation> readSessionByFormation(@PathVariable String id){
+		return formationDAO.getSessionByFormation(Long.parseLong(id));
 	}
 }	

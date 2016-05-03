@@ -1,5 +1,7 @@
 package com.viseo.c360.formation.domain.formation;
 
+import com.viseo.c360.formation.domain.BaseEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,59 +12,38 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Entity
-//@JsonSerialize(using = FormationSerializer.class)
-public class Formation {
+public class Formation extends BaseEntity {
 
 	public static class Regex{
-		public static final String titreFormation = "[a-zA-Z0-9+#'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
-		public static final String nombreDemiJournee = "[0-9]";
+		public static final String TITRE_FORMATION = "[a-zA-Z0-9+#'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+		public static final String NOMBRE_DEMI_JOURNEE = "[0-9]";
 	}
-	
-		@Id
-		@GeneratedValue
-		long id;
-		
-		@Version
-		long version;
-		
-		@NotNull
-		@Pattern(regexp=Formation.Regex.titreFormation+"*")
-		String titreformation;
-		
-		@NotNull
-		@Min(value = 1)
-		@Max(value = 200)
-		int nombredemijournee;
-		
-		public long getId() {
-			return id;
-		}
 
-		public void setId(long id) {
-			this.id = id;
-		}
+	@NotNull
+	@Pattern(regexp=Formation.Regex.TITRE_FORMATION+"*")
+	String titreFormation;
 
-		public long getVersion() {
-			return version;
-		}
+	@NotNull
+	@Min(value = 1)
+	@Max(value = 200)
+	int nombreDemiJournee;
 
-		public void setVersion(long version) {
-			this.version = version;
-		}
+	public Formation() {
+	}
 
-		public String getTitreformation() {
-			return titreformation;
-		}
+	public String getTitreFormation() {
+		return titreFormation;
+	}
 
-		public void setTitreformation(String titreformation) {
-			this.titreformation = titreformation;
-		}
+	public void setTitreFormation(String titreFormation) {
+		this.titreFormation = titreFormation;
+	}
 
-		public int getNombredemijournee() {
-			return nombredemijournee;
-		}
+	public int getNombreDemiJournee() {
+		return nombreDemiJournee;
+	}
 
-		public void setNombredemijournee(int nombredemijournee) {
-			this.nombredemijournee = nombredemijournee;
-		}
+	public void setNombreDemiJournee(int nombreDemiJournee) {
+		this.nombreDemiJournee = nombreDemiJournee;
+	}
 }

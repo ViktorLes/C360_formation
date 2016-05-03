@@ -12,18 +12,12 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.viseo.c360.formation.domain.BaseEntity;
 import com.viseo.c360.json.deserializer.formation.SessionFormationDeserializer;
 
 @JsonDeserialize(using = SessionFormationDeserializer.class)
 @Entity
-public class SessionFormation {
-	
-	@Id
-	@GeneratedValue
-	long id;
-	
-	@Version
-	long version;
+public class SessionFormation extends BaseEntity {
 	
 	@ManyToOne
 	Formation formation;
@@ -38,12 +32,6 @@ public class SessionFormation {
 	public SessionFormation() {
 		super();
 	}
-	public long getId() {
-		return id;
-	}
-	public long getVersion() {
-		return version;
-	}
 	public Formation getFormation() {
 		return formation;
 	}
@@ -55,12 +43,6 @@ public class SessionFormation {
 	}
 	public String getLieu() {
 		return lieu;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public void setVersion(long version) {
-		this.version = version;
 	}
 	public void setFormation(Formation formation) {
 		this.formation = formation;

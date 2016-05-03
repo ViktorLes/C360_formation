@@ -13,14 +13,14 @@
 			  <form name="formationForm" ng-submit="DF.verifierForm(formationForm)" novalidate>
 			
 			    <!-- Titre de la Formation -->
-			    <div class="form-group" ng-class="{ 'has-error' : formationForm.titreformation.$invalid && formationForm.titreformation.$dirty }">
-			      <input type="text" name="titreformation" class="form-control" ng-model="DF.formation.titreformation" required ng-pattern="DF.regex.titreformation" ng-trim="true"  placeholder="Titre de la formation"> <!-- ng-minlength="2" ng-maxlength="20" -->
-			      <p ng-show="formationForm.titreformation.$invalid && formationForm.titreformation.$dirty" class="help-block">Veuillez entrer un titre de formation valide</p>
+			    <div class="form-group" ng-class="{ 'has-error' : formationForm.titreFormation.$invalid && formationForm.titreFormation.$dirty }">
+			      <input type="text" name="titreFormation" class="form-control" ng-model="DF.formation.titreFormation" required ng-pattern="DF.regex.titreFormation" ng-trim="true"  placeholder="Titre de la formation"> <!-- ng-minlength="2" ng-maxlength="20" -->
+			      <p ng-show="formationForm.titreFormation.$invalid && formationForm.titreFormation.$dirty" class="help-block">Veuillez entrer un titre de formation valide</p>
 			    </div>
 			   <!-- Nombre de 1/2 journée -->
-			    <div class="form-group" ng-class="{ 'has-error' : formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty }">
-			      <input type="number" name="nombredemijournee" class="form-control no-spinner" ng-model="DF.formation.nombredemijournee" required ng-pattern="DF.regex.nombredemijournee" min="1" max="200"  placeholder="Nombre de 1/2 journée">
-			      <p ng-show="formationForm.nombredemijournee.$invalid && formationForm.nombredemijournee.$dirty" class="help-block">Veuillez entrer un nombre de formation valide (Entre 1 et 200)</p>
+			    <div class="form-group" ng-class="{ 'has-error' : formationForm.nombreDemiJournee.$invalid && formationForm.nombreDemiJournee.$dirty }">
+			      <input type="number" name="nombreDemiJournee" class="form-control no-spinner" ng-model="DF.formation.nombreDemiJournee" required ng-pattern="DF.regex.nombreDemiJournee" min="1" max="200"  placeholder="Nombre de 1/2 journée">
+			      <p ng-show="formationForm.nombreDemiJournee.$invalid && formationForm.nombreDemiJournee.$dirty" class="help-block">Veuillez entrer un nombre de formation valide (Entre 1 et 200)</p>
 			    </div>	
 			    
 			    <div class="alert alert-danger" role="alert" ng-show="!DF.isNewTitleFormation">
