@@ -23,7 +23,7 @@ public class CollaboratorDAO {
 		em.persist(collaborator);
 	}
 
-	public boolean isPersonnalIdNumberPersistent(String personnalIdNumber){
+	public boolean isPersonnalIdNumberPersisted(String personnalIdNumber){
 		em.setFlushMode(FlushModeType.COMMIT);
 		Collection<Collaborator> listCollaborator =
 				(Collection<Collaborator>) em.createQuery(
@@ -32,7 +32,7 @@ public class CollaboratorDAO {
 		return !listCollaborator.isEmpty();
 	}
 	
-	public List<Collaborator> getAllCollaborateur() {
+	public List<Collaborator> getAllCollaborators() {
 		return em.createQuery("select c from Collaborator c", Collaborator.class).getResultList();
 	}
 	

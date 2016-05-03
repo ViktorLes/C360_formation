@@ -24,8 +24,8 @@ public class CollaboratorWS {
 		
 	@RequestMapping(value = "${endpoint.collaborators}",method = RequestMethod.POST)
     @ResponseBody
-    public boolean addCollaborateur(@Valid @RequestBody Collaborator myCollaborator, BindingResult bindingResult){
-		if(!(bindingResult.hasErrors()) && !collaboratorDAO.isPersonnalIdNumberPersistent(myCollaborator.getPersonnalIdNumber())){
+    public boolean addCollaborator(@Valid @RequestBody Collaborator myCollaborator, BindingResult bindingResult){
+		if(!(bindingResult.hasErrors()) && !collaboratorDAO.isPersonnalIdNumberPersisted(myCollaborator.getPersonnalIdNumber())){
 			collaboratorDAO.addCollaborator(myCollaborator);
 			return true;
 		}
@@ -34,8 +34,8 @@ public class CollaboratorWS {
 	
 	@RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.GET)
 	@ResponseBody
-    public List<Collaborator> readAllCollaborateur(){
-		return collaboratorDAO.getAllCollaborateur();
+    public List<Collaborator> getAllCollaborators(){
+		return collaboratorDAO.getAllCollaborators();
 	}
     
 }
