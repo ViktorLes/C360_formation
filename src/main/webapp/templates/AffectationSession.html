@@ -15,7 +15,7 @@
 	          	
 	          	<input ng-model="SessionSelectionnee" title="Selectionner une session" class="filter form-control filter-unselected" list="SessionDataListFilter" placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
 	          	<datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">  
-	                <option data-ng-repeat="session in AS.SessionFormationListConverted" value="{{session.nom}}- {{session.debut}} à {{session.fin}}- {{session.lieu}}"></option> 
+	                <option data-ng-repeat="session in AS.SessionFormationListConverted" value="{{session.lastName}}- {{session.debut}} à {{session.fin}}- {{session.lieu}}"></option>
 	             </datalist>           
 
 	          <hr>
@@ -24,9 +24,9 @@
 		      		<div id="dual-list-box-employees" class="form-group row">
            				<div class="col-md-5">       
 	           				<h5><span class="label label-default" id="gauche">Collaborateurs disponibles: {{FilterResultList.length}} affichés</span></h5>  	 
-           					<input ng-model="searchCollaborateurField" class="filter form-control filter-unselected" type="text" placeholder="Écrire le nom du collaborateur ..." style="margin-bottom: 5px;" autofocus> 
+           					<input ng-model="searchCollaborateurField" class="filter form-control filter-unselected" type="text" placeholder="Écrire le lastName du collaborator ..." style="margin-bottom: 5px;" autofocus>
  				   				
-           					<select ng-options="(collaborateur.prenom +' '+collaborateur.nom) for collaborateur in FilterResultList = (AS.CollaborateurDisponibleList | searchByName:searchCollaborateurField)"
+           					<select ng-options="(collaborator.firstName +' '+collaborator.lastName) for collaborator in FilterResultList = (AS.CollaborateurDisponibleList | searchByName:searchCollaborateurField)"
 									ng-model="AS.SelectedCollaborateurInAffectedList" class="unselected form-control" style="height: 200px; width: 100%;" size="12"></select>
 
 							<div class="row">
@@ -45,7 +45,7 @@
 						<div class="col-md-5"><br>       
 							<h5><span class="label label-default">Collaborateurs selectionnées: {{AS.SelectedCollaborateurList.length}} affichés</span></h5>       	
 							<br>       
-							<select class="selected form-control" ng-options="(collaborateur.prenom +' '+collaborateur.nom) for collaborateur in AS.SelectedCollaborateurList" ng-model="AS.SelectedCollaborateurInAffectedList" style="height: 200px; width: 100%;" multiple="" name=""></select>  
+							<select class="selected form-control" ng-options="(collaborator.firstName +' '+collaborator.lastName) for collaborator in AS.SelectedCollaborateurList" ng-model="AS.SelectedCollaborateurInAffectedList" style="height: 200px; width: 100%;" multiple="" name=""></select>
 						</div>
 					</div>        
        		 </div>

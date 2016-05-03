@@ -17,7 +17,7 @@ public class DemandeFormation extends BaseEntity {
     Formation formation;
 
     @ManyToOne
-    Collaborateur collaborateur;
+    Collaborator collaborator;
 
     @ManyToMany
     List<SessionFormation> listSession;
@@ -27,12 +27,12 @@ public class DemandeFormation extends BaseEntity {
         this.listSession = new ArrayList<>();
     }
 
-    public Collaborateur getCollaborateur() {
-        return collaborateur;
+    public Collaborator getCollaborator() {
+        return collaborator;
     }
 
-    public void setCollaborateur(Collaborateur collaborateur) {
-        this.collaborateur = collaborateur;
+    public void setCollaborator(Collaborator collaborator) {
+        this.collaborator = collaborator;
     }
 
     public Formation getFormation() {
