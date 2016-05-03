@@ -20,7 +20,11 @@ module.exports = function(config) {
       'src/main/webapp/lib/angular-route.js',
       'src/main/webapp/lib/angular-mocks.js',
       'src/main/webapp/lib/*.js',
-      'src/main/webapp/GestionFormation/*.js',
+      'src/main/webapp/app/modules.js',
+      'src/main/webapp/app/Filter.js',
+      'src/main/webapp/app/Routing.js',
+      'src/main/webapp/app/services/*',
+      'src/main/webapp/app/controller/*',
       'src/test/javaScript/*.js'
     ],
 

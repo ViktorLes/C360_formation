@@ -5,6 +5,19 @@ input[type=number].no-spinner::-webkit-inner-spin-button {
     margin: 0;
 }
 
- input[type=number].no-spinner {
+input[type=number].no-spinner {
     -moz-appearance:textfield;
 } 
+ul {
+list-style:none;
+margin-left:0;
+padding-left:0;
+}
+
+info-text{
+    color: blue;
+}
+
+warning-text{
+    color: red;
+}

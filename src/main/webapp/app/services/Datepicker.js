@@ -1,4 +1,4 @@
-angular.module('Datepicker', ['ngAnimate', 'ui.bootstrap']).factory('DatepickerService', [function () {
+angular.module('Datepicker').factory('DatepickerService', [function () {
 		
 		return {
 			build: function (){

@@ -9,11 +9,13 @@ describe('GF3', function() {
         backend = $httpBackend;
         loc = $location;
         ctrl = $controller('CtrlFor');
+
     }));
 
     describe('Test DeclarationFormation',function () {
 
         beforeEach(function () {
+            backend.expectGET('api/formations/regex').respond('{"nombredemijournee":"^[0-9]+$","titreformation":"^[a-zA-Z0-9+#\'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$"}');
             ctrl.formation = {};
             ctrl.formation.titreformation = "Title";
             ctrl.formation.nombredemijournee = "4";

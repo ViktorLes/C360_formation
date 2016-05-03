@@ -11,9 +11,12 @@ import javax.validation.constraints.Size;
 @Entity
 public class Collaborateur {
 		
-	public static final String regexMatricule = "[A-Z0-9]";
-	public static final String regexNom = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
-	public static final String regexPrenom = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+	
+	public static class Regex{
+		public static final String matricule = "[A-Z0-9]";
+		public static final String nom = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+		public static final String prenom = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+	}
 	
 	
 	@Id
@@ -25,17 +28,17 @@ public class Collaborateur {
 	
 	@NotNull
 	@Size(min=3, max=20)
-	@Pattern(regexp=Collaborateur.regexMatricule+"*")
+	@Pattern(regexp=Collaborateur.Regex.matricule+"*")
 	String matricule;
 	
 	@NotNull
 	@Size(min=2, max=125)
-	@Pattern(regexp=Collaborateur.regexNom+"*")
+	@Pattern(regexp=Collaborateur.Regex.nom+"*")
 	String nom;
 	
 	@NotNull
 	@Size(min=2, max=125)
-	@Pattern(regexp=Collaborateur.regexPrenom+"*")
+	@Pattern(regexp=Collaborateur.Regex.prenom+"*")
 	String prenom;
 	
 	public Collaborateur() {
