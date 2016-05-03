@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RegexWS {
 
-	@RequestMapping(value="${endpoint.regexFormations}", method = RequestMethod.GET)
+	@RequestMapping(value="${endpoint.regexTrainings}", method = RequestMethod.GET)
     @ResponseBody
     public Map<String,String> getRegexFormations(){
 		Map<String,String> map = new HashMap<String,String>();
@@ -22,7 +22,7 @@ public class RegexWS {
 		return map;
 	}
 	
-	@RequestMapping(value="${endpoint.regexCollaborateurs}", method = RequestMethod.GET)
+	@RequestMapping(value="${endpoint.regexCollaborators}", method = RequestMethod.GET)
     @ResponseBody
     public Map<String,String> getRegexCollaborateurs(){
 		Map<String,String> map = new HashMap<String,String>();

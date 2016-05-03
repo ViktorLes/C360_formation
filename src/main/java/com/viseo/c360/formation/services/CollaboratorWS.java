@@ -17,12 +17,12 @@ import com.viseo.c360.formation.dao.CollaboratorDAO;
 
 
 @RestController
-public class CollaborateurWS {
+public class CollaboratorWS {
 
 	@Inject
 	CollaboratorDAO collaboratorDAO;
 		
-	@RequestMapping(value = "${endpoint.collaborateurs}",method = RequestMethod.POST)
+	@RequestMapping(value = "${endpoint.collaborators}",method = RequestMethod.POST)
     @ResponseBody
     public boolean addCollaborateur(@Valid @RequestBody Collaborator myCollaborator, BindingResult bindingResult){
 		if(!(bindingResult.hasErrors()) && !collaboratorDAO.isPersonnalIdNumberPersistent(myCollaborator.getPersonnalIdNumber())){
@@ -32,7 +32,7 @@ public class CollaborateurWS {
 		return false;
     }
 	
-	@RequestMapping(value = "${endpoint.collaborateurs}", method = RequestMethod.GET)
+	@RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.GET)
 	@ResponseBody
     public List<Collaborator> readAllCollaborateur(){
 		return collaboratorDAO.getAllCollaborateur();

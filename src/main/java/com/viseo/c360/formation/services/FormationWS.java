@@ -24,7 +24,7 @@ public class FormationWS {
 	TrainingDAO trainingDAO;
 	
 	//Training
-	@RequestMapping(value="${endpoint.formations}", method = RequestMethod.POST)
+	@RequestMapping(value="${endpoint.trainings}", method = RequestMethod.POST)
     @ResponseBody
     public boolean addFormation(@Valid @RequestBody Training myTraining, BindingResult bindingResult){
 		if(!(bindingResult.hasErrors())
@@ -36,7 +36,7 @@ public class FormationWS {
 		return false;
 	}
 
-	@RequestMapping(value = "${endpoint.formations}", method = RequestMethod.GET)
+	@RequestMapping(value = "${endpoint.trainings}", method = RequestMethod.GET)
 	@ResponseBody
     public List<Training> ReadFormation(){
 		return trainingDAO.getAllTrainings();
