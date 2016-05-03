@@ -59,7 +59,7 @@ public class TrainingDAO {
 		return q.getResultList();
 	}
 	
-	public List<TrainingSession> getAllSessionsTrainings() {
+	public List<TrainingSession> getAllTrainingSessions() {
 		return em.createQuery("select s from SessionTraining s", TrainingSession.class).getResultList();
 	}
 	

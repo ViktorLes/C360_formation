@@ -15,7 +15,7 @@ public class RegexWS {
 
 	@RequestMapping(value="${endpoint.regexTrainings}", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String,String> getRegexFormations(){
+    public Map<String,String> getRegexTrainings(){
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("titreformation", "^"+ Training.Regex.TITLE_TRAINING +"+$");
 		map.put("nombredemijournee","^"+ Training.Regex.NUMBER_HALF_DAYS +"+$");
@@ -24,7 +24,7 @@ public class RegexWS {
 	
 	@RequestMapping(value="${endpoint.regexCollaborators}", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String,String> getRegexCollaborateurs(){
+    public Map<String,String> getRegexCollaborators(){
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("PERSONNAL_ID_NUMBER", "^"+ Collaborator.Regex.PERSONNAL_ID_NUMBER +"+$");
 		map.put("LAST_NAME","^"+ Collaborator.Regex.LAST_NAME +"+$");
