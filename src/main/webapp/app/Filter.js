@@ -7,7 +7,7 @@ angular.module('AppFilter').filter('searchByName',[function(){
 					var listeObjetFiltre=[];
 					for (var i=0;i<object.length;i++){					
 						
-						if(object[i].nom.toUpperCase().substr(0,collaborateur.length)== collaborateur.toUpperCase())
+						if(object[i].lastName.toUpperCase().substr(0,collaborateur.length)== collaborateur.toUpperCase())
 						{
 							listeObjetFiltre.push(object[i]);
 						}

@@ -16,10 +16,8 @@
 			
 			   		    <!-- MATRICULE -->
 			    <div class="form-group" ng-class="{ 'has-error' : collaborateurForm.personnalIdNumber.$invalid && collaborateurForm.personnalIdNumber.$dirty }">
-
 			      <input type="text" name="personnalIdNumber" class="form-control" ng-model="EC.collaborator.personnalIdNumber" required ng-pattern="EC.regex.personnalIdNumber" ng-minlength="3" ng-maxlength="20"  placeholder="Matricule">
 			      <p ng-show="collaborateurForm.personnalIdNumber.$invalid && collaborateurForm.personnalIdNumber.$dirty" class="help-block">Numéro de personnalIdNumber invalide (Exemple valide : ABC1234)</p>
-
 			    </div>
 			
 			    <!-- NOM -->
@@ -37,9 +35,9 @@
 			    <div class="alert alert-danger" role="alert" ng-show="EC.isFalseForm">
 			      Veuillez remplir tous les champs
 			    </div>
-			    
-			    <div class="alert alert-danger" role="alert" ng-show="!EC.isNewMatricule">
-			      Ce personnalIdNumber a déjà été enregistré
+
+			    <div class="alert alert-danger" role="alert" ng-show="!EC.isNewPersonalIdNumber">
+			      Ce matricule a déjà été enregistré
 			    </div> 
 			    
 			    <button type="submit" class="btn btn-primary" >Enregistrer</button>			

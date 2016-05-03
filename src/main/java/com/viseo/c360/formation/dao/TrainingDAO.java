@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -41,6 +42,7 @@ public class TrainingDAO {
 	}
 	
 	public boolean isTrainingPersisted(String trainingTitle){
+		em.setFlushMode(FlushModeType.COMMIT);
 		Collection<Training> listTrainings =
 				(Collection<Training>) em.createQuery("select t from Training t where t.trainingTitle = :trainingTitle")
 				.setParameter("trainingTitle", trainingTitle).getResultList();
@@ -48,17 +50,20 @@ public class TrainingDAO {
 	}
 	
 	public List<Training> getAllTrainings() {
+		em.setFlushMode(FlushModeType.COMMIT);
 		return em.createQuery("select a from Training a", Training.class).getResultList();
 	}
 	
 	/*** Session Training ***/
 	public List<TrainingSession> getSessionByTraining(long myTrainingId) {
+		em.setFlushMode(FlushModeType.COMMIT);
 		Query q = em.createQuery("select s from TrainingSession s where s.training.id=:myTrainingId")
 				.setParameter("myTrainingId",myTrainingId);
 		return q.getResultList();
 	}
 	
 	public List<TrainingSession> getAllTrainingSessions() {
+		em.setFlushMode(FlushModeType.COMMIT);
 		return em.createQuery("select s from TrainingSession s", TrainingSession.class).getResultList();
 	}
 	
@@ -72,6 +77,7 @@ public class TrainingDAO {
 	}
 	
 	public boolean isThereOneSessionTrainingAlreadyPlanned(TrainingSession trainingSession){
+		em.setFlushMode(FlushModeType.COMMIT);
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		  CriteriaQuery<TrainingSession> q = cb.createQuery(TrainingSession.class);
 		  Root<TrainingSession> c = q.from(TrainingSession.class);

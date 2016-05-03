@@ -12,9 +12,6 @@ angular.module('GestForController')
         self.d1 = datepicker.build();
         self.d2 = datepicker.build();
 
-
-
-
         function initTimeSlot(){
 
             function pad2(number) {

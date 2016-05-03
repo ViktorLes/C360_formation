@@ -18,7 +18,7 @@ controller('CtrlAffectationSession',['$http','$location','$filter',function($htt
                 var sessionObjectConverted={
                     idSession: self.trainingSessionList[i].id,
                     idFormation: self.trainingSessionList[i].training.id,
-                    nom: self.trainingSessionList[i].training.trainingTitle,
+                    lastName: self.trainingSessionList[i].training.trainingTitle,
                     debut: $filter('date')(self.trainingSessionList[i].debut, 'dd/MM/yyyy'),
                     fin: $filter('date')(self.trainingSessionList[i].fin, 'dd/MM/yyyy'),
                     lieu: self.trainingSessionList[i].lieu
@@ -33,11 +33,11 @@ controller('CtrlAffectationSession',['$http','$location','$filter',function($htt
 
     //Récupérer la liste des collaborateurs disponibles
     $http.get("api/collaborateurs").then(function(data){
-        self.AvailableCollaboratorList = [];
-        self.SelectedCollaborateurList =[];
-        Array.prototype.push.apply(self.AvailableCollaboratorList,data.data);
-        console.log("liste : ",self.AvailableCollaboratorList);
-       // self.SelectedCollaborateur=self.AvailableCollaboratorList[0];
+        self.availableCollaboratorList = [];
+        self.selectedCollaborateurList =[];
+        Array.prototype.push.apply(self.availableCollaboratorList,data.data);
+        console.log("liste : ",self.availableCollaboratorList);
+       // self.SelectedCollaborateur=self.availableCollaboratorList[0];
     });
 
     //déplace d'une liste à une autre

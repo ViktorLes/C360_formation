@@ -10,7 +10,6 @@
             Persistence unit for the the project Collaborateur 360
         </description>
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<!-- <class>com.viseo.c360.training.domain.collaborateur.Collaboratorclass> -->
 		
 		<properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />

@@ -27,12 +27,13 @@ public class CollaboratorDAO {
 		em.setFlushMode(FlushModeType.COMMIT);
 		Collection<Collaborator> listCollaborator =
 				(Collection<Collaborator>) em.createQuery(
-						"select c from Collaborateur c where c.personnalIdNumber = :personnalIdNumber", Collaborator.class)
+						"select c from Collaborator c where c.personnalIdNumber = :personnalIdNumber", Collaborator.class)
 						.setParameter("personnalIdNumber",personnalIdNumber).getResultList();
 		return !listCollaborator.isEmpty();
 	}
 	
 	public List<Collaborator> getAllCollaborators() {
+		em.setFlushMode(FlushModeType.COMMIT);
 		return em.createQuery("select c from Collaborator c", Collaborator.class).getResultList();
 	}
 	
