@@ -13,7 +13,7 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.viseo.c360.formation.dao.FormationDAO;
+import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 
@@ -29,7 +29,7 @@ public class SessionFormationDeserializer extends JsonDeserializer<TrainingSessi
 	}
 	
 	@Inject
-	FormationDAO formationDAO;
+	TrainingDAO trainingDAO;
 	
 	@Override
 	public TrainingSession deserialize(JsonParser parser, DeserializationContext context) throws JsonProcessingException, IOException {
@@ -44,7 +44,7 @@ public class SessionFormationDeserializer extends JsonDeserializer<TrainingSessi
         
         //Training
         Long idFormation = node.get("formation").asLong();
-        Training f = formationDAO.getFormation(idFormation);
+        Training f = trainingDAO.getTraining(idFormation);
         if(f == null) { 
         	System.err.println("Impossible d'obtenir l'objet 'Training' d'Id : "+Long.toString(idFormation)+".");
         	throw new FormationDAOException("Impossible d'obtenir l'objet 'Training' d'Id : "+Long.toString(idFormation)+".");

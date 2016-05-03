@@ -15,22 +15,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viseo.c360.formation.dao.FormationDAO;
+import com.viseo.c360.formation.dao.TrainingDAO;
 
 @RestController
 public class FormationWS {
 
 	@Inject
-	FormationDAO formationDAO;
+	TrainingDAO trainingDAO;
 	
 	//Training
 	@RequestMapping(value="${endpoint.formations}", method = RequestMethod.POST)
     @ResponseBody
     public boolean addFormation(@Valid @RequestBody Training myTraining, BindingResult bindingResult){
 		if(!(bindingResult.hasErrors())
-			&& !formationDAO.isFormationPersistent(myTraining.getTitleTraining()))
+			&& !trainingDAO.isTrainingPersisted(myTraining.getTitleTraining()))
 		{
-			formationDAO.addFormation(myTraining);
+			trainingDAO.addTraining(myTraining);
 			return true;
     	}
 		return false;
@@ -39,7 +39,7 @@ public class FormationWS {
 	@RequestMapping(value = "${endpoint.formations}", method = RequestMethod.GET)
 	@ResponseBody
     public List<Training> ReadFormation(){
-		return formationDAO.getAllFormation();
+		return trainingDAO.getAllTrainings();
 	}
 	
 	//TrainingSession
@@ -47,10 +47,10 @@ public class FormationWS {
     @ResponseBody
     public boolean addSessionFormation(@Valid @RequestBody TrainingSession myTrainingSession, BindingResult bindingResult){
 		if(!(bindingResult.hasErrors() )
-			&& !formationDAO.isThereOneSessionFormationAlreadyPlanned(myTrainingSession)
-			&& formationDAO.hasCorrectDates(myTrainingSession))
+			&& !trainingDAO.isThereOneSessionTrainingAlreadyPlanned(myTrainingSession)
+			&& trainingDAO.hasCorrectDates(myTrainingSession))
 		{
-			formationDAO.addSessionFormation(myTrainingSession);
+			trainingDAO.addSessionTraining(myTrainingSession);
 			return true;
 		}
 		return false;
@@ -59,12 +59,12 @@ public class FormationWS {
 	@RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.GET)
 	@ResponseBody
     public List<TrainingSession> readSessionFormation(){
-		return formationDAO.getAllSessionFormation();
+		return trainingDAO.getAllSessionsTrainings();
 	}
 
 	@RequestMapping(value = "${endpoint.sessionsbyid}", method = RequestMethod.GET)
 	@ResponseBody
     public List<TrainingSession> readSessionByFormation(@PathVariable String id){
-		return formationDAO.getSessionByFormation(Long.parseLong(id));
+		return trainingDAO.getSessionByTraining(Long.parseLong(id));
 	}
 }	
