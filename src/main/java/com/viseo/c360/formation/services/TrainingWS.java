@@ -28,7 +28,7 @@ public class TrainingWS {
     @ResponseBody
     public boolean addTraining(@Valid @RequestBody Training myTraining, BindingResult bindingResult){
 		if(!(bindingResult.hasErrors())
-			&& !trainingDAO.isTrainingPersisted(myTraining.getTitleTraining()))
+			&& !trainingDAO.isTrainingPersisted(myTraining.getTrainingTitle()))
 		{
 			trainingDAO.addTraining(myTraining);
 			return true;

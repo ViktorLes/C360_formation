@@ -12,13 +12,13 @@ import javax.validation.constraints.Pattern;
 public class Training extends BaseEntity {
 
 	public static class Regex{
-		public static final String TITLE_TRAINING = "[a-zA-Z0-9+#'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+		public static final String TRAINING_TITLE = "[a-zA-Z0-9+#'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
 		public static final String NUMBER_HALF_DAYS = "[0-9]";
 	}
 
 	@NotNull
-	@Pattern(regexp= Training.Regex.TITLE_TRAINING +"*")
-	String titleTraining;
+	@Pattern(regexp= Training.Regex.TRAINING_TITLE +"*")
+	String trainingTitle;
 
 	@NotNull
 	@Min(value = 1)
@@ -28,12 +28,12 @@ public class Training extends BaseEntity {
 	public Training() {
 	}
 
-	public String getTitleTraining() {
-		return titleTraining;
+	public String getTrainingTitle() {
+		return trainingTitle;
 	}
 
-	public void setTitleTraining(String titleTraining) {
-		this.titleTraining = titleTraining;
+	public void setTrainingTitle(String trainingTitle) {
+		this.trainingTitle = trainingTitle;
 	}
 
 	public int getNumberHalfDays() {

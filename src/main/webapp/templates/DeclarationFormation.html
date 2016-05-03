@@ -13,9 +13,9 @@
 			  <form name="formationForm" ng-submit="DF.verifierForm(formationForm)" novalidate>
 			
 			    <!-- Titre de la Training -->
-			    <div class="form-group" ng-class="{ 'has-error' : formationForm.titleTraining.$invalid && formationForm.titleTraining.$dirty }">
-			      <input type="text" name="titleTraining" class="form-control" ng-model="DF.training.titleTraining" required ng-pattern="DF.regex.titleTraining" ng-trim="true"  placeholder="Titre de la training"> <!-- ng-minlength="2" ng-maxlength="20" -->
-			      <p ng-show="formationForm.titleTraining.$invalid && formationForm.titleTraining.$dirty" class="help-block">Veuillez entrer un titre de training valide</p>
+			    <div class="form-group" ng-class="{ 'has-error' : formationForm.trainingTitle.$invalid && formationForm.trainingTitle.$dirty }">
+			      <input type="text" name="trainingTitle" class="form-control" ng-model="DF.training.trainingTitle" required ng-pattern="DF.regex.trainingTitle" ng-trim="true"  placeholder="Titre de la training"> <!-- ng-minlength="2" ng-maxlength="20" -->
+			      <p ng-show="formationForm.trainingTitle.$invalid && formationForm.trainingTitle.$dirty" class="help-block">Veuillez entrer un titre de training valide</p>
 			    </div>
 			   <!-- Nombre de 1/2 journée -->
 			    <div class="form-group" ng-class="{ 'has-error' : formationForm.numberHalfDays.$invalid && formationForm.numberHalfDays.$dirty }">

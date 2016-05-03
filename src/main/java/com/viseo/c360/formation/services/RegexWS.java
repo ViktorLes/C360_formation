@@ -17,7 +17,7 @@ public class RegexWS {
     @ResponseBody
     public Map<String,String> getRegexTrainings(){
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("titreformation", "^"+ Training.Regex.TITLE_TRAINING +"+$");
+		map.put("titreformation", "^"+ Training.Regex.TRAINING_TITLE +"+$");
 		map.put("nombredemijournee","^"+ Training.Regex.NUMBER_HALF_DAYS +"+$");
 		return map;
 	}

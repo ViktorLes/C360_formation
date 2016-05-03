@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-//import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
 import com.viseo.c360.formation.domain.training.Training;
@@ -29,9 +28,9 @@ public class TrainingDAO {
 	}
 
 	@Transactional
-	public void addTraining(String titleTraining, int numberHalfDays){
+	public void addTraining(String trainingTitle, int numberHalfDays){
 		Training training = new Training();
-		training.setTitleTraining(titleTraining);
+		training.setTrainingTitle(trainingTitle);
 		training.setNumberHalfDays(numberHalfDays);
 		em.persist(training);
 	}
@@ -41,10 +40,10 @@ public class TrainingDAO {
 		em.persist(training);
 	}
 	
-	public boolean isTrainingPersisted(String titleTraining){
+	public boolean isTrainingPersisted(String trainingTitle){
 		Collection<Training> listTrainings =
-				(Collection<Training>) em.createQuery("select t from Training t where t.titleTraining = :titleTraining")
-				.setParameter("titleTraining", titleTraining).getResultList();
+				(Collection<Training>) em.createQuery("select t from Training t where t.trainingTitle = :trainingTitle")
+				.setParameter("trainingTitle", trainingTitle).getResultList();
 		return !listTrainings.isEmpty();
 	}
 	
@@ -54,13 +53,13 @@ public class TrainingDAO {
 	
 	/*** Session Training ***/
 	public List<TrainingSession> getSessionByTraining(long myTrainingId) {
-		Query q = em.createQuery("select s from SessionTraining s where s.training.id=:myTrainingId")
+		Query q = em.createQuery("select s from TrainingSession s where s.training.id=:myTrainingId")
 				.setParameter("myTrainingId",myTrainingId);
 		return q.getResultList();
 	}
 	
 	public List<TrainingSession> getAllTrainingSessions() {
-		return em.createQuery("select s from SessionTraining s", TrainingSession.class).getResultList();
+		return em.createQuery("select s from TrainingSession s", TrainingSession.class).getResultList();
 	}
 	
 	@Transactional
@@ -76,22 +75,28 @@ public class TrainingDAO {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		  CriteriaQuery<TrainingSession> q = cb.createQuery(TrainingSession.class);
 		  Root<TrainingSession> c = q.from(TrainingSession.class);
-		  q.select(c).where(cb.equal(c.get("formation"), trainingSession.getTraining().getId()),
+		  q.select(c).where(cb.equal(c.get("training"), trainingSession.getTraining().getId()),
 				  cb.or(
 					  cb.and(
-						  cb.greaterThanOrEqualTo(c.<Date>get("debut"), trainingSession.getBeginning()),
-						  cb.lessThan(c.<Date>get("debut"), trainingSession.getEnding())
+						  cb.greaterThanOrEqualTo(c.<Date>get("beginning"), trainingSession.getBeginning()),
+						  cb.lessThan(c.<Date>get("beginning"), trainingSession.getEnding())
 						  ),
 					  cb.and(
-							  cb.greaterThan(c.<Date>get("fin"), trainingSession.getBeginning()),
-							  cb.lessThanOrEqualTo(c.<Date>get("fin"), trainingSession.getEnding())
+							  cb.greaterThan(c.<Date>get("ending"), trainingSession.getBeginning()),
+							  cb.lessThanOrEqualTo(c.<Date>get("ending"), trainingSession.getEnding())
 						  ),
 					  cb.and(
-							  cb.lessThanOrEqualTo(c.<Date>get("debut"), trainingSession.getBeginning()),
-							  cb.greaterThanOrEqualTo(c.<Date>get("fin"), trainingSession.getEnding())
+							  cb.lessThanOrEqualTo(c.<Date>get("beginning"), trainingSession.getBeginning()),
+							  cb.greaterThanOrEqualTo(c.<Date>get("ending"), trainingSession.getEnding())
 						  )
 					  )
 		  );
+		/*
+		"select s from TrainingSession s where s.training.id = :trainingID && "+
+		"( " +
+
+		")"
+		*/
 		Collection<TrainingSession> list = (Collection<TrainingSession>) em.createQuery(q).getResultList();
 		return !list.isEmpty();
 	}
