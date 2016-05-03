@@ -32,7 +32,7 @@ angular.module('GestForController')
             $http.post("api/collaborateurs", self.collaborator).success(function(data){
                 if(data == "true" || data == true) {
                     self.isNewPersonalIdNumber = true;
-                    document.location.href = '../../pageblanche.html';
+                    document.location.href = 'pageblanche.html';
                     //$location.path('pageblanche.html');
                 }
                 else self.isNewPersonalIdNumber = false;
