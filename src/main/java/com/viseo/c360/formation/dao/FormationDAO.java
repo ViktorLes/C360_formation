@@ -13,10 +13,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import com.viseo.c360.formation.domain.formation.Training;
+import com.viseo.c360.formation.domain.formation.TrainingSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.viseo.c360.formation.domain.formation.SessionFormation;
 
 @Repository
 public class FormationDAO {
@@ -68,57 +67,57 @@ public class FormationDAO {
 	
 	/*** Session Training ***/
 	
-	public List<SessionFormation> getSessionByFormation(long myFormationId) {
+	public List<TrainingSession> getSessionByFormation(long myFormationId) {
 		Query q=em.createQuery("select s from SessionFormation s where s.formation.id=:myFormationId").setParameter("myFormationId",myFormationId);
 		return q.getResultList();
 	}
 	
-	public List<SessionFormation> getAllSessionFormation() {
-		return em.createQuery("select a from SessionFormation a", SessionFormation.class).getResultList();
+	public List<TrainingSession> getAllSessionFormation() {
+		return em.createQuery("select a from SessionFormation a", TrainingSession.class).getResultList();
 	}
 	
 	@Transactional
-	public void addSessionFormation(SessionFormation sf){
+	public void addSessionFormation(TrainingSession sf){
 		em.persist(sf);
 	}
 	
 	@Transactional
-	public SessionFormation getSessionFormation(long id) {
-		return em.find(SessionFormation.class, id);
+	public TrainingSession getSessionFormation(long id) {
+		return em.find(TrainingSession.class, id);
 	}
 	
-	public boolean isThereOneSessionFormationAlreadyPlanned(SessionFormation sf){
+	public boolean isThereOneSessionFormationAlreadyPlanned(TrainingSession sf){
 
-		Collection<SessionFormation> list = null;
+		Collection<TrainingSession> list = null;
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		 
-		  CriteriaQuery<SessionFormation> q = cb.createQuery(SessionFormation.class);
-		  Root<SessionFormation> c = q.from(SessionFormation.class);
+		  CriteriaQuery<TrainingSession> q = cb.createQuery(TrainingSession.class);
+		  Root<TrainingSession> c = q.from(TrainingSession.class);
 		  //ParameterExpression<String> p = cb.parameter(String.class);
 		  
 		  q.select(c).where(cb.equal(c.get("formation"), sf.getTraining().getId()),
 				  cb.or(
 					  cb.and(
-						  cb.greaterThanOrEqualTo(c.<Date>get("debut"), sf.getDebut()),
-						  cb.lessThan(c.<Date>get("debut"), sf.getFin())
+						  cb.greaterThanOrEqualTo(c.<Date>get("debut"), sf.getBeginning()),
+						  cb.lessThan(c.<Date>get("debut"), sf.getEnding())
 						  ),
 					  cb.and(
-							  cb.greaterThan(c.<Date>get("fin"), sf.getDebut()),
-							  cb.lessThanOrEqualTo(c.<Date>get("fin"), sf.getFin())
+							  cb.greaterThan(c.<Date>get("fin"), sf.getBeginning()),
+							  cb.lessThanOrEqualTo(c.<Date>get("fin"), sf.getEnding())
 						  ),
 					  cb.and(
-							  cb.lessThanOrEqualTo(c.<Date>get("debut"), sf.getDebut()),
-							  cb.greaterThanOrEqualTo(c.<Date>get("fin"), sf.getFin())
+							  cb.lessThanOrEqualTo(c.<Date>get("debut"), sf.getBeginning()),
+							  cb.greaterThanOrEqualTo(c.<Date>get("fin"), sf.getEnding())
 						  )
 					  )
 		  );
 		  
-		  list = (Collection<SessionFormation>) em.createQuery(q).getResultList();
+		  list = (Collection<TrainingSession>) em.createQuery(q).getResultList();
 		  
 		return !list.isEmpty();
 	}
 	
-	public boolean hasCorrectDates(SessionFormation mySessionFormation){
-		return mySessionFormation.getDebut().before(mySessionFormation.getFin());
+	public boolean hasCorrectDates(TrainingSession myTrainingSession){
+		return myTrainingSession.getBeginning().before(myTrainingSession.getEnding());
 	}
 }

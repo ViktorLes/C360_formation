@@ -16,7 +16,7 @@
  						<ul>
  							<li ng-repeat="s in DmF.listSessionFormation">
  							<input type="checkbox" ng-model="s.isChecked">
- 							{{s.debut | date:"dd LLLL yyyy"}} - {{s.fin | date:"dd LLLL yyyy"}} - {{s.lieu}}
+ 							{{s.debut | date:"dd LLLL yyyy"}} - {{s.fin | date:"dd LLLL yyyy"}} - {{s.location}}
  							</li>
  						</ul>		
  						<div ng-show="DmF.isListEmpty" class="info-text">Aucune session n'est prévue, vous pouvez néanmoins envoyer une demande</div>

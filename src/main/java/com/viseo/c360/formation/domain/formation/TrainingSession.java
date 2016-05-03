@@ -12,44 +12,42 @@ import com.viseo.c360.json.deserializer.formation.SessionFormationDeserializer;
 
 @JsonDeserialize(using = SessionFormationDeserializer.class)
 @Entity
-public class SessionFormation extends BaseEntity {
-	
+public class TrainingSession extends BaseEntity {
+
 	@ManyToOne
 	Training training;
 
-	Date debut;
+	Date beginning;
 
-	Date fin;
+	Date ending;
 	
-	String lieu;
+	String location;
 
-
-	public SessionFormation() {
+	public TrainingSession() {
 		super();
 	}
 	public Training getTraining() {
 		return training;
 	}
-	public Date getDebut() {
-		return debut;
+	public Date getBeginning() {
+		return beginning;
 	}
-	public Date getFin() {
-		return fin;
+	public Date getEnding() {
+		return ending;
 	}
-	public String getLieu() {
-		return lieu;
+	public String getLocation() {
+		return location;
 	}
 	public void setTraining(Training training) {
 		this.training = training;
 	}
-	public void setDebut(Date dateDebut) {
-		this.debut = dateDebut;
+	public void setBeginning(Date dateDebut) {
+		this.beginning = dateDebut;
 	}
-	public void setFin(Date dateFin) {
-		this.fin = dateFin;
+	public void setEnding(Date dateFin) {
+		this.ending = dateFin;
 	}
-	public void setLieu(String lieu) {
-		this.lieu = lieu;
+	public void setLocation(String location) {
+		this.location = location;
 	}
-
 }

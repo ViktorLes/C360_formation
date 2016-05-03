@@ -2,7 +2,7 @@ package com.viseo.c360.formation.domain.collaborateur;
 
 import com.viseo.c360.formation.domain.BaseEntity;
 import com.viseo.c360.formation.domain.formation.Training;
-import com.viseo.c360.formation.domain.formation.SessionFormation;
+import com.viseo.c360.formation.domain.formation.TrainingSession;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Entity
-public class DemandeFormation extends BaseEntity {
+public class RequestTraining extends BaseEntity {
 
     @ManyToOne
     Training training;
@@ -20,9 +20,9 @@ public class DemandeFormation extends BaseEntity {
     Collaborator collaborator;
 
     @ManyToMany
-    List<SessionFormation> listSession;
+    List<TrainingSession> listSession;
 
-    public DemandeFormation() {
+    public RequestTraining() {
         super();
         this.listSession = new ArrayList<>();
     }
@@ -43,15 +43,15 @@ public class DemandeFormation extends BaseEntity {
         this.training = training;
     }
 
-    public List<SessionFormation> getListSession() {
+    public List<TrainingSession> getListSession() {
         return Collections.unmodifiableList(listSession);
     }
 
-    public void addListSession(SessionFormation sessionFormation) {
-        this.listSession.add(sessionFormation);
+    public void addListSession(TrainingSession trainingSession) {
+        this.listSession.add(trainingSession);
     }
 
-    public void removeListSession(SessionFormation sessionFormation) {
-        this.listSession.remove(sessionFormation);
+    public void removeListSession(TrainingSession trainingSession) {
+        this.listSession.remove(trainingSession);
     }
 }

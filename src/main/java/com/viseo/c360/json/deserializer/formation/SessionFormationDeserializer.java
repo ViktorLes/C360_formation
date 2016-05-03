@@ -15,9 +15,9 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.viseo.c360.formation.dao.FormationDAO;
 import com.viseo.c360.formation.domain.formation.Training;
-import com.viseo.c360.formation.domain.formation.SessionFormation;
+import com.viseo.c360.formation.domain.formation.TrainingSession;
 
-public class SessionFormationDeserializer extends JsonDeserializer<SessionFormation> {
+public class SessionFormationDeserializer extends JsonDeserializer<TrainingSession> {
 
 	public class FormationDAOException extends JsonProcessingException{
 
@@ -32,13 +32,13 @@ public class SessionFormationDeserializer extends JsonDeserializer<SessionFormat
 	FormationDAO formationDAO;
 	
 	@Override
-	public SessionFormation deserialize(JsonParser parser, DeserializationContext context) throws JsonProcessingException, IOException {
+	public TrainingSession deserialize(JsonParser parser, DeserializationContext context) throws JsonProcessingException, IOException {
 
 		SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy|HH:mm");
 		Date debut = null;
 		Date fin = null;
 	
-		SessionFormation sf = new SessionFormation();
+		TrainingSession sf = new TrainingSession();
 		ObjectCodec oc = parser.getCodec();
         JsonNode node = oc.readTree(parser);
         
@@ -61,15 +61,15 @@ public class SessionFormationDeserializer extends JsonDeserializer<SessionFormat
 //        		throw new FormationDAOException("L'ordre des dates ne concorde pas ( debut : "+debut.toString()+" <= fin : "+fin.toString());
 //        	}
         	
-        	sf.setDebut(debut);
-        	sf.setFin(fin);
+        	sf.setBeginning(debut);
+        	sf.setEnding(fin);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			throw new FormationDAOException("Problème de format de date/heure.");
 		}
         
         //lieu
-        sf.setLieu(node.get("lieu").asText());
+        sf.setLocation(node.get("lieu").asText());
         
 		return sf;
 	}
