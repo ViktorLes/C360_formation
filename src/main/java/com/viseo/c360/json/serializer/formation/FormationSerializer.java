@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.viseo.c360.formation.domain.formation.Training;
+import com.viseo.c360.formation.domain.training.Training;
 
 public class FormationSerializer  extends JsonSerializer<Training> {
 		

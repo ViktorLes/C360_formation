@@ -5,8 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import com.viseo.c360.formation.domain.formation.Training;
-import com.viseo.c360.formation.domain.formation.TrainingSession;
+import com.viseo.c360.formation.domain.training.Training;
+import com.viseo.c360.formation.domain.training.TrainingSession;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

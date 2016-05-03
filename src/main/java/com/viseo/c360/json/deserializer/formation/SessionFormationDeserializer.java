@@ -14,8 +14,8 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.viseo.c360.formation.dao.FormationDAO;
-import com.viseo.c360.formation.domain.formation.Training;
-import com.viseo.c360.formation.domain.formation.TrainingSession;
+import com.viseo.c360.formation.domain.training.Training;
+import com.viseo.c360.formation.domain.training.TrainingSession;
 
 public class SessionFormationDeserializer extends JsonDeserializer<TrainingSession> {
 

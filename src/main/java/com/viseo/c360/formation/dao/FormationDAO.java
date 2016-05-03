@@ -12,8 +12,8 @@ import javax.persistence.criteria.CriteriaQuery;
 //import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
-import com.viseo.c360.formation.domain.formation.Training;
-import com.viseo.c360.formation.domain.formation.TrainingSession;
+import com.viseo.c360.formation.domain.training.Training;
+import com.viseo.c360.formation.domain.training.TrainingSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

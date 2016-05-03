@@ -3,8 +3,8 @@ package com.viseo.c360.formation.services;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.viseo.c360.formation.domain.collaborateur.Collaborator;
-import com.viseo.c360.formation.domain.formation.Training;
+import com.viseo.c360.formation.domain.collaborator.Collaborator;
+import com.viseo.c360.formation.domain.training.Training;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;

@@ -1,4 +1,4 @@
-package com.viseo.c360.formation.domain.collaborateur;
+package com.viseo.c360.formation.domain.collaborator;
 
 import com.viseo.c360.formation.domain.BaseEntity;
 

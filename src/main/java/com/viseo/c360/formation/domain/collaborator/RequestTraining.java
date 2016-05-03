@@ -1,14 +1,13 @@
-package com.viseo.c360.formation.domain.collaborateur;
+package com.viseo.c360.formation.domain.collaborator;
 
 import com.viseo.c360.formation.domain.BaseEntity;
-import com.viseo.c360.formation.domain.formation.Training;
-import com.viseo.c360.formation.domain.formation.TrainingSession;
+import com.viseo.c360.formation.domain.training.Training;
+import com.viseo.c360.formation.domain.training.TrainingSession;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 
 @Entity
 public class RequestTraining extends BaseEntity {

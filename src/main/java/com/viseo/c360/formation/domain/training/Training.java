@@ -1,4 +1,4 @@
-package com.viseo.c360.formation.domain.formation;
+package com.viseo.c360.formation.domain.training;
 
 import com.viseo.c360.formation.domain.BaseEntity;
 

@@ -3,7 +3,7 @@ package com.viseo.c360.json;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.viseo.c360.formation.domain.formation.TrainingSession;
+import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.json.deserializer.formation.SessionFormationDeserializer;
 
 public class JSONMapper extends ObjectMapper {
