@@ -2107,7 +2107,7 @@ function setupModuleLoader(window) {
            * @module ng
            *
            * @description
-           * Name of the module.
+           * lastName of the module.
            */
           name: name,
 
@@ -2262,7 +2262,7 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#component
            * @module ng
-           * @param {string} name Name of the component in camel-case (i.e. myComp which will match as my-comp)
+           * @param {string} name lastName of the component in camel-case (i.e. myComp which will match as my-comp)
            * @param {Object} options Component definition object (a simplified
            *    {@link ng.$compile#directive-definition-object directive definition object})
            *
@@ -2777,7 +2777,7 @@ var jqLiteMinErr = minErr('jqLite');
 /**
  * Converts snake_case to camelCase.
  * Also there is special case for Moz prefix starting with upper case letter.
- * @param name Name to normalize
+ * @param name lastName to normalize
  */
 function camelCase(name) {
   return name.
@@ -6519,7 +6519,7 @@ function $CacheFactoryProvider() {
    * @description
    * Get access to a cache object by the `cacheId` used when it was created.
    *
-   * @param {string} cacheId Name or id of a cache to access.
+   * @param {string} cacheId lastName or id of a cache to access.
    * @returns {object} Cache object identified by the cacheId or undefined if no such cache.
    */
     cacheFactory.get = function(cacheId) {
@@ -7542,7 +7542,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    * @description
    * Register a new directive with the compiler.
    *
-   * @param {string|Object} name Name of the directive in camel-case (i.e. <code>ngBind</code> which
+   * @param {string|Object} name lastName of the directive in camel-case (i.e. <code>ngBind</code> which
    *    will match as <code>ng-bind</code>), or an object map of directives where the keys are the
    *    names and the values are the factories.
    * @param {Function|Array} directiveFactory An injectable directive factory function. See the
@@ -7592,7 +7592,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    * @ngdoc method
    * @name $compileProvider#component
    * @module ng
-   * @param {string} name Name of the component in camelCase (i.e. `myComp` which will match `<my-comp>`)
+   * @param {string} name lastName of the component in camelCase (i.e. `myComp` which will match `<my-comp>`)
    * @param {Object} options Component definition object (a simplified
    *    {@link ng.$compile#directive-definition-object directive definition object}),
    *    with the following properties (all optional):
@@ -7918,7 +7918,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
        *
        * For further information check out the guide on {@link guide/directive#matching-directives Matching Directives}
        *
-       * @param {string} name Name to normalize
+       * @param {string} name lastName to normalize
        */
       $normalize: directiveNormalize,
 
@@ -9869,7 +9869,7 @@ SimpleChange.prototype.isFirstChange = function() { return this.previousValue ==
 var PREFIX_REGEXP = /^((?:x|data)[\:\-_])/i;
 /**
  * Converts all accepted directives format into proper directive name.
- * @param name Name to normalize
+ * @param name lastName to normalize
  */
 function directiveNormalize(name) {
   return camelCase(name.replace(PREFIX_REGEXP, ''));
@@ -10511,10 +10511,10 @@ function $HttpProvider() {
    * {@link ng.$cacheFactory `$cacheFactory`} to enable or disable caching of HTTP responses
    * by default. See {@link $http#caching $http Caching} for more information.
    *
-   * - **`defaults.xsrfCookieName`** - {string} - Name of cookie containing the XSRF token.
+   * - **`defaults.xsrfCookieName`** - {string} - lastName of cookie containing the XSRF token.
    * Defaults value is `'XSRF-TOKEN'`.
    *
-   * - **`defaults.xsrfHeaderName`** - {string} - Name of HTTP header to populate with the
+   * - **`defaults.xsrfHeaderName`** - {string} - lastName of HTTP header to populate with the
    * XSRF token. Defaults value is `'X-XSRF-TOKEN'`.
    *
    * - **`defaults.headers`** - {Object} - Default headers for all $http requests.
@@ -19500,7 +19500,7 @@ function $FilterProvider($provide) {
   /**
    * @ngdoc method
    * @name $filterProvider#register
-   * @param {string|Object} name Name of the filter function, or an object map of filters where
+   * @param {string|Object} name lastName of the filter function, or an object map of filters where
    *    the keys are the filter names and the values are the filter factories.
    *
    *    <div class="alert alert-warning">
