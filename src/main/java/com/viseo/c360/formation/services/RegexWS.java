@@ -4,12 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.viseo.c360.formation.domain.collaborateur.Collaborator;
+import com.viseo.c360.formation.domain.formation.Training;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.viseo.c360.formation.domain.formation.Formation;
 
 @RestController
 public class RegexWS {
@@ -18,8 +17,8 @@ public class RegexWS {
     @ResponseBody
     public Map<String,String> getRegexFormations(){
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("titreformation", "^"+Formation.Regex.TITRE_FORMATION+"+$");
-		map.put("nombredemijournee","^"+Formation.Regex.NOMBRE_DEMI_JOURNEE +"+$");
+		map.put("titreformation", "^"+ Training.Regex.TITLE_TRAINING +"+$");
+		map.put("nombredemijournee","^"+ Training.Regex.NUMBER_HALF_DAYS +"+$");
 		return map;
 	}
 	
@@ -27,9 +26,9 @@ public class RegexWS {
     @ResponseBody
     public Map<String,String> getRegexCollaborateurs(){
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("personnalIdNumber", "^"+ Collaborator.Regex.personnalIdNumber +"+$");
-		map.put("lastName","^"+ Collaborator.Regex.lastName +"+$");
-		map.put("firstName","^"+ Collaborator.Regex.firstName +"+$");
+		map.put("PERSONNAL_ID_NUMBER", "^"+ Collaborator.Regex.PERSONNAL_ID_NUMBER +"+$");
+		map.put("LAST_NAME","^"+ Collaborator.Regex.LAST_NAME +"+$");
+		map.put("FIRST_NAME","^"+ Collaborator.Regex.FIRST_NAME +"+$");
 		return map;
 	}
 }

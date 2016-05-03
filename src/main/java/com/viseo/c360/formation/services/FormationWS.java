@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import com.viseo.c360.formation.domain.formation.Training;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viseo.c360.formation.dao.FormationDAO;
-import com.viseo.c360.formation.domain.formation.Formation;
 import com.viseo.c360.formation.domain.formation.SessionFormation;
 
 @RestController
@@ -23,14 +23,14 @@ public class FormationWS {
 	@Inject
 	FormationDAO formationDAO;
 	
-	//Formation
+	//Training
 	@RequestMapping(value="${endpoint.formations}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addFormation(@Valid @RequestBody Formation myFormation, BindingResult bindingResult){
+    public boolean addFormation(@Valid @RequestBody Training myTraining, BindingResult bindingResult){
 		if(!(bindingResult.hasErrors())
-			&& !formationDAO.isFormationPersistent(myFormation.getTitreFormation()))
+			&& !formationDAO.isFormationPersistent(myTraining.getTitleTraining()))
 		{
-			formationDAO.addFormation(myFormation);
+			formationDAO.addFormation(myTraining);
 			return true;
     	}
 		return false;
@@ -38,7 +38,7 @@ public class FormationWS {
 
 	@RequestMapping(value = "${endpoint.formations}", method = RequestMethod.GET)
 	@ResponseBody
-    public List<Formation> ReadFormation(){	
+    public List<Training> ReadFormation(){
 		return formationDAO.getAllFormation();
 	}
 	

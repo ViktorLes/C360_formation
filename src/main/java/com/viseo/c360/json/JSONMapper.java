@@ -13,7 +13,7 @@ public class JSONMapper extends ObjectMapper {
 	public JSONMapper() {
         SimpleModule module = new SimpleModule("JSONModule", new Version(2, 0, 0, null, null, null));
        
-        //module.addSerializer(Formation.class, new FormationSerializer());
+        //module.addSerializer(Training.class, new FormationSerializer());
         module.addDeserializer(SessionFormation.class, new SessionFormationDeserializer());
         
         // Add more here ...

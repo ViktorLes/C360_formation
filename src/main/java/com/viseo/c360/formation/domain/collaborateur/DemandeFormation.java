@@ -1,7 +1,7 @@
 package com.viseo.c360.formation.domain.collaborateur;
 
 import com.viseo.c360.formation.domain.BaseEntity;
-import com.viseo.c360.formation.domain.formation.Formation;
+import com.viseo.c360.formation.domain.formation.Training;
 import com.viseo.c360.formation.domain.formation.SessionFormation;
 
 import javax.persistence.*;
@@ -14,7 +14,7 @@ import java.util.List;
 public class DemandeFormation extends BaseEntity {
 
     @ManyToOne
-    Formation formation;
+    Training training;
 
     @ManyToOne
     Collaborator collaborator;
@@ -35,12 +35,12 @@ public class DemandeFormation extends BaseEntity {
         this.collaborator = collaborator;
     }
 
-    public Formation getFormation() {
-        return formation;
+    public Training getTraining() {
+        return training;
     }
 
-    public void setFormation(Formation formation) {
-        this.formation = formation;
+    public void setTraining(Training training) {
+        this.training = training;
     }
 
     public List<SessionFormation> getListSession() {

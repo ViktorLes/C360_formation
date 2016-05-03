@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.viseo.c360.formation.dao.FormationDAO;
-import com.viseo.c360.formation.domain.formation.Formation;
+import com.viseo.c360.formation.domain.formation.Training;
 import com.viseo.c360.formation.domain.formation.SessionFormation;
 
 public class SessionFormationDeserializer extends JsonDeserializer<SessionFormation> {
@@ -42,14 +42,14 @@ public class SessionFormationDeserializer extends JsonDeserializer<SessionFormat
 		ObjectCodec oc = parser.getCodec();
         JsonNode node = oc.readTree(parser);
         
-        //Formation
+        //Training
         Long idFormation = node.get("formation").asLong();
-        Formation f = formationDAO.getFormation(idFormation);
+        Training f = formationDAO.getFormation(idFormation);
         if(f == null) { 
-        	System.err.println("Impossible d'obtenir l'objet 'Formation' d'Id : "+Long.toString(idFormation)+".");
-        	throw new FormationDAOException("Impossible d'obtenir l'objet 'Formation' d'Id : "+Long.toString(idFormation)+".");
+        	System.err.println("Impossible d'obtenir l'objet 'Training' d'Id : "+Long.toString(idFormation)+".");
+        	throw new FormationDAOException("Impossible d'obtenir l'objet 'Training' d'Id : "+Long.toString(idFormation)+".");
         }
-		sf.setFormation(f);
+		sf.setTraining(f);
 		
 		//dates et heures
         try {

@@ -29,8 +29,8 @@
 		<bean id="jacksonObjectMapper" class="com.viseo.c360.json.JSONMapper" />
     <bean id="jsonMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<!-- <property lastName="prefixJson" value="false" />
-	    <property lastName="supportedMediaTypes" value="application/json" /> -->
+		<!-- <property LAST_NAME="prefixJson" value="false" />
+	    <property LAST_NAME="supportedMediaTypes" value="application/json" /> -->
 	    <property name="objectMapper" ref="jacksonObjectMapper" />
 	</bean>
 	
@@ -52,7 +52,7 @@
 				<value>classpath:persistence.xml</value>
 			</list>
 		</property>
-		<!-- <property lastName="defaultDataSource" ref="dataSourceDev" /> -->
+		<!-- <property LAST_NAME="defaultDataSource" ref="dataSourceDev" /> -->
 		<property name="defaultDataSource" ref="dataSourceC360" />
 	</bean>
 

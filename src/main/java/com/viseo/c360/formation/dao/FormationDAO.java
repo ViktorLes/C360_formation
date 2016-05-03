@@ -12,10 +12,10 @@ import javax.persistence.criteria.CriteriaQuery;
 //import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
+import com.viseo.c360.formation.domain.formation.Training;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.viseo.c360.formation.domain.formation.Formation;
 import com.viseo.c360.formation.domain.formation.SessionFormation;
 
 @Repository
@@ -25,48 +25,48 @@ public class FormationDAO {
 	EntityManager em;
 	
 	
-	/*** Formation ***/
+	/*** Training ***/
 	
 	@Transactional
-	public Formation getFormation(long id){
-		return em.find(Formation.class, id);
+	public Training getFormation(long id){
+		return em.find(Training.class, id);
 	}
 
 	@Transactional
 	public void addFormation(String titleCourse,int numberHalfDays){
 		
-		Formation F = new Formation();
-		F.setTitreFormation(titleCourse);
-		F.setNombreDemiJournee(numberHalfDays);
+		Training F = new Training();
+		F.setTitleTraining(titleCourse);
+		F.setNumberHalfDays(numberHalfDays);
 		em.persist(F);
 	}
 	
 	@Transactional
-	public void addFormation(Formation F){
+	public void addFormation(Training F){
 		em.persist(F);
 	}
 	
 	
 	public boolean isFormationPersistent(String titreFormation){
 
-		Collection<Formation> list = null;
+		Collection<Training> list = null;
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		 
-		  CriteriaQuery<Formation> q = cb.createQuery(Formation.class);
-		  Root<Formation> c = q.from(Formation.class);
+		  CriteriaQuery<Training> q = cb.createQuery(Training.class);
+		  Root<Training> c = q.from(Training.class);
 		  //ParameterExpression<String> p = cb.parameter(String.class);
 		  q.select(c).where(cb.equal(c.get("titreformation"), titreFormation));
 		  
-		  list = (Collection<Formation>) em.createQuery(q).getResultList();
+		  list = (Collection<Training>) em.createQuery(q).getResultList();
 		  
 		return !list.isEmpty(); //return true if the list is not avoid
 	}
 	
-	public List<Formation> getAllFormation() {
-		return em.createQuery("select a from Formation a", Formation.class).getResultList();
+	public List<Training> getAllFormation() {
+		return em.createQuery("select a from Formation a", Training.class).getResultList();
 	}
 	
-	/*** Session Formation ***/
+	/*** Session Training ***/
 	
 	public List<SessionFormation> getSessionByFormation(long myFormationId) {
 		Query q=em.createQuery("select s from SessionFormation s where s.formation.id=:myFormationId").setParameter("myFormationId",myFormationId);
@@ -96,7 +96,7 @@ public class FormationDAO {
 		  Root<SessionFormation> c = q.from(SessionFormation.class);
 		  //ParameterExpression<String> p = cb.parameter(String.class);
 		  
-		  q.select(c).where(cb.equal(c.get("formation"), sf.getFormation().getId()),
+		  q.select(c).where(cb.equal(c.get("formation"), sf.getTraining().getId()),
 				  cb.or(
 					  cb.and(
 						  cb.greaterThanOrEqualTo(c.<Date>get("debut"), sf.getDebut()),

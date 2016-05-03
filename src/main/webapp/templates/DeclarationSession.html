@@ -15,10 +15,10 @@
 				  <form name="sessionForm" ng-submit="DS.verifierForm(sessionForm)" novalidate>
 
 				
-				 <!-- Nom de la Formation -->
+				 <!-- Nom de la Training -->
 				    <div class="form-group">
-				   	<h5> <span class="label label-default">Nom de la formation: </span></h5>
-				   	   <select class="selectpicker form-control" name="sessionFormation" ng-model="DS.SessionFormationId" ng-options='formation.id as formation.titreFormation for formation in DS.formation' ></select>
+				   	<h5> <span class="label label-default">Nom de la training: </span></h5>
+				   	   <select class="selectpicker form-control" name="sessionFormation" ng-model="DS.SessionFormationId" ng-options='training.id as training.titleTraining for training in DS.training' ></select>
 					</div>
 					
 			 <!-- Date -->
@@ -97,7 +97,7 @@
 				    
 			
 			    	 <div class="alert alert-danger" role="alert" ng-show="!DS.isSessionAlreadyPlanned">
-					     Il existe déjà une session pour cette formation dans ces tranches horaires.
+					     Il existe déjà une session pour cette training dans ces tranches horaires.
 					 </div>  
 					 <div class="alert alert-danger" role="alert" ng-show="!DS.DateCorrect(d1,d2,heureDebut,heureFin)">
 					     Veuillez choisir une date de fin superieure à la date de debut.
