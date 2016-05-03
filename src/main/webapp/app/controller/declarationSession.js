@@ -13,11 +13,9 @@ angular.module('GestForController')
         self.d2 = datepicker.build();
 
         function initTimeSlot(){
-
             function pad2(number) {
                 return (number < 10 ? '0' : '') + number;
             }
-
             var myArray =[];
             var beginningHour=8; var endHour=18; var feet=30; var endMinute=30; var beginningMinute=0;
             var numberFeetHour = 60/feet;
@@ -28,11 +26,11 @@ angular.module('GestForController')
             {
                 myArray.push(pad2((beginningHour + Math.floor(recorder/numberFeetHour))).toString() + ":" + pad2((recorder%numberFeetHour*feet)).toString());
             }
-            self.myArray2 = myArray;
+            self.timeSlotsTraining = myArray;
         }
         initTimeSlot();
-        self.beginningHour = self.myArray2[0];
-        self.endHour = self.myArray2[0];
+        self.beginningHour = self.timeSlotsTraining[0];
+        self.endHour = self.timeSlotsTraining[0];
 
         self.trainingLocation = 'Salle Phuket';
         self.isFalseForm = false;

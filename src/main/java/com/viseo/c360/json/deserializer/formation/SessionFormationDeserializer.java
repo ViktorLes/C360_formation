@@ -35,41 +35,35 @@ public class SessionFormationDeserializer extends JsonDeserializer<TrainingSessi
 	public TrainingSession deserialize(JsonParser parser, DeserializationContext context) throws JsonProcessingException, IOException {
 
 		SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy|HH:mm");
-		Date debut = null;
-		Date fin = null;
+		Date beginning = null;
+		Date ending = null;
 	
 		TrainingSession sf = new TrainingSession();
 		ObjectCodec oc = parser.getCodec();
         JsonNode node = oc.readTree(parser);
         
         //Training
-        Long idFormation = node.get("formation").asLong();
-        Training f = trainingDAO.getTraining(idFormation);
-        if(f == null) { 
-        	System.err.println("Impossible d'obtenir l'objet 'Training' d'Id : "+Long.toString(idFormation)+".");
-        	throw new FormationDAOException("Impossible d'obtenir l'objet 'Training' d'Id : "+Long.toString(idFormation)+".");
+        Long trainingId = node.get("training").asLong();
+        Training training = trainingDAO.getTraining(trainingId);
+        if(training == null) {
+        	System.err.println("Impossible d'obtenir l'objet 'Training' d'Id : "+Long.toString(trainingId)+".");
+        	throw new FormationDAOException("Impossible d'obtenir l'objet 'Training' d'Id : "+Long.toString(trainingId)+".");
         }
-		sf.setTraining(f);
+		sf.setTraining(training);
 		
 		//dates et heures
         try {
-        	debut = formatterDate.parse(node.get("debut").asText());
-        	fin = formatterDate.parse(node.get("fin").asText());
-        	
-//        	if(!debut.before(fin)) {
-//        		System.err.println("L'ordre des dates ne concorde pas ( debut : "+debut.toString()+" <= fin : "+fin.toString());
-//        		throw new FormationDAOException("L'ordre des dates ne concorde pas ( debut : "+debut.toString()+" <= fin : "+fin.toString());
-//        	}
-        	
-        	sf.setBeginning(debut);
-        	sf.setEnding(fin);
+        	beginning = formatterDate.parse(node.get("beginning").asText());
+        	ending = formatterDate.parse(node.get("ending").asText());
+        	sf.setBeginning(beginning);
+        	sf.setEnding(ending);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			throw new FormationDAOException("Problème de format de date/heure.");
 		}
         
         //lieu
-        sf.setLocation(node.get("lieu").asText());
+        sf.setLocation(node.get("location").asText());
         
 		return sf;
 	}
