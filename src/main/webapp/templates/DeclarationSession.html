@@ -18,7 +18,7 @@
 				 <!-- Nom de la Training -->
 				    <div class="form-group">
 				   	<h5> <span class="label label-default">Nom de la training: </span></h5>
-				   	   <select class="selectpicker form-control" name="trainingSession" ng-model="DS.SessionFormationId" ng-options='training.id as training.trainingTitle for training in DS.training' ></select>
+				   	   <select class="selectpicker form-control" name="trainingSession" ng-model="DS.trainingSessionId" ng-options='training.id as training.trainingTitle for training in DS.training' ></select>
 					</div>
 					
 			 <!-- Date -->
@@ -72,7 +72,7 @@
 							<div class="alert alert-warning" ng-show="DS.isWeekENDD2()">
  							 <strong>Attention :</strong> Le jour selectionné est un jour non ouvrable! 
 							</div>
-							<div class="alert alert-danger" ng-show="sessionForm.date2.$error.pattern &&   sessionForm.date2.$invalid">
+							<div class="alert alert-danger" ng-show="sessionForm.date2.$error.pattern && sessionForm.date2.$invalid">
 							  <strong></strong> Date invalide! Saisissez une date sous le format : (JJ/MM/AAAA)
 							</div>
 				        </p>
@@ -83,7 +83,7 @@
  				    <div class="form-group">
 				        <h5> <span class="label label-default">Heure de fin: (Dernier Jour)</span></h5>
 				   		  <div class="col-md-6">
-     					 <select class="selectpicker form-control" ng-model="DS.heureFin" ng-options='horaire as horaire for horaire in DS.timeSlotsTraining'></select>
+     					 <select class="selectpicker form-control" ng-model="DS.endHour" ng-options='horaire as horaire for horaire in DS.timeSlotsTraining'></select>
 				    </div>
 		 
 				    <!-- Lieu de la session -->
