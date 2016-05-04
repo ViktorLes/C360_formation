@@ -11,7 +11,7 @@
 				<div class="form-group">
 				<label>Selectionner training</label>
  						<select class="selectpicker form-control" ng-model="DmF.requestedTrainingId" ng-options="training.id as training.trainingTitle for training in DmF.training" ng-change="DmF.loadTrainingSessions()">
- 						<option value="">--Sélectionner une training--</option>
+ 						<option value="" disabled selected style="display: none;">--Sélectionner une training--</option>
  						</select>
  						<ul>
  							<li ng-repeat="s in DmF.listTrainingSession">
