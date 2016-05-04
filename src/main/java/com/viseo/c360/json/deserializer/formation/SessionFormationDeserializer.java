@@ -62,7 +62,7 @@ public class SessionFormationDeserializer extends JsonDeserializer<TrainingSessi
 			throw new FormationDAOException("Problème de format de date/heure.");
 		}
         
-        //lieu
+        //location
         sf.setLocation(node.get("location").asText());
         
 		return sf;

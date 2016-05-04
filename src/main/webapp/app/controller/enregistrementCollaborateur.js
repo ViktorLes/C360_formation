@@ -33,7 +33,6 @@ angular.module('GestForController')
                 if(data == "true" || data == true) {
                     self.isNewPersonalIdNumber = true;
                     document.location.href = 'pageblanche.html';
-                    //$location.path('pageblanche.html');
                 }
                 else self.isNewPersonalIdNumber = false;
             });

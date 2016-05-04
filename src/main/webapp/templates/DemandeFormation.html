@@ -7,21 +7,21 @@
 		    <h3 class="panel-title">Demande Formation</h3>
 		  </div>
 		  <div class="panel-body">
-			  <form name="formationForm" ng-submit="DmF.verifierForm()" novalidate >
+			  <form name="formationForm" ng-submit="DmF.verifyForm()" novalidate >
 				<div class="form-group">
 				<label>Selectionner training</label>
- 						<select class="selectpicker form-control" ng-model="DmF.DemandeFormationId" ng-options="training.id as training.trainingTitle for training in DmF.training" ng-change="DmF.loadSessionFormation()">
+ 						<select class="selectpicker form-control" ng-model="DmF.requestedTrainingId" ng-options="training.id as training.trainingTitle for training in DmF.training" ng-change="DmF.loadTrainingSessions()">
  						<option value="">--Sélectionner une training--</option>
  						</select>
  						<ul>
- 							<li ng-repeat="s in DmF.listSessionFormation">
+ 							<li ng-repeat="s in DmF.listTrainingSession">
  							<input type="checkbox" ng-model="s.isChecked">
- 							{{s.debut | date:"dd LLLL yyyy"}} - {{s.fin | date:"dd LLLL yyyy"}} - {{s.location}}
+ 							{{s.beginning | date:"dd LLLL yyyy"}} - {{s.ending | date:"dd LLLL yyyy"}} - {{s.location}}
  							</li>
  						</ul>		
  						<div ng-show="DmF.isListEmpty" class="info-text">Aucune session n'est prévue, vous pouvez néanmoins envoyer une demande</div>
 						<div ng-show="DmF.noneSessionSelected" class="warning-text">Vous n'avez sélectionné aucune session</div>
-						<div ng-show="DmF.hasToChooseOneFormation" class="warning-text">Veuillez sélectionner une session</div>
+						<div ng-show="DmF.hasToChooseOneTraining" class="warning-text">Veuillez sélectionner une session</div>
 
 				</div>
 				<button type="submit" class="btn btn-primary" >Envoyer demande</button>	

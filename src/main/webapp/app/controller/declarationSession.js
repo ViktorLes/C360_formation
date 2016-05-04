@@ -72,9 +72,9 @@ angular.module('GestForController')
         self.actionEnregistrer = function() {
             var session = {
                 training: self.trainingSessionId,
-                debut: $filter('date')(self.d1.dt,"dd/MM/yyyy") + "|" + self.beginningHour,
-                fin:  $filter('date')(self.d2.dt,"dd/MM/yyyy") + "|" + self.endHour,
-                lieu: self.trainingLocation
+                beginning: $filter('date')(self.d1.dt,"dd/MM/yyyy") + "|" + self.beginningHour,
+                ending:  $filter('date')(self.d2.dt,"dd/MM/yyyy") + "|" + self.endHour,
+                location: self.trainingLocation
             };
 
             $http.post("api/sessions", session).success(function(data){

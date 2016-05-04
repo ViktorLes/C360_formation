@@ -1,8 +1,6 @@
 angular.module('GestForController')
-    .controller('CtrlDemandeForm',['$http', '$location','InitBddService',function($http, $location,InitBddService) {
+    .controller('CtrlDemandeForm',['$http', '$location',function($http, $location) {
         var self = this;
-        //InitBddService.init($http);
-
         //Charge la liste de formations affiché dans le select box des formations
         $http.get("api/formations").then(function(data){
             self.training = [];
@@ -11,34 +9,34 @@ angular.module('GestForController')
 
         //Charge la liste de sessions disponible en fonction de l'ID de training
         //selectionné grâce au 'select box' 
-        self.loadSessionFormation=function() {
+        self.loadTrainingSessions=function() {
             self.noneSessionSelected = false;
-            self.hasToChooseOneFormation = false;
-            self.listSessionFormation = [];
-            if (Number.isInteger(self.DemandeFormationId)) $http.get("api/sessions/" + self.DemandeFormationId).then(function (data) {
-                Array.prototype.push.apply(self.listSessionFormation, data.data);
-                if (self.listSessionFormation.length === 0) {
+            self.hasToChooseOneTraining = false;
+            self.listTrainingSession = [];
+            if (Number.isInteger(self.requestedTrainingId)) $http.get("api/sessions/" + self.requestedTrainingId).then(function (data) {
+                Array.prototype.push.apply(self.listTrainingSession, data.data);
+                if (self.listTrainingSession.length === 0) {
                     self.isListEmpty = true;
                 }
                 else self.isListEmpty = false;
             });
         }
 
-        self.verifierForm = function () {
+        self.verifyForm = function () {
             self.noneSessionSelected = false;
-            self.hasToChooseOneFormation = false;
-            if (Number.isInteger(self.DemandeFormationId)) {
-                if (typeof self.listSessionFormation !== 'undefined' ) {
+            self.hasToChooseOneTraining = false;
+            if (Number.isInteger(self.requestedTrainingId)) {
+                if (typeof self.listTrainingSession !== 'undefined' ) {
                     if(self.isListEmpty){
                         //envoi au serveur une demande de session non programmée
-                    }else if(self.listSessionFormation.some(function (elem) {return elem.isChecked;})){
+                    }else if(self.listTrainingSession.some(function (elem) {return elem.isChecked;})){
                         //envoi 'des' sessions selectionné par le collaborateur au serveur
                     }else{
                         self.noneSessionSelected = true;
                     }
                 }
             }else {
-                self.hasToChooseOneFormation = true;
+                self.hasToChooseOneTraining = true;
             }
         }
 

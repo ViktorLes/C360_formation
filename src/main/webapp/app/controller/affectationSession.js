@@ -16,18 +16,18 @@ controller('CtrlAffectationSession',['$http','$location','$filter',function($htt
             var sessionConvertedList=[];
             for(var i=0 ; i<self.trainingSessionList.length ; i++){
                 var sessionObjectConverted={
-                    idSession: self.trainingSessionList[i].id,
-                    idFormation: self.trainingSessionList[i].training.id,
+                    sessionId: self.trainingSessionList[i].id,
+                    trainingId: self.trainingSessionList[i].training.id,
                     lastName: self.trainingSessionList[i].training.trainingTitle,
-                    debut: $filter('date')(self.trainingSessionList[i].debut, 'dd/MM/yyyy'),
-                    fin: $filter('date')(self.trainingSessionList[i].fin, 'dd/MM/yyyy'),
-                    lieu: self.trainingSessionList[i].lieu
+                    beginning: $filter('date')(self.trainingSessionList[i].beginning, 'dd/MM/yyyy'),
+                    ending: $filter('date')(self.trainingSessionList[i].ending, 'dd/MM/yyyy'),
+                    location: self.trainingSessionList[i].location
                 };
                 sessionConvertedList.push(sessionObjectConverted);
             }
             return sessionConvertedList;
         }
-        self.trainingSessionListConverted= [];
+        self.trainingSessionListConverted  = [];
         Array.prototype.push.apply(self.trainingSessionListConverted,newSession());
     });
 

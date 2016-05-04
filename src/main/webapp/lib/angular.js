@@ -4781,7 +4781,7 @@ function $AnchorScrollProvider() {
            .controller('ScrollController', ['$scope', '$location', '$anchorScroll',
              function ($scope, $location, $anchorScroll) {
                $scope.gotoBottom = function() {
-                 // set the location.hash to the id of
+                 location
                  // the element you wish to scroll to.
                  $location.hash('bottom');
 
@@ -4829,12 +4829,12 @@ function $AnchorScrollProvider() {
                $scope.gotoAnchor = function(x) {
                  var newHash = 'anchor' + x;
                  if ($location.hash() !== newHash) {
-                   // set the $location.hash to `newHash` and
+                   location
                    // $anchorScroll will automatically scroll to it
                    $location.hash('anchor' + x);
                  } else {
                    // call $anchorScroll() explicitly,
-                   // since $location.hash hasn't changed
+                   location
                    $anchorScroll();
                  }
                };
