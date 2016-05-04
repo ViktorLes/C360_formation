@@ -34,10 +34,10 @@ controller('CtrlAffectationSession',['$http','$location','$filter',function($htt
     //Récupérer la liste des collaborateurs disponibles
     $http.get("api/collaborateurs").then(function(data){
         self.availableCollaboratorList = [];
-        self.selectedCollaborateurList =[];
+        self.selectedCollaboratorList =[];
         Array.prototype.push.apply(self.availableCollaboratorList,data.data);
         console.log("liste : ",self.availableCollaboratorList);
-       // self.SelectedCollaborateur=self.availableCollaboratorList[0];
+       // self.selectedCollaborator=self.availableCollaboratorList[0];
     });
 
     //déplace d'une liste à une autre
@@ -46,7 +46,7 @@ controller('CtrlAffectationSession',['$http','$location','$filter',function($htt
         if (idx != -1) {
             from.splice(idx, 1);
             to.push(item);
-            self.SelectedCollaborator.splice(0,self.SelectedCollaborator.length);
+            self.selectedCollaborator.splice(0,self.selectedCollaborator.length);
         }
     };
     self.moveAll = function(from, to) {
