@@ -14,11 +14,11 @@ describe('GF1', function() {
   describe('Test EnregistrementCollaborateur',function () {
 
     beforeEach(function () {
-      backend.expectGET('api/collaborateurs/regex').respond('{"matricule":"^[A-Z0-9]+$","nom":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$","prenom":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$"}');
-      ctrl.collaborateur = {};
-      ctrl.collaborateur.nom = "Henri";
-      ctrl.collaborateur.prenom = "ddsfs";
-      ctrl.collaborateur.matricule = "BB554";
+      backend.expectGET('api/collaborateurs/regex').respond('{"PERSONNAL_ID_NUMBER":"^[A-Z0-9]+$","LAST_NAME":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$","FIRST_NAME":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$"}');
+      ctrl.collaborator = {};
+      ctrl.collaborator.lastName = "Henri";
+      ctrl.collaborator.firstName = "ddsfs";
+      ctrl.collaborator.personnalIdnumber = "BB554";
     });
 
     afterEach(function(){
@@ -31,7 +31,7 @@ describe('GF1', function() {
       ctrl.actionEnregistrer();
       backend.expectPOST('api/collaborateurs').respond('true');
       backend.flush();
-      expect(ctrl.isNewMatricule).toBeTruthy();
+      expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
       //expect(loc.path()).toEqual('pageblanche.html');
     });
 
@@ -39,7 +39,7 @@ describe('GF1', function() {
       ctrl.actionEnregistrer();
       backend.expectPOST('api/collaborateurs').respond('false');
       backend.flush();
-      expect(ctrl.isNewMatricule).toBeFalsy();
+      expect(ctrl.isNewPersonalIdNumber).toBeFalsy();
       //expect(loc.path()).toEqual('#/EnregistrementCollaborateur');
     });
 

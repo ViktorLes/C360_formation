@@ -7,8 +7,8 @@ angular.module('GestForController')
 
         /*** Recupération des regex **/
         $http.get("api/formations/regex").then(function(data){
-            self.regex.trainingTitle = new RegExp(data.data.trainingTitle);
-            self.regex.numberHalfDays = new RegExp(data.data.numberHalfDays);
+            self.regex.trainingTitle = new RegExp(data.data.TRAINING_TITLE);
+            self.regex.numberHalfDays = new RegExp(data.data.NUMBER_HALF_DAYS);
         });
 
         self.isNewTrainingTitle = true;

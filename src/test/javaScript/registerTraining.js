@@ -15,10 +15,10 @@ describe('GF3', function() {
     describe('Test DeclarationFormation',function () {
 
         beforeEach(function () {
-            backend.expectGET('api/formations/regex').respond('{"nombredemijournee":"^[0-9]+$","titreformation":"^[a-zA-Z0-9+#\'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$"}');
-            ctrl.formation = {};
-            ctrl.formation.titreformation = "Title";
-            ctrl.formation.nombredemijournee = "4";
+            backend.expectGET('api/formations/regex').respond('{"TRAINING_TITLE":"^[a-zA-Z0-9+#\'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$","NUMBER_HALF_DAYS":"^[0-9]+$"}');
+            ctrl.training = {};
+            ctrl.training.trainingTitle = "Title";
+            ctrl.training.numberHaldDays = "4";
         });
 
         afterEach(function(){
@@ -31,7 +31,7 @@ describe('GF3', function() {
             ctrl.actionEnregistrer();
             backend.expectPOST('api/formations').respond('true');
             backend.flush();
-            expect(ctrl.isNewTitleFormation).toBeTruthy();
+            expect(ctrl.isNewTrainingTitle).toBeTruthy();
             //expect(loc.path()).toEqual('pageblanche.html');
         });
 
@@ -39,7 +39,7 @@ describe('GF3', function() {
             ctrl.actionEnregistrer();
             backend.expectPOST('api/formations').respond('false');
             backend.flush();
-            expect(ctrl.isNewTitleFormation).toBeFalsy();
+            expect(ctrl.isNewTrainingTitle).toBeFalsy();
             //expect(loc.path()).toEqual('#/EnregistrementCollaborateur');
         });
 
