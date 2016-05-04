@@ -42,12 +42,11 @@ controller('CtrlAffectationSession',['$http','$location','$filter',function($htt
 
     //déplace d'une liste à une autre
     self.moveItem = function(item,from,to){
+    	console.log("item",item);
         var idx=from.indexOf(item);
         if (idx != -1) {
             from.splice(idx, 1);
             to.push(item);
-            //self.selectedCollaborator.splice(0,self.selectedCollaborator.length);
-            from.splice(0,self.selectedCollaborator.length);
         }
     };
     self.moveAll = function(from, to) {

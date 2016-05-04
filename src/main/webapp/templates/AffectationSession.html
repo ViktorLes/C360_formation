@@ -27,8 +27,8 @@
            					<input ng-model="searchCollaboratorField" class="filter form-control filter-unselected" type="text" placeholder="Écrire le nom du collaborator ..." style="margin-bottom: 5px;" autofocus>
  				   				
            					<select ng-options="(collaborator.firstName +' '+collaborator.lastName) for collaborator in FilterResultList = (AS.availableCollaboratorList | searchByString: searchCollaboratorField:'firstName':'lastName')"
-									ng-model="AS.selectedCollaboratorInAffectedList" class="unselected form-control" style="height: 200px; width: 100%;" size="12"></select>
-
+									ng-model="AS.selectedCollaborator" class="unselected form-control" style="height: 200px; width: 100%;" size="12"></select>
+objet:{{AS.selectedCollaborator}}
 							<div class="row">
 							  <div class="small-2 small-centered columns" ng-show="(filterCollaborator.length == 0)&&(searchCollaboratorField.length > 0)">
 							    <div data-alert class="alert-box info">
@@ -39,7 +39,7 @@
 						</div>
 
 						<div class="col-md-2 center-block" style="margin-top: 80px">       
-							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 str" title="Ajouter à la session" data-type="str" style="margin-bottom: 20px;" ng-click="AS.moveItem(AS.selectedCollaborator[0], AS.availableCollaboratorList , AS.selectedCollaboratorList)"><span class="glyphicon glyphicon-chevron-right"></span></button>
+							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 str" title="Ajouter à la session" data-type="str" style="margin-bottom: 20px;" ng-click="AS.moveItem(AS.selectedCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"><span class="glyphicon glyphicon-chevron-right"></span></button>
 							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 stl" title="Retirer de la formation" data-type="stl" style="margin-bottom: 10px;" ng-click="AS.moveItem(AS.selectedCollaboratorInAffectedList[0], AS.selectedCollaboratorList , AS.availableCollaboratorList)"><span class="glyphicon glyphicon-chevron-left"></span></button>
 							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 atl" title="Retirer tous de la formation" data-type="atl" style="margin-bottom: 10px;" ng-click="AS.moveAll( AS.selectedCollaboratorList, AS.availableCollaboratorList )" ng-disabled="CtrlMoveAllTOEnableOrDisableButton(AS.selectedCollaboratorList)"><span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-list"></span></button>
 						</div>
