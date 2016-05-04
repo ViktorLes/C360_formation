@@ -28,7 +28,6 @@
  				   				
            					<select ng-options="(collaborator.firstName +' '+collaborator.lastName) for collaborator in FilterResultList = (AS.availableCollaboratorList | searchByString: searchCollaboratorField:'firstName':'lastName')"
 									ng-model="AS.selectedCollaborator" class="unselected form-control" style="height: 200px; width: 100%;" size="12"></select>
-objet:{{AS.selectedCollaborator}}
 							<div class="row">
 							  <div class="small-2 small-centered columns" ng-show="(filterCollaborator.length == 0)&&(searchCollaboratorField.length > 0)">
 							    <div data-alert class="alert-box info">
