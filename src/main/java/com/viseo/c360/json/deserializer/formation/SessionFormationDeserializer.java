@@ -53,10 +53,18 @@ public class SessionFormationDeserializer extends JsonDeserializer<TrainingSessi
 		
 		//dates et heures
         try {
+<<<<<<< HEAD
         	beginning = formatterDate.parse(node.get("beginning").asText());
         	ending = formatterDate.parse(node.get("ending").asText());
         	sf.setBeginning(beginning);
         	sf.setEnding(ending);
+=======
+        	debut = formatterDate.parse(node.get("debut").asText());
+        	fin = formatterDate.parse(node.get("fin").asText());
+        	
+        	sf.setDebut(debut);
+        	sf.setFin(fin);
+>>>>>>> 8eb5f7349c5d306892cd5c808be59bf6159c6245
 		} catch (ParseException e) {
 			e.printStackTrace();
 			throw new FormationDAOException("Problème de format de date/heure.");
