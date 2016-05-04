@@ -1,6 +1,6 @@
 
 //Filtre qui renvoie une sous liste d'objet 
-angular.module('AppFilter').filter('searchByName',[function(){
+angular.module('AppFilter').filter('searchByString',[function(){
 	return function(){
 		var listObject = arguments[0];
 		var stringToSearch = arguments[1];
