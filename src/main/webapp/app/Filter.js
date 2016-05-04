@@ -1,19 +1,23 @@
 
 //Filtre qui renvoie une sous liste d'objet 
 angular.module('AppFilter').filter('searchByName',[function(){
-	return function(object,collaborateur){
-		if(typeof(collaborateur) !== "undefined")
-			{
+	return function(){
+		var listObject = arguments[0];
+		var stringToSearch = arguments[1];
+		
+		if(typeof(stringToSearch) !== "undefined") {
 					var listeObjetFiltre=[];
-					for (var i=0;i<object.length;i++){					
-						
-						if(object[i].lastName.toUpperCase().substr(0,collaborateur.length)== collaborateur.toUpperCase())
-						{
-							listeObjetFiltre.push(object[i]);
+					for (var i = 0; i < listObject.length; i++) {
+						for(var iteratorProperties = 2; iteratorProperties < arguments.length; iteratorProperties++) {
+							if (listObject[i][arguments[iteratorProperties]].toUpperCase().substr(0, stringToSearch.length) 
+								== stringToSearch.toUpperCase()) 
+							{
+								listeObjetFiltre.push(listObject[i]);
+							}
 						}
 					}
 					return listeObjetFiltre;
-			}
-		return object;
+		}
+		return listObject;
 	};
 }]);

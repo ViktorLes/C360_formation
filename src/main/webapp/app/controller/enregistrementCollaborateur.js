@@ -6,7 +6,7 @@ angular.module('GestForController')
         /*** Recupération des regex **/
         $http.get("api/collaborateurs/regex").then(function(data){
             self.regex.personalIdNumber = new RegExp(data.data.personalIdNumber);
-            self.regex.lastName = new RegExp(data.data.lastName);
+            self.regex.trainingTitle = new RegExp(data.data.trainingTitle);
             self.regex.firstName = new RegExp(data.data.firstName);
         });
 
@@ -25,7 +25,7 @@ angular.module('GestForController')
         self.actionEnregistrer = function() {
 
             //delete useless spaces between words 
-            self.collaborator.lastName= self.collaborator.lastName.replace(/ +/g, " ");
+            self.collaborator.trainingTitle= self.collaborator.trainingTitle.replace(/ +/g, " ");
             self.collaborator.firstName= self.collaborator.firstName.replace(/ +/g, " ");
 
             //post the form to the server

@@ -29,19 +29,19 @@ angular.module('GestForController').factory('InitBddService',['$http', function(
 	return {
 		init:function(){
 			$http.post("api/formations",training).then(function(data){
-				console.log("ajout training",training);
+				if(data.data) console.log("ajout training",training);
 				return $http.post("api/sessions",session1);
 			}).then(function(data){
-				console.log("ajout session1",session1);
+				if(data.data)console.log("ajout session1",session1);
 				return $http.post("api/sessions",session2);
 			}).then(function(data){
-				console.log("ajout session2",session2);
+				if(data.data)console.log("ajout session2",session2);
 				return $http.post("api/collaborateurs",collaborator1);
 			}).then(function(data){
-				console.log("ajout collaborator1",collaborator1);
+				if(data.data)console.log("ajout collaborator1",collaborator1);
 				return $http.post("api/collaborateurs",collaborator2);
 			}).then(function(data){
-				console.log("ajout collaborator2",collaborator2);
+				if(data.data)console.log("ajout collaborator2",collaborator2);
 			});
 		}
 	};

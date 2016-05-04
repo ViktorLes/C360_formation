@@ -18,7 +18,7 @@ controller('CtrlAffectationSession',['$http','$location','$filter',function($htt
                 var sessionObjectConverted={
                     sessionId: self.trainingSessionList[i].id,
                     trainingId: self.trainingSessionList[i].training.id,
-                    lastName: self.trainingSessionList[i].training.trainingTitle,
+                    trainingTitle: self.trainingSessionList[i].training.trainingTitle,
                     beginning: $filter('date')(self.trainingSessionList[i].beginning, 'dd/MM/yyyy'),
                     ending: $filter('date')(self.trainingSessionList[i].ending, 'dd/MM/yyyy'),
                     location: self.trainingSessionList[i].location
@@ -46,7 +46,8 @@ controller('CtrlAffectationSession',['$http','$location','$filter',function($htt
         if (idx != -1) {
             from.splice(idx, 1);
             to.push(item);
-            self.selectedCollaborator.splice(0,self.selectedCollaborator.length);
+            //self.selectedCollaborator.splice(0,self.selectedCollaborator.length);
+            from.splice(0,self.selectedCollaborator.length);
         }
     };
     self.moveAll = function(from, to) {
@@ -61,7 +62,7 @@ controller('CtrlAffectationSession',['$http','$location','$filter',function($htt
     self.CtrlMoveAllTOEnableOrDisableButton = function(collaboratorList) {
         return collaboratorList.length === 0;
     };
-    self.CtrlMaxCollaborateurSelectionnee = function(selectedCollaboratorList) {
+    self.CtrlMaxCollaboratorSelectionnee = function(selectedCollaboratorList) {
         return selectedCollaboratorList.length === 10;
     };
 }]);
