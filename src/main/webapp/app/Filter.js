@@ -13,6 +13,7 @@ angular.module('AppFilter').filter('searchByString',[function(){
 								== stringToSearch.toUpperCase()) 
 							{
 								listeObjetFiltre.push(listObject[i]);
+								break;
 							}
 						}
 					}
