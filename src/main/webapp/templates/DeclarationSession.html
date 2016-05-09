@@ -50,7 +50,7 @@
 				 <div class="form-group">
 				 <h5> <span class="label label-default">Heure du Debut: (1er Jour)</span></h5>
 				  <div class="col-md-6">
-				     <select class="selectpicker form-control" ng-model="DS.heureDebut" ng-options='horaire as horaire for horaire in DS.timeSlotsTraining'></select>
+				     <select class="selectpicker form-control" ng-model="DS.beginningHour" ng-options='horaire as horaire for horaire in DS.timeSlotsTraining'></select>
 				   	</div>
 				    </div>
 				    
@@ -89,7 +89,7 @@
 				    <!-- Lieu de la session -->
 				    <div class="form-group">
 				        <h5> <span class="label label-default">Lieu</span></h5>
-     					 <select class="selectpicker form-control" ng-model="DS.lieuFormation">
+     					 <select class="selectpicker form-control" ng-model="DS.trainingLocation">
 				     		<option>Salle Phuket</option>
 				     		<option>Salle Bali</option>
      				     </select>
