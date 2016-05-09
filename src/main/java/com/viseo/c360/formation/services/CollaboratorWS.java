@@ -5,7 +5,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
+import com.viseo.c360.formation.domain.collaborator.RequestTraining;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDTO;
 
 import org.springframework.validation.BindingResult;
@@ -23,6 +25,8 @@ public class CollaboratorWS {
 
 	@Inject
 	CollaboratorDAO collaboratorDAO;
+	@Inject
+	TrainingDAO trainingDAO;
 		
 	@RequestMapping(value = "${endpoint.collaborators}",method = RequestMethod.POST)
     @ResponseBody
@@ -42,13 +46,19 @@ public class CollaboratorWS {
 	
 	@RequestMapping(value = "${endpoint.requests}",method = RequestMethod.POST)
     @ResponseBody
-    public boolean addRequestTraining(@RequestBody RequestTrainingDTO requestTraining){
+    public boolean addRequestTraining(@RequestBody RequestTrainingDTO requestTrainingDto){
 		/*if(!(bindingResult.hasErrors()) && !collaboratorDAO.isPersonnalIdNumberPersisted(myCollaborator.getPersonnalIdNumber())){
 			collaboratorDAO.addCollaborator(myCollaborator);
 			return true;
 		}*/
-		collaboratorDAO.addRequestTraining(requestTraining.dtoToDomain());
-		System.out.println(String.valueOf(requestTraining.getTraining()));
+		RequestTraining myRequestTraining = new RequestTraining();
+		myRequestTraining.setCollaborator(collaboratorDAO.getCollaboratorById(requestTrainingDto.getCollaborator()) );
+		myRequestTraining.setTraining(trainingDAO.getTraining(requestTrainingDto.getTraining()));
+		for(long i : requestTrainingDto.getTrainingSessions()){
+			myRequestTraining.addListSession(trainingDAO.getSessionTraining(i));
+		}
+		collaboratorDAO.addRequestTraining(myRequestTraining);
+		//System.out.println(String.valueOf(requestTrainingDto.getTraining()));
 		return false;
     }
 }

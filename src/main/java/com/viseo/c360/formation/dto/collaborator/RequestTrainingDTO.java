@@ -13,10 +13,6 @@ public class RequestTrainingDTO {
 	long training;
 	List<Long> trainingSessions;
 	long collaborator;
-	@Inject
-	CollaboratorDAO collaboratorDAO;
-	@Inject
-	TrainingDAO trainingDAO;
 	public RequestTrainingDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -38,20 +34,5 @@ public class RequestTrainingDTO {
 	}
 	public void setCollaborator(long collaborator) {
 		this.collaborator = collaborator;
-	}
-	public RequestTraining dtoToDomain(){
-		long id=this.getCollaborator();
-		Collaborator c=collaboratorDAO.getCollaboratorById(id);
-		 RequestTraining myRequestTraining= new RequestTraining();
-		 myRequestTraining.setCollaborator(c
-				/* collaboratorDAO.getCollaboratorById(
-						 this.getCollaborator()
-						 )*/
-				 );
-		 myRequestTraining.setTraining(trainingDAO.getTraining(this.getTraining()));
-		 for(long i : this.getTrainingSessions()){
-			 myRequestTraining.addListSession(trainingDAO.getSessionTraining(i));
-		 }
-		return myRequestTraining;
 	}
 }
