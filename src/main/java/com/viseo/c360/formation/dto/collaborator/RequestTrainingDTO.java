@@ -2,13 +2,13 @@ package com.viseo.c360.formation.dto.collaborator;
 
 import java.util.List;
 
-public class RequestTraining {
+public class RequestTrainingDTO {
 	long id;
 	long training;
 	List<Long> trainingSessions;
 	long collaborator;
 	
-	public RequestTraining() {
+	public RequestTrainingDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

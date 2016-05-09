@@ -23,22 +23,16 @@ angular.module('GestForController')
         }
 
         self.verifyForm = function () {
-        	var myRequest={
-        			id:1,
-        			training:2,
-        			trainingSessions:[1,2,3],
-        			collaborator:1
-        	};
             self.noneSessionSelected = false;
             self.hasToChooseOneTraining = false;
             if (Number.isInteger(self.requestedTrainingId)) {
                 if (typeof self.listTrainingSession !== 'undefined' ) {
                     if(self.isListEmpty){
                         //envoi au serveur une demande de session non programmée
-                    	self.actionEnregistrer (myRequest);
+                    	self.actionEnregistrer ();
                     }else if(self.listTrainingSession.some(function (elem) {return elem.isChecked;})){
                         //envoi 'des' sessions selectionné par le collaborateur au serveur
-                    	self.actionEnregistrer (myRequest);
+                    	self.actionEnregistrer ();
                     }else{
                         self.noneSessionSelected = true;
                     }
@@ -48,10 +42,20 @@ angular.module('GestForController')
             }
         }
 
-        self.actionEnregistrer = function(demande) {
-        	console.log(demande);
+        self.actionEnregistrer = function() {
+        	var listIdTrainingSessions=[];
+        	self.listTrainingSession.forEach(function(element){
+        		if(element.isChecked===true){
+        			listIdTrainingSessions.push(element.id);
+        		}
+        	});
+        	var myRequest={
+        			training:self.requestedTrainingId,
+        			trainingSessions:listIdTrainingSessions,
+        			collaborator:1
+        	};
         	//appel au serveur
-        	$http.post("api/requests", demande).success(function(data){
+        	$http.post("api/requests", myRequest).success(function(data){
         		
         	});
         }

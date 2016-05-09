@@ -6,6 +6,8 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
+import com.viseo.c360.formation.dto.collaborator.RequestTrainingDTO;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,12 +42,12 @@ public class CollaboratorWS {
 	
 	@RequestMapping(value = "${endpoint.requests}",method = RequestMethod.POST)
     @ResponseBody
-    public boolean addRequestTraining(@RequestBody String requestTraining){
+    public boolean addRequestTraining(@RequestBody RequestTrainingDTO requestTraining){
 		/*if(!(bindingResult.hasErrors()) && !collaboratorDAO.isPersonnalIdNumberPersisted(myCollaborator.getPersonnalIdNumber())){
 			collaboratorDAO.addCollaborator(myCollaborator);
 			return true;
 		}*/
-		System.out.println("myrequestTraining"+ requestTraining);
+		System.out.println(String.valueOf(requestTraining.getTraining()));
 		return false;
     }
 }
