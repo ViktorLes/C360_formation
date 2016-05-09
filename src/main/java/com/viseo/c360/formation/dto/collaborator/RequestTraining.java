@@ -5,8 +5,9 @@ import java.util.List;
 public class RequestTraining {
 	long id;
 	long training;
-	List<Long> s;
+	List<Long> trainingSessions;
 	long collaborator;
+	
 	public RequestTraining() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -24,10 +25,10 @@ public class RequestTraining {
 		this.training = training;
 	}
 	public List<Long> getS() {
-		return s;
+		return trainingSessions;
 	}
 	public void setS(List<Long> s) {
-		this.s = s;
+		this.trainingSessions = s;
 	}
 	public long getCollaborator() {
 		return collaborator;
