@@ -37,5 +37,15 @@ public class CollaboratorWS {
     public List<Collaborator> getAllCollaborators(){
 		return collaboratorDAO.getAllCollaborators();
 	}
-    
+	
+	@RequestMapping(value = "${endpoint.requests}",method = RequestMethod.POST)
+    @ResponseBody
+    public boolean addRequestTraining(@RequestBody String requestTraining){
+		/*if(!(bindingResult.hasErrors()) && !collaboratorDAO.isPersonnalIdNumberPersisted(myCollaborator.getPersonnalIdNumber())){
+			collaboratorDAO.addCollaborator(myCollaborator);
+			return true;
+		}*/
+		System.out.println("myrequestTraining"+ requestTraining);
+		return false;
+    }
 }
