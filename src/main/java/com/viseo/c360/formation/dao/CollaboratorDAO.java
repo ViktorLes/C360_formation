@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
+import com.viseo.c360.formation.domain.collaborator.RequestTraining;
+import com.viseo.c360.formation.domain.training.Training;
 
 @Repository
 public class CollaboratorDAO {
@@ -18,6 +20,7 @@ public class CollaboratorDAO {
 	@PersistenceContext
 	EntityManager em;
 	
+	//collaborateur 
 	@Transactional
 	public void addCollaborator(Collaborator collaborator){
 		em.persist(collaborator);
@@ -36,5 +39,15 @@ public class CollaboratorDAO {
 		em.setFlushMode(FlushModeType.COMMIT);
 		return em.createQuery("select c from Collaborator c", Collaborator.class).getResultList();
 	}
+	public Collaborator getCollaboratorById (long id){
+		em.setFlushMode(FlushModeType.COMMIT);
+		return em.find(Collaborator.class, id);	
+	}
 	
+	//request training
+	@Transactional
+	public void addRequestTraining(RequestTraining requestTraining){
+		em.persist(requestTraining);
+	}
+
 }

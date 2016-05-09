@@ -52,8 +52,9 @@ angular.module('GestForController')
         	var myRequest={
         			training:self.requestedTrainingId,
         			trainingSessions:listIdTrainingSessions,
-        			collaborator:1
+        			collaborator:4
         	};
+        	console.log(myRequest);
         	//appel au serveur
         	$http.post("api/requests", myRequest).success(function(data){
         		

@@ -47,6 +47,7 @@ public class CollaboratorWS {
 			collaboratorDAO.addCollaborator(myCollaborator);
 			return true;
 		}*/
+		collaboratorDAO.addRequestTraining(requestTraining.dtoToDomain());
 		System.out.println(String.valueOf(requestTraining.getTraining()));
 		return false;
     }
