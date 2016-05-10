@@ -72,8 +72,10 @@ angular.module('controllers')
         self.saveAction = function() {
             var session = {
                 training: self.trainingSessionId,
-                beginning: $filter('date')(self.d1.dt,"dd/MM/yyyy") + "|" + self.beginningHour,
-                ending:  $filter('date')(self.d2.dt,"dd/MM/yyyy") + "|" + self.endHour,
+                beginning: $filter('date')(self.d1.dt,"dd/MM/yyyy"),
+                ending:  $filter('date')(self.d2.dt,"dd/MM/yyyy"),
+                beginningTime: self.beginningHour,
+                endingTime: self.endHour,
                 location: self.trainingLocation
             };
 

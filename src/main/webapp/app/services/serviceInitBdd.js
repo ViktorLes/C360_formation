@@ -5,14 +5,18 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 	};
 	var session1={
 			training: 1,
-			beginning: "04/05/2016|08:00",
-			ending: "06/05/2016|08:00", 
+			beginning: "04/05/2016",
+			ending: "06/05/2016",
+			beginningTime: "08:00",
+			endingTime: "08:00",
 			location: "Salle Phuket"
 	};
 	var session2={
 			training: 1,
-			beginning: "07/05/2016|08:00",
-			ending: "10/05/2016|08:00",
+			beginning: "07/05/2016",
+			ending: "10/05/2016",
+			beginningTime: "08:00",
+			endingTime: "08:00",
 			location: "Salle Phuket"
 	};
 	var collaborator1={

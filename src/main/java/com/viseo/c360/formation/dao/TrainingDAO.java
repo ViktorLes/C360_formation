@@ -106,8 +106,4 @@ public class TrainingDAO {
 		Collection<TrainingSession> list = (Collection<TrainingSession>) em.createQuery(q).getResultList();
 		return !list.isEmpty();
 	}
-	
-	public boolean hasCorrectDates(TrainingSession myTrainingSession){
-		return myTrainingSession.getBeginning().before(myTrainingSession.getEnding());
-	}
 }

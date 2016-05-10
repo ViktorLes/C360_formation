@@ -26,12 +26,10 @@
 	</bean>
 
 	<!-- Configure bean to convert JSON to POJO and vice versa -->
-		<bean id="jacksonObjectMapper" class="com.viseo.c360.json.JSONMapper" />
+		<!-- <bean id="jacksonObjectMapper" class="com.viseo.c360.json.JSONMapper" />-->
     <bean id="jsonMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<!-- <property LAST_NAME="prefixJson" value="false" />
-	    <property LAST_NAME="supportedMediaTypes" value="application/json" /> -->
-	    <property name="objectMapper" ref="jacksonObjectMapper" />
+	    <!-- <property name="objectMapper" ref="jacksonObjectMapper" /> -->
 	</bean>
 	
 

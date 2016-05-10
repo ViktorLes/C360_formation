@@ -1,5 +1,9 @@
 package com.viseo.c360.formation.services;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -7,6 +11,7 @@ import javax.validation.Valid;
 
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,17 +50,29 @@ public class TrainingWS {
 	/*** TrainingSession ***/
 	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addTrainingSession(@Valid @RequestBody String myTrainingSession, BindingResult bindingResult){
-		/*
-		if(!(bindingResult.hasErrors() )
-			&& !trainingDAO.isThereOneSessionTrainingAlreadyPlanned(myTrainingSession)
-			&& trainingDAO.hasCorrectDates(myTrainingSession))
-		{
-			trainingDAO.addSessionTraining(myTrainingSession);
-			return true;
+    public boolean addTrainingSession(@Valid @RequestBody TrainingSessionDTO myTrainingSessionDto, BindingResult bindingResult){
+		if(!bindingResult.hasErrors()) {
+			TrainingSession myTrainingSession = new TrainingSession();
+			myTrainingSession.setTraining(trainingDAO.getTraining(myTrainingSessionDto.getTraining()));
+			myTrainingSession.setLocation(myTrainingSessionDto.getLocation());
+			SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy|HH:mm");
+			try {
+				myTrainingSession.setBeginning(
+						formatterDate.parse(
+								myTrainingSessionDto.getBeginning() + "|" + myTrainingSessionDto.getBeginningTime()));
+				myTrainingSession.setEnding(
+						formatterDate.parse(
+							myTrainingSessionDto.getEnding()+ "|" + myTrainingSessionDto.getEndingTime()));
+				if(!trainingDAO.isThereOneSessionTrainingAlreadyPlanned(myTrainingSession)
+					&& myTrainingSession.getBeginning().before(myTrainingSession.getEnding())
+				){
+					trainingDAO.addSessionTraining(myTrainingSession);
+					return true;
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
-		*/
-		System.out.println(myTrainingSession);
 		return false;
     }
 
