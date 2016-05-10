@@ -54,10 +54,8 @@ angular.module('controllers')
         			trainingSessions:listIdTrainingSessions,
         			collaborator:4
         	};
-        	console.log(myRequest);
-        	//appel au serveur
         	$http.post("api/requests", myRequest).success(function(data){
-        		
+        		console.log(data);
         	});
         }
 

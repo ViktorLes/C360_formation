@@ -6,11 +6,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.viseo.c360.formation.domain.BaseEntity;
-import com.viseo.c360.json.deserializer.training.TrainingSessionDeserializer;
 
-@JsonDeserialize(using = TrainingSessionDeserializer.class)
 @Entity
 public class TrainingSession extends BaseEntity {
 
