@@ -1,9 +1,7 @@
+.idea/
+.settings/
+node_modules/
 target/
-target/**
 .classpath
 .project
-.project/
-.settings/
-.idea/
-.idea/**
 *.iml

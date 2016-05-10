@@ -4,7 +4,7 @@
 
 	<!-- CSS -->
 	<link href="css/bootstrap.css" rel="stylesheet" /> 
-	<link href="css/formations.css" rel="stylesheet" />
+	<link href="css/trainings.css" rel="stylesheet" />
 	
 </head>
 
@@ -18,11 +18,11 @@
 		<button ng-click="ctrl.initBase()">alimenter la base</button>
 	</div>
 	<nav>
-		<a href="#/EnregistrementCollaborateur">EnregistrementCollaborateur</a>|
-		<a href="#/DeclarationFormation">DeclarationFormation</a>|
-		<a href="#/DeclarationSession">DeclarationSession</a>|
-		<a href="#/AffectationSession">AffectationSession</a>|
-		<a href="#/DemandeFormation">DemandeFormation</a>
+		<a href="#/RegisterCollaborator">EnregistrementCollaborateur</a>|
+		<a href="#/RegisterTraining">DeclarationFormation</a>|
+		<a href="#/RegisterTrainingSession">DeclarationSession</a>|
+		<a href="#/AffectTraining">AffectationSession</a>|
+		<a href="#/RequestTraining">DemandeFormation</a>
 	</nav>
 	<div ng-view></div>
 
@@ -38,18 +38,18 @@
 
 	<!-- app/ -->
 	<script src="app/modules.js"></script>
-	<script src="app/Filter.js"></script>
-    <script src="app/services/Datepicker.js"></script>
+	<script src="app/filter.js"></script>
+    <script src="app/services/datepicker.js"></script>
+	<script src="app/services/serviceInitBdd.js"></script>
 		<!--controller/        -->
-		<script src="app/controller/affectationSession.js"></script>
-		<script src="app/controller/declarationFormation.js"></script>
-		<script src="app/controller/declarationSession.js"></script>
-		<script src="app/controller/demandeFormation.js"></script>
-		<script src="app/controller/enregistrementCollaborateur.js"></script>
+		<script src="app/controller/affectTrainingSession.js"></script>
+		<script src="app/controller/registerTraining.js"></script>
+		<script src="app/controller/registerTrainingSession.js"></script>
+		<script src="app/controller/requestTraining.js"></script>
+		<script src="app/controller/registerCollaborator.js"></script>
 		<script src="app/controller/global.js"></script>
 		<!-- 		controller/-->
-	<script src="app/services/ServiceInitBdd.js"></script>
-	<script src="app/Routing.js"></script>
+	<script src="app/routing.js"></script>
 
 </body>
 </html>
