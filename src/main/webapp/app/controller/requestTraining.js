@@ -1,4 +1,4 @@
-angular.module('GestForController')
+angular.module('controllers')
     .controller('CtrlDemandeForm',['$http', '$location',function($http, $location) {
         var self = this;
         //Charge la liste de formations affiché dans le select box des formations

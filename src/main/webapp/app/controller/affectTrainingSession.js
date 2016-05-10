@@ -3,7 +3,7 @@
 //***** Description: moveItem / moveAll / CtrlItemIsSelectedTOEnableOrDisableButton
 //*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
 //************************************************************************************//
-angular.module('GestForController').
+angular.module('controllers').
 controller('CtrlAffectationSession',['$http','$location','$filter',function($http, $location,$filter){
 
     var self = this;

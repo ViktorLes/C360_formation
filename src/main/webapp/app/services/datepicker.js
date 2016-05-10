@@ -1,4 +1,4 @@
-angular.module('Datepicker').factory('DatepickerService', [function () {
+angular.module('serviceDatepicker').factory('DatepickerService', [function () {
 		
 		return {
 			build: function (){

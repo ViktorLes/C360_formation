@@ -1,5 +1,5 @@
 
-angular.module('GestForController')
+angular.module('controllers')
     .controller('CtrlFor', ['$http', '$location',function($http, $location) {
 
         var self = this;

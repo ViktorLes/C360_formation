@@ -1,4 +1,4 @@
-angular.module('GestForController').factory('InitBddService',['$http', function($http){
+angular.module('controllers').factory('InitBddService',['$http', function($http){
 	var training={
 			numberHalfDays:1,
 			trainingTitle:"AngularJS" 
