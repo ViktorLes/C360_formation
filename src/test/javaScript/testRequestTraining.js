@@ -28,7 +28,7 @@ describe('Demande de Formation', function() {
     it('2) Demande de formation sans session planifié', function(){
         ctrl.requestedTrainingId = 6;
         ctrl.loadTrainingSessions();
-        backend.expectGET('api/sessions/6').respond([]);
+        backend.expectGET('api/formations/6/sessions').respond([]);
         backend.flush();
         expect(ctrl.isListEmpty).toBeTruthy();
         ctrl.verifyForm();

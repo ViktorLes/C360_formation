@@ -13,7 +13,7 @@ angular.module('controllers')
             self.noneSessionSelected = false;
             self.hasToChooseOneTraining = false;
             self.listTrainingSession = [];
-            if (Number.isInteger(self.requestedTrainingId)) $http.get("api/sessions/" + self.requestedTrainingId).then(function (data) {
+            if (Number.isInteger(self.requestedTrainingId)) $http.get("api/formations/"+self.requestedTrainingId+"/sessions").then(function (data) {
                 Array.prototype.push.apply(self.listTrainingSession, data.data);
                 if(self.listTrainingSession.length === 0) {
                     self.isListEmpty = true;
