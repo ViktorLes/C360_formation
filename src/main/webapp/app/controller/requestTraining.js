@@ -15,7 +15,7 @@ angular.module('controllers')
             self.listTrainingSession = [];
             if (Number.isInteger(self.requestedTrainingId)) $http.get("api/sessions/" + self.requestedTrainingId).then(function (data) {
                 Array.prototype.push.apply(self.listTrainingSession, data.data);
-                if (self.listTrainingSession.length === 0) {
+                if(self.listTrainingSession.length === 0) {
                     self.isListEmpty = true;
                 }
                 else self.isListEmpty = false;
