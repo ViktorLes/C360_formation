@@ -1,4 +1,4 @@
-describe('GF1', function() {
+describe('Enregistrement Collaborateur', function() {
   var ctrl;
   var backend;
   var loc;
@@ -8,7 +8,7 @@ describe('GF1', function() {
   beforeEach(inject(function($controller, $httpBackend, $location){
     backend = $httpBackend;
     loc = $location;
-    ctrl = $controller('CtrlCol');
+    ctrl = $controller('controllerRegisterCollaborator');
     }));
 
   describe('Test EnregistrementCollaborateur',function () {

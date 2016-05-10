@@ -1,4 +1,4 @@
-describe('GF3', function() {
+describe('Declaration Formation', function() {
     var ctrl;
     var backend;
     var loc;
@@ -8,7 +8,7 @@ describe('GF3', function() {
     beforeEach(inject(function($controller, $httpBackend, $location){
         backend = $httpBackend;
         loc = $location;
-        ctrl = $controller('CtrlFor');
+        ctrl = $controller('controllerRegisterTraining');
 
     }));
 
