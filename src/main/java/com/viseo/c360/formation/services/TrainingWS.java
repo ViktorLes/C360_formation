@@ -45,7 +45,8 @@ public class TrainingWS {
 	/*** TrainingSession ***/
 	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addTrainingSession(@Valid @RequestBody TrainingSession myTrainingSession, BindingResult bindingResult){
+    public boolean addTrainingSession(@Valid @RequestBody String myTrainingSession, BindingResult bindingResult){
+		/*
 		if(!(bindingResult.hasErrors() )
 			&& !trainingDAO.isThereOneSessionTrainingAlreadyPlanned(myTrainingSession)
 			&& trainingDAO.hasCorrectDates(myTrainingSession))
@@ -53,6 +54,8 @@ public class TrainingWS {
 			trainingDAO.addSessionTraining(myTrainingSession);
 			return true;
 		}
+		*/
+		System.out.println(myTrainingSession);
 		return false;
     }
 

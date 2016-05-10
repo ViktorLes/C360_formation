@@ -15,7 +15,6 @@ public class RequestTrainingDTO {
 	long collaborator;
 	public RequestTrainingDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public long getTraining() {
 		return training;
