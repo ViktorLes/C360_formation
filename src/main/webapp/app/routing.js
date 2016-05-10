@@ -1,27 +1,27 @@
 angular.module('App')
     .config(['$routeProvider',function($routeProvider) {
                      $routeProvider
-                     .when('/EnregistrementCollaborateur', {
+                     .when('/RegisterCollaborator', {
                          templateUrl: 'templates/registerCollaborator.html',
                          controller: 'controllerRegisterCollaborator',
                          controllerAs:'EC'
                      })
-                     .when('/DeclarationFormation', {
+                     .when('/RegisterTraining', {
                          templateUrl: 'templates/registerTraining.html',
                          controller: 'controllerRegisterTraining',
                          controllerAs:'DF'
                      })
-                     .when('/DeclarationSession', {
+                     .when('/RegisterTrainingSession', {
                          templateUrl: 'templates/registerTrainingSession.html',
                          controller: 'controllerRegisterTrainingSession',
                          controllerAs:'DS'
                      })
-                     .when('/AffectationSession', {
+                     .when('/AffectTraining', {
                          templateUrl: 'templates/affectTrainingSession.html',
                          controller: 'controllerAffectTraining',
                          controllerAs:'AS'
                      })
-                     .when('/DemandeFormation', {
+                     .when('/RequestTraining', {
                          templateUrl: 'templates/requestTraining.html',
                          controller: 'controllerRequestTraining',
                          controllerAs:'DmF'
