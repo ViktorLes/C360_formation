@@ -35,9 +35,9 @@ angular.module('controllers')
         self.trainingLocation = 'Salle Phuket';
         self.isFalseForm = false;
 
-        self.verifierForm=function(sessionForm){
+        self.verifyForm=function(sessionForm){
             if(sessionForm.$invalid == false){
-                self.actionEnregistrer();
+                self.saveAction();
             }
             else{
                 self.isFalseForm = true;
@@ -69,7 +69,7 @@ angular.module('controllers')
 
         /*** Enregistrement SessionFormation ***/
 
-        self.actionEnregistrer = function() {
+        self.saveAction = function() {
             var session = {
                 training: self.trainingSessionId,
                 beginning: $filter('date')(self.d1.dt,"dd/MM/yyyy") + "|" + self.beginningHour,

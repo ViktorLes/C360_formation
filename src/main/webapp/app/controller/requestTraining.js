@@ -40,7 +40,7 @@ angular.module('controllers')
             }
         }
 
-        self.actionEnregistrer = function(demande) {
+        self.saveAction = function(demande) {
 
         }
 

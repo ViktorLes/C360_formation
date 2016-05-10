@@ -28,7 +28,7 @@ describe('Declaration Formation', function() {
 
 
         it('Valide', function () {
-            ctrl.actionEnregistrer();
+            ctrl.saveAction();
             backend.expectPOST('api/formations').respond('true');
             backend.flush();
             expect(ctrl.isNewTrainingTitle).toBeTruthy();
@@ -36,7 +36,7 @@ describe('Declaration Formation', function() {
         });
 
         it('Invalide', function () {
-            ctrl.actionEnregistrer();
+            ctrl.saveAction();
             backend.expectPOST('api/formations').respond('false');
             backend.flush();
             expect(ctrl.isNewTrainingTitle).toBeFalsy();

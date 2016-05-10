@@ -13,16 +13,16 @@ angular.module('controllers')
         self.isNewPersonalIdNumber = "true";
         self.isFalseForm = false;
 
-        self.verifierForm=function(collaboratorForm){
+        self.verifyForm=function(collaboratorForm){
             if(collaboratorForm.$invalid == false){
-                self.actionEnregistrer();
+                self.saveAction();
             }
             else{
                 self.isFalseForm = true;
             }
         }
 
-        self.actionEnregistrer = function() {
+        self.saveAction = function() {
 
             //delete useless spaces between words 
             self.collaborator.lastName= self.collaborator.lastName.replace(/ +/g, " ");

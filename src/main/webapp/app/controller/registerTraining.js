@@ -14,15 +14,15 @@ angular.module('controllers')
         self.isNewTrainingTitle = true;
         self.isFalseForm = false;
 
-        self.verifierForm=function(trainingForm){
+        self.verifyForm=function(trainingForm){
             if(trainingForm.$invalid == false){
-                self.actionEnregistrer();
+                self.saveAction();
             }
             else{
                 self.isFalseForm = true;
             }
         }
-        self.actionEnregistrer = function() {
+        self.saveAction = function() {
             self.training.trainingTitle= self.training.trainingTitle.replace(/ +/g, " ");
             //self.training.numberHalfDays= self.training.numberHalfDays.replace(/ +/g, "");
             $http.post("api/formations", self.training).success(function(data){

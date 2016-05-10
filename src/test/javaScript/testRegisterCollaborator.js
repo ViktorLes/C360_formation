@@ -28,7 +28,7 @@ describe('Enregistrement Collaborateur', function() {
     
     
     it('Valide', function () {
-      ctrl.actionEnregistrer();
+      ctrl.saveAction();
       backend.expectPOST('api/collaborateurs').respond('true');
       backend.flush();
       expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
@@ -36,7 +36,7 @@ describe('Enregistrement Collaborateur', function() {
     });
 
     it('Invalide', function () {
-      ctrl.actionEnregistrer();
+      ctrl.saveAction();
       backend.expectPOST('api/collaborateurs').respond('false');
       backend.flush();
       expect(ctrl.isNewPersonalIdNumber).toBeFalsy();
