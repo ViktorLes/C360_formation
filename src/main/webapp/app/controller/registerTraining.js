@@ -1,6 +1,6 @@
 
 angular.module('controllers')
-    .controller('CtrlFor', ['$http', '$location',function($http, $location) {
+    .controller('controllerRegisterTraining', ['$http', '$location',function($http, $location) {
 
         var self = this;
         self.regex = {};

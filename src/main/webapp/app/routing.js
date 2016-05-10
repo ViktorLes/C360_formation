@@ -3,27 +3,27 @@ angular.module('App')
                      $routeProvider
                      .when('/EnregistrementCollaborateur', {
                          templateUrl: 'templates/registerCollaborator.html',
-                         controller: 'CtrlCol as EC',
+                         controller: 'controllerRegisterCollaborator',
                          controllerAs:'EC'
                      })
                      .when('/DeclarationFormation', {
                          templateUrl: 'templates/registerTraining.html',
-                         controller: 'CtrlFor',
+                         controller: 'controllerRegisterTraining',
                          controllerAs:'DF'
                      })
                      .when('/DeclarationSession', {
                          templateUrl: 'templates/registerTrainingSession.html',
-                         controller: 'CtrlSes',
+                         controller: 'controllerRegisterTrainingSession',
                          controllerAs:'DS'
                      })
                      .when('/AffectationSession', {
                          templateUrl: 'templates/affectTrainingSession.html',
-                         controller: 'CtrlAffectationSession',
+                         controller: 'controllerAffectTraining',
                          controllerAs:'AS'
                      })
                      .when('/DemandeFormation', {
                          templateUrl: 'templates/requestTraining.html',
-                         controller: 'CtrlDemandeForm',
+                         controller: 'controllerRequestTraining',
                          controllerAs:'DmF'
                      });  
                  }

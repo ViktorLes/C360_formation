@@ -1,5 +1,5 @@
 angular.module('controllers')
-    .controller('CtrlDemandeForm',['$http', '$location',function($http, $location) {
+    .controller('controllerRequestTraining',['$http', '$location',function($http, $location) {
         var self = this;
         //Charge la liste de formations affiché dans le select box des formations
         $http.get("api/formations").then(function(data){

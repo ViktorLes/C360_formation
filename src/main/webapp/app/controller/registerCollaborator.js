@@ -1,5 +1,5 @@
 angular.module('controllers')
-    .controller('CtrlCol',['$http', '$location',function($http, $location) {
+    .controller('controllerRegisterCollaborator',['$http', '$location',function($http, $location) {
         var self = this;
         self.regex = {};
 

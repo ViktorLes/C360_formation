@@ -1,5 +1,5 @@
 angular.module('controllers')
-    .controller('CtrlSes', ['DatepickerService','$http','$filter',function(datepicker,$http,$filter) {
+    .controller('controllerRegisterTrainingSession', ['DatepickerService','$http','$filter',function(datepicker,$http,$filter) {
         var self = this;
         self.isSessionAlreadyPlanned = true;
 

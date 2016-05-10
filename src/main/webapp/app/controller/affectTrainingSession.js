@@ -4,7 +4,7 @@
 //*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
 //************************************************************************************//
 angular.module('controllers').
-controller('CtrlAffectationSession',['$http','$location','$filter',function($http, $location,$filter){
+controller('controllerAffectTraining',['$http','$location','$filter',function($http, $location,$filter){
 
     var self = this;
     //Récupérer la liste des sessions disponible
