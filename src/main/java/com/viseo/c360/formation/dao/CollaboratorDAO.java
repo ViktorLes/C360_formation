@@ -8,6 +8,7 @@ import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
 import com.viseo.c360.formation.domain.collaborator.AffectationTrainingSession;
+import com.viseo.c360.formation.domain.training.TrainingSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,10 +52,8 @@ public class CollaboratorDAO {
 		em.persist(requestTraining);
 	}
 
-	//Affectation training session
 	@Transactional
-	public void addAffectationTrainingSession(AffectationTrainingSession affectationTrainingSession){
-		em.persist(affectationTrainingSession);
-	}
+	public void affectTrainingSession(TrainingSession myTrainingSession){
 
+	}
 }

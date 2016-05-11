@@ -97,13 +97,8 @@ public class TrainingDAO {
 						  )
 					  )
 		  );
-		/*
-		"select s from TrainingSession s where s.training.id = :trainingID && "+
-		"( " +
-
-		")"
-		*/
 		Collection<TrainingSession> list = (Collection<TrainingSession>) em.createQuery(q).getResultList();
 		return !list.isEmpty();
 	}
+
 }

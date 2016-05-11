@@ -15,11 +15,7 @@ import com.viseo.c360.formation.dto.collaborator.AffectationTrainingSessionDTO;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDTO;
 
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.viseo.c360.formation.dao.CollaboratorDAO;
 
@@ -67,20 +63,14 @@ public class CollaboratorWS {
 		return true;
     }
 
-	@RequestMapping(value = "${endpoint.affectations}",method = RequestMethod.POST)
+	@RequestMapping(value = "${endpoint.affectationstosessions}",method = RequestMethod.POST)
 	@ResponseBody
-	public boolean addAffectationTrainingSession(@Valid @RequestBody AffectationTrainingSessionDTO affectationTrainingSessionDto, BindingResult bindingResult){
-		if(bindingResult.hasErrors()) return false;
-		AffectationTrainingSession myAffectationTrainingSession = new AffectationTrainingSession();
-		TrainingSession trainingSession = trainingDAO.getSessionTraining(affectationTrainingSessionDto.getTrainingSession());
-		if(trainingSession == null) return false;
-		myAffectationTrainingSession.setTrainingSession(trainingSession);
-		for(long i : affectationTrainingSessionDto.getCollaborators()){
-			Collaborator collaborator = collaboratorDAO.getCollaborator(i);
-			if(collaborator == null) return false;
-			myAffectationTrainingSession.addCollaborator(collaborator);
+	public boolean affectTrainingSession(@PathVariable String id, @Valid @RequestBody AffectationTrainingSessionDTO affectationTrainingSessionDto, BindingResult bindingResult){
+		TrainingSession myTrainingSession = trainingDAO.getSessionTraining(Long.parseLong(id));
+		if(!bindingResult.hasErrors() && myTrainingSession != null) {
+
+			return true;
 		}
-		collaboratorDAO.addAffectationTrainingSession(myAffectationTrainingSession);
-		return true;
+		return false;
 	}
 }

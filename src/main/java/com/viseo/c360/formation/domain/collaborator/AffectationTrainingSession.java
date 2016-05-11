@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+/*** useless**/
 @Entity
 public class AffectationTrainingSession extends BaseEntity {
     @ManyToMany

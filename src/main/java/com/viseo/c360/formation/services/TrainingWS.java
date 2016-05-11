@@ -53,7 +53,9 @@ public class TrainingWS {
     public boolean addTrainingSession(@Valid @RequestBody TrainingSessionDTO myTrainingSessionDto, BindingResult bindingResult){
 		if(!bindingResult.hasErrors()) {
 			TrainingSession myTrainingSession = new TrainingSession();
-			myTrainingSession.setTraining(trainingDAO.getTraining(myTrainingSessionDto.getTraining()));
+			Training training = trainingDAO.getTraining(myTrainingSessionDto.getTraining());
+			if(training == null) return false;
+			myTrainingSession.setTraining(training);
 			myTrainingSession.setLocation(myTrainingSessionDto.getLocation());
 			SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy|HH:mm");
 			try {
