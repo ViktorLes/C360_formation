@@ -49,12 +49,26 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
             to.push(item);
         }
     };
+
+    self.verifyForm = function(){
+        self.saveAction();
+    };
+    
+    self.saveAction = function(){
+        var affectedTrainingSessionsList = [];
+        $http.post("api/", affectedTrainingSessionsList).then(function(response){
+            console.log(response);
+        });
+    };
+    /*
     self.moveAll = function(from, to) {
         angular.forEach(from, function(item) {
             to.push(item);
         });
         from.length = 0;
     };
+    */
+    /*
     self.CtrlSelectedItemTOEnableOrDisableButton = function(availableCollaborator) {
         return typeof(availableCollaborator) !== "undefined" && availableCollaborator.length !== 0;
     };
@@ -64,4 +78,5 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
     self.CtrlMaxCollaboratorSelectionnee = function(selectedCollaboratorList) {
         return selectedCollaboratorList.length === 10;
     };
+    */
 }]);

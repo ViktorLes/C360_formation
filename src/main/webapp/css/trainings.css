@@ -23,8 +23,15 @@ padding-left:0;
     color: red;
 }
 
-.collaborator-box{
-    overflow: scroll;
-    height: 100px;
+.search-field-collaborator-box{
+}
+.search-widget{
+    display: inline-block;
+}
 
+.collaborator-box{
+    padding-top: 20px;
+    overflow-y: scroll;
+    height: 200px;
+    border: 2px solid black;
 }
