@@ -55,7 +55,8 @@ angular.module('controllers')
         			collaborator:4
         	};
         	$http.post("api/requests", myRequest).success(function(data){
-                if(data.data === true || data.data === "true") {
+                console.log(data);
+                if(data === true || data === "true") {
                     document.location.href = 'pageblanche.html';
                 }
         	});
