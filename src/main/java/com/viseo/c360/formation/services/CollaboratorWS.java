@@ -6,10 +6,12 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 import com.viseo.c360.formation.dao.TrainingDAO;
+import com.viseo.c360.formation.domain.collaborator.AffectationTrainingSession;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.collaborator.RequestTraining;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.dto.collaborator.AffectationTrainingSessionDTO;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDTO;
 
 import org.springframework.validation.BindingResult;
@@ -51,7 +53,7 @@ public class CollaboratorWS {
     public boolean addRequestTraining(@Valid @RequestBody RequestTrainingDTO requestTrainingDto, BindingResult bindingResult){
 		if(bindingResult.hasErrors()) return false;
 		RequestTraining myRequestTraining = new RequestTraining();
-		Collaborator collaborator = collaboratorDAO.getCollaboratorById(requestTrainingDto.getCollaborator());
+		Collaborator collaborator = collaboratorDAO.getCollaborator(requestTrainingDto.getCollaborator());
 		Training training = trainingDAO.getTraining(requestTrainingDto.getTraining());
 		if(collaborator == null || training == null) return false;
 		myRequestTraining.setCollaborator(collaborator);
@@ -64,4 +66,21 @@ public class CollaboratorWS {
 		collaboratorDAO.addRequestTraining(myRequestTraining);
 		return true;
     }
+
+	@RequestMapping(value = "${endpoint.affectations}",method = RequestMethod.POST)
+	@ResponseBody
+	public boolean addAffectationTrainingSession(@Valid @RequestBody AffectationTrainingSessionDTO affectationTrainingSessionDto, BindingResult bindingResult){
+		if(bindingResult.hasErrors()) return false;
+		AffectationTrainingSession myAffectationTrainingSession = new AffectationTrainingSession();
+		TrainingSession trainingSession = trainingDAO.getSessionTraining(affectationTrainingSessionDto.getTrainingSession());
+		if(trainingSession == null) return false;
+		myAffectationTrainingSession.setTrainingSession(trainingSession);
+		for(long i : affectationTrainingSessionDto.getCollaborators()){
+			Collaborator collaborator = collaboratorDAO.getCollaborator(i);
+			if(collaborator == null) return false;
+			myAffectationTrainingSession.addCollaborator(collaborator);
+		}
+		collaboratorDAO.addAffectationTrainingSession(myAffectationTrainingSession);
+		return true;
+	}
 }

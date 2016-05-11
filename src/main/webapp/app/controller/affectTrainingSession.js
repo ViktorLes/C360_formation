@@ -55,8 +55,12 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
     };
     
     self.saveAction = function(){
-        var affectedTrainingSessionsList = [];
-        $http.post("api/", affectedTrainingSessionsList).then(function(response){
+        console.log("coucou");
+        var affectedTrainingSessions = {
+            collaborators: [], //[4],
+            trainingSession: 3,
+        };
+        $http.post("api/affectations", affectedTrainingSessions).then(function(response){
             console.log(response);
         });
     };

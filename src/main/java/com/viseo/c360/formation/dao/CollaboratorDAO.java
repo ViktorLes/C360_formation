@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
+import com.viseo.c360.formation.domain.collaborator.AffectationTrainingSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +40,7 @@ public class CollaboratorDAO {
 		em.setFlushMode(FlushModeType.COMMIT);
 		return em.createQuery("select c from Collaborator c", Collaborator.class).getResultList();
 	}
-	public Collaborator getCollaboratorById (long id){
+	public Collaborator getCollaborator(long id){
 		em.setFlushMode(FlushModeType.COMMIT);
 		return em.find(Collaborator.class, id);	
 	}
@@ -48,6 +49,12 @@ public class CollaboratorDAO {
 	@Transactional
 	public void addRequestTraining(RequestTraining requestTraining){
 		em.persist(requestTraining);
+	}
+
+	//Affectation training session
+	@Transactional
+	public void addAffectationTrainingSession(AffectationTrainingSession affectationTrainingSession){
+		em.persist(affectationTrainingSession);
 	}
 
 }
