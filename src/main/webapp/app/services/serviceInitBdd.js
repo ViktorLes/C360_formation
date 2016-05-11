@@ -46,6 +46,9 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 				return $http.post("api/collaborateurs",collaborator2);
 			}).then(function(data){
 				if(data.data)console.log("ajout collaborator2",collaborator2);
+				return $http.post("api/requests",{training:1, collaborator: 8, trainingSessions:[]});
+			}).then(function(data){
+				console.log("ajout demande formation",data);
 			});
 		}
 	};

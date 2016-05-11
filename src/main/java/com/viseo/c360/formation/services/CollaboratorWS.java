@@ -8,6 +8,8 @@ import javax.validation.Valid;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.collaborator.RequestTraining;
+import com.viseo.c360.formation.domain.training.Training;
+import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDTO;
 
 import org.springframework.validation.BindingResult;
@@ -46,19 +48,20 @@ public class CollaboratorWS {
 	
 	@RequestMapping(value = "${endpoint.requests}",method = RequestMethod.POST)
     @ResponseBody
-    public boolean addRequestTraining(@RequestBody RequestTrainingDTO requestTrainingDto){
-		/*if(!(bindingResult.hasErrors()) && !collaboratorDAO.isPersonnalIdNumberPersisted(myCollaborator.getPersonnalIdNumber())){
-			collaboratorDAO.addCollaborator(myCollaborator);
-			return true;
-		}*/
+    public boolean addRequestTraining(@Valid @RequestBody RequestTrainingDTO requestTrainingDto, BindingResult bindingResult){
+		if(bindingResult.hasErrors()) return false;
 		RequestTraining myRequestTraining = new RequestTraining();
-		myRequestTraining.setCollaborator(collaboratorDAO.getCollaboratorById(requestTrainingDto.getCollaborator()) );
-		myRequestTraining.setTraining(trainingDAO.getTraining(requestTrainingDto.getTraining()));
+		Collaborator collaborator = collaboratorDAO.getCollaboratorById(requestTrainingDto.getCollaborator());
+		Training training = trainingDAO.getTraining(requestTrainingDto.getTraining());
+		if(collaborator == null || training == null) return false;
+		myRequestTraining.setCollaborator(collaborator);
+		myRequestTraining.setTraining(training);
 		for(long i : requestTrainingDto.getTrainingSessions()){
-			myRequestTraining.addListSession(trainingDAO.getSessionTraining(i));
+			TrainingSession trainingSession = trainingDAO.getSessionTraining(i);
+			if(trainingSession == null) return false;
+			myRequestTraining.addListSession(trainingSession);
 		}
 		collaboratorDAO.addRequestTraining(myRequestTraining);
-		//System.out.println(String.valueOf(requestTrainingDto.getTraining()));
-		return false;
+		return true;
     }
 }
