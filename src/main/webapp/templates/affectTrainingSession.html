@@ -33,7 +33,7 @@
 								<ul>
 									<li ng-repeat="myCollaborator in FilterResultList = (AS.availableCollaboratorList | searchByString: searchCollaboratorField:'firstName':'lastName')">
 										<span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
-										<span class="glyphicon glyphicon-chevron-right" ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></span>
+										<button class="glyphicon glyphicon-chevron-right" ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>
 									</li>
 								</ul>
 							</div>
@@ -45,24 +45,22 @@
 							  </div>
 							</div>
 						</div>
-						<!--
-						<div class="col-md-2 center-block" style="margin-top: 80px">       
+						<div class="col-md-2 center-block" style="margin-top: 80px">
+						     <!--
 							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 str" title="Ajouter à la session" data-type="str" style="margin-bottom: 20px;" ng-click="AS.moveItem(AS.selectedCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"><span class="glyphicon glyphicon-chevron-right"></span></button>
 							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 stl" title="Retirer de la formation" data-type="stl" style="margin-bottom: 10px;" ng-click="AS.moveItem(AS.selectedCollaboratorInAffectedList[0], AS.selectedCollaboratorList , AS.availableCollaboratorList)"><span class="glyphicon glyphicon-chevron-left"></span></button>
 							<button type="button" class="btn btn-default col-md-8 col-md-offset-2 atl" title="Retirer tous de la formation" data-type="atl" style="margin-bottom: 10px;" ng-click="AS.moveAll( AS.selectedCollaboratorList, AS.availableCollaboratorList )" ng-disabled="CtrlMoveAllTOEnableOrDisableButton(AS.selectedCollaboratorList)"><span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-list"></span></button>
+							-->
+							<span class="glyphicon glyphicon-chevron-right"></span>
 						</div>
-						-->
+
 						<div class="col-md-5"><br>       
 							<h5><span class="label label-default">Collaborateurs selectionnées: {{AS.selectedCollaborateurList.length}} affichés</span></h5>
-							<br>
-							<!--
-							<select class="selected form-control" ng-options="(collaborator.firstName +' '+collaborator.lastName) for collaborator in AS.selectedCollaboratorList" ng-model="AS.selectedCollaboratorInAffectedList" style="height: 200px; width: 100%;" multiple="" name=""></select>
-							-->
 							<div class="vertical-scroll">
 								<ul>
 									<li ng-repeat="myCollaborator in AS.selectedCollaboratorList">
 										<span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
-										<span class="glyphicon glyphicon-remove" ng-click="AS.moveItem(myCollaborator, AS.selectedCollaboratorList, AS.availableCollaboratorList)"></span>
+										<button class="glyphicon glyphicon-remove" ng-click="AS.moveItem(myCollaborator, AS.selectedCollaboratorList, AS.availableCollaboratorList)"></button>
 									</li>
 								</ul>
 							</div>
