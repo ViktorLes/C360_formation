@@ -22,3 +22,9 @@ padding-left:0;
 .warning-text{
     color: red;
 }
+
+.collaborator-box{
+    overflow: scroll;
+    height: 100px;
+
+}
