@@ -1,9 +1,5 @@
 package com.viseo.c360.formation.services;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,7 +7,8 @@ import javax.validation.Valid;
 
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
+import com.viseo.c360.formation.dto.training.BaseTrainingSessionDTO;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +24,9 @@ public class TrainingWS {
 
 	@Inject
 	TrainingDAO trainingDAO;
+
+	@Inject
+	ConversionService conversionService;
 	
 	/*** Training ***/
 	@RequestMapping(value="${endpoint.trainings}", method = RequestMethod.POST)
@@ -50,28 +50,17 @@ public class TrainingWS {
 	/*** TrainingSession ***/
 	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addTrainingSession(@Valid @RequestBody TrainingSessionDTO myTrainingSessionDto, BindingResult bindingResult){
+    public boolean addTrainingSession(@Valid @RequestBody BaseTrainingSessionDTO myTrainingSessionDto, BindingResult bindingResult){
 		if(!bindingResult.hasErrors()) {
-			TrainingSession myTrainingSession = new TrainingSession();
-			Training training = trainingDAO.getTraining(myTrainingSessionDto.getTraining());
-			if(training == null) return false;
-			myTrainingSession.setTraining(training);
-			myTrainingSession.setLocation(myTrainingSessionDto.getLocation());
-			SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy|HH:mm");
 			try {
-				myTrainingSession.setBeginning(
-						formatterDate.parse(
-								myTrainingSessionDto.getBeginning() + "|" + myTrainingSessionDto.getBeginningTime()));
-				myTrainingSession.setEnding(
-						formatterDate.parse(
-							myTrainingSessionDto.getEnding()+ "|" + myTrainingSessionDto.getEndingTime()));
+				TrainingSession myTrainingSession = null;//this.conversionService.convert(myTrainingSessionDto, BaseTrainingSessionDTO.class, TrainingSession.class);
 				if(!trainingDAO.isThereOneSessionTrainingAlreadyPlanned(myTrainingSession)
 					&& myTrainingSession.getBeginning().before(myTrainingSession.getEnding())
 				){
 					trainingDAO.addSessionTraining(myTrainingSession);
 					return true;
 				}
-			} catch (ParseException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

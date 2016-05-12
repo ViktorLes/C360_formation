@@ -5,6 +5,7 @@ import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.dto.training.BaseTrainingSessionDTO;
 import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
 import org.springframework.core.convert.ConversionFailedException;
@@ -38,7 +39,7 @@ public class DtoToTrainingSession implements Converter<TrainingSessionDTO, Train
         }catch(Exception e) {
             e.printStackTrace();
             throw new ConversionFailedException(
-                    TypeDescriptor.valueOf(TrainingSessionDTO.class),
+                    TypeDescriptor.valueOf(BaseTrainingSessionDTO.class),
                     TypeDescriptor.valueOf(TrainingSession.class),
                     dto,
                     new Throwable(e.getMessage())

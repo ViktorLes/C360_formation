@@ -18,9 +18,10 @@
 	<bean id="conversionService"
 		  class="org.springframework.context.support.ConversionServiceFactoryBean">
 		<property name="converters">
-			<set>
-				<bean class="com.viseo.c360.formation.dto.training.converters.TrainingSessionToDTO"/>
-			</set>
+			<list>
+				<bean class="com.viseo.c360.formation.dto.training.converters.TSessionToDtoTSessionAndTraining"/>
+				<bean class="com.viseo.c360.formation.dto.training.converters.DtoToTrainingSession"/>
+			</list>
 		</property>
 	</bean>
 
