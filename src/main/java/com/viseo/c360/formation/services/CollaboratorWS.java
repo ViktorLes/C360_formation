@@ -6,15 +6,12 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 import com.viseo.c360.formation.dao.TrainingDAO;
-import com.viseo.c360.formation.domain.collaborator.AffectationTrainingSession;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.collaborator.RequestTraining;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.collaborator.AffectationTrainingSessionDTO;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDTO;
 
-import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -70,12 +67,8 @@ public class CollaboratorWS {
 
 	@RequestMapping(value = "${endpoint.affectationstosessions}",method = RequestMethod.POST)
 	@ResponseBody
-	public boolean affectTrainingSession(@PathVariable String id, @Valid @RequestBody AffectationTrainingSessionDTO affectationTrainingSessionDto, BindingResult bindingResult){
-		//TrainingSession myTrainingSession = trainingDAO.getSessionTraining(Long.parseLong(id));
-		/*if(!bindingResult.hasErrors() && myTrainingSession != null) {
+	public boolean affectTrainingSession(@PathVariable String id, @Valid @RequestBody List<Long> collaboratorIds, BindingResult bindingResult){
 
-			return true;
-		}*/
 		return false;
 	}
 }

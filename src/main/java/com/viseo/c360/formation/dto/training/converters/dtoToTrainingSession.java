@@ -32,8 +32,8 @@ public class DtoToTrainingSession implements Converter<TrainingSessionDTO, Train
             domain.setLocation(dto.getLocation());
             for(long i : dto.getCollaborators()){
                 Collaborator collaborator = collaboratorDAO.getCollaborator(i);
-
                 if(collaborator == null) throw new PersistentObjectNotFoundException(i, Collaborator.class);
+                domain.addCollaborator(collaborator);
             }
         }catch(Exception e) {
             e.printStackTrace();
