@@ -4,8 +4,7 @@ import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.training.BaseTrainingSessionDTO;
-import com.viseo.c360.formation.dto.training.TrainingSessionAndTrainingDTO;
+import com.viseo.c360.formation.dto.training.SessionWithTrainingDTO;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.TypeDescriptor;
@@ -14,13 +13,13 @@ import org.springframework.core.convert.converter.Converter;
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
 
-public class TSessionToDtoTSessionAndTraining implements Converter<TrainingSession, TrainingSessionAndTrainingDTO> {
+public class SessionToSessionWithTrainingDTO implements Converter<TrainingSession, SessionWithTrainingDTO> {
 
     @Inject
     TrainingDAO trainingDAO;
 
-    public TrainingSessionAndTrainingDTO convert(TrainingSession source) {
-        TrainingSessionAndTrainingDTO dto = new TrainingSessionAndTrainingDTO();
+    public SessionWithTrainingDTO convert(TrainingSession source) {
+        SessionWithTrainingDTO dto = new SessionWithTrainingDTO();
         Training training = trainingDAO.getTraining(source.getTraining().getId());
         if(training == null) try {
             throw new PersistentObjectNotFoundException(source.getTraining().getId(), Training.class);
@@ -28,7 +27,7 @@ public class TSessionToDtoTSessionAndTraining implements Converter<TrainingSessi
             e.printStackTrace();
             throw new ConversionFailedException(
                     TypeDescriptor.valueOf(TrainingSession.class),
-                    TypeDescriptor.valueOf(TrainingSessionAndTrainingDTO.class),
+                    TypeDescriptor.valueOf(SessionWithTrainingDTO.class),
                     source,
                     new Throwable(e.getMessage())
             );
@@ -46,4 +45,6 @@ public class TSessionToDtoTSessionAndTraining implements Converter<TrainingSessi
         }
         return dto;
     }
+
+    public class ListTSessionToListDtoTSessionAndTraining implements Converter<TrainingSession, SessionWithTrainingDTO>
 }
