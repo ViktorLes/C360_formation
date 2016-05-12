@@ -5,6 +5,8 @@ import com.viseo.c360.formation.domain.training.TrainingSession;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,8 +15,12 @@ import java.util.List;
 /*** useless**/
 @Entity
 public class AffectationTrainingSession extends BaseEntity {
+    @NotNull
+    @Valid
     @ManyToMany
     List<Collaborator> collaborators;
+    @NotNull
+    @Valid
     TrainingSession trainingSession;
     public AffectationTrainingSession() {
         this.collaborators = new ArrayList<>();

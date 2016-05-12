@@ -1,5 +1,8 @@
 package com.viseo.c360.formation.dto.training;
 
+import com.viseo.c360.formation.domain.training.Training;
+
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -9,11 +12,8 @@ import java.util.List;
 public class TrainingSessionDTO {
 
     @NotNull
-    @Min(value = 1)
-    long trainingId;
-
-    @NotNull
-    String trainingTitle;
+    @Valid
+    Training training;
 
     @NotNull
     @Pattern(regexp= "(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))*")
@@ -35,22 +35,17 @@ public class TrainingSessionDTO {
     String location;
 
     @NotNull
+    @Valid
     List<Long> collaborators;
 
     public TrainingSessionDTO() {
         collaborators = new ArrayList<>();
     }
-    public long getTrainingId() {
-        return trainingId;
+    public Training getTraining() {
+        return training;
     }
-    public void setTrainingId(long training) {
-        this.trainingId = training;
-    }
-    public String getTrainingTitle() {
-        return trainingTitle;
-    }
-    public void setTrainingTitle(String trainingTitle) {
-        this.trainingTitle = trainingTitle;
+    public void setTraining(Training training) {
+        this.training = training;
     }
     public String getBeginning() {
         return beginning;

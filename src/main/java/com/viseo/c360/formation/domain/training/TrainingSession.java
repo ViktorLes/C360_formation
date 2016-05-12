@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.viseo.c360.formation.domain.BaseEntity;
@@ -17,6 +18,8 @@ import com.viseo.c360.formation.domain.collaborator.Collaborator;
 @Entity
 public class TrainingSession extends BaseEntity {
 
+	@NotNull
+	@Valid
 	@ManyToOne
 	Training training;
 
@@ -28,6 +31,8 @@ public class TrainingSession extends BaseEntity {
 	
 	String location;
 
+	@NotNull
+	@Valid
 	@ManyToMany
 	List<Collaborator> collaborators;
 

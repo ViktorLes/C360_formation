@@ -5,6 +5,8 @@ import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,12 +14,18 @@ import java.util.List;
 @Entity
 public class RequestTraining extends BaseEntity {
 
+    @NotNull
+    @Valid
     @ManyToOne
     Training training;
 
+    @NotNull
+    @Valid
     @ManyToOne
     Collaborator collaborator;
 
+    @NotNull
+    @Valid
     @ManyToMany
     List<TrainingSession> listSession;
 

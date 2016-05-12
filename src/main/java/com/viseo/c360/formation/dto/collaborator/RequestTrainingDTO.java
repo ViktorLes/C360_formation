@@ -3,6 +3,7 @@ package com.viseo.c360.formation.dto.collaborator;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -17,6 +18,8 @@ public class RequestTrainingDTO {
 	@Min(value = 1)
 	long training;
 
+	@NotNull
+	@Valid
 	List<Long> trainingSessions;
 
 	@NotNull
