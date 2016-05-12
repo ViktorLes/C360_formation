@@ -7,7 +7,7 @@ import javax.validation.Valid;
 
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.training.BaseTrainingSessionDTO;
+import com.viseo.c360.formation.dto.training.BaseSessionDTO;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,10 +50,10 @@ public class TrainingWS {
 	/*** TrainingSession ***/
 	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addTrainingSession(@Valid @RequestBody BaseTrainingSessionDTO myTrainingSessionDto, BindingResult bindingResult){
+    public boolean addTrainingSession(@Valid @RequestBody BaseSessionDTO myTrainingSessionDto, BindingResult bindingResult){
 		if(!bindingResult.hasErrors()) {
 			try {
-				TrainingSession myTrainingSession = null;//this.conversionService.convert(myTrainingSessionDto, BaseTrainingSessionDTO.class, TrainingSession.class);
+				TrainingSession myTrainingSession = null;//this.conversionService.convert(myTrainingSessionDto, TrainingSessionDTO.class, TrainingSession.class);
 				if(!trainingDAO.isThereOneSessionTrainingAlreadyPlanned(myTrainingSession)
 					&& myTrainingSession.getBeginning().before(myTrainingSession.getEnding())
 				){

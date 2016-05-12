@@ -19,8 +19,8 @@
 		  class="org.springframework.context.support.ConversionServiceFactoryBean">
 		<property name="converters">
 			<list>
-				<bean class="com.viseo.c360.formation.dto.training.converters.TSessionToDtoTSessionAndTraining"/>
-				<bean class="com.viseo.c360.formation.dto.training.converters.DtoToTrainingSession"/>
+				<bean class="com.viseo.c360.formation.dto.training.converters.SessionToSessionWithTrainingDTO"/>
+				<bean class="com.viseo.c360.formation.dto.training.converters.SessionDTOToSession"/>
 			</list>
 		</property>
 	</bean>

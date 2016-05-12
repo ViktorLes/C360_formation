@@ -4,22 +4,27 @@ import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.training.SessionWithTrainingDTO;
+import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
 import org.springframework.core.convert.ConversionFailedException;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
-public class SessionToSessionWithTrainingDTO implements Converter<TrainingSession, SessionWithTrainingDTO> {
+public class SessionToSessionWithTrainingDTO implements Converter<TrainingSession, TrainingSessionDTO> {
 
     @Inject
     TrainingDAO trainingDAO;
+    @Inject
+    ConversionService conversionService;
 
-    public SessionWithTrainingDTO convert(TrainingSession source) {
-        SessionWithTrainingDTO dto = new SessionWithTrainingDTO();
+    public TrainingSessionDTO convert(TrainingSession source) {
+        TrainingSessionDTO dto = new TrainingSessionDTO();
         Training training = trainingDAO.getTraining(source.getTraining().getId());
         if(training == null) try {
             throw new PersistentObjectNotFoundException(source.getTraining().getId(), Training.class);
@@ -27,12 +32,13 @@ public class SessionToSessionWithTrainingDTO implements Converter<TrainingSessio
             e.printStackTrace();
             throw new ConversionFailedException(
                     TypeDescriptor.valueOf(TrainingSession.class),
-                    TypeDescriptor.valueOf(SessionWithTrainingDTO.class),
+                    TypeDescriptor.valueOf(TrainingSessionDTO.class),
                     source,
                     new Throwable(e.getMessage())
             );
         }
-        dto.setTraining(training);
+        dto.setTrainingId(training.getId());
+        dto.setTrainingTitle(training.getTrainingTitle());
         SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
         SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
         dto.setBeginning(formatterDate.format(source.getBeginning()));
@@ -46,5 +52,13 @@ public class SessionToSessionWithTrainingDTO implements Converter<TrainingSessio
         return dto;
     }
 
-    public class ListTSessionToListDtoTSessionAndTraining implements Converter<TrainingSession, SessionWithTrainingDTO>
+    public class ListTSessionToListDtoTSessionAndTraining implements Converter<List<TrainingSession>, List<SessionWithTrainingDTO>>{
+        public List<TrainingSessionDTO> convert(List<TrainingSession> source) {
+            List<SessionWithTrainingDTO> listDto = new ArrayList<>();
+            for(TrainingSession session : source){
+
+            }
+            return listDto;
+        }
+    }
 }
