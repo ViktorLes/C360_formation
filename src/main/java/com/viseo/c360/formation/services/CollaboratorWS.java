@@ -14,6 +14,8 @@ import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.collaborator.AffectationTrainingSessionDTO;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDTO;
 
+import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +29,9 @@ public class CollaboratorWS {
 	CollaboratorDAO collaboratorDAO;
 	@Inject
 	TrainingDAO trainingDAO;
+
+	@Inject
+	ConversionService conversionService;
 		
 	@RequestMapping(value = "${endpoint.collaborators}",method = RequestMethod.POST)
     @ResponseBody
@@ -66,11 +71,11 @@ public class CollaboratorWS {
 	@RequestMapping(value = "${endpoint.affectationstosessions}",method = RequestMethod.POST)
 	@ResponseBody
 	public boolean affectTrainingSession(@PathVariable String id, @Valid @RequestBody AffectationTrainingSessionDTO affectationTrainingSessionDto, BindingResult bindingResult){
-		TrainingSession myTrainingSession = trainingDAO.getSessionTraining(Long.parseLong(id));
-		if(!bindingResult.hasErrors() && myTrainingSession != null) {
+		//TrainingSession myTrainingSession = trainingDAO.getSessionTraining(Long.parseLong(id));
+		/*if(!bindingResult.hasErrors() && myTrainingSession != null) {
 
 			return true;
-		}
+		}*/
 		return false;
 	}
 }
