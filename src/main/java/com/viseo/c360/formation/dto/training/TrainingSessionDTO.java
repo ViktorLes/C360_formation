@@ -5,6 +5,8 @@ import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrainingSessionDTO {
     @NotNull
@@ -30,7 +32,11 @@ public class TrainingSessionDTO {
     @NotNull
     String location;
 
+    @NotNull
+    List<Long> collaborators;
+
     public TrainingSessionDTO() {
+        collaborators = new ArrayList<>();
     }
     public String getBeginning() {
         return beginning;
@@ -67,5 +73,11 @@ public class TrainingSessionDTO {
     }
     public void setTraining(long training) {
         this.training = training;
+    }
+    public List<Long> getCollaborators() {
+        return collaborators;
+    }
+    public void setCollaborators(List<Long> collaborators) {
+        this.collaborators = collaborators;
     }
 }
