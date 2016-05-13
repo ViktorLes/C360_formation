@@ -16,30 +16,25 @@ public class TrainingSessionDTO {
     Training training;
 
     @NotNull
-    @Pattern(regexp= "(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))*")
+    //@Pattern(regexp= "(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))*")
     String beginning;
 
     @NotNull
-    @Pattern(regexp= "(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))*")
+    //@Pattern(regexp= "(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))*")
     String ending;
 
     @NotNull
-    @Pattern(regexp= "([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]*")
+    //@Pattern(regexp= "([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]*")
     String beginningTime;
 
     @NotNull
-    @Pattern(regexp= "([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]*")
+    //@Pattern(regexp= "([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]*")
     String endingTime;
 
     @NotNull
     String location;
 
-    @NotNull
-    @Valid
-    List<Long> collaborators;
-
-    public TrainingSessionDTO() {
-        collaborators = new ArrayList<>();
+    public TrainingSessionDTO(){
     }
     public Training getTraining() {
         return training;
@@ -76,11 +71,5 @@ public class TrainingSessionDTO {
     }
     public void setLocation(String location) {
         this.location = location;
-    }
-    public List<Long> getCollaborators() {
-        return collaborators;
-    }
-    public void setCollaborators(List<Long> collaborators) {
-        this.collaborators = collaborators;
     }
 }

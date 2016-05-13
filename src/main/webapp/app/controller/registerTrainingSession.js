@@ -4,9 +4,9 @@ angular.module('controllers')
         self.isSessionAlreadyPlanned = true;
 
         $http.get("api/formations").then(function(data){
-            self.training =[];
-            Array.prototype.push.apply(self.training,data.data);
-            self.trainingSessionId = self.training[0].id;
+            self.trainings =[];
+            Array.prototype.push.apply(self.trainings,data.data);
+            self.training = self.trainings[0];
         });
 
         self.d1 = datepicker.build();
@@ -49,8 +49,7 @@ angular.module('controllers')
             if ((self.d1.dt < self.d2.dt)||(self.beginningHour < self.endHour)){
                 return true;
             }
-            else
-            {
+            else{
                 return false;
             }
         }
@@ -71,14 +70,14 @@ angular.module('controllers')
 
         self.saveAction = function() {
             var session = {
-                training: self.trainingSessionId,
+                training: self.training,
                 beginning: $filter('date')(self.d1.dt,"dd/MM/yyyy"),
                 ending:  $filter('date')(self.d2.dt,"dd/MM/yyyy"),
                 beginningTime: self.beginningHour,
                 endingTime: self.endHour,
                 location: self.trainingLocation
             };
-
+            console.log(session);
             $http.post("api/sessions", session).success(function(data){
                 if(data == "true" || data == true) {
                     self.isSessionAlreadyPlanned = true;

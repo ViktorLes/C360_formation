@@ -1,27 +1,21 @@
-package com.viseo.c360.formation.dto.training.converters;
+package com.viseo.c360.formation.converters.trainingession;
 
 import com.viseo.c360.formation.dao.TrainingDAO;
-import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
 import org.springframework.core.convert.ConversionFailedException;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
-public class SessionToSessionWithTrainingDTO implements Converter<TrainingSession, TrainingSessionDTO> {
+public class TrainingSessionToDTO implements Converter<TrainingSession, TrainingSessionDTO> {
 
     @Inject
     TrainingDAO trainingDAO;
-    @Inject
-    ConversionService conversionService;
 
     public TrainingSessionDTO convert(TrainingSession source) {
         TrainingSessionDTO dto = new TrainingSessionDTO();
@@ -37,8 +31,7 @@ public class SessionToSessionWithTrainingDTO implements Converter<TrainingSessio
                     new Throwable(e.getMessage())
             );
         }
-        dto.setTrainingId(training.getId());
-        dto.setTrainingTitle(training.getTrainingTitle());
+        dto.setTraining(training);
         SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
         SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
         dto.setBeginning(formatterDate.format(source.getBeginning()));
@@ -46,19 +39,8 @@ public class SessionToSessionWithTrainingDTO implements Converter<TrainingSessio
         dto.setEnding(formatterDate.format(source.getEnding()));
         dto.setEndingTime(formatterTime.format(source.getEnding()));
         dto.setLocation(source.getLocation());
-        for(Collaborator collaborator : source.getCollaborators()){
-            dto.getCollaborators().add(collaborator.getId());
-        }
         return dto;
     }
 
-    public class ListTSessionToListDtoTSessionAndTraining implements Converter<List<TrainingSession>, List<SessionWithTrainingDTO>>{
-        public List<TrainingSessionDTO> convert(List<TrainingSession> source) {
-            List<SessionWithTrainingDTO> listDto = new ArrayList<>();
-            for(TrainingSession session : source){
 
-            }
-            return listDto;
-        }
-    }
 }

@@ -7,14 +7,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
-import com.viseo.c360.formation.domain.collaborator.AffectationTrainingSession;
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.collaborator.RequestTraining;
-import com.viseo.c360.formation.domain.training.Training;
 
 @Repository
 public class CollaboratorDAO {
@@ -53,7 +52,16 @@ public class CollaboratorDAO {
 	}
 
 	@Transactional
-	public void affectTrainingSession(TrainingSession myTrainingSession){
-
+	public void affectTrainingSession(TrainingSession myTrainingSession, List<Long> collaboratorIds){
+		myTrainingSession = em.merge(myTrainingSession);
+		try{
+			for(long i : collaboratorIds){
+				Collaborator collaborator = this.getCollaborator(i);
+				if(collaborator == null) throw new PersistentObjectNotFoundException(i, Collaborator.class);
+				myTrainingSession.addCollaborator(collaborator);
+			}
+		}catch(PersistentObjectNotFoundException e){
+			e.printStackTrace();
+		}
 	}
 }

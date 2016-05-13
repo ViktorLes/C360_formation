@@ -4,7 +4,7 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 			trainingTitle:"AngularJS" 
 	};
 	var session1={
-			training: 1,
+			training: training,
 			beginning: "04/05/2016",
 			ending: "06/05/2016",
 			beginningTime: "08:00",
@@ -12,7 +12,7 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 			location: "Salle Phuket"
 	};
 	var session2={
-			training: 1,
+			training: training,
 			beginning: "07/05/2016",
 			ending: "10/05/2016",
 			beginningTime: "08:00",
@@ -34,6 +34,7 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 		init:function(){
 			$http.post("api/formations",training).then(function(data){
 				if(data.data) console.log("ajout training",training);
+				training.id = 1;
 				return $http.post("api/sessions",session1);
 			}).then(function(data){
 				if(data.data)console.log("ajout session1",session1);
@@ -46,9 +47,9 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 				return $http.post("api/collaborateurs",collaborator2);
 			}).then(function(data){
 				if(data.data)console.log("ajout collaborator2",collaborator2);
-				return $http.post("api/requests",{training:1, collaborator: 8, trainingSessions:[]});
+				/*return $http.post("api/requests",{training:1, collaborator: 8, trainingSessions:[]});
 			}).then(function(data){
-				console.log("ajout demande formation",data);
+				console.log("ajout demande formation",data);*/
 			});
 		}
 	};

@@ -16,12 +16,12 @@
 	<context:property-placeholder location="classpath:project.properties" />
 
 	<bean id="conversionService"
-		  class="org.springframework.context.support.ConversionServiceFactoryBean">
+		  class="com.viseo.c360.formation.converters.FormationConversionServiceFactoryBean">
 		<property name="converters">
-			<list>
-				<bean class="com.viseo.c360.formation.dto.training.converters.SessionToSessionWithTrainingDTO"/>
-				<bean class="com.viseo.c360.formation.dto.training.converters.SessionDTOToSession"/>
-			</list>
+			<set>
+				<bean class="com.viseo.c360.formation.converters.trainingession.TrainingSessionToDTO"/>
+				<bean class="com.viseo.c360.formation.converters.trainingession.DtoToTrainingSession"/>
+			</set>
 		</property>
 	</bean>
 

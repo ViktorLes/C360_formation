@@ -1,5 +1,6 @@
 package com.viseo.c360.formation.dto.collaborator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,6 +29,7 @@ public class RequestTrainingDTO {
 
 	public RequestTrainingDTO() {
 		super();
+		//this.trainingSessions = new ArrayList<>();
 	}
 	public long getTraining() {
 		return training;
