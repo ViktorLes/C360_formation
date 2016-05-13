@@ -43,17 +43,18 @@ angular.module('controllers')
         }
 
         self.saveAction = function() {
-        	var listIdTrainingSessions=[];
+        	/*var listIdTrainingSessions=[];
         	self.listTrainingSession.forEach(function(element){
         		if(element.isChecked===true){
         			listIdTrainingSessions.push(element.id);
         		}
-        	});
+        	});*/
         	var myRequest={
         			training:self.requestedTrainingId,
-        			trainingSessions:listIdTrainingSessions,
+        			trainingSessions:self.listTrainingSession,
         			collaborator:4
         	};
+            console.log(myRequest);
         	$http.post("api/requests", myRequest).success(function(data){
                 console.log(data);
                 if(data === true || data === "true") {

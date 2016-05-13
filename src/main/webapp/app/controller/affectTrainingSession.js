@@ -7,11 +7,17 @@ angular.module('controllers').
 controller('controllerAffectTraining',['$http','$location','$filter',function($http, $location,$filter){
 
     var self = this;
+
+    self.displayTrainingSession = function(mySession){
+        return mySession.training.trainingTitle+' - '+mySession.beginning+' à '+mySession.ending+' - '+mySession.location;
+    };
     //Récupérer la liste des sessions disponible
     $http.get("api/sessions").then(function(data){
         self.trainingSessionList = [];
         Array.prototype.push.apply(self.trainingSessionList,data.data);
-
+        self.sessionSelected = self.trainingSessionList[0];
+        console.log(self.sessionSelected);
+/*
         function newSession(){
             var sessionConvertedList=[];
             for(var i=0 ; i<self.trainingSessionList.length ; i++){
@@ -27,8 +33,10 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
             }
             return sessionConvertedList;
         }
+
         self.trainingSessionListConverted  = [];
         Array.prototype.push.apply(self.trainingSessionListConverted,newSession());
+ */
     });
 
     //Récupérer la liste des collaborateurs disponibles
@@ -55,7 +63,7 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
     };
     
     self.saveAction = function(){
-        $http.post("api/sessions/2/affectations", [4, 5]).then(function(response){
+        $http.post("api/sessions/"+self.sessionSelected.id+"/affectations", [4, 5]).then(function(response){
             console.log(response);
         });
     };

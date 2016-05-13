@@ -19,8 +19,8 @@
 		  class="com.viseo.c360.formation.converters.FormationConversionServiceFactoryBean">
 		<property name="converters">
 			<set>
-				<bean class="com.viseo.c360.formation.converters.trainingession.TrainingSessionToDTO"/>
-				<bean class="com.viseo.c360.formation.converters.trainingession.DtoToTrainingSession"/>
+				<bean class="com.viseo.c360.formation.converters.trainingsession.TrainingSessionToDTO"/>
+				<bean class="com.viseo.c360.formation.converters.trainingsession.DtoToTrainingSession"/>
 			</set>
 		</property>
 	</bean>

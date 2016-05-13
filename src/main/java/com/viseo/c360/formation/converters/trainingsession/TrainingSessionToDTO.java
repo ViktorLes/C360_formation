@@ -1,4 +1,4 @@
-package com.viseo.c360.formation.converters.trainingession;
+package com.viseo.c360.formation.converters.trainingsession;
 
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.training.Training;

@@ -12,13 +12,14 @@
           
           <div class="panel-body"> 
 	          <h5><span class="label label-default">Sessions:</span><h5>
-	          	
 	          	<input ng-model="SessionSelectionnee" title="Selectionner une session" class="filter form-control filter-unselected" list="SessionDataListFilter" placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
-	          	<datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">  
-	                <option data-ng-repeat="session in AS.trainingSessionListConverted" value="{{session.trainingTitle}}- {{session.beginning}} à {{session.ending}}- {{session.location}}"></option>
-	             </datalist>           
-
-	          <hr>
+				 <!--
+				  <datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">
+	                <option data-ng-repeat="session in AS.trainingSessionListConverted" value="{{session.trainingTitle}} - {{session.beginning}} à {{session.ending}} - {{session.location}}"></option>
+	             </datalist>
+				  -->
+				  <select class="selectpicker form-control" name="trainingSession" ng-model="AS.sessionSelected" ng-options="AS.displayTrainingSession(mySession) for mySession in AS.trainingSessionList"></select>
+				  <hr>
 
 		      <div class="form-group" id="wrapper">
 		      		<div id="dual-list-box-employees" class="form-group row">
