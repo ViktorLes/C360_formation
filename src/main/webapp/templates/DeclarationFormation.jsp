@@ -34,17 +34,13 @@
 			    <div class="alert alert-danger" role="alert" ng-show="!DF.isNewTitleFormation">
 			      Une formation identique existe déjà dans le système
 			    </div> 
-<<<<<<< HEAD
 
 			    <button type="submit" class="btn btn-primary" >Enregistrer</button>	
 			    
 			    <div class="alert alert-danger" role="alert" ng-show="DF.isFalseForm">
 			      Veuillez remplir tous les champs
 			    </div>	
-=======
-			    
-			    <button type="submit" class="btn btn-primary" ng-disabled="formationForm.$invalid">Enregistrer</button>
->>>>>>> a0e7352acd823724d05b271bead435f7e5e3e87f
+
 			  </form>
 		  </div>
 
