@@ -13,11 +13,11 @@ import com.viseo.c360.formation.dao.CollaboratorDAO;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.collaborator.RequestTraining;
+import com.viseo.c360.formation.domain.training.Training;
 
 public class RequestTrainingDTO {
 	@NotNull
-	@Min(value = 1)
-	long training;
+	Training training;
 
 	@NotNull
 	@Valid
@@ -31,10 +31,10 @@ public class RequestTrainingDTO {
 		super();
 		//this.trainingSessions = new ArrayList<>();
 	}
-	public long getTraining() {
+	public Training getTraining() {
 		return training;
 	}
-	public void setTraining(long training) {
+	public void setTraining(Training training) {
 		this.training = training;
 	}
 	public List<Long> getTrainingSessions() {

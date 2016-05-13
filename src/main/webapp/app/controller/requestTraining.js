@@ -3,17 +3,18 @@ angular.module('controllers')
         var self = this;
         //Charge la liste de formations affiché dans le select box des formations
         $http.get("api/formations").then(function(data){
-            self.training = [];
-            Array.prototype.push.apply(self.training,data.data);
+            self.trainings = [];
+            Array.prototype.push.apply(self.trainings,data.data);
         });
 
         //Charge la liste de sessions disponible en fonction de l'ID de training
         //selectionné grâce au 'select box' 
         self.loadTrainingSessions=function() {
+            console.log(self.requestedTraining);
             self.noneSessionSelected = false;
             self.hasToChooseOneTraining = false;
             self.listTrainingSession = [];
-            if (Number.isInteger(self.requestedTrainingId)) $http.get("api/formations/"+self.requestedTrainingId+"/sessions").then(function (data) {
+            if (Number.isInteger(self.requestedTrainingId)) $http.get("api/formations/"+self.requestedTraining.id+"/sessions").then(function (data) {
                 Array.prototype.push.apply(self.listTrainingSession, data.data);
                 if(self.listTrainingSession.length === 0) {
                     self.isListEmpty = true;
@@ -25,7 +26,7 @@ angular.module('controllers')
         self.verifyForm = function () {
             self.noneSessionSelected = false;
             self.hasToChooseOneTraining = false;
-            if (Number.isInteger(self.requestedTrainingId)) {
+            if (Number.isInteger(self.requestedTraining.id)) {
                 if (typeof self.listTrainingSession !== 'undefined' ) {
                     if(self.isListEmpty){
                         //envoi au serveur une demande de session non programmée
@@ -50,7 +51,7 @@ angular.module('controllers')
         		}
         	});*/
         	var myRequest={
-        			training:self.requestedTrainingId,
+        			training:self.requestedTraining,
         			trainingSessions:self.listTrainingSession,
         			collaborator:4
         	};

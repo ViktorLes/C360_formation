@@ -52,7 +52,7 @@ public class CollaboratorWS {
 		if(bindingResult.hasErrors()) return false;
 		RequestTraining myRequestTraining = new RequestTraining();
 		Collaborator collaborator = collaboratorDAO.getCollaborator(requestTrainingDto.getCollaborator());
-		Training training = trainingDAO.getTraining(requestTrainingDto.getTraining());
+		Training training = trainingDAO.getTraining(requestTrainingDto.getTraining().getId());
 		if(collaborator == null || training == null) return false;
 		myRequestTraining.setCollaborator(collaborator);
 		myRequestTraining.setTraining(training);
