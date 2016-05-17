@@ -1,6 +1,6 @@
 package com.viseo.c360.formation.converters;
 
-import com.viseo.c360.formation.converters.trainingession.ListTrainingSessionToDTO;
+import com.viseo.c360.formation.converters.trainingsession.ListTrainingSessionToDTO;
 import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.ConverterRegistry;
@@ -11,7 +11,6 @@ public class FormationConversionServiceFactoryBean extends ConversionServiceFact
         super.afterPropertiesSet();
         ConversionService conversionService = getObject();
         ConverterRegistry registry = (ConverterRegistry) conversionService;
-        // register converters that need a nested conversion service
         registry.addConverter(new ListTrainingSessionToDTO(conversionService));
     }
 }

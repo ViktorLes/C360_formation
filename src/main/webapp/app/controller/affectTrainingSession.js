@@ -9,40 +9,22 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
     var self = this;
     //Récupérer la liste des sessions disponible
     $http.get("api/sessions").then(function(data){
-        self.trainingSessionList = [];
-        Array.prototype.push.apply(self.trainingSessionList,data.data);
-
-        function newSession(){
-            var sessionConvertedList=[];
-            for(var i=0 ; i<self.trainingSessionList.length ; i++){
-                var sessionObjectConverted={
-                    sessionId: self.trainingSessionList[i].id,
-                    trainingId: self.trainingSessionList[i].training.id,
-                    trainingTitle: self.trainingSessionList[i].training.trainingTitle,
-                    beginning: $filter('date')(self.trainingSessionList[i].beginning, 'dd/MM/yyyy'),
-                    ending: $filter('date')(self.trainingSessionList[i].ending, 'dd/MM/yyyy'),
-                    location: self.trainingSessionList[i].location
-                };
-                sessionConvertedList.push(sessionObjectConverted);
-            }
-            return sessionConvertedList;
-        }
-        self.trainingSessionListConverted  = [];
-        Array.prototype.push.apply(self.trainingSessionListConverted,newSession());
+        self.trainingSessionList = data.data;
+        self.sessionSelected = self.trainingSessionList[0];
     });
 
     //Récupérer la liste des collaborateurs disponibles
     $http.get("api/collaborateurs").then(function(data){
-        self.availableCollaboratorList = [];
-        self.selectedCollaboratorList =[];
-        Array.prototype.push.apply(self.availableCollaboratorList,data.data);
+        self.availableCollaboratorList = data.data;
         console.log("liste : ",self.availableCollaboratorList);
-       // self.selectedCollaborator=self.availableCollaboratorList[0];
     });
+
+    self.displayTrainingSession = function(mySession){
+        return mySession.training.trainingTitle+' - '+mySession.beginning+' à '+mySession.ending+' - '+mySession.location;
+    };
 
     //déplace d'une liste à une autre
     self.moveItem = function(item,from,to){
-    	console.log("item",item);
         var idx=from.indexOf(item);
         if (idx != -1) {
             from.splice(idx, 1);
@@ -51,31 +33,43 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
     };
 
     self.verifyForm = function(){
+        self.createSessionObjectFromInputText();
         self.saveAction();
     };
     
     self.saveAction = function(){
-        $http.post("api/sessions/2/affectations", [4, 5]).then(function(response){
+        $http.put("api/sessions/"+self.sessionSelected.id+"/collaborators", self.selectedCollaboratorList).then(function(response){
             console.log(response);
         });
     };
-    /*
-    self.moveAll = function(from, to) {
-        angular.forEach(from, function(item) {
-            to.push(item);
+
+    self.createSessionObjectFromInputText=function() {
+        var selectedSessionSplittedArray = self.selectedSession.split(/ - | à /);
+        self.trainingSessionObject={
+            beginning: selectedSessionSplittedArray[1],
+            ending: selectedSessionSplittedArray[2],
+            location: selectedSessionSplittedArray[3],
+            training:{
+                trainingTitle:selectedSessionSplittedArray[0]
+            }
+        };
+        console.log("self.trainingSessionObject: ",self.trainingSessionObject);
+        return self.trainingSessionList.find(function(elem){
+            if(elem.beginning===self.trainingSessionObject.beginning &&
+               elem.ending===self.trainingSessionObject.ending &&
+               elem.location===self.trainingSessionObject.location &&
+               elem.training.trainingTitle===self.trainingSessionObject.training.trainingTitle){
+               return elem;
+            }
         });
-        from.length = 0;
-    };
-    */
-    /*
-    self.CtrlSelectedItemTOEnableOrDisableButton = function(availableCollaborator) {
-        return typeof(availableCollaborator) !== "undefined" && availableCollaborator.length !== 0;
-    };
-    self.CtrlMoveAllTOEnableOrDisableButton = function(collaboratorList) {
-        return collaboratorList.length === 0;
-    };
-    self.CtrlMaxCollaboratorSelectionnee = function(selectedCollaboratorList) {
-        return selectedCollaboratorList.length === 10;
-    };
-    */
-}]);
+    }
+}])
+    .config(['$routeProvider',function($routeProvider) {
+        $routeProvider
+           .when('/AffectTraining', {
+                templateUrl: 'templates/affectTrainingSession.html',
+                controller: 'controllerAffectTraining',
+                controllerAs:'AS'
+            })
+    }
+    ]);;

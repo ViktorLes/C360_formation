@@ -1,4 +1,4 @@
-package com.viseo.c360.formation.converters.trainingession;
+package com.viseo.c360.formation.converters.trainingsession;
 
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.training.Training;
@@ -20,8 +20,8 @@ public class TrainingSessionToDTO implements Converter<TrainingSession, Training
     public TrainingSessionDTO convert(TrainingSession source) {
         TrainingSessionDTO dto = new TrainingSessionDTO();
         Training training = trainingDAO.getTraining(source.getTraining().getId());
-        if(training == null) try {
-            throw new PersistentObjectNotFoundException(source.getTraining().getId(), Training.class);
+        try {
+             if(training == null) throw new PersistentObjectNotFoundException(source.getTraining().getId(), Training.class);
         } catch (PersistentObjectNotFoundException e) {
             e.printStackTrace();
             throw new ConversionFailedException(
@@ -31,9 +31,10 @@ public class TrainingSessionToDTO implements Converter<TrainingSession, Training
                     new Throwable(e.getMessage())
             );
         }
-        dto.setTraining(training);
         SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
         SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
+        dto.setId(source.getId());
+        dto.setTraining(training);
         dto.setBeginning(formatterDate.format(source.getBeginning()));
         dto.setBeginningTime(formatterTime.format(source.getBeginning()));
         dto.setEnding(formatterDate.format(source.getEnding()));

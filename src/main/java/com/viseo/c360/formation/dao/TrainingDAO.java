@@ -100,5 +100,4 @@ public class TrainingDAO {
 		Collection<TrainingSession> list = (Collection<TrainingSession>) em.createQuery(q).getResultList();
 		return !list.isEmpty();
 	}
-
 }

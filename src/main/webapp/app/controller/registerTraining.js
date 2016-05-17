@@ -4,13 +4,11 @@ angular.module('controllers')
 
         var self = this;
         self.regex = {};
-
         /*** Recupération des regex **/
         $http.get("api/formations/regex").then(function(data){
             self.regex.trainingTitle = new RegExp(data.data.TRAINING_TITLE);
             self.regex.numberHalfDays = new RegExp(data.data.NUMBER_HALF_DAYS);
         });
-
         self.isNewTrainingTitle = true;
         self.isFalseForm = false;
 
@@ -21,7 +19,8 @@ angular.module('controllers')
             else{
                 self.isFalseForm = true;
             }
-        }
+        };
+
         self.saveAction = function() {
             self.training.trainingTitle= self.training.trainingTitle.replace(/ +/g, " ");
             $http.post("api/formations", self.training).success(function(data){

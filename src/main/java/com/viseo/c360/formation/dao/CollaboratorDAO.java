@@ -52,16 +52,11 @@ public class CollaboratorDAO {
 	}
 
 	@Transactional
-	public void affectTrainingSession(TrainingSession myTrainingSession, List<Long> collaboratorIds){
+	public void updateCollaboratorsTrainingSession(TrainingSession myTrainingSession, List<Collaborator> collaborators){
 		myTrainingSession = em.merge(myTrainingSession);
-		try{
-			for(long i : collaboratorIds){
-				Collaborator collaborator = this.getCollaborator(i);
-				if(collaborator == null) throw new PersistentObjectNotFoundException(i, Collaborator.class);
-				myTrainingSession.addCollaborator(collaborator);
-			}
-		}catch(PersistentObjectNotFoundException e){
-			e.printStackTrace();
+		myTrainingSession.removeCollaborators();
+		for(Collaborator myCollaborator : collaborators){
+			myTrainingSession.addCollaborator(myCollaborator);
 		}
 	}
 }

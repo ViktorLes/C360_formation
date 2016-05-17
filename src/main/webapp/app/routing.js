@@ -16,11 +16,6 @@ angular.module('App')
                          controller: 'controllerRegisterTrainingSession',
                          controllerAs:'DS'
                      })
-                     .when('/AffectTraining', {
-                         templateUrl: 'templates/affectTrainingSession.html',
-                         controller: 'controllerAffectTraining',
-                         controllerAs:'AS'
-                     })
                      .when('/RequestTraining', {
                          templateUrl: 'templates/requestTraining.html',
                          controller: 'controllerRequestTraining',

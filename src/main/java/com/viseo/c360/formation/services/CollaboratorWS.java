@@ -12,7 +12,9 @@ import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDTO;
 
+import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
+import org.springframework.core.convert.ConversionException;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -52,26 +54,31 @@ public class CollaboratorWS {
 		if(bindingResult.hasErrors()) return false;
 		RequestTraining myRequestTraining = new RequestTraining();
 		Collaborator collaborator = collaboratorDAO.getCollaborator(requestTrainingDto.getCollaborator());
-		Training training = trainingDAO.getTraining(requestTrainingDto.getTraining());
+		Training training = trainingDAO.getTraining(requestTrainingDto.getTraining().getId());
 		if(collaborator == null || training == null) return false;
 		myRequestTraining.setCollaborator(collaborator);
 		myRequestTraining.setTraining(training);
-		for(long i : requestTrainingDto.getTrainingSessions()){
-			TrainingSession trainingSession = trainingDAO.getSessionTraining(i);
-			if(trainingSession == null) return false;
-			myRequestTraining.addListSession(trainingSession);
+		for(TrainingSessionDTO trainingSessionDto : requestTrainingDto.getTrainingSessions()){
+			try {
+				myRequestTraining.addListSession(
+						conversionService.convert(trainingSessionDto,TrainingSession.class)
+				);
+			} catch (ConversionException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
 		collaboratorDAO.addRequestTraining(myRequestTraining);
 		return true;
     }
 
-	@RequestMapping(value = "${endpoint.affectationstosessions}",method = RequestMethod.POST)
+	@RequestMapping(value = "${endpoint.collaboratorsbysession}",method = RequestMethod.PUT)
 	@ResponseBody
-	public boolean affectTrainingSession(@PathVariable Long id, @Valid @RequestBody List<Long> collaboratorIds, BindingResult bindingResult){
+	public boolean updateCollaboratorsTrainingSession(@PathVariable Long id, @Valid @RequestBody List<Collaborator> collaborators, BindingResult bindingResult){
 		try {
 			 TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
 			 if(trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
-			 collaboratorDAO.affectTrainingSession(trainingSession, collaboratorIds);
+			 collaboratorDAO.updateCollaboratorsTrainingSession(trainingSession, collaborators);
 			 return true;
 		} catch (PersistentObjectNotFoundException e) {
 			e.printStackTrace();
