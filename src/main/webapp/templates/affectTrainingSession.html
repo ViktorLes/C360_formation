@@ -13,7 +13,7 @@
           <div class="panel-body"> 
 	          <h5><span class="label label-default">Sessions:</span><h5>
 	          	
-	          	<input ng-model="SessionSelectionnee" title="Selectionner une session" class="filter form-control filter-unselected" list="SessionDataListFilter" placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
+	          	<input ng-model="selectedSession" title="Selectionner une session" class="filter form-control filter-unselected" list="SessionDataListFilter" placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
 	          	<datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">  
 	                <option data-ng-repeat="session in AS.trainingSessionListConverted" value="{{session.trainingTitle}}- {{session.beginning}} à {{session.ending}}- {{session.location}}"></option>
 	             </datalist>           
@@ -26,14 +26,23 @@
 	           				<h5><span class="label label-default" id="gauche">Collaborateurs disponibles: {{FilterResultList.length}} affichés</span></h5>
 							<div class="collaborator-box">
 								<div class="search-field-collaborator-box">
-									<input ng-model="searchCollaboratorField" class="search-widget filter form-control filter-unselected" type="text" placeholder="Écrire le nom du collaborator ..." style="margin-bottom: 5px;" autofocus> <button class="glyphicon glyphicon-search search-widget"></button></input>
+									<input ng-model="searchCollaboratorField" class="search-widget filter form-control filter-unselected"
+										   type="text" placeholder="Écrire le nom du collaborateur ..." style="margin-bottom: 5px;" autofocus>
+									<button class="glyphicon glyphicon-search search-widget"></button>
+									</input>
 								</div>
 								<ul>
 									<li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList | searchByString: searchCollaboratorField:'firstName':'lastName')">
+										<div>
 										<span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
-										<button class="glyphicon glyphicon-chevron-right" ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>
+										<button class="glyphicon glyphicon-chevron-right btn btn-sm pull-right" ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>
+										</div>
 									</li>
 								</ul>
+								<style>
+									ul li { border-top: solid 1px #ddd; padding: 15px 8px 15px 8px; }
+									ul li:first-child { border-top: 0; }
+								</style>
 								<div class="row">
 									<div class="small-2 small-centered columns" ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
 										<div data-alert class="alert-box info">
@@ -58,7 +67,7 @@
 								<ul>
 									<li ng-repeat="myCollaborator in AS.selectedCollaboratorList">
 										<span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
-										<button class="glyphicon glyphicon-remove" ng-click="AS.moveItem(myCollaborator, AS.selectedCollaboratorList, AS.availableCollaboratorList)"></button>
+										<button class="glyphicon glyphicon-remove btn btn-sm pull-right btn-danger" ng-click="AS.moveItem(myCollaborator, AS.selectedCollaboratorList, AS.availableCollaboratorList)"></button>
 									</li>
 								</ul>
 							</div>
