@@ -16,7 +16,7 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
         self.trainingSessionList = [];
         Array.prototype.push.apply(self.trainingSessionList,data.data);
         self.sessionSelected = self.trainingSessionList[0];
-        console.log(self.sessionSelected);
+       // console.log(self.sessionSelected);
 /*
         function newSession(){
             var sessionConvertedList=[];
@@ -63,7 +63,7 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
     };
     
     self.saveAction = function(){
-        $http.post("api/sessions/"+self.sessionSelected.id+"/affectations", [4, 5]).then(function(response){
+        $http.put("api/sessions/"+self.sessionSelected.id+"/collaborators", self.selectedCollaboratorList).then(function(response){
             console.log(response);
         });
     };

@@ -72,6 +72,7 @@ public class TrainingWS {
 	@RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.GET)
 	@ResponseBody
     public List<TrainingSessionDTO> getTrainingSessions(){
+		trainingDAO.getAllTrainingSessions();
 		return conversionService.convert(trainingDAO.getAllTrainingSessions(),List.class);
 	}
 

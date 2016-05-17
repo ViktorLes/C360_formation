@@ -33,23 +33,22 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 	return {
 		init:function(){
 			$http.post("api/formations",training).then(function(data){
-				if(data.data) console.log("ajout training",training);
 				training.id = 1;
+				if(data.data) console.log("ajout training",training);
+				return $http.post("api/collaborateurs",collaborator1);
+			}).then(function(data){
+				collaborator1.id = 2;
+				if(data.data)console.log("ajout collaborator1",collaborator1);
+				return $http.post("api/collaborateurs",collaborator2);
+			}).then(function(data){
+				collaborator2.id = 3;
+				if(data.data)console.log("ajout collaborator2",collaborator2);
 				return $http.post("api/sessions",session1);
 			}).then(function(data){
 				if(data.data)console.log("ajout session1",session1);
 				return $http.post("api/sessions",session2);
 			}).then(function(data){
 				if(data.data)console.log("ajout session2",session2);
-				return $http.post("api/collaborateurs",collaborator1);
-			}).then(function(data){
-				if(data.data)console.log("ajout collaborator1",collaborator1);
-				return $http.post("api/collaborateurs",collaborator2);
-			}).then(function(data){
-				if(data.data)console.log("ajout collaborator2",collaborator2);
-				/*return $http.post("api/requests",{training:1, collaborator: 8, trainingSessions:[]});
-			}).then(function(data){
-				console.log("ajout demande formation",data);*/
 			});
 		}
 	};

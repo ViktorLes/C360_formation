@@ -21,4 +21,14 @@ angular.module('filter').filter('searchByString',[function(){
 		}
 		return listObject;
 	};
-}]);
+}])/*.filter('getSessionsSelected',[function(){
+		var listToSend=[];
+		return function(listTrainingSession) {
+			Array.prototype.push(listToSend, listTrainingSession);
+			listToSend.forEach(function(elem){
+				delete elem.isChecked;
+			});
+			return listToSend;
+		};
+}])
+*/;

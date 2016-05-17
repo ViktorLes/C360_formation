@@ -11,7 +11,6 @@ public class FormationConversionServiceFactoryBean extends ConversionServiceFact
         super.afterPropertiesSet();
         ConversionService conversionService = getObject();
         ConverterRegistry registry = (ConverterRegistry) conversionService;
-        // register converters that need a nested conversion service
         registry.addConverter(new ListTrainingSessionToDTO(conversionService));
     }
 }

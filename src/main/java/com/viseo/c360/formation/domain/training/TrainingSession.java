@@ -74,4 +74,7 @@ public class TrainingSession extends BaseEntity {
 	public void removeCollaborator(Collaborator collaborator) {
 		this.collaborators.remove(collaborator);
 	}
+	public void removeCollaborators(){
+		this.collaborators.clear();
+	}
 }

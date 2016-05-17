@@ -10,18 +10,19 @@ angular.module('controllers')
         //Charge la liste de sessions disponible en fonction de l'ID de training
         //selectionné grâce au 'select box' 
         self.loadTrainingSessions=function() {
-            console.log(self.requestedTraining);
             self.noneSessionSelected = false;
             self.hasToChooseOneTraining = false;
             self.listTrainingSession = [];
-            if (Number.isInteger(self.requestedTrainingId)) $http.get("api/formations/"+self.requestedTraining.id+"/sessions").then(function (data) {
-                Array.prototype.push.apply(self.listTrainingSession, data.data);
-                if(self.listTrainingSession.length === 0) {
-                    self.isListEmpty = true;
-                }
-                else self.isListEmpty = false;
-            });
-        }
+            if (Number.isInteger(self.requestedTraining.id)){
+                $http.get("api/formations/"+self.requestedTraining.id+"/sessions").then(function (data) {
+                    Array.prototype.push.apply(self.listTrainingSession, data.data);
+                    if(self.listTrainingSession.length === 0) {
+                        self.isListEmpty = true;
+                    }
+                    else self.isListEmpty = false;
+                });
+            }
+        };
 
         self.verifyForm = function () {
             self.noneSessionSelected = false;
@@ -44,16 +45,20 @@ angular.module('controllers')
         }
 
         self.saveAction = function() {
-        	/*var listIdTrainingSessions=[];
-        	self.listTrainingSession.forEach(function(element){
-        		if(element.isChecked===true){
-        			listIdTrainingSessions.push(element.id);
-        		}
-        	});*/
+            var getSessionsSelected = function(listTrainingSession) {
+                var listToSend=[];
+                listTrainingSession.forEach(function (elem) {
+                   if(elem.isChecked) listToSend.push(elem);
+                });
+                listToSend.forEach(function(elem){
+                    delete elem.isChecked;
+                });
+                return listToSend;
+            };
         	var myRequest={
-        			training:self.requestedTraining,
-        			trainingSessions:self.listTrainingSession,
-        			collaborator:4
+        			training: self.requestedTraining,
+                    collaborator:2,
+        			trainingSessions: getSessionsSelected(self.listTrainingSession)
         	};
             console.log(myRequest);
         	$http.post("api/requests", myRequest).success(function(data){

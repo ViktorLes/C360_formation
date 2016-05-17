@@ -1,7 +1,9 @@
 package com.viseo.c360.formation.dto.training;
 
+import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.training.Training;
 
+import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -10,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrainingSessionDTO {
+
+    @Id
+    long id;
 
     @NotNull
     @Valid
@@ -35,6 +40,12 @@ public class TrainingSessionDTO {
     String location;
 
     public TrainingSessionDTO(){
+    }
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
     }
     public Training getTraining() {
         return training;
