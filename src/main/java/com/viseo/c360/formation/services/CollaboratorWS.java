@@ -1,5 +1,6 @@
 package com.viseo.c360.formation.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -72,17 +73,31 @@ public class CollaboratorWS {
 		return true;
     }
 
-	@RequestMapping(value = "${endpoint.collaboratorsbysession}",method = RequestMethod.PUT)
+	@RequestMapping(value = "${endpoint.collaboratorsbysession}",method = RequestMethod.POST)
 	@ResponseBody
-	public boolean updateCollaboratorsTrainingSession(@PathVariable Long id, @Valid @RequestBody List<Collaborator> collaborators, BindingResult bindingResult){
+	public boolean affectCollaboratorsTrainingSession(@PathVariable Long id, @Valid @RequestBody List<Collaborator> collaborators, BindingResult bindingResult){
 		try {
 			 TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
 			 if(trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
-			 collaboratorDAO.updateCollaboratorsTrainingSession(trainingSession, collaborators);
+			 collaboratorDAO.affectCollaboratorsTrainingSession(trainingSession, collaborators);
 			 return true;
 		} catch (PersistentObjectNotFoundException e) {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@RequestMapping(value = "${endpoint.collaboratorsNotAffectedBySession}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Collaborator> getNotAffectedCollaboratorsList(@PathVariable Long id){
+
+		try {
+			TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
+			if(trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
+			return collaboratorDAO.getNotAffectedCollaborators(trainingSession);
+		} catch (PersistentObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<>();
 	}
 }

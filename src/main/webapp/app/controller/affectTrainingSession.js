@@ -9,7 +9,7 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
     var self = this;
     self.booleanVariable=false;
     //Récupérer la liste des sessions disponible
-    $http.get("api/sessions").then(function(data){
+        $http.get("api/sessions").then(function(data){
         self.trainingSessionList = data.data;
         self.sessionSelected = self.trainingSessionList[0];
     });
@@ -39,7 +39,7 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
     };
 
     self.saveAction = function(){
-        $http.put("api/sessions/"+self.sessionSelected.id+"/collaborators", self.selectedCollaboratorList).then(function(response){
+        $http.post("api/sessions/"+self.sessionSelected.id+"/collaborators", self.selectedCollaboratorList).then(function(response){
             console.log(response);
             self.booleanVariable=true;
         });

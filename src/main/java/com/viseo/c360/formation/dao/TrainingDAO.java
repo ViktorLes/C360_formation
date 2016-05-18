@@ -4,16 +4,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Date;
 
-import javax.persistence.EntityManager;
-import javax.persistence.FlushModeType;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,8 +70,11 @@ public class TrainingDAO {
 		em.persist(trainingSession);
 	}
 
+	@Transactional
 	public TrainingSession getSessionTraining(long id) {
-		return em.find(TrainingSession.class, id);
+		TrainingSession trainingSession= em.find(TrainingSession.class, id);
+		trainingSession.getCollaborators().size();
+		return  trainingSession;
 	}
 	
 	public boolean isThereOneSessionTrainingAlreadyPlanned(TrainingSession trainingSession){

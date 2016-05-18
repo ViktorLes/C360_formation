@@ -24,7 +24,6 @@ public class RequestTrainingDTO {
 
 	public RequestTrainingDTO() {
 		super();
-		//this.trainingSessions = new ArrayList<>();
 	}
 	public Training getTraining() {
 		return training;
