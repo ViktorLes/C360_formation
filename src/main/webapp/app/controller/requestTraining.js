@@ -42,7 +42,7 @@ angular.module('controllers')
             }else {
                 self.hasToChooseOneTraining = true;
             }
-        }
+        };
 
         self.saveAction = function() {
             var getSessionsSelected = function(listTrainingSession) {
@@ -57,16 +57,14 @@ angular.module('controllers')
             };
         	var myRequest={
         			training: self.requestedTraining,
-                    collaborator:2,
+                    collaborator: 2,
         			trainingSessions: getSessionsSelected(self.listTrainingSession)
         	};
-            console.log(myRequest);
         	$http.post("api/requests", myRequest).success(function(data){
                 console.log(data);
                 if(data === true || data === "true") {
                     document.location.href = 'pageblanche.html';
                 }
         	});
-        }
-
+        };
     }]);

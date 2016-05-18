@@ -12,7 +12,6 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
         self.trainingSessionList = data.data;
         self.sessionSelected = self.trainingSessionList[0];
     });
-
     //Récupérer la liste des collaborateurs disponibles
     $http.get("api/collaborateurs").then(function(data){
         self.availableCollaboratorList = data.data;

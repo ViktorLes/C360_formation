@@ -1,5 +1,6 @@
 .idea/
 .settings/
+bin/
 node_modules/
 target/
 .classpath

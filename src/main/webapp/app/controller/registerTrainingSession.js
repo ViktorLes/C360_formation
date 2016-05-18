@@ -5,7 +5,7 @@ angular.module('controllers')
 
         $http.get("api/formations").then(function(data){
             self.trainings =[];
-            Array.prototype.push.apply(self.trainings,data.data);
+            Array.prototype.push.apply(self.trainings, data.data);
             self.training = self.trainings[0];
         });
 
