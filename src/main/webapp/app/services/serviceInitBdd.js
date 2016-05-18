@@ -14,7 +14,7 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 	var session2={
 			training: training,
 			beginning: "07/05/2016",
-			ending: "10/05/2016",
+			ending: "10/05/20164",
 			beginningTime: "08:00",
 			endingTime: "08:00",
 			location: "Salle Phuket"
