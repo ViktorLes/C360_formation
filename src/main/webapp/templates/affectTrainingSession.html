@@ -27,8 +27,8 @@
                                 <div class="input-group search-field-collaborator-box">
                                     <input ng-model="searchCollaboratorField"
                                            class="search-widget filter form-control filter-unselected"
-                                           type="text" placeholder="Écrire le nom du collaborateur ..."
-                                            autofocus>
+                                           type="text" placeholder="Écrire le nom ou prénom du collaborateur ..."
+                                           autofocus>
                                     </input>
                                     <span class="input-group-addon glyphicon glyphicon-search"></span>
                                 </div>
@@ -39,16 +39,6 @@
                                                 ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>
                                     </li>
                                 </ul>
-                                <style>
-                                    ul li {
-                                        border-top: solid 1px #ddd;
-                                        padding: 10px 8px 10px 8px;
-                                    }
-
-                                    ul li:first-child {
-                                        border-top: 0;
-                                    }
-                                </style>
                                 <div class="row">
                                     <div class="small-2 small-centered columns"
                                          ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
@@ -80,6 +70,7 @@
                 </div>
                 <div>
                     <button class="btn btn-primary" ng-click="AS.verifyForm()">Enregistrer</button>
+                    <span ng-show="AS.booleanVariable">Enregistrement OK</span>
                 </div>
             </div>
         </div>

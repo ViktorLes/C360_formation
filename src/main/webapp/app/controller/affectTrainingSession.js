@@ -7,6 +7,7 @@ angular.module('controllers').
 controller('controllerAffectTraining',['$http','$location','$filter',function($http, $location,$filter){
 
     var self = this;
+    self.booleanVariable=false;
     //Récupérer la liste des sessions disponible
     $http.get("api/sessions").then(function(data){
         self.trainingSessionList = data.data;
@@ -34,17 +35,18 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
     };
 
     self.verifyForm = function(){
-        self.createSessionObjectFromInputText();
+        self.selectSessionObjectFromInputText();
         self.saveAction();
     };
-    
+
     self.saveAction = function(){
         $http.put("api/sessions/"+self.sessionSelected.id+"/collaborators", self.selectedCollaboratorList).then(function(response){
             console.log(response);
+            self.booleanVariable=true;
         });
     };
 
-    self.createSessionObjectFromInputText=function() {
+    self.selectSessionObjectFromInputText=function() {
         var selectedSessionSplittedArray = self.selectedSession.split(/ - | à /);
         self.trainingSessionObject={
             beginning: selectedSessionSplittedArray[1],

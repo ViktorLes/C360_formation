@@ -1,35 +1,45 @@
 
-input[type=number].no-spinner::-webkit-outer-spin-button ,
+input[type=number].no-spinner::-webkit-outer-spin-button,
 input[type=number].no-spinner::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
 input[type=number].no-spinner {
-    -moz-appearance:textfield;
+    -moz-appearance: textfield;
 }
 
 ul {
-list-style:none;
-margin-left:0;
-padding-left:0;
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
 }
 
-.info-text{
+ul li {
+    border-top: solid 1px #ddd;
+    padding: 10px 8px 10px 8px;
+}
+
+ul li:first-child {
+    border-top: 0;
+}
+
+.info-text {
     color: blue;
 }
 
-.warning-text{
+.warning-text {
     color: red;
 }
 
-.search-field-collaborator-box{
+.search-field-collaborator-box {
 }
-.search-widget{
+
+.search-widget {
     display: inline-block;
 }
 
-.collaborator-box{
+.collaborator-box {
     padding-top: 5px;
     overflow-y: scroll;
     height: 200px;
