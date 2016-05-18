@@ -15,18 +15,15 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
 
     //Récupérer la liste des collaborateurs non affectés
     self.loadNotAffectedCollaboratorsList = function () {
-        console.log("fonction appelée",self.trainingSessionList);
         self.availableCollaboratorList=[];
         self.selectedCollaboratorList=[];
         var elem = self.selectSessionObjectFromInputText();
         if (elem) {
             $http.get("api/sessions/"+elem.id+"/collaboratorsnotaffected").then(function (data) {
                 self.availableCollaboratorList = data.data;
-                console.log("availableCollaboratorList : ", self.availableCollaboratorList);
             });
             $http.get("api/sessions/"+elem.id+"/collaboratorsaffected").then(function (data) {
                 self.selectedCollaboratorList = data.data;
-                console.log("selectedCollaboratorList : ", self.selectedCollaboratorList);
             });
         }
     }
@@ -51,7 +48,6 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
 
     self.saveAction = function () {
         $http.put("api/sessions/" + self.sessionSelected.id + "/collaborators", self.selectedCollaboratorList).then(function (response) {
-            console.log(response);
             self.booleanVariable = true;
         });
     };

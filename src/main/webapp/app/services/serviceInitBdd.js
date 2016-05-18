@@ -33,12 +33,10 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 	return {
 		init:function(){
 			$http.post("api/formations",training).then(function(data){
-				console.log("first data: ",data);
 				training.id = 1;
 				if(data.data)console.log("ajout training",training);
 				return $http.post("api/collaborateurs",collaborator1);
 			}).then(function(data){
-				console.log("first data2: ",data);
 				collaborator1.id = 2;
 				if(data.data)console.log("ajout collaborator1",collaborator1);
 				return $http.post("api/collaborateurs",collaborator2);
@@ -50,7 +48,6 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 				if(data.data)console.log("ajout session1",session1);
 				return $http.post("api/sessions",session2);
 			}).then(function(data){
-				console.log("this data: ",data);
 				if(data.data)console.log("ajout session2",session2);
 			});
 		}
