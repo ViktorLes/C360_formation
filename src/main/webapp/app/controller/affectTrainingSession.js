@@ -16,6 +16,7 @@ controller('controllerAffectTraining',['$http','$location','$filter',function($h
     //Récupérer la liste des collaborateurs disponibles
     $http.get("api/collaborateurs").then(function(data){
         self.availableCollaboratorList = data.data;
+        self.selectedCollaboratorList=[];
         console.log("liste : ",self.availableCollaboratorList);
     });
 
