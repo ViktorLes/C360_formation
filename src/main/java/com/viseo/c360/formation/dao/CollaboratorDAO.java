@@ -55,6 +55,7 @@ public class CollaboratorDAO {
     @Transactional
     public void affectCollaboratorsTrainingSession(TrainingSession myTrainingSession, List<Collaborator> collaborators) {
         myTrainingSession = em.merge(myTrainingSession);
+        myTrainingSession.removeCollaborators();
         for (Collaborator myCollaborator : collaborators) {
             myTrainingSession.addCollaborator(myCollaborator);
         }

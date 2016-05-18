@@ -73,7 +73,7 @@ public class CollaboratorWS {
 		return true;
     }
 
-	@RequestMapping(value = "${endpoint.collaboratorsbysession}",method = RequestMethod.POST)
+	@RequestMapping(value = "${endpoint.collaboratorsbysession}",method = RequestMethod.PUT)
 	@ResponseBody
 	public boolean affectCollaboratorsTrainingSession(@PathVariable Long id, @Valid @RequestBody List<Collaborator> collaborators, BindingResult bindingResult){
 		try {
@@ -90,11 +90,23 @@ public class CollaboratorWS {
 	@RequestMapping(value = "${endpoint.collaboratorsNotAffectedBySession}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Collaborator> getNotAffectedCollaboratorsList(@PathVariable Long id){
-
 		try {
 			TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
 			if(trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
 			return collaboratorDAO.getNotAffectedCollaborators(trainingSession);
+		} catch (PersistentObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<>();
+	}
+
+	@RequestMapping(value = "${endpoint.collaboratorsAffectedBySession}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Collaborator> getAffectedCollaboratorsList(@PathVariable Long id){
+		try {
+			TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
+			if(trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
+			return trainingSession.getCollaborators();
 		} catch (PersistentObjectNotFoundException e) {
 			e.printStackTrace();
 		}
