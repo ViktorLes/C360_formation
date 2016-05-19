@@ -27,7 +27,7 @@ angular.module('controllers')
         self.verifyForm = function () {
             self.noneSessionSelected = false;
             self.hasToChooseOneTraining = false;
-            if (Number.isInteger(self.requestedTraining.id)) {
+            if (self.requestedTraining) {
                 if (typeof self.listTrainingSession !== 'undefined' ) {
                     if(self.isListEmpty){
                         //envoi au serveur une demande de session non programmée
@@ -40,6 +40,7 @@ angular.module('controllers')
                     }
                 }
             }else {
+                console.log("coucou Riheb !");
                 self.hasToChooseOneTraining = true;
             }
         };

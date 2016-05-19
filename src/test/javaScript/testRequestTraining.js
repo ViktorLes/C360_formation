@@ -18,7 +18,6 @@ describe('Demande de Formation', function() {
         expect(ctrl.noneSessionSelected).toBeFalsy();
         expect(ctrl.hasToChooseOneTraining).toBeFalsy();
         expect(ctrl.isListEmpty).toBeFalsy();
-        ctrl.requestedTraining = {id: null};
     }));
 
     afterEach(function () {
@@ -54,14 +53,14 @@ describe('Demande de Formation', function() {
     });
 
     it('4) Demande de formation sans selection au préalable', function() {
-        expect(ctrl.requestedTraining.id).toBeNull();
+        expect(ctrl.requestedTraining).toBeUndefined();
         expect(ctrl.listTrainingSession).toBeUndefined();
         ctrl.verifyForm();
         expect(ctrl.hasToChooseOneTraining).toBeTruthy();
     });
 
     it('5) Demande de formation sans sessions sélectionnées', function () {
-        ctrl.requestedTraining.id = 1;
+        ctrl.requestedTraining = {id: 1};
         ctrl.loadTrainingSessions();
         backend.expectGET('api/formations/1/sessions').respond(sessionsFromTraining);
         backend.flush();
