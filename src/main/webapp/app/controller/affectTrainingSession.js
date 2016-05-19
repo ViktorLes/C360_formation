@@ -17,12 +17,12 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
     self.loadNotAffectedCollaboratorsList = function () {
         self.availableCollaboratorList=[];
         self.selectedCollaboratorList=[];
-        var elem = self.selectSessionObjectFromInputText();
-        if (elem) {
-            $http.get("api/sessions/"+elem.id+"/collaboratorsnotaffected").then(function (data) {
+        self.sessionSelected = self.selectSessionObjectFromInputText();
+        if(self.sessionSelected){
+            $http.get("api/sessions/"+self.sessionSelected.id+"/collaboratorsnotaffected").then(function (data) {
                 self.availableCollaboratorList = data.data;
             });
-            $http.get("api/sessions/"+elem.id+"/collaboratorsaffected").then(function (data) {
+            $http.get("api/sessions/"+self.sessionSelected.id+"/collaboratorsaffected").then(function (data) {
                 self.selectedCollaboratorList = data.data;
             });
         }
@@ -42,8 +42,9 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
     };
 
     self.verifyForm = function () {
-        self.selectSessionObjectFromInputText();
-        self.saveAction();
+       if(self.sessionSelected){
+           self.saveAction(); 
+       } 
     };
 
     self.saveAction = function () {
