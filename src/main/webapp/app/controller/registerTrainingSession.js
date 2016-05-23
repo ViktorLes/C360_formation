@@ -1,7 +1,7 @@
 angular.module('controllers')
     .controller('controllerRegisterTrainingSession', ['DatepickerService','$http','$filter',function(datepicker,$http,$filter) {
         var self = this;
-        self.isSessionAlreadyPlanned = true;
+        self.isSessionAlreadyPlanned = false;
 
         $http.get("api/formations").then(function(data){
             self.trainings =[];
