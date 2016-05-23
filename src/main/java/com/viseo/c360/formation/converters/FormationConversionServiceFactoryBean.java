@@ -6,6 +6,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.ConverterRegistry;
 
 public class FormationConversionServiceFactoryBean extends ConversionServiceFactoryBean {
+
     @Override
     public void afterPropertiesSet() {
         super.afterPropertiesSet();

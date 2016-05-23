@@ -34,9 +34,7 @@ public class RequestTraining extends BaseEntity {
         this.listSession = new ArrayList<>();
     }
 
-    public Collaborator getCollaborator() {
-        return collaborator;
-    }
+    public Collaborator getCollaborator() { return collaborator; }
 
     public void setCollaborator(Collaborator collaborator) {
         this.collaborator = collaborator;

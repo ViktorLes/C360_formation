@@ -1,7 +1,6 @@
 package com.viseo.c360.formation.converters.trainingsession;
 
 import com.viseo.c360.formation.dao.TrainingDAO;
-import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.training.TrainingSessionDTO;

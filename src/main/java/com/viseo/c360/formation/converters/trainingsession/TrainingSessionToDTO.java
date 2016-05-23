@@ -31,6 +31,7 @@ public class TrainingSessionToDTO implements Converter<TrainingSession, Training
                     new Throwable(e.getMessage())
             );
         }
+
         SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
         SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
         dto.setId(source.getId());
@@ -42,6 +43,4 @@ public class TrainingSessionToDTO implements Converter<TrainingSession, Training
         dto.setLocation(source.getLocation());
         return dto;
     }
-
-
 }

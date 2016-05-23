@@ -10,6 +10,7 @@ import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
 
 public class RequestTrainingDTO {
+
 	@NotNull
 	@Valid
 	Training training;
@@ -26,6 +27,7 @@ public class RequestTrainingDTO {
 		super();
 		//this.trainingSessions = new ArrayList<>();
 	}
+
 	public Training getTraining() {
 		return training;
 	}
