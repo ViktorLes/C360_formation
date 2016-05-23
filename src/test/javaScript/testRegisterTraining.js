@@ -1,18 +1,17 @@
-describe('Declaration Formation', function() {
+describe('Declaration Formation', function () {
     var ctrl;
     var backend;
     var loc;
 
     beforeEach(module('App'));
 
-    beforeEach(inject(function($controller, $httpBackend, $location){
+    beforeEach(inject(function ($controller, $httpBackend, $location) {
         backend = $httpBackend;
         loc = $location;
         ctrl = $controller('controllerRegisterTraining');
-
     }));
 
-    describe('Test DeclarationFormation',function () {
+    describe('Test DeclarationFormation', function () {
 
         beforeEach(function () {
             backend.expectGET('api/formations/regex').respond('{"TRAINING_TITLE":"^[a-zA-Z0-9+#\'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$","NUMBER_HALF_DAYS":"^[0-9]+$"}');
@@ -21,11 +20,10 @@ describe('Declaration Formation', function() {
             ctrl.training.numberHaldDays = "4";
         });
 
-        afterEach(function(){
+        afterEach(function () {
             backend.verifyNoOutstandingExpectation();
             backend.verifyNoOutstandingRequest();
         });
-
 
         it('Valide', function () {
             ctrl.saveAction();
@@ -42,10 +40,5 @@ describe('Declaration Formation', function() {
             expect(ctrl.isNewTrainingTitle).toBeFalsy();
             //expect(loc.path()).toEqual('#/EnregistrementCollaborateur');
         });
-
     });
-
 });
-
-
-

@@ -35,8 +35,8 @@ angular.module('controllers')
         self.trainingLocation = 'Salle Phuket';
         self.isFalseForm = false;
 
-        self.verifyForm=function(sessionForm){
-            if(sessionForm.$invalid == false){
+        self.verifyForm=function(sessionFormIsInvalid){
+            if(sessionFormIsInvalid == false){
                 self.saveAction();
             }
             else{
@@ -72,7 +72,7 @@ angular.module('controllers')
             var session = {
                 training: self.training,
                 beginning: $filter('date')(self.d1.dt,"dd/MM/yyyy"),
-                ending:  $filter('date')(self.d2.dt,"dd/MM/yyyy"),
+                ending: $filter('date')(self.d2.dt,"dd/MM/yyyy"),
                 beginningTime: self.beginningHour,
                 endingTime: self.endHour,
                 location: self.trainingLocation
@@ -80,11 +80,11 @@ angular.module('controllers')
             console.log(session);
             $http.post("api/sessions", session).success(function(data){
                 if(data == "true" || data == true) {
-                    self.isSessionAlreadyPlanned = true;
+                    self.isSessionAlreadyPlanned = false;
                     document.location.href = 'pageblanche.html';
                 }else
                 {
-                    self.isSessionAlreadyPlanned = false;
+                    self.isSessionAlreadyPlanned = true;
                 }
             });
         }
