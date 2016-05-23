@@ -22,7 +22,16 @@ public class TrainingSessionToDTO implements Converter<TrainingSession, Training
         Training training = trainingDAO.getTraining(source.getTraining().getId());
         try {
              if(training == null) throw new PersistentObjectNotFoundException(source.getTraining().getId(), Training.class);
-        } catch (PersistentObjectNotFoundException e) {
+            SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
+            dto.setId(source.getId());
+            dto.setTraining(training);
+            dto.setBeginning(formatterDate.format(source.getBeginning()));
+            dto.setBeginningTime(formatterTime.format(source.getBeginning()));
+            dto.setEnding(formatterDate.format(source.getEnding()));
+            dto.setEndingTime(formatterTime.format(source.getEnding()));
+            dto.setLocation(source.getLocation());
+        } catch (Exception e) {
             e.printStackTrace();
             throw new ConversionFailedException(
                     TypeDescriptor.valueOf(TrainingSession.class),
@@ -31,16 +40,6 @@ public class TrainingSessionToDTO implements Converter<TrainingSession, Training
                     new Throwable(e.getMessage())
             );
         }
-
-        SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
-        dto.setId(source.getId());
-        dto.setTraining(training);
-        dto.setBeginning(formatterDate.format(source.getBeginning()));
-        dto.setBeginningTime(formatterTime.format(source.getBeginning()));
-        dto.setEnding(formatterDate.format(source.getEnding()));
-        dto.setEndingTime(formatterTime.format(source.getEnding()));
-        dto.setLocation(source.getLocation());
         return dto;
     }
 }

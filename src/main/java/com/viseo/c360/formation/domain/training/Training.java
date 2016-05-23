@@ -11,13 +11,7 @@ import javax.validation.constraints.Pattern;
 @Entity
 public class Training extends BaseEntity {
 
-	public static class Regex{
-		public static final String TRAINING_TITLE = "[a-zA-Z0-9+#'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
-		public static final String NUMBER_HALF_DAYS = "[0-9]";
-	}
-
 	@NotNull
-	@Pattern(regexp= Training.Regex.TRAINING_TITLE +"*")
 	String trainingTitle;
 
 	@NotNull

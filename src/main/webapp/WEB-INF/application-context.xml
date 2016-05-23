@@ -21,6 +21,10 @@
 			<set>
 				<bean class="com.viseo.c360.formation.converters.trainingsession.TrainingSessionToDTO"/>
 				<bean class="com.viseo.c360.formation.converters.trainingsession.DtoToTrainingSession"/>
+				<bean class="com.viseo.c360.formation.converters.collaborator.CollaboratorToDTO"/>
+				<bean class="com.viseo.c360.formation.converters.collaborator.DtoToCollaborator"/>
+				<bean class="com.viseo.c360.formation.converters.training.TrainingToDTO"/>
+				<bean class="com.viseo.c360.formation.converters.training.DtoToTraining"/>
 			</set>
 		</property>
 	</bean>
