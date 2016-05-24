@@ -41,7 +41,7 @@ public class CollaboratorWS {
 		}
 		return false;
     }
-	
+
 	@RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.GET)
 	@ResponseBody
     public List<Collaborator> getAllCollaborators(){

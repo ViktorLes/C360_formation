@@ -7,21 +7,22 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.viseo.c360.formation.domain.training.Training;
+import com.viseo.c360.formation.dto.training.TrainingDTO;
 import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
 
 public class RequestTrainingDTO {
 
 	@NotNull
 	@Valid
-	Training training;
+	TrainingDTO trainingDTO;
 
 	@NotNull
 	@Valid
-	List<TrainingSessionDTO> trainingSessions;
+	List<TrainingSessionDTO> trainingSessionsDtos;
 
 	@NotNull
 	@Min(value = 1)
-	long collaborator;
+	CollaboratorDTO collaboratorDTO;
 
 	public RequestTrainingDTO() {
 		super();

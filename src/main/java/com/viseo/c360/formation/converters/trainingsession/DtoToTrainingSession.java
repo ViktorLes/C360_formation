@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import java.text.SimpleDateFormat;
 
 public class DtoToTrainingSession implements Converter<TrainingSessionDTO, TrainingSession> {
+
     @Inject
     TrainingDAO trainingDAO;
 

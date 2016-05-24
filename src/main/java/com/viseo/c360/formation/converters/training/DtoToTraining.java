@@ -14,9 +14,9 @@ import javax.inject.Inject;
 
 public class DtoToTraining implements Converter <TrainingDTO, Training> {
 
+    @Inject
     TrainingDAO trainingDAO;
 
-    @Inject
     public Training convert (TrainingDTO dto){
         Training domain = new Training();
         try{

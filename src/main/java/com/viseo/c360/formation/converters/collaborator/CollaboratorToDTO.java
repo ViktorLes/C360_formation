@@ -32,5 +32,4 @@ public class CollaboratorToDTO implements Converter <Collaborator, CollaboratorD
         }
     return dto;
     }
-
 }
