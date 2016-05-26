@@ -27,10 +27,6 @@ ul li:first-child {
     color: blue;
 }
 
-.warning-text {
-    color: red;
-}
-
 .search-widget {
     display: inline-block;
 }
@@ -55,4 +51,9 @@ ul li:first-child {
     right: 0px;
     padding: 10px 12px;
     pointer-events: none;
+}
+
+.alert{
+    position: absolute;
+    left: 100px;
 }

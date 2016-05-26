@@ -34,20 +34,15 @@
                                 </div>
 
                                 <ul>
-                                    <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList | searchByString: searchCollaboratorField:'firstName':'lastName')">
+                                    <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList | searchByString: searchCollaboratorField:'firstName':'lastName' | orderBy:'lastName')">
                                         <span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
                                         <button class="glyphicon glyphicon-chevron-right btn btn-xs btn-default btn-success pull-right"
                                                 ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>
                                     </li>
                                 </ul>
-                                <div class="row">
-                                    <div class="small-2 small-centered columns"
-                                         ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
-                                        <div data-alert class="alert-box info">
-                                            <h5><strong>Aucun résultat trouvé</strong></h5>
+                                        <div alert class="row alert alert-danger" ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
+                                            <strong>Aucun résultat trouvé</strong>
                                         </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-2 center-block" style="margin-top: 80px">
