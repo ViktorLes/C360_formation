@@ -11,7 +11,8 @@
 
             <div class="panel-body">
                 <h5><span class="label label-default">Sessions:</span></h5>
-                <input ng-change="AS.loadNotAffectedCollaboratorsList()" ng-model="AS.selectedSession" ng-blur="AS.alert('toto')" title="Selectionner une session"
+                <input ng-change="AS.loadNotAffectedCollaboratorsList()" ng-model="AS.selectedSession"
+                       ng-blur="AS.alert('toto')" title="Selectionner une session"
                        class="filter form-control filter-unselected" list="SessionDataListFilter"
                        placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
                 <datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">
@@ -24,14 +25,14 @@
                         <div class="col-md-5">
                             <h5><span class="label label-default" id="gauche">Chercher collaborateurs</span></h5>
                             <div class="collaborator-box">
-                                <div class="input-group search-field-collaborator-box">
+                                <div class="right-inner-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
                                     <input ng-model="searchCollaboratorField"
                                            class="search-widget filter form-control filter-unselected"
                                            type="text" placeholder="Écrire le nom ou prénom du collaborateur ..."
-                                           autofocus>
-                                    </input>
-                                    <span class="input-group-addon glyphicon glyphicon-search"></span>
+                                           autofocus/>
                                 </div>
+
                                 <ul>
                                     <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList | searchByString: searchCollaboratorField:'firstName':'lastName')">
                                         <span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
@@ -75,3 +76,4 @@
             </div>
         </div>
     </div>
+</div>
