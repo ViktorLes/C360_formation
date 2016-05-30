@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
     </div>
 
-    <div class="col-md-7">
+    <div class="col-md-6">
         <div class="panel panel-default">
 
             <div class="panel-heading">
@@ -12,7 +12,7 @@
             <div class="panel-body">
                 <h5><span class="label label-default">Sessions:</span></h5>
                 <input ng-change="AS.loadNotAffectedCollaboratorsList()" ng-model="AS.selectedSession"
-                       ng-blur="AS.alert('toto')" title="Selectionner une session"
+                       title="Selectionner une session"
                        class="filter form-control filter-unselected" list="SessionDataListFilter"
                        placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
                 <datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">
@@ -34,15 +34,17 @@
                                 </div>
 
                                 <ul>
-                                    <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList | searchByString: searchCollaboratorField:'firstName':'lastName' | orderBy:'lastName')">
+                                    <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList |
+                                     searchByString: searchCollaboratorField:'firstName':'lastName' | orderBy:'firstName')">
                                         <span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
                                         <button class="glyphicon glyphicon-chevron-right btn btn-xs btn-default btn-success pull-right"
                                                 ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>
                                     </li>
                                 </ul>
-                                        <div alert class="row alert alert-danger" ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
-                                            <strong>Aucun résultat trouvé</strong>
-                                        </div>
+                                <div alert class="center-block row text-center alert alert-danger small"
+                                     ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
+                                    <strong>Aucun résultat trouvé</strong>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-2 center-block" style="margin-top: 80px">
@@ -65,8 +67,26 @@
                     </div>
                 </div>
                 <div>
-                    <button class="btn btn-primary" ng-click="AS.verifyForm()">Enregistrer</button>
-                    <span ng-show="AS.booleanVariable">Enregistrement OK</span>
+                    <button class="center-block btn btn-primary" ng-click="AS.verifyForm()">Enregistrer</button>
+                </div>
+                <br>
+                <div>
+                    <span class="center-block col-sm-6 text-center nter-block small alert alert-success"
+                          ng-show="AS.booleanVariable">
+                        <strong>Vos modifications ont bien été enregistrées</strong>
+                    </span>
+                </div>
+                <div>
+                    <span class="center-block col-sm-6 text-center nter-block small alert alert-danger"
+                          ng-show="AS.boolErrNoSessionSelected === true">
+                        <strong>Erreur: </strong> Aucune session n'a été selectionnée
+                    </span>
+                </div>
+                <div>
+                    <span class="center-block col-sm-6 text-center nter-block small alert alert-danger"
+                          ng-show="AS.boolErrEmptyCollaboratorList === true">
+                        <strong>Veuillez ajouter des collaborateurs à la session</strong>
+                    </span>
                 </div>
             </div>
         </div>

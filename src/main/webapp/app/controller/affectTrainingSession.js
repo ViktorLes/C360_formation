@@ -3,10 +3,12 @@
 //***** Description: moveItem / moveAll / CtrlItemIsSelectedTOEnableOrDisableButton
 //*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
 //************************************************************************************//
-angular.module('controllers').controller('controllerAffectTraining', ['$http', '$location', '$filter', function ($http, $location, $filter) {
+angular.module('controllers').controller('controllerAffectTraining', ['$http', '$location', '$filter','$timeout', function ($http, $location, $filter,$timeout) {
 
     var self = this;
     self.booleanVariable = false;
+    self.boolErrNoSessionSelected = false;
+    self.boolErrEmptyCollaboratorList = false;
     //Récupérer la liste des sessions disponible
     $http.get("api/sessions").then(function (data) {
         self.trainingSessionList = data.data;
@@ -15,14 +17,15 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
 
     //Récupérer la liste des collaborateurs non affectés
     self.loadNotAffectedCollaboratorsList = function () {
-        self.availableCollaboratorList=[];
-        self.selectedCollaboratorList=[];
+        self.availableCollaboratorList = [];
+        self.selectedCollaboratorList = [];
+        self.boolErrNoSessionSelected = false;
         self.sessionSelected = self.selectSessionObjectFromInputText();
-        if(self.sessionSelected){
-            $http.get("api/sessions/"+self.sessionSelected.id+"/collaboratorsnotaffected").then(function (data) {
+        if (self.sessionSelected) {
+            $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsnotaffected").then(function (data) {
                 self.availableCollaboratorList = data.data;
             });
-            $http.get("api/sessions/"+self.sessionSelected.id+"/collaboratorsaffected").then(function (data) {
+            $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsaffected").then(function (data) {
                 self.selectedCollaboratorList = data.data;
             });
         }
@@ -34,6 +37,7 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
 
     //déplace d'une liste à une autre
     self.moveItem = function (item, from, to) {
+        self.boolErrEmptyCollaboratorList = false;
         var idx = from.indexOf(item);
         if (idx != -1) {
             from.splice(idx, 1);
@@ -42,9 +46,19 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
     };
 
     self.verifyForm = function () {
-       if(self.sessionSelected){
-           self.saveAction(); 
-       } 
+        if (self.selectedSession !== undefined && self.selectedSession !== "") {
+            if (self.selectedCollaboratorList.length !== 0) {
+                if (self.sessionSelected) {
+                    self.saveAction();
+                    self.setConfirmationMessageTimOut();
+                }
+            }
+            else
+                self.boolErrEmptyCollaboratorList = true;
+        }
+        else {
+            self.boolErrNoSessionSelected = true;
+        }
     };
 
     self.saveAction = function () {
@@ -52,6 +66,12 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
             self.booleanVariable = true;
         });
     };
+
+    self.setConfirmationMessageTimOut=function () {
+        $timeout(function() {
+            self.booleanVariable=false;
+        },3000);
+    }
 
     self.selectSessionObjectFromInputText = function () {
         var selectedSessionSplittedArray = self.selectedSession.split(/ - | à /);
