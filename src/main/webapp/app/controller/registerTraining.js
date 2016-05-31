@@ -26,7 +26,7 @@ angular.module('controllers')
             $http.post("api/formations", self.training).success(function(data){
                if(data == "true" || data == true){
                     self.isNewTrainingTitle = true;
-                    document.location.href = 'pageblancheformation.html';
+                    /*document.location.href = 'pageblancheformation.html';*/
                 }
                 else {
                     self.isNewTrainingTitle = false;
