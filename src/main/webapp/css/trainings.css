@@ -10,6 +10,7 @@ input[type=number].no-spinner {
 
 ul {
     list-style: none;
+    padding-top: 40px;
     margin-left: 0;
     padding-left: 0;
 }
@@ -40,6 +41,11 @@ ul li:first-child {
 
 .right-inner-addon {
     position: relative;
+}
+
+.searchBox {
+    position: fixed;
+    z-index: 100;
 }
 
 .right-inner-addon input {

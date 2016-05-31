@@ -25,12 +25,14 @@
                         <div class="col-md-5">
                             <h5><span class="label label-default" id="gauche">Chercher collaborateurs</span></h5>
                             <div class="collaborator-box">
-                                <div class="right-inner-addon">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                    <input ng-model="searchCollaboratorField"
-                                           class="search-widget filter form-control filter-unselected"
-                                           type="text" placeholder="Écrire le nom ou prénom du collaborateur ..."
-                                           autofocus/>
+                                <div class="searchBox col-md-2">
+                                    <div class="right-inner-addon">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                        <input ng-model="searchCollaboratorField" id="search"
+                                               class="search-widget filter form-control filter-unselected"
+                                               type="text" placeholder="Écrire le nom ou prénom du collaborateur ..."
+                                               autofocus/>
+                                    </div>
                                 </div>
 
                                 <ul>
@@ -80,12 +82,6 @@
                     <button class="center-block small alert alert-danger"
                             ng-show="AS.boolErrNoSessionSelected === true">
                         <strong>Erreur: </strong> Aucune session n'a été selectionnée
-                    </button>
-                </div>
-                <div>
-                    <button class="center-block small alert alert-danger"
-                            ng-show="AS.boolErrEmptyCollaboratorList === true">
-                        <strong>Veuillez ajouter des collaborateurs à la session</strong>
                     </button>
                 </div>
             </div>

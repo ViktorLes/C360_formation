@@ -3,12 +3,11 @@
 //***** Description: moveItem / moveAll / CtrlItemIsSelectedTOEnableOrDisableButton
 //*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
 //************************************************************************************//
-angular.module('controllers').controller('controllerAffectTraining', ['$http', '$location', '$filter','$timeout', function ($http, $location, $filter,$timeout) {
+angular.module('controllers').controller('controllerAffectTraining', ['$http', '$location', '$filter', '$timeout', function ($http, $location, $filter, $timeout) {
 
     var self = this;
     self.booleanVariable = false;
     self.boolErrNoSessionSelected = false;
-    self.boolErrEmptyCollaboratorList = false;
     //Récupérer la liste des sessions disponible
     $http.get("api/sessions").then(function (data) {
         self.trainingSessionList = data.data;
@@ -37,7 +36,6 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
 
     //déplace d'une liste à une autre
     self.moveItem = function (item, from, to) {
-        self.boolErrEmptyCollaboratorList = false;
         var idx = from.indexOf(item);
         if (idx != -1) {
             from.splice(idx, 1);
@@ -47,14 +45,10 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
 
     self.verifyForm = function () {
         if (self.selectedSession !== undefined && self.selectedSession !== "") {
-            if (self.selectedCollaboratorList.length !== 0) {
-                if (self.sessionSelected) {
-                    self.saveAction();
-                    self.setConfirmationMessageTimOut();
-                }
+            if (self.sessionSelected) {
+                self.saveAction();
+                self.setConfirmationMessageTimOut();
             }
-            else
-                self.boolErrEmptyCollaboratorList = true;
         }
         else {
             self.boolErrNoSessionSelected = true;
@@ -67,10 +61,10 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
         });
     };
 
-    self.setConfirmationMessageTimOut=function () {
-        $timeout(function() {
-            self.booleanVariable=false;
-        },3000);
+    self.setConfirmationMessageTimOut = function () {
+        $timeout(function () {
+            self.booleanVariable = false;
+        }, 3000);
     }
 
     self.selectSessionObjectFromInputText = function () {
