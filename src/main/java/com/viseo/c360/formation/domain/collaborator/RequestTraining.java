@@ -44,9 +44,7 @@ public class RequestTraining extends BaseEntity {
         return training;
     }
 
-    public void setTraining(Training training) {
-        this.training = training;
-    }
+    public void setTraining(Training training) { this.training = training; }
 
     public List<TrainingSession> getListSession() {
         return Collections.unmodifiableList(listSession);

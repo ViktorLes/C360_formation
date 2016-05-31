@@ -22,8 +22,8 @@ public class DtoToTrainingSession implements Converter<TrainingSessionDTO, Train
         SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy|HH:mm");
         try{
             if(dto.getId() > 0) domain.setId(dto.getId());
-            Training training = trainingDAO.getTraining(dto.getTraining().getId());
-            if(training == null) throw new PersistentObjectNotFoundException(dto.getTraining().getId(), TrainingSession.class);
+            Training training = trainingDAO.getTraining(dto.getTrainingDTO().getId());
+            if(training == null) throw new PersistentObjectNotFoundException(dto.getTrainingDTO().getId(), TrainingSession.class);
             domain.setTraining(training);
             domain.setBeginning(formatterDate.parse(dto.getBeginning()+"|"+dto.getBeginningTime()));
             domain.setEnding(formatterDate.parse(dto.getEnding()+"|"+dto.getEndingTime()));

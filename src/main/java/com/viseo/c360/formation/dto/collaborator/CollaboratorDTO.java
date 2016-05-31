@@ -1,40 +1,22 @@
 package com.viseo.c360.formation.dto.collaborator;
 
+import com.viseo.c360.formation.dto.BaseDTO;
 
-import javax.persistence.Id;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+public class CollaboratorDTO extends BaseDTO{
 
-public class CollaboratorDTO {
+    public static class Regex{
+        public static final String PERSONNAL_ID_NUMBER = "[A-Z0-9]";
+        public static final String LAST_NAME = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+        public static final String FIRST_NAME = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+    }
 
-    @Id
-    long id;
-
-    @NotNull
-    @Pattern(regexp="[A-Z0-9]")
-    @Valid
     String personnalIdNumber;
 
-    @NotNull
-    @Pattern(regexp="[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]")
-    @Valid
     String lastName;
 
-    @NotNull
-    @Pattern(regexp="[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]")
-    @Valid
     String firstName;
 
     public CollaboratorDTO() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getPersonnalIdNumber() {
@@ -53,9 +35,7 @@ public class CollaboratorDTO {
         this.lastName = lastName;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+    public String getFirstName() { return firstName; }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

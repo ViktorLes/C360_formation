@@ -10,25 +10,17 @@ import javax.validation.constraints.Size;
 @Entity
 public class Collaborator extends BaseEntity {
 
-	public static class Regex{
-		public static final String PERSONNAL_ID_NUMBER = "[A-Z0-9]";
-		public static final String LAST_NAME = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
-		public static final String FIRST_NAME = "[a-zA-Z-'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
-	}
 
 	@NotNull
 	@Size(min=3, max=20)
-	@Pattern(regexp= Collaborator.Regex.PERSONNAL_ID_NUMBER +"*")
 	String personnalIdNumber;
 	
 	@NotNull
 	@Size(min=2, max=125)
-	@Pattern(regexp= Collaborator.Regex.LAST_NAME +"*")
 	String lastName;
 	
 	@NotNull
 	@Size(min=2, max=125)
-	@Pattern(regexp= Collaborator.Regex.FIRST_NAME +"*")
 	String firstName;
 	
 	public Collaborator() {

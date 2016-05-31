@@ -1,35 +1,20 @@
 package com.viseo.c360.formation.dto.training;
 
 
-import javax.persistence.Id;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import com.viseo.c360.formation.dto.BaseDTO;
 
-public class TrainingDTO {
+public class TrainingDTO extends BaseDTO{
 
-    @Id
-    long id;
+    public static class Regex{
+        public static final String TRAINING_TITLE = "[a-zA-Z0-9+#'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";
+        public static final String NUMBER_HALF_DAYS = "[0-9]";
+    }
 
-    @NotNull
-    @Pattern(regexp = "[a-zA-Z0-9+#'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]")
-    @Valid
     String trainingTitle;
 
-    @NotNull
-    @Pattern(regexp = "[0-9]")
-    @Valid
     int numberHalfDays;
 
     public TrainingDTO() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getTrainingTitle() {
