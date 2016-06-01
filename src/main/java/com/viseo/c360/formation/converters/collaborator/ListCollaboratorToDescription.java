@@ -2,22 +2,20 @@ package com.viseo.c360.formation.converters.collaborator;
 
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
-import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.converter.Converter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ListCollaboratorToDTO {
+public class ListCollaboratorToDescription {
 
-    public ListCollaboratorToDTO() {
+    public ListCollaboratorToDescription() {
     }
 
     public List<CollaboratorDescription> convert(List<Collaborator> sourceList) {
         List<CollaboratorDescription> listDto = new ArrayList<>();
         for (Collaborator collaborator : sourceList) {
-            listDto.add(new CollaboratorToDTO().convert(collaborator));
+            listDto.add(new CollaboratorToDescription().convert(collaborator));
         }
         return listDto;
     }

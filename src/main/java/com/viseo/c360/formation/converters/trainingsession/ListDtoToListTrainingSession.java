@@ -17,7 +17,7 @@ public class ListDtoToListTrainingSession{
         List<TrainingSession> list = new ArrayList<>();
         for(TrainingSessionDescription trainingSessionDescription : ListDTO)
         {
-            //list.add(conversionService.convert(trainingSessionDescription, TrainingSession.class));
+            list.add();
         }
         return list;
     }

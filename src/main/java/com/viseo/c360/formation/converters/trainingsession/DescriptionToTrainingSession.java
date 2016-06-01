@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class DtoToTrainingSession {
+public class DescriptionToTrainingSession {
 
     public TrainingSession convert(TrainingSessionDescription dto, Training training) {
         TrainingSession domain = new TrainingSession();

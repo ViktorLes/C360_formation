@@ -10,9 +10,9 @@ import org.springframework.core.convert.converter.Converter;
 
 import javax.inject.Inject;
 
-public class DtoToTraining {
+public class DescriptionToTraining {
 
-    public DtoToTraining() {
+    public DescriptionToTraining() {
     }
 
     public Training convert(TrainingDescription dto) {
