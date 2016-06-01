@@ -11,22 +11,15 @@ import javax.inject.Inject;
 
 public class CollaboratorToDTO {
 
-    public CollaboratorDescription convert (Collaborator source){
+    public CollaboratorToDTO() {
+    }
+
+    public CollaboratorDescription convert(Collaborator source) {
         CollaboratorDescription dto = new CollaboratorDescription();
-        try {
-            dto.setId(source.getId());
-            dto.setPersonnalIdNumber(source.getPersonnalIdNumber());
-            dto.setLastName(source.getLastName());
-            dto.setFirstName(source.getFirstName());
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ConversionFailedException(
-                    TypeDescriptor.valueOf(Collaborator.class),
-                    TypeDescriptor.valueOf(CollaboratorDescription.class),
-                    source,
-                    new Throwable(e.getMessage())
-            );
-        }
-    return dto;
+        dto.setId(source.getId());
+        dto.setPersonnalIdNumber(source.getPersonnalIdNumber());
+        dto.setLastName(source.getLastName());
+        dto.setFirstName(source.getFirstName());
+        return dto;
     }
 }
