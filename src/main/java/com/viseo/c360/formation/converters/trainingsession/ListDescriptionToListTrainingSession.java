@@ -8,10 +8,9 @@ import org.springframework.core.convert.converter.Converter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListDtoToListTrainingSession{
+public class ListDescriptionToListTrainingSession {
 
-
-    public ListDtoToListTrainingSession() {
+    public ListDescriptionToListTrainingSession() {
     }
     public List<TrainingSession> convert(List<TrainingSessionDescription> ListDTO) {
         List<TrainingSession> list = new ArrayList<>();

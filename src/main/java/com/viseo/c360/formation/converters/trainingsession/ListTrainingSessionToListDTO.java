@@ -17,7 +17,7 @@ public class ListTrainingSessionToListDTO{
     public List<TrainingSessionDescription> convert(List<TrainingSession> sourceList) {
         List<TrainingSessionDescription> listDto = new ArrayList<>();
         for(TrainingSession trainingSession : sourceList){
-           //listDto.add(conversionService.convert(trainingSession, TrainingSessionDescription.class));
+           listDto.add(conversionService.convert(trainingSession, TrainingSessionDescription.class));
         }
         return listDto;
     }
