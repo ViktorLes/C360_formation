@@ -40,7 +40,6 @@ angular.module('controllers')
                     }
                 }
             }else {
-                console.log("coucou Riheb !");
                 self.hasToChooseOneTraining = true;
             }
         };
@@ -62,9 +61,8 @@ angular.module('controllers')
         			trainingSessions: getSessionsSelected(self.listTrainingSession)
         	};
         	$http.post("api/requests", myRequest).success(function(data){
-                console.log(data);
                 if(data === true || data === "true") {
-                    document.location.href = 'pageblanche.html';
+                   // document.location.href = 'pageblanche.html';
                 }
         	});
         };
