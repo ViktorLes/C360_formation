@@ -17,7 +17,7 @@
                        placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
                 <datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">
                     <option data-ng-repeat="session in AS.trainingSessionList"
-                            value="{{session.training.trainingTitle}} - {{session.beginning}} à {{session.ending}} - {{session.location}}"></option>
+                            value="{{AS.displayTrainingSession(session)}}"></option>
                 </datalist>
                 <hr>
                 <div class="form-group" id="wrapper">
