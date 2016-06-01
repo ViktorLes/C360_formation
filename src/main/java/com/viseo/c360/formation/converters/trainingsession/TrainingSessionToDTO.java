@@ -3,36 +3,34 @@ package com.viseo.c360.formation.converters.trainingsession;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.training.TrainingDTO;
-import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
+import com.viseo.c360.formation.dto.training.TrainingDescription;
+import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
 
-public class TrainingSessionToDTO implements Converter<TrainingSession, TrainingSessionDTO> {
+public class TrainingSessionToDTO{
 
-    @Inject
-    TrainingDAO trainingDAO;
-    ConversionService conversionService;
+    public TrainingSessionToDTO () {
+    }
 
-    public TrainingSessionToDTO (ConversionService conversionService) { this.conversionService = conversionService; }
+    public TrainingSessionDescription convert(TrainingSession source) {
 
-    public TrainingSessionDTO convert(TrainingSession source) {
-
-        TrainingSessionDTO dto = new TrainingSessionDTO();
-        Training training = trainingDAO.getTraining(source.getTraining().getId());
+        TrainingSessionDescription dto = new TrainingSessionDescription();
         try {
              if(training == null) throw new PersistentObjectNotFoundException(source.getTraining().getId(), Training.class);
-            TrainingDTO trainingDTO = conversionService.convert(training, TrainingDTO.class);
+            TrainingDescription trainingDescription = conversionService.convert(training, TrainingDescription.class);
             SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
             SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
             dto.setId(source.getId());
-            dto.setTrainingDTO(trainingDTO);
+            dto.setTrainingDescription(trainingDescription);
             dto.setBeginning(formatterDate.format(source.getBeginning()));
             dto.setBeginningTime(formatterTime.format(source.getBeginning()));
             dto.setEnding(formatterDate.format(source.getEnding()));
@@ -42,7 +40,7 @@ public class TrainingSessionToDTO implements Converter<TrainingSession, Training
             e.printStackTrace();
             throw new ConversionFailedException(
                     TypeDescriptor.valueOf(TrainingSession.class),
-                    TypeDescriptor.valueOf(TrainingSessionDTO.class),
+                    TypeDescriptor.valueOf(TrainingSessionDescription.class),
                     source,
                     new Throwable(e.getMessage())
             );

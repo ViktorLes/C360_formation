@@ -3,8 +3,7 @@ angular.module('controllers')
         var self = this;
         //Charge la liste de formations affiché dans le select box des formations
         $http.get("api/formations").then(function(data){
-            self.trainings = [];
-            Array.prototype.push.apply(self.trainings,data.data);
+            self.trainings = data.data;
         });
 
         //Charge la liste de sessions disponible en fonction de l'ID de training

@@ -1,25 +1,23 @@
 package com.viseo.c360.formation.converters.trainingsession;
 
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
-import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
+import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListDtoToListTrainingSession implements Converter <List<TrainingSessionDTO>, List<TrainingSession>>{
-    ConversionService conversionService;
+public class ListDtoToListTrainingSession{
 
-    public ListDtoToListTrainingSession(ConversionService conversionService) {
-        this.conversionService = conversionService;
+
+    public ListDtoToListTrainingSession() {
     }
-    public List<TrainingSession> convert(List<TrainingSessionDTO> ListDTO) {
+    public List<TrainingSession> convert(List<TrainingSessionDescription> ListDTO) {
         List<TrainingSession> list = new ArrayList<>();
-        for(TrainingSessionDTO trainingSessionDTO : ListDTO)
+        for(TrainingSessionDescription trainingSessionDescription : ListDTO)
         {
-            list.add(conversionService.convert(trainingSessionDTO, TrainingSession.class));
+            //list.add(conversionService.convert(trainingSessionDescription, TrainingSession.class));
         }
         return list;
     }

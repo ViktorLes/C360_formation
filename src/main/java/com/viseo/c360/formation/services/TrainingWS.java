@@ -5,10 +5,10 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import com.viseo.c360.formation.converters.trainingsession.DtoToTrainingSession;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.training.TrainingDTO;
-import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
+import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
 import org.springframework.core.convert.ConversionException;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.validation.BindingResult;
@@ -52,11 +52,11 @@ public class TrainingWS {
 	/*** TrainingSession ***/
 	@RequestMapping(value="${endpoint.sessions}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addTrainingSession(@Valid @RequestBody TrainingSessionDTO myTrainingSessionDto, BindingResult bindingResult){
+    public boolean addTrainingSession(@Valid @RequestBody TrainingSessionDescription myTrainingSessionDescription, BindingResult bindingResult){
 		if(!bindingResult.hasErrors()) {
 			try {
-				TrainingSession myTrainingSession =
-						conversionService.convert(myTrainingSessionDto,TrainingSession.class);
+				Training training = trainingDAO.getTraining(myTrainingSessionDescription.getTrainingDescription().getId());
+				TrainingSession myTrainingSession = new DtoToTrainingSession().convert(myTrainingSessionDescription,training);
 				if(!trainingDAO.isThereOneSessionTrainingAlreadyPlanned(myTrainingSession)
 					&& myTrainingSession.getBeginning().before(myTrainingSession.getEnding())
 				){
@@ -64,23 +64,22 @@ public class TrainingWS {
 					return true;
 				}
 			} catch (ConversionException e) {
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		}
-		System.out.println("JE suis la" + myTrainingSessionDto);
+		System.out.println("JE suis la" + myTrainingSessionDescription);
 		return false;
     }
 
 	@RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.GET)
 	@ResponseBody
-    public List<TrainingSessionDTO> getTrainingSessions(){
-		trainingDAO.getAllTrainingSessions();
+    public List<TrainingSessionDescription> getTrainingSessions(){
 		return conversionService.convert(trainingDAO.getAllTrainingSessions(),List.class);
 	}
 
 	@RequestMapping(value = "${endpoint.sessionsbyid}", method = RequestMethod.GET)
 	@ResponseBody
-    public List<TrainingSessionDTO> getTrainingSessionsByTraining(@PathVariable String id){
+    public List<TrainingSessionDescription> getTrainingSessionsByTraining(@PathVariable String id){
 		return conversionService.convert(trainingDAO.getSessionByTraining(Long.parseLong(id)),List.class);
 	}
 }

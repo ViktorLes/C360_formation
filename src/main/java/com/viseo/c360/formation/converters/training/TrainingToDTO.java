@@ -2,7 +2,7 @@ package com.viseo.c360.formation.converters.training;
 
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.training.Training;
-import com.viseo.c360.formation.dto.training.TrainingDTO;
+import com.viseo.c360.formation.dto.training.TrainingDescription;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
@@ -10,13 +10,10 @@ import org.springframework.core.convert.converter.Converter;
 
 import javax.inject.Inject;
 
-public class TrainingToDTO implements Converter <Training, TrainingDTO> {
+public class TrainingToDTO {
 
-    @Inject
-    TrainingDAO trainingDAO;
-
-    public TrainingDTO convert(Training source) {
-        TrainingDTO dto = new TrainingDTO();
+    public TrainingDescription convert(Training source) {
+        TrainingDescription dto = new TrainingDescription();
         try {
             dto.setId(source.getId());
             dto.setNumberHalfDays(source.getNumberHalfDays());
@@ -25,7 +22,7 @@ public class TrainingToDTO implements Converter <Training, TrainingDTO> {
             e.printStackTrace();
             throw new ConversionFailedException(
                     TypeDescriptor.valueOf(Training.class),
-                    TypeDescriptor.valueOf(TrainingDTO.class),
+                    TypeDescriptor.valueOf(TrainingDescription.class),
                     source,
                     new Throwable(e.getMessage())
             );
