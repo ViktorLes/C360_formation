@@ -32,7 +32,6 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
     };
 
     self.displayTrainingSession = function (mySession) {
-        console.log("ff");
         return mySession.training.trainingTitle + ' - ' + mySession.beginning + ' à ' + mySession.ending + ' - ' + mySession.location;
     };
 
