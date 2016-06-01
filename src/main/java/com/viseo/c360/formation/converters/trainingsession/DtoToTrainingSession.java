@@ -13,19 +13,18 @@ import javax.inject.Inject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class DtoToTrainingSession{
+public class DtoToTrainingSession {
 
     public TrainingSession convert(TrainingSessionDescription dto, Training training) {
         TrainingSession domain = new TrainingSession();
         SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy|HH:mm");
-        try{
-            if(dto.getId() > 0) domain.setId(dto.getId());
-            if(training == null) throw new PersistentObjectNotFoundException(dto.getTrainingDescription().getId(), TrainingSession.class);
+        try {
+            if (dto.getId() > 0) domain.setId(dto.getId());
             domain.setTraining(training);
-            domain.setBeginning(formatterDate.parse(dto.getBeginning()+"|"+dto.getBeginningTime()));
-            domain.setEnding(formatterDate.parse(dto.getEnding()+"|"+dto.getEndingTime()));
+            domain.setBeginning(formatterDate.parse(dto.getBeginning() + "|" + dto.getBeginningTime()));
+            domain.setEnding(formatterDate.parse(dto.getEnding() + "|" + dto.getEndingTime()));
             domain.setLocation(dto.getLocation());
-        }catch (PersistentObjectNotFoundException | ParseException e) {
+        } catch (ParseException e) {
             throw new ConversionFailedException(
                     TypeDescriptor.valueOf(TrainingSessionDescription.class),
                     TypeDescriptor.valueOf(TrainingSession.class),

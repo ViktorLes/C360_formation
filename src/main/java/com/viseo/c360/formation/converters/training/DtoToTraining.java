@@ -10,25 +10,17 @@ import org.springframework.core.convert.converter.Converter;
 
 import javax.inject.Inject;
 
-public class DtoToTraining{
+public class DtoToTraining {
 
-    public Training convert (TrainingDescription dto){
-        Training domain = new Training();
-        try{
-            domain.setId(dto.getId());
-            domain.setTrainingTitle(dto.getTrainingTitle());
-            domain.setNumberHalfDays(dto.getNumberHalfDays());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            throw new ConversionFailedException(
-                TypeDescriptor.valueOf(TrainingDescription.class),
-                TypeDescriptor.valueOf(Training.class),
-                dto,
-                new Throwable(e.getMessage())
-        );
+    public DtoToTraining() {
     }
-    return domain;
+
+    public Training convert(TrainingDescription dto) {
+        Training domain = new Training();
+
+        domain.setId(dto.getId());
+        domain.setTrainingTitle(dto.getTrainingTitle());
+        domain.setNumberHalfDays(dto.getNumberHalfDays());
+        return domain;
     }
 }

@@ -12,21 +12,14 @@ import javax.inject.Inject;
 
 public class TrainingToDTO {
 
+    public TrainingToDTO() {
+    }
+
     public TrainingDescription convert(Training source) {
         TrainingDescription dto = new TrainingDescription();
-        try {
-            dto.setId(source.getId());
-            dto.setNumberHalfDays(source.getNumberHalfDays());
-            dto.setTrainingTitle(source.getTrainingTitle());
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ConversionFailedException(
-                    TypeDescriptor.valueOf(Training.class),
-                    TypeDescriptor.valueOf(TrainingDescription.class),
-                    source,
-                    new Throwable(e.getMessage())
-            );
-        }
+        dto.setId(source.getId());
+        dto.setNumberHalfDays(source.getNumberHalfDays());
+        dto.setTrainingTitle(source.getTrainingTitle());
         return dto;
     }
 }

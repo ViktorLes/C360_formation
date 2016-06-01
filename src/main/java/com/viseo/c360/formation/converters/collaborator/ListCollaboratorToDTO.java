@@ -9,16 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ListCollaboratorToDTO{
+public class ListCollaboratorToDTO {
 
-    public ListCollaboratorToDTO (){
-
+    public ListCollaboratorToDTO() {
     }
 
     public List<CollaboratorDescription> convert(List<Collaborator> sourceList) {
         List<CollaboratorDescription> listDto = new ArrayList<>();
-        for(Collaborator collaborator : sourceList){
-            listDto.add(conversionService.convert(collaborator, CollaboratorDescription.class));
+        for (Collaborator collaborator : sourceList) {
+            listDto.add(new CollaboratorToDTO().convert(collaborator));
         }
         return listDto;
     }
