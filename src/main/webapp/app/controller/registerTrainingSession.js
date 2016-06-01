@@ -81,7 +81,7 @@ angular.module('controllers')
             $http.post("api/sessions", session).success(function(data){
                 if(data == "true" || data == true) {
                     self.isSessionAlreadyPlanned = false;
-                    //document.location.href = 'pageblanche.html';
+                    document.location.href = 'pageblanche.html';
                 }else
                 {
                     self.isSessionAlreadyPlanned = true;
