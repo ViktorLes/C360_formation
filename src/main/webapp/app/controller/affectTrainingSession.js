@@ -6,13 +6,12 @@
 angular.module('controllers').controller('controllerAffectTraining', ['$http', '$location', '$filter', '$timeout', function ($http, $location, $filter, $timeout) {
 
     var self = this;
-    self.booleanVariable = false;
+    self.isCollabaratorListUpdated = false;
     self.boolErrNoSessionSelected = false;
 
     //Récupérer la liste des sessions disponible
     $http.get("api/sessions").then(function (data) {
         self.trainingSessionList = data.data;
-        self.sessionSelected = self.trainingSessionList[0];
     });
 
     //Récupérer la liste des collaborateurs affectés et non affectés à la session
@@ -58,15 +57,16 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
 
     self.saveAction = function () {
         $http.put("api/sessions/" + self.sessionSelected.id + "/collaborators", self.selectedCollaboratorList).then(function (response) {
-            self.booleanVariable = true;
+            if(response.data) {
+                self.isCollabaratorListUpdated = true; }
         });
     };
 
     self.setConfirmationMessageTimOut = function () {
         $timeout(function () {
-            self.booleanVariable = false;
+            self.isCollabaratorListUpdated = false;
         }, 3000);
-    }
+    };
 
     self.selectSessionObjectFromInputText = function () {
         var selectedSessionSplittedArray = self.selectedSession.split(/ - | à /);
@@ -98,4 +98,3 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
             })
     }
     ]);
-;

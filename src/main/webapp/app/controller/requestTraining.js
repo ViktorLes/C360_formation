@@ -30,12 +30,12 @@ angular.module('controllers')
             if (self.requestedTraining) {
                 if (typeof self.listTrainingSession !== 'undefined') {
                     if (self.isListEmpty) {
-                        //envoi au serveur une demande de session non programmée
+                        //Envoi au serveur une demande de session non programmée
                         self.saveAction();
                     } else if (self.listTrainingSession.some(function (elem) {
                             return elem.isChecked;
                         })) {
-                        //envoi 'des' sessions selectionné par le collaborateur au serveur
+                        //Envoi 'des' sessions selectionné par le collaborateur au serveur
                         self.saveAction();
                     } else {
                         self.noneSessionSelected = true;
@@ -66,8 +66,17 @@ angular.module('controllers')
             $http.post("api/requests", myRequest).success(function (data) {
                 console.log(data);
                 if (data === true || data === "true") {
-                    /*document.location.href = 'pageblanche.html';*/
+                    $location.url('/pageblanche');
                 }
             });
-        };
-    }]);
+        }
+    }])
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider
+            .when('/RequestTraining', {
+                templateUrl: 'templates/requestTraining.html',
+                controller: 'controllerRequestTraining',
+                controllerAs: 'DmF'
+            })
+    }
+    ]);
