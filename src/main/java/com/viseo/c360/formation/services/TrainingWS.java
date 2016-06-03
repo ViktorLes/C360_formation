@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.dto.training.TrainingDTO;
 import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
 import org.springframework.core.convert.ConversionException;
 import org.springframework.core.convert.ConversionService;
@@ -66,6 +67,7 @@ public class TrainingWS {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("JE suis la" + myTrainingSessionDto);
 		return false;
     }
 
@@ -81,4 +83,5 @@ public class TrainingWS {
     public List<TrainingSessionDTO> getTrainingSessionsByTraining(@PathVariable String id){
 		return conversionService.convert(trainingDAO.getSessionByTraining(Long.parseLong(id)),List.class);
 	}
-}	
+}
+

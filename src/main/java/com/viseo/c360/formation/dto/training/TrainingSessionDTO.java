@@ -1,58 +1,33 @@
 package com.viseo.c360.formation.dto.training;
 
-import com.viseo.c360.formation.domain.collaborator.Collaborator;
-import com.viseo.c360.formation.domain.training.Training;
+import com.viseo.c360.formation.dto.BaseDTO;
 
-import javax.persistence.Id;
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import java.util.ArrayList;
-import java.util.List;
+public class TrainingSessionDTO extends BaseDTO{
 
-public class TrainingSessionDTO {
+    public static class Regex {
+        public static final String BEGINNING = "(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))";
+        public static final String ENDING = "(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))";
+        public static final String BEGINNING_TIME = "([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]";
+        public static final String ENDING_TIME = "([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]";
+    }
 
-    @Id
-    long id;
+    TrainingDTO trainingDTO;
 
-    @NotNull
-    @Valid
-    Training training;
-
-    @NotNull
-    @Pattern(regexp= "(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))*")
     String beginning;
 
-    @NotNull
-    @Pattern(regexp= "(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))*")
     String ending;
 
-    @NotNull
-    @Pattern(regexp= "([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]*")
     String beginningTime;
 
-    @NotNull
-    @Pattern(regexp= "([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]*")
     String endingTime;
 
-    @NotNull
     String location;
 
-    public TrainingSessionDTO(){
+    public TrainingSessionDTO() {
     }
-    public long getId() {
-        return id;
-    }
-    public void setId(long id) {
-        this.id = id;
-    }
-    public Training getTraining() {
-        return training;
-    }
-    public void setTraining(Training training) {
-        this.training = training;
-    }
+
+    public TrainingDTO getTrainingDTO() { return trainingDTO; }
+    public void setTrainingDTO(TrainingDTO trainingDTO) { this.trainingDTO = trainingDTO; }
     public String getBeginning() {
         return beginning;
     }

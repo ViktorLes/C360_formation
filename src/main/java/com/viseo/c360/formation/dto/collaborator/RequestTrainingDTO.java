@@ -2,45 +2,38 @@ package com.viseo.c360.formation.dto.collaborator;
 
 import java.util.List;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
-import com.viseo.c360.formation.domain.training.Training;
+import com.viseo.c360.formation.dto.BaseDTO;
+import com.viseo.c360.formation.dto.training.TrainingDTO;
 import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
 
-public class RequestTrainingDTO {
-	@NotNull
-	@Valid
-	Training training;
 
-	@NotNull
-	@Valid
-	List<TrainingSessionDTO> trainingSessions;
+public class RequestTrainingDTO extends BaseDTO{
 
-	@NotNull
-	@Min(value = 1)
-	long collaborator;
+
+	TrainingDTO trainingDTO;
+
+	List<TrainingSessionDTO> trainingSessionsDtos;
+
+	CollaboratorDTO collaboratorDTO;
 
 	public RequestTrainingDTO() {
 		super();
 	}
-	public Training getTraining() {
-		return training;
+
+	public TrainingDTO getTrainingDTO() {
+		return trainingDTO;
 	}
-	public void setTraining(Training training) {
-		this.training = training;
+	public void setTrainingDTO(TrainingDTO trainingDTO) {
+		this.trainingDTO = trainingDTO;
 	}
-	public List<TrainingSessionDTO> getTrainingSessions() {
-		return trainingSessions;
+	public List<TrainingSessionDTO> getTrainingSessionsDtos() {
+		return trainingSessionsDtos;
 	}
-	public void setTrainingSessions(List<TrainingSessionDTO> trainingSessions) {
-		this.trainingSessions = trainingSessions;
+	public void setTrainingSessionsDtos(List<TrainingSessionDTO> trainingSessions) {
+		this.trainingSessionsDtos = trainingSessions;
 	}
-	public long getCollaborator() {
-		return collaborator;
-	}
-	public void setCollaborator(long collaborator) {
-		this.collaborator = collaborator;
+	public CollaboratorDTO getCollaboratorDTO() { return collaboratorDTO; }
+	public void setCollaborator(CollaboratorDTO collaboratorDTO) {
+		this.collaboratorDTO = collaboratorDTO;
 	}
 }
