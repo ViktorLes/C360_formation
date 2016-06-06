@@ -10,11 +10,13 @@ describe('registerTrainingSession', function () {
 
     beforeEach(module('App'));
 
-    beforeEach(inject(function ($controller, DatepickerService, $httpBackend, $filter) {
+    beforeEach(inject(function ($controller, DatepickerService, $httpBackend, $filter, $location) {
         datePiker = DatepickerService;
         httpBackend = $httpBackend;
         filter = $filter;
         ctrl = $controller('controllerRegisterTrainingSession');
+        loc = $location;
+        loc.url('/RegisterTrainingSession');
         expect(ctrl.isSessionAlreadyPlanned).toBeFalsy();
         httpBackend.expectGET("api/formations").respond(TRAININGS);
         httpBackend.flush();
@@ -40,16 +42,18 @@ describe('registerTrainingSession', function () {
             endingTime: ctrl.endHour,
             location: ctrl.trainingLocation
         };
-        ctrl.verifyForm(false);
         httpBackend.expectPOST("api/sessions", session).respond(true);
+        ctrl.verifyForm(false);
         httpBackend.flush();
         expect(ctrl.isSessionAlreadyPlanned).toBeFalsy();
+        expect(loc.path()).toBe('/pageblanche');
     });
 
     it('2) Enregistrement avec formulaire invalide', function () {
         expect(ctrl.isFalseForm).toBeFalsy();
         ctrl.verifyForm(true);
         expect(ctrl.isFalseForm).toBeTruthy();
+        expect(loc.path()).toBe('/RegisterTrainingSession');
     });
 
     it('3) Enregistrement avec session déjà planifiée', function () {
@@ -67,9 +71,10 @@ describe('registerTrainingSession', function () {
             endingTime: ctrl.endHour,
             location: ctrl.trainingLocation
         };
-        ctrl.verifyForm(false);
         httpBackend.expectPOST("api/sessions", session).respond(false);
+        ctrl.verifyForm(false);
         httpBackend.flush();
         expect(ctrl.isSessionAlreadyPlanned).toBeTruthy();
+        expect(loc.path()).toBe('/RegisterTrainingSession');
     });
 });
