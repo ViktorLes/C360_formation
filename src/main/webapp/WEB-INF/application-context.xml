@@ -15,22 +15,6 @@
 	<mvc:annotation-driven />
 	<context:property-placeholder location="classpath:project.properties" />
 
-<<<<<<< HEAD
-=======
-	<bean id="conversionService"
-		  class="com.viseo.c360.formation.converters.FormationConversionServiceFactoryBean">
-		<property name="converters">
-			<set>
-				<bean class="com.viseo.c360.formation.converters.trainingsession.DtoToTrainingSession"/>
-				<bean class="com.viseo.c360.formation.converters.collaborator.CollaboratorToDTO"/>
-				<bean class="com.viseo.c360.formation.converters.collaborator.DtoToCollaborator"/>
-				<bean class="com.viseo.c360.formation.converters.training.TrainingToDTO"/>
-				<bean class="com.viseo.c360.formation.converters.training.DtoToTraining"/>
-			</set>
-		</property>
-	</bean>
-
->>>>>>> 5d51c637147120bde988d153a12ca2c9d2a1d1f9
 	<!-- Configure to plugin JSON as request and response in method handler -->
     <bean 
 		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">

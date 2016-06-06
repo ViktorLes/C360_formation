@@ -55,20 +55,6 @@ public class CollaboratorWS {
         }
     }
 
-    @RequestMapping(value = "${endpoint.collaboratorsbysession}", method = RequestMethod.PUT)
-    @ResponseBody
-    public boolean affectCollaboratorsTrainingSession(@PathVariable Long id, @RequestBody List<CollaboratorDescription> collaboratorDescriptions) {
-        try {
-            TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
-            if (trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
-            collaboratorDAO.affectCollaboratorsTrainingSession(trainingSession, new ListDescriptionToListCollaborator().convert(collaboratorDescriptions));
-            return true;
-        } catch (PersistentObjectNotFoundException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-    }
-
     @RequestMapping(value = "${endpoint.collaboratorsNotAffectedBySession}", method = RequestMethod.GET)
     @ResponseBody
     public List<CollaboratorDescription> getNotAffectedCollaboratorsList(@PathVariable Long id) {
