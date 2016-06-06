@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
     </div>
 
-    <div class="col-md-7">
+    <div class="col-md-6">
         <div class="panel panel-default">
 
             <div class="panel-heading">
@@ -11,12 +11,17 @@
 
             <div class="panel-body">
                 <h5><span class="label label-default">Sessions:</span></h5>
-                <input ng-model="AS.selectedSession" ng-blur="AS.alert('toto')" title="Selectionner une session"
+                <input ng-change="AS.loadNotAffectedCollaboratorsList()" ng-model="AS.selectedSession"
+                       title="Selectionner une session"
                        class="filter form-control filter-unselected" list="SessionDataListFilter"
                        placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
                 <datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">
                     <option data-ng-repeat="session in AS.trainingSessionList"
+<<<<<<< HEAD
                             value="{{session.trainingDescription.trainingTitle}} - {{session.beginning}} à {{session.ending}} - {{session.location}}"></option>
+=======
+                            value="{{AS.displayTrainingSession(session)}}"></option>
+>>>>>>> 5d51c637147120bde988d153a12ca2c9d2a1d1f9
                 </datalist>
                 <hr>
                 <div class="form-group" id="wrapper">
@@ -24,28 +29,27 @@
                         <div class="col-md-5">
                             <h5><span class="label label-default" id="gauche">Chercher collaborateurs</span></h5>
                             <div class="collaborator-box">
-                                <div class="input-group search-field-collaborator-box">
-                                    <input ng-model="searchCollaboratorField"
-                                           class="search-widget filter form-control filter-unselected"
-                                           type="text" placeholder="Écrire le nom ou prénom du collaborateur ..."
-                                           autofocus>
-                                    </input>
-                                    <span class="input-group-addon glyphicon glyphicon-search"></span>
+                                <div class="searchBox col-md-2">
+                                    <div class="right-inner-addon">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                        <input ng-model="searchCollaboratorField" id="search"
+                                               class="search-widget filter form-control filter-unselected"
+                                               type="text" placeholder="Écrire le nom ou prénom du collaborateur ..."
+                                               autofocus/>
+                                    </div>
                                 </div>
+
                                 <ul>
-                                    <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList | searchByString: searchCollaboratorField:'firstName':'lastName')">
+                                    <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList |
+                                     searchByString: searchCollaboratorField:'firstName':'lastName' | orderBy:'firstName')">
                                         <span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
                                         <button class="glyphicon glyphicon-chevron-right btn btn-xs btn-default btn-success pull-right"
                                                 ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>
                                     </li>
                                 </ul>
-                                <div class="row">
-                                    <div class="small-2 small-centered columns"
-                                         ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
-                                        <div data-alert class="alert-box info">
-                                            <h5><strong>Aucun résultat trouvé</strong></h5>
-                                        </div>
-                                    </div>
+                                <div alert class="center-block row text-center alert alert-danger small"
+                                     ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
+                                    <strong>Aucun résultat trouvé</strong>
                                 </div>
                             </div>
                         </div>
@@ -69,9 +73,22 @@
                     </div>
                 </div>
                 <div>
-                    <button class="btn btn-primary" ng-click="AS.verifyForm()">Enregistrer</button>
-                    <span ng-show="AS.booleanVariable">Enregistrement OK</span>
+                    <button class="center-block btn btn-primary" ng-click="AS.verifyForm()">Enregistrer</button>
+                </div>
+                <br>
+                <div>
+                    <button class="center-block small alert alert-success"
+                            ng-show="AS.isCollabaratorListUpdated">
+                        <strong>Vos modifications ont bien été enregistrées</strong>
+                    </button>
+                </div>
+                <div>
+                    <button class="center-block small alert alert-danger"
+                            ng-show="AS.boolErrNoSessionSelected === true">
+                        <strong>Erreur: </strong> Aucune session n'a été selectionnée
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</div>

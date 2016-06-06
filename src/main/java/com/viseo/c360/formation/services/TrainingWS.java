@@ -8,8 +8,14 @@ import javax.validation.Valid;
 import com.viseo.c360.formation.converters.trainingsession.DescriptionToTrainingSession;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
+<<<<<<< HEAD
 import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
+=======
+import com.viseo.c360.formation.dto.training.TrainingDTO;
+import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
+import org.springframework.core.convert.ConversionException;
+>>>>>>> 5d51c637147120bde988d153a12ca2c9d2a1d1f9
 import org.springframework.core.convert.ConversionService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,6 +74,7 @@ public class TrainingWS {
 				throw new RuntimeException(e);
 			}
 		}
+		System.out.println("JE suis la" + myTrainingSessionDto);
 		return false;
     }
 

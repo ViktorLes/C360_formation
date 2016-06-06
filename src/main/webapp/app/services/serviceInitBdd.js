@@ -14,10 +14,10 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 	var session2={
 			training: training,
 			beginning: "07/05/2016",
-			ending: "10/05/20164",
+			ending: "10/05/2016",
 			beginningTime: "08:00",
-			endingTime: "08:00",
-			location: "Salle Phuket"
+			endingTime: "17:00",
+			location: "Salle Bali"
 	};
 	var collaborator1={
 		personnalIdNumber: "TLE",
@@ -34,7 +34,7 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 		init:function(){
 			$http.post("api/formations",training).then(function(data){
 				training.id = 1;
-				if(data.data) console.log("ajout training",training);
+				if(data.data)console.log("ajout training",training);
 				return $http.post("api/collaborateurs",collaborator1);
 			}).then(function(data){
 				collaborator1.id = 2;

@@ -1,4 +1,3 @@
-
 input[type=number].no-spinner::-webkit-outer-spin-button,
 input[type=number].no-spinner::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -11,6 +10,7 @@ input[type=number].no-spinner {
 
 ul {
     list-style: none;
+    padding-top: 40px;
     margin-left: 0;
     padding-left: 0;
 }
@@ -28,13 +28,6 @@ ul li:first-child {
     color: blue;
 }
 
-.warning-text {
-    color: red;
-}
-
-.search-field-collaborator-box {
-}
-
 .search-widget {
     display: inline-block;
 }
@@ -44,4 +37,24 @@ ul li:first-child {
     overflow-y: scroll;
     height: 200px;
     border: 2px solid darkgrey;
+}
+
+.right-inner-addon {
+    position: relative;
+}
+
+.searchBox {
+    position: fixed;
+    z-index: 100;
+}
+
+.right-inner-addon input {
+    padding-right: 30px;
+}
+
+.right-inner-addon i {
+    position: absolute;
+    right: 0px;
+    padding: 10px 12px;
+    pointer-events: none;
 }

@@ -249,12 +249,6 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.6.3</version>
         </dependency>
-		<!-- <dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency> -->
-		
 
 
 		<!-- SERVLET -->
