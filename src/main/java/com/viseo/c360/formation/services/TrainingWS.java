@@ -3,15 +3,16 @@ package com.viseo.c360.formation.services;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 
+import com.viseo.c360.formation.converters.training.DescriptionToTraining;
+import com.viseo.c360.formation.converters.training.ListTrainingToListDescription;
 import com.viseo.c360.formation.converters.trainingsession.DescriptionToTrainingSession;
+import com.viseo.c360.formation.converters.trainingsession.ListTrainingSessionToListDescription;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.dto.training.TrainingDescription;
 import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
-import org.springframework.core.convert.ConversionService;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.viseo.c360.formation.dao.TrainingDAO;
@@ -27,9 +28,9 @@ public class TrainingWS {
      ***/
     @RequestMapping(value = "${endpoint.trainings}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addTraining(@RequestBody Training myTraining) {
-        if (!trainingDAO.isTrainingPersisted(myTraining.getTrainingTitle())) {
-            trainingDAO.addTraining(myTraining);
+    public boolean addTraining(@RequestBody TrainingDescription myTrainingDescription) {
+        if (!trainingDAO.isTrainingPersisted(myTrainingDescription.getTrainingTitle())) {
+            trainingDAO.addTraining(new DescriptionToTraining().convert(myTrainingDescription));
             return true;
         }
         return false;
@@ -37,8 +38,8 @@ public class TrainingWS {
 
     @RequestMapping(value = "${endpoint.trainings}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Training> getAllTrainings() {
-        return trainingDAO.getAllTrainings();
+    public List<TrainingDescription> getAllTrainingsDescriptions() {
+        return new ListTrainingToListDescription().convert(trainingDAO.getAllTrainings());
     }
 
     /***
@@ -66,14 +67,14 @@ public class TrainingWS {
 
     @RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.GET)
     @ResponseBody
-    public List<TrainingSessionDescription> getTrainingSessions() {
-        return conversionService.convert(trainingDAO.getAllTrainingSessions(), List.class);
+    public List<TrainingSessionDescription> getTrainingSessionsDescriptions() {
+        return new ListTrainingSessionToListDescription().convert(trainingDAO.getAllTrainingSessions());
     }
 
     @RequestMapping(value = "${endpoint.sessionsbyid}", method = RequestMethod.GET)
     @ResponseBody
     public List<TrainingSessionDescription> getTrainingSessionsByTraining(@PathVariable String id) {
-        return conversionService.convert(trainingDAO.getSessionByTraining(Long.parseLong(id)), List.class);
+        return new ListTrainingSessionToListDescription().convert(trainingDAO.getSessionByTraining(Long.parseLong(id)));
     }
 }
 
