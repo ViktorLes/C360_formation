@@ -8,6 +8,7 @@ describe('Declaration Formation', function () {
     beforeEach(inject(function ($controller, $httpBackend, $location) {
         backend = $httpBackend;
         loc = $location;
+        loc.url('/RegisterTraining');
         ctrl = $controller('controllerRegisterTraining');
     }));
 
@@ -18,6 +19,7 @@ describe('Declaration Formation', function () {
             ctrl.training = {};
             ctrl.training.trainingTitle = "Title";
             ctrl.training.numberHaldDays = "4";
+            backend.flush();
         });
 
         afterEach(function () {
@@ -26,19 +28,19 @@ describe('Declaration Formation', function () {
         });
 
         it('Valide', function () {
-            ctrl.saveAction();
             backend.expectPOST('api/formations').respond('true');
+            ctrl.saveAction();
             backend.flush();
             expect(ctrl.isNewTrainingTitle).toBeTruthy();
-            //expect(loc.path()).toEqual('pageblanche.html');
+            expect(loc.path()).toBe('/pageblanche');
         });
 
         it('Invalide', function () {
-            ctrl.saveAction();
             backend.expectPOST('api/formations').respond('false');
+            ctrl.saveAction();
             backend.flush();
             expect(ctrl.isNewTrainingTitle).toBeFalsy();
-            //expect(loc.path()).toEqual('#/EnregistrementCollaborateur');
+            expect(loc.path()).toBe('/RegisterTraining');
         });
     });
 });
