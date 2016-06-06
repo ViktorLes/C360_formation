@@ -2,14 +2,8 @@ angular.module('controllers')
     .controller('controllerRequestTraining', ['$http', '$location', function ($http, $location) {
         var self = this;
         //Charge la liste de formations affiché dans le select box des formations
-<<<<<<< HEAD
         $http.get("api/formations").then(function(data){
             self.trainings = data.data;
-=======
-        $http.get("api/formations").then(function (data) {
-            self.trainings = [];
-            Array.prototype.push.apply(self.trainings, data.data);
->>>>>>> 5d51c637147120bde988d153a12ca2c9d2a1d1f9
         });
 
         //Charge la liste de sessions disponible en fonction de l'ID de training
@@ -65,7 +59,7 @@ angular.module('controllers')
 
             var myRequest = {
                 training: self.requestedTraining,
-                collaborator: 2,
+                collaborator: {id: 2},
                 trainingSessions: getSessionsSelected(self.listTrainingSession)
             };
             $http.post("api/requests", myRequest).success(function (data) {

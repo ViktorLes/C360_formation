@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ListCollaboratorToDescription {
+public class ListCollaboratorToListDescription {
 
-    public ListCollaboratorToDescription() {
+    public ListCollaboratorToListDescription() {
     }
 
     public List<CollaboratorDescription> convert(List<Collaborator> sourceList) {

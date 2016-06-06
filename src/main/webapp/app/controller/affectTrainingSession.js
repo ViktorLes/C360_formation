@@ -14,29 +14,8 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
         self.trainingSessionList = data.data;
     });
 
-<<<<<<< HEAD
     self.displayTrainingSession = function(mySession){
         return mySession.trainingDescription.trainingTitle+' - '+mySession.beginning+' à '+mySession.ending+' - '+mySession.location;
-=======
-    //Récupérer la liste des collaborateurs affectés et non affectés à la session
-    self.loadNotAffectedCollaboratorsList = function () {
-        self.availableCollaboratorList = [];
-        self.selectedCollaboratorList = [];
-        self.boolErrNoSessionSelected = false;
-        self.sessionSelected = self.selectSessionObjectFromInputText();
-        if (self.sessionSelected) {
-            $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsnotaffected").then(function (data) {
-                self.availableCollaboratorList = data.data;
-            });
-            $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsaffected").then(function (data) {
-                self.selectedCollaboratorList = data.data;
-            });
-        }
-    };
-
-    self.displayTrainingSession = function (mySession) {
-        return mySession.training.trainingTitle + ' - ' + mySession.beginning + ' à ' + mySession.ending + ' - ' + mySession.location;
->>>>>>> 5d51c637147120bde988d153a12ca2c9d2a1d1f9
     };
 
     //déplace d'une liste à une autre
@@ -79,7 +58,6 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
             beginning: selectedSessionSplittedArray[1],
             ending: selectedSessionSplittedArray[2],
             location: selectedSessionSplittedArray[3],
-<<<<<<< HEAD
             trainingDescription:{
                 trainingTitle:selectedSessionSplittedArray[0]
             }
@@ -91,19 +69,6 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
                elem.location===self.trainingSessionObject.location &&
                elem.trainingDescription.trainingTitle===self.trainingSessionObject.trainingDescription.trainingTitle){
                return elem;
-=======
-            training: {
-                trainingTitle: selectedSessionSplittedArray[0]
-            }
-        };
-
-        return self.trainingSessionList.find(function (elem) {
-            if (elem.beginning === self.trainingSessionObject.beginning &&
-                elem.ending === self.trainingSessionObject.ending &&
-                elem.location === self.trainingSessionObject.location &&
-                elem.training.trainingTitle === self.trainingSessionObject.training.trainingTitle) {
-                return elem;
->>>>>>> 5d51c637147120bde988d153a12ca2c9d2a1d1f9
             }
         });
     }

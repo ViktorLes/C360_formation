@@ -26,7 +26,7 @@ public class RequestTrainingDescription extends BaseDTO{
 	public void setTrainingDescription(TrainingDescription trainingDescription) {
 		this.trainingDescription = trainingDescription;
 	}
-	public List<TrainingSessionDescription> getTrainingSessionsDtos() {
+	public List<TrainingSessionDescription> getTrainingSessionsDescriptions() {
 		return trainingSessionsDtos;
 	}
 	public void setTrainingSessionsDtos(List<TrainingSessionDescription> trainingSessions) {

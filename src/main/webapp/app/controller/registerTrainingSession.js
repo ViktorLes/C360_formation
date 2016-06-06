@@ -3,14 +3,8 @@ angular.module('controllers')
         var self = this;
         self.isSessionAlreadyPlanned = false;
 
-<<<<<<< HEAD
         $http.get("api/formations").then(function(data){
             self.trainings = data.data;
-=======
-        $http.get("api/formations").then(function (data) {
-            self.trainings = [];
-            Array.prototype.push.apply(self.trainings, data.data);
->>>>>>> 5d51c637147120bde988d153a12ca2c9d2a1d1f9
             self.training = self.trainings[0];
         });
 
@@ -80,15 +74,9 @@ angular.module('controllers')
 
         self.saveAction = function () {
             var session = {
-<<<<<<< HEAD
                 trainingDescription: self.training,
                 beginning: $filter('date')(self.d1.dt,"dd/MM/yyyy"),
                 ending:  $filter('date')(self.d2.dt,"dd/MM/yyyy"),
-=======
-                training: self.training,
-                beginning: $filter('date')(self.d1.dt, "dd/MM/yyyy"),
-                ending: $filter('date')(self.d2.dt, "dd/MM/yyyy"),
->>>>>>> 5d51c637147120bde988d153a12ca2c9d2a1d1f9
                 beginningTime: self.beginningHour,
                 endingTime: self.endHour,
                 location: self.trainingLocation
