@@ -1,6 +1,3 @@
-/**
- * Created by BMO3506 on 23/05/2016.
- */
 describe('registerTrainingSession', function () {
     var ctrl;
     var datePiker;

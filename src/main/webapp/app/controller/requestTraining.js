@@ -64,7 +64,6 @@ angular.module('controllers')
                 trainingSessions: getSessionsSelected(self.listTrainingSession)
             };
             $http.post("api/requests", myRequest).success(function (data) {
-                console.log(data);
                 if (data === true || data === "true") {
                     $location.url('/pageblanche');
                 }
