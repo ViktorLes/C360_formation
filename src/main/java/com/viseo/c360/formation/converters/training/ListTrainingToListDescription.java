@@ -6,8 +6,8 @@ import com.viseo.c360.formation.dto.training.TrainingDescription;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListTrainingsToListDescription {
-    public ListTrainingsToListDescription() {
+public class ListTrainingToListDescription {
+    public ListTrainingToListDescription() {
     }
 
     public List<TrainingDescription> convert(List<Training> trainings) {
