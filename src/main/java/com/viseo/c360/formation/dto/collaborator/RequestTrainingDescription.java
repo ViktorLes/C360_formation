@@ -12,7 +12,7 @@ public class RequestTrainingDescription extends BaseDTO {
 
     TrainingDescription trainingDescription;
 
-    List<TrainingSessionDescription> trainingSessionsDescription;
+    List<TrainingSessionDescription> trainingSessionDescriptions;
 
     CollaboratorIdentity collaboratorIdentity;
 
@@ -28,12 +28,12 @@ public class RequestTrainingDescription extends BaseDTO {
         this.trainingDescription = trainingDescription;
     }
 
-    public List<TrainingSessionDescription> getTrainingSessionsDescription() {
-        return trainingSessionsDescription;
+    public List<TrainingSessionDescription> getTrainingSessionDescriptions() {
+        return trainingSessionDescriptions;
     }
 
-    public void setTrainingSessionsDescription(List<TrainingSessionDescription> trainingSessionsDescription) {
-        this.trainingSessionsDescription = trainingSessionsDescription;
+    public void setTrainingSessionDescriptions(List<TrainingSessionDescription> trainingSessionDescriptions) {
+        this.trainingSessionDescriptions = trainingSessionDescriptions;
     }
 
     public CollaboratorIdentity getCollaboratorIdentity() {
