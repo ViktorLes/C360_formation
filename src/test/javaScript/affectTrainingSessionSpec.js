@@ -19,9 +19,6 @@ describe('Affectation session', function () {
         filter = $filter('searchByString');
         backend.expectGET('api/sessions').respond(sessionsList);
         backend.flush();
-        filterFunction = function () {
-            return filter('searchByString');
-        }
     }));
 
     afterEach(function () {
@@ -77,11 +74,11 @@ describe('Affectation session', function () {
 
     it('5) Test - Si la recherche ne donne aucun résultat, un message doit s‘afficher', function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
+        availableCollaboratorList = [collabortorThomas, collabortorNada];
         backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
         ctrl.loadNotAffectedCollaboratorsList();
         backend.flush();
-        /*filter.arguments=[availableCollaboratorList,"X"];
-        expect(filterFunction()).toEqual([]);*/
+        expect(filter(availableCollaboratorList,"X")).toEqual([]);
     });
 });
