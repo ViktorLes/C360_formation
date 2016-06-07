@@ -80,7 +80,6 @@ angular.module('controllers')
                 endingTime: self.endHour,
                 location: self.trainingLocation
             };
-            console.log(session);
             $http.post("api/sessions", session).success(function (data) {
                 if (data == "true" || data == true) {
                     self.isSessionAlreadyPlanned = false;

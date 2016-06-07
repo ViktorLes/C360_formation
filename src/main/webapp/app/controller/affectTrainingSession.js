@@ -36,9 +36,12 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
 
     //déplace d'une liste à une autre
     self.moveItem = function (item, from, to) {
-        var idx = from.indexOf(item);
-        if (idx != -1) {
-            from.splice(idx, 1);
+        var actual = from.find(function (current) {
+            return current.id === item.id;
+        });
+
+        if (actual) {
+            from.splice(from.indexOf(actual), 1);
             to.push(item);
         }
     };
@@ -57,8 +60,9 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
 
     self.saveAction = function () {
         $http.put("api/sessions/" + self.sessionSelected.id + "/collaborators", self.selectedCollaboratorList).then(function (response) {
-            if(response.data) {
-                self.isCollabaratorListUpdated = true; }
+            if (response.data) {
+                self.isCollabaratorListUpdated = true;
+            }
         });
     };
 
