@@ -27,6 +27,9 @@ ul li:first-child {
 .info-text {
     color: blue;
 }
+.warning-text {
+    color: red;
+}
 
 .search-widget {
     display: inline-block;
