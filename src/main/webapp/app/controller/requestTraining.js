@@ -58,9 +58,9 @@ angular.module('controllers')
             };
 
             var myRequest = {
-                training: self.requestedTraining,
-                collaborator: {id: 2},
-                trainingSessions: getSessionsSelected(self.listTrainingSession)
+                trainingDescription: self.requestedTraining,
+                collaboratorIdentity: {id: 2},
+                trainingSessionsDescriptions: getSessionsSelected(self.listTrainingSession)
             };
             $http.post("api/requests", myRequest).success(function (data) {
                 console.log(data);

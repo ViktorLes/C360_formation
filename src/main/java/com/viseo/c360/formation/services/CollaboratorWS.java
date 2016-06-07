@@ -85,7 +85,7 @@ public class CollaboratorWS {
     @ResponseBody
     public boolean addRequestTraining(@RequestBody RequestTrainingDescription myRequestTrainingDescription) {
         try {
-            Collaborator myCollaborator = collaboratorDAO.getCollaborator(myRequestTrainingDescription.getCollaboratorDescription().getId());
+            Collaborator myCollaborator = collaboratorDAO.getCollaborator(myRequestTrainingDescription.getCollaboratorIdentity().getId());
             RequestTraining myRequestTraining = new DescriptionToRequestTraining().convert(myRequestTrainingDescription, myCollaborator);
             collaboratorDAO.addRequestTraining(myRequestTraining);
             return true;
