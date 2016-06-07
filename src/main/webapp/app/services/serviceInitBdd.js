@@ -4,7 +4,7 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 			trainingTitle:"AngularJS" 
 	};
 	var session1={
-			training: training,
+			trainingDescription: training,
 			beginning: "04/05/2016",
 			ending: "06/05/2016",
 			beginningTime: "08:00",
@@ -12,7 +12,7 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 			location: "Salle Phuket"
 	};
 	var session2={
-			training: training,
+			trainingDescription: training,
 			beginning: "07/05/2016",
 			ending: "10/05/2016",
 			beginningTime: "08:00",

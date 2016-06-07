@@ -4,8 +4,7 @@
              version="2.0">
 
     <persistence-unit name="C360" transaction-type="RESOURCE_LOCAL">
-    
-    
+
         <description>
             Persistence unit for the the project Collaborateur 360
         </description>

@@ -2,10 +2,8 @@ angular.module('controllers')
     .controller('controllerRegisterTrainingSession', ['DatepickerService', '$http', '$filter', '$location', function (datepicker, $http, $filter, $location) {
         var self = this;
         self.isSessionAlreadyPlanned = false;
-
-        $http.get("api/formations").then(function (data) {
-            self.trainings = [];
-            Array.prototype.push.apply(self.trainings, data.data);
+        $http.get("api/formations").then(function(data){
+            self.trainings = data.data;
             self.training = self.trainings[0];
         });
 
@@ -75,9 +73,9 @@ angular.module('controllers')
 
         self.saveAction = function () {
             var session = {
-                training: self.training,
-                beginning: $filter('date')(self.d1.dt, "dd/MM/yyyy"),
-                ending: $filter('date')(self.d2.dt, "dd/MM/yyyy"),
+                trainingDescription: self.training,
+                beginning: $filter('date')(self.d1.dt,"dd/MM/yyyy"),
+                ending:  $filter('date')(self.d2.dt,"dd/MM/yyyy"),
                 beginningTime: self.beginningHour,
                 endingTime: self.endHour,
                 location: self.trainingLocation

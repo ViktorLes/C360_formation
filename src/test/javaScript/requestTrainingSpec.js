@@ -3,8 +3,8 @@ describe('Demande de Formation', function() {
     var backend;
     var loc;
     var trainings = JSON.parse('[{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},{"id":6,"version":0,"trainingTitle":"Hibernate","numberHalfDays":5}]');
-    var sessionsSelected = JSON.parse('[{"id":4,"training":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"04/05/2016","ending":"06/05/2016","beginningTime":"08:00","endingTime":"08:00","location":"Salle Phuket"}]');
-    var sessionsFromTraining = JSON.parse('[{"id":4,"training":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"04/05/2016","ending":"06/05/2016","beginningTime":"08:00","endingTime":"08:00","location":"Salle Phuket"},{"id":5,"training":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"07/05/2016","ending":"10/05/2016","beginningTime":"08:00","endingTime":"08:00","location":"Salle Phuket"}]');
+    var sessionsSelected = JSON.parse('[{"id":4,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"04/05/2016","ending":"06/05/2016","beginningTime":"08:00","endingTime":"08:00","location":"Salle Phuket"}]');
+    var sessionsFromTraining = JSON.parse('[{"id":4,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"04/05/2016","ending":"06/05/2016","beginningTime":"08:00","endingTime":"08:00","location":"Salle Phuket"},{"id":5,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"07/05/2016","ending":"10/05/2016","beginningTime":"08:00","endingTime":"08:00","location":"Salle Phuket"}]');
 
     beforeEach(module('App'));
 
@@ -36,7 +36,7 @@ describe('Demande de Formation', function() {
         ctrl.loadTrainingSessions();
         backend.flush();
         expect(ctrl.isListEmpty).toBeTruthy();
-        backend.expectPOST('api/requests', {training: ctrl.requestedTraining, collaborator: 2, trainingSessions:[]}).respond(true);
+        backend.expectPOST('api/requests', {trainingDescription: ctrl.requestedTraining, collaboratorIdentity: {id :2}, trainingSessionsDescriptions:[]}).respond(true);
         ctrl.verifyForm();
         backend.flush();
         expect(loc.path()).toBe('/pageblanche');
@@ -49,7 +49,7 @@ describe('Demande de Formation', function() {
         backend.flush();
         expect(ctrl.isListEmpty).toBeFalsy();
         ctrl.listTrainingSession[0].isChecked = true;
-        backend.expectPOST('api/requests', {training: ctrl.requestedTraining, collaborator: 2, trainingSessions:sessionsSelected}).respond(true);
+        backend.expectPOST('api/requests', {trainingDescription: ctrl.requestedTraining, collaboratorIdentity: {id :2}, trainingSessionsDescriptions:sessionsSelected}).respond(true);
         ctrl.verifyForm();
         backend.flush();
         expect(loc.path()).toBe('/pageblanche');

@@ -4,7 +4,7 @@
 //*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
 //************************************************************************************//
 angular.module('controllers').controller('controllerAffectTraining', ['$http', '$location', '$filter', '$timeout', function ($http, $location, $filter, $timeout) {
-
+    
     var self = this;
     self.isCollabaratorListUpdated = false;
     self.boolErrNoSessionSelected = false;
@@ -31,7 +31,7 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
     };
 
     self.displayTrainingSession = function (mySession) {
-        return mySession.training.trainingTitle + ' - ' + mySession.beginning + ' à ' + mySession.ending + ' - ' + mySession.location;
+        return mySession.trainingDescription.trainingTitle + ' - ' + mySession.beginning + ' à ' + mySession.ending + ' - ' + mySession.location;
     };
 
     //déplace d'une liste à une autre
@@ -74,7 +74,7 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
             beginning: selectedSessionSplittedArray[1],
             ending: selectedSessionSplittedArray[2],
             location: selectedSessionSplittedArray[3],
-            training: {
+            trainingDescription: {
                 trainingTitle: selectedSessionSplittedArray[0]
             }
         };
@@ -83,7 +83,7 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
             if (elem.beginning === self.trainingSessionObject.beginning &&
                 elem.ending === self.trainingSessionObject.ending &&
                 elem.location === self.trainingSessionObject.location &&
-                elem.training.trainingTitle === self.trainingSessionObject.training.trainingTitle) {
+                elem.trainingDescription.trainingTitle === self.trainingSessionObject.trainingDescription.trainingTitle) {
                 return elem;
             }
         });

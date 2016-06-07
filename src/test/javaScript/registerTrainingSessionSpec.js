@@ -35,7 +35,7 @@ describe('registerTrainingSession', function () {
         ctrl.endHour = "08:00";
         ctrl.trainingLocation = "Salle Phuket";
         var session = {
-            training: ctrl.training,
+            trainingDescription: ctrl.training,
             beginning: filter('date')(ctrl.d1.dt, "dd/MM/yyyy"),
             ending: filter('date')(ctrl.d2.dt, "dd/MM/yyyy"),
             beginningTime: ctrl.beginningHour,
@@ -64,7 +64,7 @@ describe('registerTrainingSession', function () {
         ctrl.endHour = "08:00";
         ctrl.trainingLocation = "Salle Phuket";
         var session = {
-            training: ctrl.training,
+            trainingDescription: ctrl.training,
             beginning: filter('date')(ctrl.d1.dt, "dd/MM/yyyy"),
             ending: filter('date')(ctrl.d2.dt, "dd/MM/yyyy"),
             beginningTime: ctrl.beginningHour,
