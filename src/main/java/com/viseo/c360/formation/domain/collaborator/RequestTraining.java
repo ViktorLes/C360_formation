@@ -34,9 +34,7 @@ public class RequestTraining extends BaseEntity {
         this.listSession = new ArrayList<>();
     }
 
-    public Collaborator getCollaborator() {
-        return collaborator;
-    }
+    public Collaborator getCollaborator() { return collaborator; }
 
     public void setCollaborator(Collaborator collaborator) {
         this.collaborator = collaborator;
@@ -46,9 +44,7 @@ public class RequestTraining extends BaseEntity {
         return training;
     }
 
-    public void setTraining(Training training) {
-        this.training = training;
-    }
+    public void setTraining(Training training) { this.training = training; }
 
     public List<TrainingSession> getListSession() {
         return Collections.unmodifiableList(listSession);

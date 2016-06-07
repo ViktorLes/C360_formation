@@ -11,6 +11,7 @@ describe('Demande de Formation', function() {
     beforeEach(inject(function ($controller, $httpBackend, $location) {
         backend = $httpBackend;
         loc = $location;
+        loc.url('/RequestTraining');
         ctrl = $controller('controllerRequestTraining');
         backend.expectGET('api/formations').respond(trainings);
         backend.flush();
@@ -26,17 +27,19 @@ describe('Demande de Formation', function() {
 
     it('1)liste de formation initialisée ', function () {
         expect(ctrl.trainings).toEqual(trainings);
+        expect(loc.path()).toBe('/RequestTraining');
     });
 
     it('2) Demande de formation sans sessions planifiées', function(){
         ctrl.requestedTraining = trainings[1];
-        ctrl.loadTrainingSessions();
         backend.expectGET('api/formations/6/sessions').respond([]);
+        ctrl.loadTrainingSessions();
         backend.flush();
         expect(ctrl.isListEmpty).toBeTruthy();
-        ctrl.verifyForm();
         backend.expectPOST('api/requests', {training: ctrl.requestedTraining, collaborator: 2, trainingSessions:[]}).respond(true);
+        ctrl.verifyForm();
         backend.flush();
+        expect(loc.path()).toBe('/pageblanche');
     });
 
     it('3) Demande de formation avec sessions sélectionnées', function () {
@@ -46,9 +49,10 @@ describe('Demande de Formation', function() {
         backend.flush();
         expect(ctrl.isListEmpty).toBeFalsy();
         ctrl.listTrainingSession[0].isChecked = true;
-        ctrl.verifyForm();
         backend.expectPOST('api/requests', {training: ctrl.requestedTraining, collaborator: 2, trainingSessions:sessionsSelected}).respond(true);
+        ctrl.verifyForm();
         backend.flush();
+        expect(loc.path()).toBe('/pageblanche');
     });
 
     it('4) Demande de formation sans selection au préalable', function() {
@@ -56,15 +60,17 @@ describe('Demande de Formation', function() {
         expect(ctrl.listTrainingSession).toBeUndefined();
         ctrl.verifyForm();
         expect(ctrl.hasToChooseOneTraining).toBeTruthy();
+        expect(loc.path()).toBe('/RequestTraining');
     });
 
     it('5) Demande de formation sans sessions sélectionnées', function () {
         ctrl.requestedTraining = {id: 1};
-        ctrl.loadTrainingSessions();
         backend.expectGET('api/formations/1/sessions').respond(sessionsFromTraining);
+        ctrl.loadTrainingSessions();
         backend.flush();
         expect(ctrl.isListEmpty).toBeFalsy();
         ctrl.verifyForm();
         expect(ctrl.noneSessionSelected).toBeTruthy();
+        expect(loc.path()).toBe('/RequestTraining');
     });
 });

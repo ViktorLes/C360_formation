@@ -5,14 +5,15 @@ import com.viseo.c360.formation.dto.training.TrainingSessionDTO;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListTrainingSessionToDTO implements Converter<List<TrainingSession>, List<TrainingSessionDTO>> {
+public class ListTrainingSessionToListDTO implements Converter<List<TrainingSession>, List<TrainingSessionDTO>> {
 
     ConversionService conversionService;
 
-    public ListTrainingSessionToDTO(ConversionService conversionService) {
+    public ListTrainingSessionToListDTO(ConversionService conversionService) {
         this.conversionService = conversionService;
     }
 

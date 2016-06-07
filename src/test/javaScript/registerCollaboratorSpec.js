@@ -8,6 +8,7 @@ describe('Enregistrement Collaborateur', function () {
     beforeEach(inject(function ($controller, $httpBackend, $location) {
         backend = $httpBackend;
         loc = $location;
+        loc.url('/RegisterCollaborator');
         ctrl = $controller('controllerRegisterCollaborator');
     }));
 
@@ -19,6 +20,7 @@ describe('Enregistrement Collaborateur', function () {
             ctrl.collaborator.lastName = "Darmet";
             ctrl.collaborator.firstName = "Henri";
             ctrl.collaborator.personnalIdnumber = "BB554";
+            backend.flush();
         });
 
         afterEach(function () {
@@ -27,18 +29,19 @@ describe('Enregistrement Collaborateur', function () {
         });
 
         it('Valide', function () {
-            ctrl.saveAction();
             backend.expectPOST('api/collaborateurs').respond('true');
+            ctrl.saveAction();
             backend.flush();
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
+            expect(loc.path()).toBe('/pageblanche');
         });
 
         it('Invalide', function () {
-            ctrl.saveAction();
             backend.expectPOST('api/collaborateurs').respond('false');
+            ctrl.saveAction();
             backend.flush();
             expect(ctrl.isNewPersonalIdNumber).toBeFalsy();
-            //expect(loc.path()).toEqual('#/EnregistrementCollaborateur');
+            expect(loc.path()).toBe('/RegisterCollaborator');
         });
     });
 });
