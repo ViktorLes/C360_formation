@@ -10,7 +10,7 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
         });
     };
     
-    self.displayCollaborator = function (collaborator) {
+    self.displayCollaborator = function(collaborator) {
         if(collaborator) {
             return collaborator.firstName+' '+collaborator.lastName;
         }
@@ -18,7 +18,7 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
     
     self.selectCollaborator = function(myCollaborator){
         MockConnexionService.select(myCollaborator);
-        self.collaboratorConnected = MockConnexionService.getCollaboratorConnected();
+        self.collaboratorConnected = MockConnexionService.getCollaboratorDescription();
     };
     
 }]);

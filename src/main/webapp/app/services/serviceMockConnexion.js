@@ -6,8 +6,11 @@ angular.module('controllers').factory('MockConnexionService',[function() {
                 collaboratorSelected = myCollaborator;
             }
         },
-        getCollaboratorConnected: function () {
+        getCollaboratorDescription: function () {
             return collaboratorSelected;
+        },
+        getCollaboratorIdentity: function () {
+            return {id: collaboratorSelected.id};
         }
     };
 }]);
