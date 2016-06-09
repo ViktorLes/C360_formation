@@ -38,7 +38,7 @@ ul li:first-child {
 .collaborator-box {
     padding-top: 5px;
     overflow-y: scroll;
-    height: 200px;
+    height: 390px;
     border: 2px solid darkgrey;
 }
 
