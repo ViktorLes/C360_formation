@@ -30,7 +30,7 @@ describe('Affectation session', function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
         backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
-        ctrl.loadNotAffectedCollaboratorsList();
+        ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
         ctrl.moveItem(collabortorThomas, ctrl.availableCollaboratorList, ctrl.selectedCollaboratorList);
         ctrl.moveItem(collabortorNada, ctrl.availableCollaboratorList, ctrl.selectedCollaboratorList);
@@ -42,7 +42,7 @@ describe('Affectation session', function () {
 
     it('2) Enregister sans selectionner une session --', function () {
         ctrl.selectedSession = "";
-        ctrl.loadNotAffectedCollaboratorsList();
+        ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         expect(ctrl.sessionSelected).toBeUndefined();
         ctrl.verifyForm();
         expect(ctrl.boolErrNoSessionSelected).toBeTruthy();
@@ -52,7 +52,7 @@ describe('Affectation session', function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
         backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
-        ctrl.loadNotAffectedCollaboratorsList();
+        ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
         ctrl.moveItem(collaboratorBayrek, ctrl.selectedCollaboratorList, ctrl.availableCollaboratorList);
         ctrl.verifyForm();
@@ -66,7 +66,7 @@ describe('Affectation session', function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
         backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
-        ctrl.loadNotAffectedCollaboratorsList();
+        ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
         ctrl.moveItem(collabortorThomas, availableCollaboratorList, affectedCollaboratorList);
         expect(availableCollaboratorList).not.toContain(collabortorThomas);
@@ -77,7 +77,7 @@ describe('Affectation session', function () {
         availableCollaboratorList = [collabortorThomas, collabortorNada];
         backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
-        ctrl.loadNotAffectedCollaboratorsList();
+        ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
         expect(filter(availableCollaboratorList,"X")).toEqual([]);
     });

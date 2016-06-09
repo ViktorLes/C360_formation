@@ -15,7 +15,7 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
     });
 
     //Récupérer la liste des collaborateurs affectés et non affectés à la session
-    self.loadNotAffectedCollaboratorsList = function () {
+    self.loadNotAffectedAndAffectedCollaboratorsList = function () {
         self.availableCollaboratorList = [];
         self.selectedCollaboratorList = [];
         self.boolErrNoSessionSelected = false;
