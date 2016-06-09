@@ -5,14 +5,16 @@ describe('Demande de Formation', function() {
     var trainings = JSON.parse('[{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},{"id":6,"version":0,"trainingTitle":"Hibernate","numberHalfDays":5}]');
     var sessionsSelected = JSON.parse('[{"id":4,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"04/05/2016","ending":"06/05/2016","beginningTime":"08:00","endingTime":"08:00","location":"Salle Phuket"}]');
     var sessionsFromTraining = JSON.parse('[{"id":4,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"04/05/2016","ending":"06/05/2016","beginningTime":"08:00","endingTime":"08:00","location":"Salle Phuket"},{"id":5,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"07/05/2016","ending":"10/05/2016","beginningTime":"08:00","endingTime":"08:00","location":"Salle Phuket"}]');
+    var collabortorThomas = JSON.parse('{"id":2,"version":0,"personnalIdNumber":"TLE","lastName":"Lecomte","firstName":"Thomas"}');
 
     beforeEach(module('App'));
 
-    beforeEach(inject(function ($controller, $httpBackend, $location) {
+    beforeEach(inject(function ($controller, $httpBackend, $location, MockConnexionService) {
         backend = $httpBackend;
         loc = $location;
         loc.url('/RequestTraining');
         ctrl = $controller('controllerRequestTraining');
+        MockConnexionService.select(collabortorThomas);
         backend.expectGET('api/formations').respond(trainings);
         backend.flush();
         expect(ctrl.noneSessionSelected).toBeFalsy();

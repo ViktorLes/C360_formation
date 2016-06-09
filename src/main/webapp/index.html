@@ -15,7 +15,9 @@
 				<div id="titreProjet" class="col-md-2">Collaborateur 360</div>
 		</header>
 	<div ng-controller="globalController as ctrl">
-		<button ng-click="ctrl.initBase()">alimenter la base</button>
+		<button ng-click="ctrl.initBase()">alimenter la base / refresh liste collaborateurs</button>
+		<select ng-model="ctrl.collaboratorSelected" ng-options="ctrl.displayCollaborator(collaborator) for collaborator in ctrl.collaborators" ng-change="ctrl.selectCollaborator(ctrl.collaboratorSelected)"></select>
+		<span ng-bind="ctrl.displayCollaborator(ctrl.collaboratorConnected)"></span>
 	</div>
 	<nav>
 		<a href="#/RegisterCollaborator">EnregistrementCollaborateur</a>|
@@ -42,6 +44,7 @@
 	<script src="app/filter.js"></script>
     <script src="app/services/datepicker.js"></script>
 	<script src="app/services/serviceInitBdd.js"></script>
+	<script src="app/services/serviceMockConnexion.js"></script>
 		<!--controller/        -->
 		<script src="app/controller/affectTrainingSession.js"></script>
 		<script src="app/controller/updateAffectTrainingSession.js"></script>

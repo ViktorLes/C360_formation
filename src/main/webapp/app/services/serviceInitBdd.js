@@ -32,7 +32,7 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 	
 	return {
 		init:function(){
-			$http.post("api/formations",training).then(function(data){
+			return $http.post("api/formations",training).then(function(data){
 				training.id = 1;
 				if(data.data)console.log("ajout training",training);
 				return $http.post("api/collaborateurs",collaborator1);
