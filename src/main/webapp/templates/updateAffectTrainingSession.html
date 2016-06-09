@@ -26,7 +26,7 @@
 
                             <div class="row">
                                 <h5 class="col-lg-6"><span class="label label-default" id="gauche"
-                                                           style="font-size: 1em">Chercher collaborateurs</span></h5>
+                                                           style="font-size: 1em">Liste des utilisateurs</span></h5>
                                 <il class="col-lg-6" style="margin-top: 5px">
                                     <input type="checkbox" ng-model="AS.showRequests"
                                            ng-change="AS.showRequestChanged()">
@@ -48,7 +48,7 @@
 
                                 <ul>
                                     <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList |
-                                     searchByString: searchCollaboratorField:'firstName':'lastName' | orderBy:'firstName')">
+                                     searchByString: searchCollaboratorField:'firstName':'lastName' | orderBy:'firstName')" ng-show="searchCollaboratorField.length > 0 ||AS.showRequests ">
                                         <span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
                                         <button class="glyphicon glyphicon-chevron-right btn btn-xs btn-default btn-success pull-right"
                                                 ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>
@@ -57,6 +57,9 @@
                                 <div alert class="center-block row text-center alert alert-danger small"
                                      ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
                                     <strong>Aucun résultat trouvé</strong>
+                                </div>
+                                <div class="center-block row text-center small" ng-hide="searchCollaboratorField.length > 0 ||AS.showRequests">
+                                    <strong>Rechercher un collaborateur</strong>
                                 </div>
                             </div>
                         </div>
