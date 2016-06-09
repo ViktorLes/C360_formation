@@ -14,6 +14,17 @@ angular.module('controllers').controller('controllerUpdateAffectTraining', ['$ht
         self.trainingSessionList = data.data;
     });
 
+    self.updateCollaboratorAvailableByListIntersection = function () {
+        for (var counterLeft = 0; counterLeft < self.availableCollaboratorList.length; counterLeft++) {
+            for (var counterRight = 0; counterRight < self.selectedCollaboratorList.length; counterRight++) {
+                console.log(self.selectedCollaboratorList[counterRight].id, self.availableCollaboratorList[counterLeft].id);
+                if (self.selectedCollaboratorList[counterRight].id === self.availableCollaboratorList[counterLeft].id) {
+                    self.availableCollaboratorList.splice(counterLeft, 1);
+                }
+            }
+        }
+    };
+
     self.showRequestChanged = function () {
         /******************************/
         var collaboratorThomas = JSON.parse('{"id":2,"version":0,"personnalIdNumber":"TLE","lastName":"Lecomte","firstName":"Thomas"}');
@@ -21,13 +32,15 @@ angular.module('controllers').controller('controllerUpdateAffectTraining', ['$ht
         var collaboratorBayrek = JSON.parse('{"id":7,"version":0,"personnalIdNumber":"MBO","lastName":"MOKNI","firstName":"Bayrek"}');
         /******************************/
         self.availableCollaboratorList = [];
-        if(!self.showRequests){
+        if (!self.showRequests) {
             $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsnotaffected").then(function (data) {
                 self.availableCollaboratorList = data.data;
+                self.updateCollaboratorAvailableByListIntersection();
             });
         }
-        else{
+        else {
             self.availableCollaboratorList = [collaboratorThomas, collaboratorBayrek];
+            self.updateCollaboratorAvailableByListIntersection();
         }
     };
     //Récupérer la liste des collaborateurs affectés et non affectés à la session
