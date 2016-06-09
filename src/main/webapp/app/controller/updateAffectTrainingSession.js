@@ -8,22 +8,35 @@ angular.module('controllers').controller('controllerUpdateAffectTraining', ['$ht
     var self = this;
     self.isCollabaratorListUpdated = false;
     self.boolErrNoSessionSelected = false;
-
+    self.showRequests = true;
     //Récupérer la liste des sessions disponible
     $http.get("api/sessions").then(function (data) {
         self.trainingSessionList = data.data;
     });
 
+    self.showRequestChanged = function () {
+        /******************************/
+        var collaboratorThomas = JSON.parse('{"id":2,"version":0,"personnalIdNumber":"TLE","lastName":"Lecomte","firstName":"Thomas"}');
+        var collaboratorNada = JSON.parse('{"id":3,"version":0,"personnalIdNumber":"NKA","lastName":"Kalmouni","firstName":"Nada"}');
+        var collaboratorBayrek = JSON.parse('{"id":7,"version":0,"personnalIdNumber":"MBO","lastName":"MOKNI","firstName":"Bayrek"}');
+        /******************************/
+        self.availableCollaboratorList = [];
+        if(!self.showRequests){
+            $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsnotaffected").then(function (data) {
+                self.availableCollaboratorList = data.data;
+            });
+        }
+        else{
+            self.availableCollaboratorList = [collaboratorThomas, collaboratorBayrek];
+        }
+    };
     //Récupérer la liste des collaborateurs affectés et non affectés à la session
     self.loadNotAffectedCollaboratorsList = function () {
-        self.availableCollaboratorList = [];
         self.selectedCollaboratorList = [];
         self.boolErrNoSessionSelected = false;
         self.sessionSelected = self.selectSessionObjectFromInputText();
         if (self.sessionSelected) {
-            $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsnotaffected").then(function (data) {
-                self.availableCollaboratorList = data.data;
-            });
+            self.showRequestChanged();
             $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsaffected").then(function (data) {
                 self.selectedCollaboratorList = data.data;
             });
