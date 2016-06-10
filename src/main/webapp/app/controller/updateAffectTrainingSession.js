@@ -38,8 +38,8 @@ angular.module('controllers').controller('controllerUpdateAffectTraining', ['$ht
             });
         }
         else {
-            $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsnotaffected").then(function (data) {
-                self.availableCollaboratorList = [collaboratorThomas, collaboratorBayrek];
+            $http.get("api/requests/session/" + self.sessionSelected.id + "/collaborators").then(function (data) {
+                self.availableCollaboratorList = data.data;
                 self.updateCollaboratorAvailableByListIntersection();
             });
         }
