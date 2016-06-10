@@ -39,8 +39,10 @@ angular.module('controllers').controller('controllerUpdateAffectTraining', ['$ht
             });
         }
         else {
-            self.availableCollaboratorList = [collaboratorThomas, collaboratorBayrek];
-            self.updateCollaboratorAvailableByListIntersection();
+            $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsnotaffected").then(function (data) {
+                self.availableCollaboratorList = [collaboratorThomas, collaboratorBayrek];
+                self.updateCollaboratorAvailableByListIntersection();
+            });
         }
     };
     //Récupérer la liste des collaborateurs affectés et non affectés à la session
