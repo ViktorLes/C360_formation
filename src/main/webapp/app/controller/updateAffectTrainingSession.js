@@ -17,7 +17,6 @@ angular.module('controllers').controller('controllerUpdateAffectTraining', ['$ht
     self.updateCollaboratorAvailableByListIntersection = function () {
         for (var counterLeft = 0; counterLeft < self.availableCollaboratorList.length; counterLeft++) {
             for (var counterRight = 0; counterRight < self.selectedCollaboratorList.length; counterRight++) {
-                console.log(self.selectedCollaboratorList[counterRight].id, self.availableCollaboratorList[counterLeft].id);
                 if (self.selectedCollaboratorList[counterRight].id === self.availableCollaboratorList[counterLeft].id) {
                     self.availableCollaboratorList.splice(counterLeft, 1);
                 }
