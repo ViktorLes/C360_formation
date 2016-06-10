@@ -26,7 +26,12 @@ describe('update Affectation session', function () {
         backend.verifyNoOutstandingRequest();
     });
 
-    it('green test', function(){
-        expect(1).toBe(1);
+    it('1) l\'affichage des deux cadres avec la selection d\'une session', function(){
+        ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
+        backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
+        backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
+        ctrl.loadNotAffectedAndAffectedCollaboratorsList();
+        backend.flush();
+        expect(ctrl.sessionSelected).toBeTruthy();
     });
 });
