@@ -28,6 +28,7 @@ public class CollaboratorWS {
     @Inject
     TrainingDAO trainingDAO;
 
+
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
     @ResponseBody
     public boolean addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
@@ -100,12 +101,18 @@ public class CollaboratorWS {
         try {
             TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
             if (trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
-            collaboratorDAO.affectCollaboratorsTrainingSession(trainingSession,new ListDescriptionToListCollaborator().convert(collaboratorDescriptions));
+            collaboratorDAO.affectCollaboratorsTrainingSession(trainingSession, new ListDescriptionToListCollaborator().convert(collaboratorDescriptions));
             return true;
         } catch (PersistentObjectNotFoundException | ConversionException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
-}
 
+    @RequestMapping(value = "${endpoint.collaboratorsRequestingListByTrainingSession}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<CollaboratorDescription> getCollaboratorsRequestingListByTrainingSession(@PathVariable Long id) {
+            TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
+        return new ListCollaboratorToListDescription().convert(collaboratorDAO.getCollaboratorsRequestingBySession(trainingSession));
+    }
+}

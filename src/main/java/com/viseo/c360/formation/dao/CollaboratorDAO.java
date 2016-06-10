@@ -1,14 +1,15 @@
 package com.viseo.c360.formation.dao;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,4 +75,19 @@ public class CollaboratorDAO {
             return listCollaborator;
         }
     }
+
+    public List<Collaborator> getCollaboratorsRequestingBySession(TrainingSession myTrainnigSession) {
+        em.setFlushMode(FlushModeType.COMMIT);
+        Set<Collaborator> listCollaborator = new HashSet<Collaborator>(em.createQuery(
+                "select c from RequestTraining r Inner Join r.collaborator c Inner Join r.listSession s Where s = :session")
+                .setParameter("session", myTrainnigSession).getResultList());
+        listCollaborator.addAll(em.createQuery(
+                "select c from RequestTraining r Inner Join r.collaborator c Where r.training = :training")
+                .setParameter("training", myTrainnigSession.getTraining()).getResultList());
+        listCollaborator.removeAll(em.createQuery(
+                "select c from TrainingSession s Inner Join s.collaborators c Where s.training = :training")
+                .setParameter("training", myTrainnigSession.getTraining()).getResultList());
+        return new ArrayList<>(listCollaborator);
+    }
 }
+
