@@ -5,7 +5,7 @@ angular.module('controllers')
 
         /*** Recupération des regex **/
         $http.get("api/collaborateurs/regex").then(function (data) {
-            self.regex.personalIdNumber = new RegExp(data.data.PERSONNAL_ID_NUMBER);
+            self.regex.personnalIdNumber = new RegExp(data.data.PERSONNAL_ID_NUMBER);
             self.regex.lastName = new RegExp(data.data.LAST_NAME);
             self.regex.firstName = new RegExp(data.data.FIRST_NAME);
         });
