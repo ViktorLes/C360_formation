@@ -79,7 +79,7 @@ public class CollaboratorDAO {
     public List<Collaborator> getCollaboratorsRequestingBySession(TrainingSession myTrainnigSession) {
         em.setFlushMode(FlushModeType.COMMIT);
         Set<Collaborator> listCollaborator = new HashSet<Collaborator>(em.createQuery(
-                "select c from RequestTraining r Inner Join r.collaborator c Inner Join r.listSession s Where s = :session")
+                "select c from RequestTraining r Inner Join r.  collaborator c Inner Join r.listSession s Where s = :session")
                 .setParameter("session", myTrainnigSession).getResultList());
         listCollaborator.addAll(em.createQuery(
                 "select c from RequestTraining r Inner Join r.collaborator c Where r.training = :training")

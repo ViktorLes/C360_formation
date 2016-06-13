@@ -27,6 +27,7 @@ ul li:first-child {
 .info-text {
     color: blue;
 }
+
 .warning-text {
     color: red;
 }
@@ -47,8 +48,12 @@ ul li:first-child {
 }
 
 .searchBox {
-    position: fixed;
+    position: absolute;
     z-index: 100;
+}
+
+.divSearch {
+    clear: left;
 }
 
 .right-inner-addon input {
@@ -61,6 +66,7 @@ ul li:first-child {
     padding: 10px 12px;
     pointer-events: none;
 }
-.h5{
+
+.h5 {
     font-size: 1em;
 }

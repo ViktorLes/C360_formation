@@ -24,7 +24,7 @@
                     <div id="dual-list-box-employees" class="form-group row">
                         <div class="col-md-5">
                             <h5><span class="label label-default" id="gauche">Chercher collaborateurs</span></h5>
-                            <div class="collaborator-box">
+                            <div class="divSearch">
                                 <div class="searchBox col-md-2">
                                     <div class="right-inner-addon">
                                         <i class="glyphicon glyphicon-search"></i>
@@ -34,18 +34,19 @@
                                                autofocus/>
                                     </div>
                                 </div>
-
-                                <ul>
-                                    <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList |
+                                <div class="collaborator-box divSearch">
+                                    <ul>
+                                        <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList |
                                      searchByString: searchCollaboratorField:'firstName':'lastName' | orderBy:'firstName')">
-                                        <span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
-                                        <button class="glyphicon glyphicon-chevron-right btn btn-xs btn-default btn-success pull-right"
-                                                ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>
-                                    </li>
-                                </ul>
-                                <div alert class="center-block row text-center alert alert-danger small"
-                                     ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
-                                    <strong>Aucun résultat trouvé</strong>
+                                            <span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
+                                            <button class="glyphicon glyphicon-chevron-right btn btn-xs btn-default btn-success pull-right"
+                                                    ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>
+                                        </li>
+                                    </ul>
+                                    <div alert class="center-block row text-center alert alert-danger small"
+                                         ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
+                                        <strong>Aucun résultat trouvé</strong>
+                                    </div>
                                 </div>
                             </div>
                         </div>
