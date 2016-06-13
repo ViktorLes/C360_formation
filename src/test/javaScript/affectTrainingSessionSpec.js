@@ -3,18 +3,18 @@ describe('Affectation session', function () {
     var backend;
     var sessionsList = JSON.parse('[{"id":4,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"04/05/2016","ending":"06/05/2016","beginningTime":"08:00","endingTime":"08:00","location":"Salle Phuket"},{"id":5,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"07/05/2016","ending":"10/05/2016","beginningTime":"08:00","endingTime":"17:00","location":"Salle Bali"},{"id":6,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"31/05/2016","ending":"31/05/2016","beginningTime":"08:00","endingTime":"08:30","location":"Salle Phuket"}]');
 
-    var collabortorThomas = JSON.parse('{"id":2,"version":0,"personnalIdNumber":"TLE","lastName":"Lecomte","firstName":"Thomas"}');
-    var collabortorNada = JSON.parse('{"id":3,"version":0,"personnalIdNumber":"NKA","lastName":"Kalmouni","firstName":"Nada"}');
+    var collaboratorThomas = JSON.parse('{"id":2,"version":0,"personnalIdNumber":"TLE","lastName":"Lecomte","firstName":"Thomas"}');
+    var collaboratorNada = JSON.parse('{"id":3,"version":0,"personnalIdNumber":"NKA","lastName":"Kalmouni","firstName":"Nada"}');
     var collaboratorBayrek = JSON.parse('{"id":7,"version":0,"personnalIdNumber":"MBO","lastName":"MOKNI","firstName":"Bayrek"}');
-    var availableCollaboratorList = [collabortorThomas, collabortorNada];
-    var affectedCollaboratorList = [collaboratorBayrek];
+    var availableCollaboratorList = [collaboratorThomas, collaboratorBayrek];
+    var affectedCollaboratorList = [collaboratorNada];
     var affectedCollaboratorListToBeSaved = JSON.parse(JSON.stringify(affectedCollaboratorList));
-    affectedCollaboratorListToBeSaved.push(collabortorThomas, collabortorNada);
+    affectedCollaboratorListToBeSaved.push(collaboratorThomas, collaboratorBayrek);
 
     beforeEach(module('App'));
 
     beforeEach(inject(function ($controller, $httpBackend, $filter) {
-        ctrl = $controller('controllerAffectTraining');
+        ctrl = $controller('controllerUpdateAffectTraining');
         backend = $httpBackend;
         filter = $filter('searchByString');
         backend.expectGET('api/sessions').respond(sessionsList);
@@ -30,10 +30,10 @@ describe('Affectation session', function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
         backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
-        ctrl.loadNotAffectedCollaboratorsList();
+        ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
-        ctrl.moveItem(collabortorThomas, ctrl.availableCollaboratorList, ctrl.selectedCollaboratorList);
-        ctrl.moveItem(collabortorNada, ctrl.availableCollaboratorList, ctrl.selectedCollaboratorList);
+        ctrl.moveItem(collaboratorThomas, ctrl.availableCollaboratorList, ctrl.selectedCollaboratorList);
+        ctrl.moveItem(collaboratorBayrek, ctrl.availableCollaboratorList, ctrl.selectedCollaboratorList);
         backend.expectPUT("api/sessions/6/collaborators", affectedCollaboratorListToBeSaved).respond(true);
         ctrl.verifyForm();
         backend.flush();
@@ -42,7 +42,7 @@ describe('Affectation session', function () {
 
     it('2) Enregister sans selectionner une session --', function () {
         ctrl.selectedSession = "";
-        ctrl.loadNotAffectedCollaboratorsList();
+        ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         expect(ctrl.sessionSelected).toBeUndefined();
         ctrl.verifyForm();
         expect(ctrl.boolErrNoSessionSelected).toBeTruthy();
@@ -52,9 +52,9 @@ describe('Affectation session', function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
         backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
-        ctrl.loadNotAffectedCollaboratorsList();
+        ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
-        ctrl.moveItem(collaboratorBayrek, ctrl.selectedCollaboratorList, ctrl.availableCollaboratorList);
+        ctrl.moveItem(collaboratorNada, ctrl.selectedCollaboratorList, ctrl.availableCollaboratorList);
         ctrl.verifyForm();
         affectedCollaboratorListToBeSaved = [];
         backend.expectPUT("api/sessions/6/collaborators", affectedCollaboratorListToBeSaved).respond(true);
@@ -66,18 +66,18 @@ describe('Affectation session', function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
         backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
-        ctrl.loadNotAffectedCollaboratorsList();
+        ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
-        ctrl.moveItem(collabortorThomas, availableCollaboratorList, affectedCollaboratorList);
-        expect(availableCollaboratorList).not.toContain(collabortorThomas);
+        ctrl.moveItem(collaboratorThomas, availableCollaboratorList, affectedCollaboratorList);
+        expect(availableCollaboratorList).not.toContain(collaboratorThomas);
     });
 
     it('5) Test - Si la recherche ne donne aucun résultat, un message doit s‘afficher', function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
-        availableCollaboratorList = [collabortorThomas, collabortorNada];
+        availableCollaboratorList = [collaboratorThomas, collaboratorBayrek];
         backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
-        ctrl.loadNotAffectedCollaboratorsList();
+        ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
         expect(filter(availableCollaboratorList,"X")).toEqual([]);
     });

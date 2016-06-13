@@ -2,7 +2,7 @@ angular.module('controllers')
     .controller('controllerRegisterTrainingSession', ['DatepickerService', '$http', '$filter', '$location', function (datepicker, $http, $filter, $location) {
         var self = this;
         self.isSessionAlreadyPlanned = false;
-        $http.get("api/formations").then(function(data){
+        $http.get("api/formations").then(function (data) {
             self.trainings = data.data;
             self.training = self.trainings[0];
         });
@@ -47,9 +47,8 @@ angular.module('controllers')
             }
         };
 
-
-        self.DateCorrect = function (beginningHour, endHour) {
-            if ((self.d1.dt < self.d2.dt) || (self.beginningHour < self.endHour)) {
+        self.DateCorrect = function () {
+            if (!self.committed || (self.d1.dt < self.d2.dt || self.beginningHour < self.endHour)) {
                 return true;
             }
             else {
@@ -70,26 +69,32 @@ angular.module('controllers')
         }
 
         /*** Enregistrement SessionFormation ***/
-
+        self.validate = function () {
+            return self.DateCorrect();
+        }
         self.saveAction = function () {
-            var session = {
-                trainingDescription: self.training,
-                beginning: $filter('date')(self.d1.dt,"dd/MM/yyyy"),
-                ending:  $filter('date')(self.d2.dt,"dd/MM/yyyy"),
-                beginningTime: self.beginningHour,
-                endingTime: self.endHour,
-                location: self.trainingLocation
-            };
-            $http.post("api/sessions", session).success(function (data) {
-                if (data == "true" || data == true) {
-                    self.isSessionAlreadyPlanned = false;
-                    $location.url('/pageblanche');
-                } else {
-                    self.isSessionAlreadyPlanned = true;
-                }
-            });
+            self.committed = true;
+            if (self.validate()) {
+                var session = {
+                    trainingDescription: self.training,
+                    beginning: $filter('date')(self.d1.dt, "dd/MM/yyyy"),
+                    ending: $filter('date')(self.d2.dt, "dd/MM/yyyy"),
+                    beginningTime: self.beginningHour,
+                    endingTime: self.endHour,
+                    location: self.trainingLocation
+                };
+                $http.post("api/sessions", session).success(function (data) {
+                    if (data == "true" || data == true) {
+                        self.isSessionAlreadyPlanned = false;
+                        $location.url('/pageblanche');
+                    } else {
+                        self.isSessionAlreadyPlanned = true;
+                    }
+                });
+            }
         }
     }])
+
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/RegisterTrainingSession', {
