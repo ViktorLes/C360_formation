@@ -10,15 +10,17 @@
             </div>
 
             <div class="panel-body">
-                <h5><span class="label label-default">Sessions:</span></h5>
-                <input ng-change="AS.loadNotAffectedAndAffectedCollaboratorsList()" ng-model="AS.selectedSession"
-                       title="Selectionner une session"
-                       class="filter form-control filter-unselected" list="SessionDataListFilter"
-                       placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
-                <datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">
-                    <option data-ng-repeat="session in AS.trainingSessionList"
-                            value="{{AS.displayTrainingSession(session)}}"></option>
-                </datalist>
+                <div id="selectSession">
+                    <h5><span class="label label-default">Sessions:</span></h5>
+                    <input ng-blur="AS.checkValidSession()" ng-change="AS.loadNotAffectedAndAffectedCollaboratorsList()"
+                           ng-model="AS.selectedSession" title="Selectionner une session"
+                           class="filter form-control filter-unselected" list="SessionDataListFilter"
+                           placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
+                    <datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">
+                        <option data-ng-repeat="session in AS.trainingSessionList"
+                                value="{{AS.displayTrainingSession(session)}}"></option>
+                    </datalist>
+                </div>
                 <hr>
                 <div class="form-group" id="wrapper">
                     <div id="dual-list-box-employees" class="form-group row">
@@ -72,16 +74,22 @@
                     <button class="center-block btn btn-primary" ng-click="AS.verifyForm()">Enregistrer</button>
                 </div>
                 <br>
-                <div>
+                <div id="Actions were successfully saved">
                     <button class="center-block small alert alert-success"
                             ng-show="AS.isCollabaratorListUpdated">
                         <strong>Vos modifications ont bien été enregistrées</strong>
                     </button>
                 </div>
-                <div>
+                <div id="No session was selected">
                     <button class="center-block small alert alert-danger"
                             ng-show="AS.boolErrNoSessionSelected === true">
                         <strong>Erreur: </strong> Aucune session n'a été selectionnée
+                    </button>
+                </div>
+                <div id="Not a valid Session">
+                    <button class="center-block small alert alert-danger"
+                            ng-show="AS.isValidSession === false">
+                        <strong>Erreur: </strong> Veuillez sélectionner une session valide
                     </button>
                 </div>
             </div>

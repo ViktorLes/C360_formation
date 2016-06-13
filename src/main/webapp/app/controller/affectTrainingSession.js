@@ -4,10 +4,11 @@
 //*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
 //************************************************************************************//
 angular.module('controllers').controller('controllerAffectTraining', ['$http', '$location', '$filter', '$timeout', function ($http, $location, $filter, $timeout) {
-    
+
     var self = this;
     self.isCollabaratorListUpdated = false;
     self.boolErrNoSessionSelected = false;
+    self.isValidSession = true;
 
     //Récupérer la liste des sessions disponible
     $http.get("api/sessions").then(function (data) {
@@ -28,6 +29,15 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
                 self.selectedCollaboratorList = data.data;
             });
         }
+    };
+
+    self.checkValidSession = function () {
+        if (self.selectedSession != undefined && self.selectedSession != "") {
+            if (!self.selectSessionObjectFromInputText()) {
+                self.isValidSession = false
+            }
+        }
+        else self.isValidSession = true;
     };
 
     self.displayTrainingSession = function (mySession) {
