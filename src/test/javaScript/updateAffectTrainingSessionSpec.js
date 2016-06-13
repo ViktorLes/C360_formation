@@ -31,7 +31,7 @@ describe('update Affectation session', function () {
 
     it('1) l\'affichage des deux cadres avec la selection d\'une session', function(){
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
-        backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableRequestingCollaboratorList);
+        backend.expectGET("api/requests/session/6/collaborators").respond(availableRequestingCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
         ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
@@ -40,7 +40,7 @@ describe('update Affectation session', function () {
 
     it("2)Test liste collaborateur quand la case est cochée",function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
-        backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableRequestingCollaboratorList);
+        backend.expectGET("api/requests/session/6/collaborators").respond(availableRequestingCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
         ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
@@ -49,7 +49,7 @@ describe('update Affectation session', function () {
 
     it("3)Test liste collaborateur quand la case est décochée",function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
-        backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableRequestingCollaboratorList);
+        backend.expectGET("api/requests/session/6/collaborators").respond(availableRequestingCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
         ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
