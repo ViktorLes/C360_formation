@@ -9,6 +9,8 @@ angular.module('controllers').controller('controllerUpdateAffectTraining', ['$ht
     self.isCollabaratorListUpdated = false;
     self.boolErrNoSessionSelected = false;
     self.showRequests = true;
+    self.isValidSession = true;
+
     //Récupérer la liste des sessions disponible
     $http.get("api/sessions").then(function (data) {
         self.trainingSessionList = data.data;
@@ -24,12 +26,16 @@ angular.module('controllers').controller('controllerUpdateAffectTraining', ['$ht
         }
     };
 
+    self.checkValidSession = function () {
+        if (self.selectedSession != undefined && self.selectedSession != "") {
+            if (!self.selectSessionObjectFromInputText()) {
+                self.isValidSession = false
+            }
+        }
+        else self.isValidSession = true;
+    };
+
     self.showRequestChanged = function () {
-        /******************************/
-        var collaboratorThomas = JSON.parse('{"id":2,"version":0,"personnalIdNumber":"TLE","lastName":"Lecomte","firstName":"Thomas"}');
-        var collaboratorNada = JSON.parse('{"id":3,"version":0,"personnalIdNumber":"NKA","lastName":"Kalmouni","firstName":"Nada"}');
-        var collaboratorBayrek = JSON.parse('{"id":7,"version":0,"personnalIdNumber":"MBO","lastName":"MOKNI","firstName":"Bayrek"}');
-        /******************************/
         self.availableCollaboratorList = [];
         if (!self.showRequests) {
             $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsnotaffected").then(function (data) {
