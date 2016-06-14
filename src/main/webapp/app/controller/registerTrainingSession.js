@@ -1,6 +1,8 @@
 angular.module('controllers')
     .controller('controllerRegisterTrainingSession', ['DatepickerService', '$http', '$filter', '$location', function (datepicker, $http, $filter, $location) {
         var self = this;
+
+
         self.isSessionAlreadyPlanned = false;
         $http.get("api/formations").then(function (data) {
             self.trainings = data.data;
@@ -34,8 +36,10 @@ angular.module('controllers')
         initTimeSlot();
         self.beginningHour = self.timeSlotsTraining[0];
         self.endHour = self.timeSlotsTraining[0];
-
-        self.trainingLocation = 'Salle Phuket';
+        var meetingRoom1={name:'Salle Phuket'};
+        var meetingRoom2={name:'Salle Bali'};
+        self.meetingRoomList=[meetingRoom1,meetingRoom2];
+        self.trainingLocation = meetingRoom1;
         self.isFalseForm = false;
 
         self.verifyForm = function (sessionFormIsInvalid) {
