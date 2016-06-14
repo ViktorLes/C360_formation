@@ -1,31 +1,30 @@
 <div class="row">
     <div class="col-md-3">
     </div>
-
     <div class="col-md-6">
         <div class="panel panel-default">
-
             <div class="panel-heading">
                 <h3 class="panel-title">Affectation Session</h3>
             </div>
-
             <div class="panel-body">
-                <h5><span class="label label-default">Sessions:</span></h5>
-                <input ng-change="AS.loadNotAffectedAndAffectedCollaboratorsList()" ng-model="AS.selectedSession"
-                       title="Selectionner une session"
-                       class="filter form-control filter-unselected" list="SessionDataListFilter"
-                       placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
-                <datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">
-                    <option data-ng-repeat="session in AS.trainingSessionList"
-                            value="{{AS.displayTrainingSession(session)}}"></option>
-                </datalist>
+                <div id="selectSession">
+                    <h5><span class="label label-default">Sessions:</span></h5>
+                    <input ng-blur="AS.checkValidSession()" ng-change="AS.loadNotAffectedAndAffectedCollaboratorsList()"
+                           ng-model="AS.selectedSession" title="Selectionner une session"
+                           class="filter form-control filter-unselected" list="SessionDataListFilter"
+                           placeholder="Sélectionner une session ..." style="margin-bottom: 5px;" autofocus>
+                    <datalist id="SessionDataListFilter" style="height: 200px; width: 100%;">
+                        <option data-ng-repeat="session in AS.trainingSessionList"
+                                value="{{AS.displayTrainingSession(session)}}"></option>
+                    </datalist>
+                </div>
                 <hr>
                 <div class="form-group" id="wrapper">
                     <div id="dual-list-box-employees" class="form-group row">
                         <div class="col-md-5">
                             <h5><span class="label label-default" id="gauche">Chercher collaborateurs</span></h5>
-                            <div class="divSearch">
-                                <div class="searchBox col-md-2">
+                            <div class="collaborator-box">
+                                <div class="searchBox">
                                     <div class="right-inner-addon">
                                         <i class="glyphicon glyphicon-search"></i>
                                         <input ng-model="searchCollaboratorField" id="search"
@@ -34,26 +33,23 @@
                                                autofocus/>
                                     </div>
                                 </div>
-                                <div class="collaborator-box divSearch">
-                                    <ul>
-                                        <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList |
+                                <ul>
+                                    <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList |
                                      searchByString: searchCollaboratorField:'firstName':'lastName' | orderBy:'firstName')">
-                                            <span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
-                                            <button class="glyphicon glyphicon-chevron-right btn btn-xs btn-default btn-success pull-right"
-                                                    ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>
-                                        </li>
-                                    </ul>
-                                    <div alert class="center-block row text-center alert alert-danger small"
-                                         ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
-                                        <strong>Aucun résultat trouvé</strong>
-                                    </div>
+                                        <span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
+                                        <button class="glyphicon glyphicon-chevron-right btn btn-xs btn-default btn-success pull-right"
+                                                ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>
+                                    </li>
+                                </ul>
+                                <div alert class="center-block row text-center alert alert-danger small"
+                                     ng-show="(filterResultList.length == 0)&&(searchCollaboratorField.length > 0)">
+                                    <strong>Aucun résultat trouvé</strong>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2 center-block" style="margin-top: 80px">
                             <span class="glyphicon glyphicon-chevron-right col-md-8 col-md-offset-2"></span>
                         </div>
-
                         <div class="col-md-5">
                             <h5><span class="label label-default">Collaborateurs ajoutés: {{AS.selectedCollaboratorList.length}} collaborateurs</span>
                             </h5>
@@ -73,16 +69,22 @@
                     <button class="center-block btn btn-primary" ng-click="AS.verifyForm()">Enregistrer</button>
                 </div>
                 <br>
-                <div>
+                <div id="Actions were successfully saved">
                     <button class="center-block small alert alert-success"
                             ng-show="AS.isCollabaratorListUpdated">
                         <strong>Vos modifications ont bien été enregistrées</strong>
                     </button>
                 </div>
-                <div>
+                <div id="No session was selected">
                     <button class="center-block small alert alert-danger"
                             ng-show="AS.boolErrNoSessionSelected === true">
                         <strong>Erreur: </strong> Aucune session n'a été selectionnée
+                    </button>
+                </div>
+                <div id="Not a valid Session">
+                    <button class="center-block small alert alert-danger"
+                            ng-show="AS.isValidSession === false">
+                        <strong>Erreur: </strong> Veuillez sélectionner une session valide
                     </button>
                 </div>
             </div>

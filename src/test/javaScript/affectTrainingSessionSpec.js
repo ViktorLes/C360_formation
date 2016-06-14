@@ -28,7 +28,7 @@ describe('Affectation session', function () {
 
     it('1) Selectionner une session + Associer un ou des collaborateur + Enregistrer --', function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
-        backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
+        backend.expectGET("api/requests/session/6/collaborators").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
         ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
@@ -50,7 +50,7 @@ describe('Affectation session', function () {
 
     it('3) Test - Sélectionner une session et aucun collaborateur n\'est associé, puis qu\'on clique sur le bouton « Enregistrer», l\'affectation est prise en compte et un message de confirmation apparaît', function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
-        backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
+        backend.expectGET("api/requests/session/6/collaborators").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
         ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
@@ -64,7 +64,7 @@ describe('Affectation session', function () {
 
     it('4) Rechercher un collaborateur dans la liste des Collaborateurs disponibles alors qu\'il a été dèjà ajouté à la session', function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
-        backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
+        backend.expectGET("api/requests/session/6/collaborators").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
         ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
@@ -75,7 +75,7 @@ describe('Affectation session', function () {
     it('5) Test - Si la recherche ne donne aucun résultat, un message doit s‘afficher', function () {
         ctrl.selectedSession = "AngularJS - 31/05/2016 à 31/05/2016 - Salle Phuket";
         availableCollaboratorList = [collaboratorThomas, collaboratorBayrek];
-        backend.expectGET("api/sessions/6/collaboratorsnotaffected").respond(availableCollaboratorList);
+        backend.expectGET("api/requests/session/6/collaborators").respond(availableCollaboratorList);
         backend.expectGET("api/sessions/6/collaboratorsaffected").respond(affectedCollaboratorList);
         ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();

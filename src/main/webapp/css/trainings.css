@@ -41,6 +41,7 @@ ul li:first-child {
     overflow-y: scroll;
     height: 390px;
     border: 2px solid darkgrey;
+    width: auto;
 }
 
 .right-inner-addon {
@@ -49,11 +50,9 @@ ul li:first-child {
 
 .searchBox {
     position: absolute;
+    padding: 3px 55px 10px 5px;
+    width: 100%;
     z-index: 100;
-}
-
-.divSearch {
-    clear: left;
 }
 
 .right-inner-addon input {
