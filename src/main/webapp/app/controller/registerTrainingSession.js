@@ -36,9 +36,9 @@ angular.module('controllers')
         initTimeSlot();
         self.beginningHour = self.timeSlotsTraining[0];
         self.endHour = self.timeSlotsTraining[0];
-        var meetingRoom1={name:'Salle Phuket'};
-        var meetingRoom2={name:'Salle Bali'};
-        self.meetingRoomList=[meetingRoom1,meetingRoom2];
+        var meetingRoom1 = {name: 'Salle Phuket'};
+        var meetingRoom2 = {name: 'Salle Bali'};
+        self.meetingRoomList = [meetingRoom1, meetingRoom2];
         self.trainingLocation = meetingRoom1;
         self.isFalseForm = false;
 
@@ -51,34 +51,52 @@ angular.module('controllers')
             }
         };
 
+        self.isFalseTimeSlot = false;
         self.DateCorrect = function () {
             if (!self.committed || (self.d1.dt < self.d2.dt || self.beginningHour < self.endHour)) {
+                self.isFalseForm = false;
+                self.isFalseTimeSlot = true;
                 return true;
             }
             else {
+                self.isFalseTimeSlot = false;
                 return false;
             }
-        }
+        };
 
-        self.isWeekENDD2 = function () {
-            return (self.d2.dt.getDay() == 0 || self.d2.dt.getDay() == 6);
-        }
-
-        self.isWeekENDD1 = function () {
-            return (self.d1.dt.getDay() == 0 || self.d1.dt.getDay() == 6);
-        }
+        self.isWeekend = function (date) {
+            return (date.dt.getDay() == 0 || date.dt.getDay() == 6);
+        };
 
         self.showForm = function (form) {
             console.log("showForm >>>>>>>>>>>>>>>>>>>>>", form)
-        }
+        };
 
         /*** Enregistrement SessionFormation ***/
         self.validate = function () {
             return self.DateCorrect();
-        }
+        };
+
+        self.isFalseDate = false;
+        self.isNoWorkingDay = true;
+        self.checkDateValide = function (date) {
+            if (date.dt === undefined) {
+                self.isFalseForm = false;
+                self.isFalseDate = true;
+            }
+            else {
+                self.isFalseDate = false;
+                if (self.isWeekend(date)) {
+                    self.isFalseForm = false;
+                    self.isNoWorkingDay = false;
+                }
+                else self.isNoWorkingDay = true;
+            }
+        };
+
         self.saveAction = function () {
             self.committed = true;
-            if (self.validate()) {
+            if (self.validate() && self.isFalseDate === false && self.isFalseForm === true && self.isNoWorkingDay === true) {
                 var session = {
                     trainingDescription: self.training,
                     beginning: $filter('date')(self.d1.dt, "dd/MM/yyyy"),
