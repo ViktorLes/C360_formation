@@ -30,7 +30,11 @@ module.exports = function (config) {
 
 
         // list of files to exclude
-        exclude: [],
+        exclude: [
+            'src/main/webapp/app/controller/affectTrainingSession.js',
+            'src/main/webapp/app/controller/global.js',
+            'src/main/webapp/app/services/serviceInitBdd.js'
+        ],
 
 
         // preprocess matching files before serving them to the browser
