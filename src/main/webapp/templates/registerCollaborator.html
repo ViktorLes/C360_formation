@@ -32,13 +32,28 @@
 			      <p ng-show="collaborateurForm.firstName.$invalid && collaborateurForm.firstName.$dirty" class="help-block">Veuillez entrer un prénom valide</p>
 			    </div>
 			
+<!--
 			    <div class="alert alert-danger" role="alert" ng-show="EC.isFalseForm">
 			      Veuillez remplir tous les champs
 			    </div>
+-->
 
-			    <div class="alert alert-danger" role="alert" ng-show="!EC.isNewPersonalIdNumber">
+<!--			    <div class="alert alert-danger" role="alert" ng-show="!EC.isNewPersonalIdNumber">
 			      Ce matricule a déjà été enregistré
-			    </div> 
+			    </div>-->
+
+				  <button class="center-block alert alert-danger" role="alert" disabled="disabled"
+						  ng-show="!EC.isNewPersonalIdNumber">
+					  Ce matricule a déjà été enregistré
+				  </button>
+				  <button class="center-block alert alert-danger" disabled="disabled" role="alert"
+						  ng-show="EC.isThereAnEmptyField">
+					  Veuillez remplir tous les champs
+				  </button>
+				  <button class="center-block alert alert-danger" disabled="disabled" role="alert"
+						  ng-show="EC.isFalseForm">
+					  Veuillez remplir corretement tous les champs
+				  </button>
 			    
 			    <button type="submit" class="btn btn-primary" >Enregistrer</button>			
 			  </form>

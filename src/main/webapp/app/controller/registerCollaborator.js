@@ -12,6 +12,32 @@ angular.module('controllers')
 
         self.isNewPersonalIdNumber = "true";
         self.isFalseForm = false;
+        self.isThereAnEmptyField = false;
+
+        self.checkValidForm = function (collaboratorForm) {
+            if (collaboratorForm.$invalid == true) {
+                self.isFalseForm = true;
+                self.isThereAnEmptyField = false;
+            }
+        };
+
+        self.verifyForm = function (collaboratorForm) {
+            if (self.collaborator !== undefined) {
+                if (self.collaborator.lastName === "" || self.collaborator.firstName === "") {
+                    self.isThereAnEmptyField = true;
+                    self.isFalseForm = false;
+                }
+                else self.checkValidForm(collaboratorForm);
+            }
+            else {
+                self.isThereAnEmptyField = true;
+            }
+
+            if (self.isFalseForm == false && self.isThereAnEmptyField == false) {
+                self.saveAction();
+            }
+        };
+/*
 
         self.verifyForm = function (collaboratorForm) {
             if (collaboratorForm.$invalid == false) {
@@ -21,6 +47,7 @@ angular.module('controllers')
                 self.isFalseForm = true;
             }
         };
+*/
 
         self.saveAction = function () {
             //delete useless spaces between words 
