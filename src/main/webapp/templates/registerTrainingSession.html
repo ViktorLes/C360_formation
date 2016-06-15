@@ -1,16 +1,11 @@
 <div class="row">
-    <div class="col-md-4">
-    </div>
-
+    <div class="col-md-4"></div>
     <div class="col-md-4">
         <div class="panel panel-default">
-
             <div class="panel-heading">
                 <h3 class="panel-title">Déclaration d'une session</h3>
             </div>
-
             <div class="panel-body">
-
                 <form name="sessionForm" ng-submit="DS.verifyForm(sessionForm.$invalid)" novalidate>
                     <!-- Nom de la Training -->
                     <div class="form-group">
@@ -68,7 +63,6 @@
                         </div>
 
                         <!-- HEURE FIN !!!!!!!!!!!!!! -->
-
                         <div class="form-group">
                             <h5><span class="label label-default">Heure de fin: (Dernier Jour)</span></h5>
                             <div class="col-md-6">
@@ -90,7 +84,7 @@
                                 Il existe déjà une session pour cette formation dans ces tranches horaires.
                             </button>
                             <button class="center-block small alert alert-danger" role="alert" disabled="disabled"
-                                    ng-show="DS.isFalseTimeSlot === true && DS.isFalseForm === false">
+                                    ng-show="DS.isFalseTimeSlot === true">
                                 Veuillez choisir une date de fin superieure à la date de debut.
                             </button>
                             <button class="center-block small alert alert-danger" disabled="disabled" role="alert"
@@ -98,7 +92,7 @@
                                 Veuillez remplir tous les champs
                             </button>
                             <button class="center-block small alert alert-danger" disabled="disabled"
-                                    ng-show="DS.isNoWorkingDay === false && DS.isFalseForm === false">
+                                    ng-show="DS.isWorkingDay === false && DS.isFalseForm === false">
                                 <strong>Attention:</strong> Le jour selectionné est un jour non ouvrable
                             </button>
                             <button class="center-block small alert alert-danger" disabled="disabled"
@@ -106,10 +100,11 @@
                                 Le format de la date n'est pas correct : (JJ/MM/AAAA)
                             </button>
 
-                            <button type="submit" class="center-block btn btn-primary">Enregistrer</button>
+                            <button type="submit" class="center-block btn btn-primary"
+                                    ng-blur="DS.isSessionAlreadyPlanned = false">Enregistrer
+                            </button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
