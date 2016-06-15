@@ -44,8 +44,6 @@ angular.module('controllers')
         }
 
         self.saveAction = function () {
-            validateTraining();
-            if (self.isFalseForm === false && self.isFalseTimeSlot === false && self.isFalseDate === false && self.isWorkingDay === true) {
                 var session = {
                     trainingDescription: self.training,
                     beginning: $filter('date')(self.d1.dt, "dd/MM/yyyy"),
@@ -62,30 +60,28 @@ angular.module('controllers')
                         self.isSessionAlreadyPlanned = true;
                     }
                 });
-            }
         };
 
         validateTraining = function () {
             if (self.training === undefined) self.isFalseForm = true;
-            else return self.DateCorrect();
+            else self.DateCorrect();
         };
 
         self.DateCorrect = function () {
             if (self.d1.dt < self.d2.dt || self.beginningHour < self.endHour) {
                 self.isFalseForm = false;
                 self.isFalseTimeSlot = false;
-                return true;
             }
             else {
                 self.isFalseTimeSlot = true;
-                return false;
-
             }
         };
 
         self.verifyForm = function (sessionFormIsInvalid) {
+
             if (sessionFormIsInvalid == false) {
-                self.saveAction();
+                validateTraining();
+                if (self.isFalseForm === false && self.isFalseTimeSlot === false && self.isFalseDate === false && self.isWorkingDay === true) self.saveAction();
             }
             else {
                 self.isFalseForm = true;
