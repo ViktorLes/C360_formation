@@ -10,7 +10,7 @@ angular.module('controllers')
         });
         self.isNewTrainingTitle = true;
         self.isFalseForm = false;
-        self.isThereAnEmptyField = false;      
+        self.isThereAnEmptyField = false;
 
         self.checkValidForm = function (trainingForm) {
             if (trainingForm.$invalid == true) {

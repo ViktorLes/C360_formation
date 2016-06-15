@@ -37,17 +37,6 @@ angular.module('controllers')
                 self.saveAction();
             }
         };
-/*
-
-        self.verifyForm = function (collaboratorForm) {
-            if (collaboratorForm.$invalid == false) {
-                self.saveAction();
-            }
-            else {
-                self.isFalseForm = true;
-            }
-        };
-*/
 
         self.saveAction = function () {
             //delete useless spaces between words 
