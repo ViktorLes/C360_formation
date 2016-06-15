@@ -19,7 +19,7 @@
                                ng-trim="true" placeholder="Titre de la formation">
                         <!-- ng-minlength="2" ng-maxlength="20" -->
                         <p ng-show="formationForm.trainingTitle.$invalid && formationForm.trainingTitle.$dirty"
-                           class="help-block" >Veuillez entrer un titre de formation valide</p>
+                           class="help-block">Veuillez entrer un titre de formation valide</p>
                     </div>
                     <!-- Nombre de 1/2 journée -->
                     <div class="form-group"
@@ -28,17 +28,23 @@
                                ng-model="DF.training.numberHalfDays" required ng-pattern="DF.regex.numberHalfDays"
                                min="1" max="200" placeholder="Nombre de 1/2 journée">
                         <p ng-show="formationForm.numberHalfDays.$invalid && formationForm.numberHalfDays.$dirty"
-                           class="help-block" >Veuillez entrer un nombre de demi-journée valide (Entre 1 et 200)</p>
+                           class="help-block">Veuillez entrer un nombre de demi-journée valide (Entre 1 et 200)</p>
                     </div>
 
-                    <div class="alert alert-danger" role="alert" ng-show="!DF.isNewTrainingTitle">
+                    <br>
+                    <button class="center-block alert alert-danger" role="alert" disabled="disabled"
+                            ng-show="!DF.isNewTrainingTitle">
                         Une formation identique existe déjà dans le système
-                    </div>
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-
-                    <div class="alert alert-danger" role="alert" ng-show="DF.isFalseForm">
+                    </button>
+                    <button class="center-block alert alert-danger" disabled="disabled" role="alert"
+                            ng-show="DF.isThereAnEmptyField">
                         Veuillez remplir tous les champs
-                    </div>
+                    </button>
+                    <button class="center-block alert alert-danger" disabled="disabled" role="alert"
+                            ng-show="DF.isFalseForm">
+                        Veuillez remplir corretement tous les champs
+                    </button>
+                    <button type="submit" class="center-block btn btn-primary">Enregistrer</button>
                 </form>
             </div>
 

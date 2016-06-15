@@ -10,13 +10,29 @@ angular.module('controllers')
         });
         self.isNewTrainingTitle = true;
         self.isFalseForm = false;
+        self.isThereAnEmptyField = false;
+
+        self.checkValidForm = function (trainingForm) {
+            if (trainingForm.$invalid == true) {
+                self.isFalseForm = true;
+                self.isThereAnEmptyField = false;
+            }
+        };
 
         self.verifyForm = function (trainingForm) {
-            if (trainingForm.$invalid == false) {
-                self.saveAction();
+            if (self.training !== undefined) {
+                if (self.training.trainingTitle === "" || self.training.numberHalfDays === "") {
+                    self.isThereAnEmptyField = true;
+                    self.isFalseForm = false;
+                }
+                else self.checkValidForm(trainingForm);
             }
             else {
-                self.isFalseForm = true;
+                self.isThereAnEmptyField = true;
+            }
+
+            if (self.isFalseForm == false && self.isThereAnEmptyField == false) {
+                self.saveAction();
             }
         };
 
