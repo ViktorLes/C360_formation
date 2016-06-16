@@ -78,13 +78,14 @@ angular.module('controllers')
         };
 
         self.verifyForm = function (sessionFormIsInvalid) {
-
             if (sessionFormIsInvalid == false) {
                 validateTraining();
                 if (self.isFalseForm === false && self.isFalseTimeSlot === false && self.isFalseDate === false && self.isWorkingDay === true) self.saveAction();
             }
             else {
+                console.log("self.isFalseDate: ",self.isFalseDate);
                 self.isFalseForm = true;
+                while (self.isFalseDate == true) self.isFalseForm = false;
             }
         };
 

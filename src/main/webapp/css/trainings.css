@@ -69,3 +69,13 @@ ul li:first-child {
 .h5 {
     font-size: 1em;
 }
+
+.alertMessageSpace{
+    padding: 5px;
+}
+
+.calenderSpan:hover{
+    color: #000066;
+    font-size: 110%;
+
+}
