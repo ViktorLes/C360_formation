@@ -30,14 +30,16 @@ describe('registerTrainingSession', function () {
         ctrl.d2.dt = new Date(2016, 5, 25);
         ctrl.beginningHour = "08:00";
         ctrl.endHour = "08:00";
-        ctrl.trainingLocation = "Salle Phuket";
+        var meetingRoom1 = {name: 'Salle Phuket'};
+        ctrl.trainingLocation = meetingRoom1;
+
         var session = {
             trainingDescription: ctrl.training,
             beginning: filter('date')(ctrl.d1.dt, "dd/MM/yyyy"),
             ending: filter('date')(ctrl.d2.dt, "dd/MM/yyyy"),
             beginningTime: ctrl.beginningHour,
             endingTime: ctrl.endHour,
-            location: ctrl.trainingLocation
+            location: ctrl.trainingLocation.name
         };
         httpBackend.expectPOST("api/sessions", session).respond(true);
         ctrl.verifyForm(false);
@@ -59,14 +61,15 @@ describe('registerTrainingSession', function () {
         ctrl.d2.dt = new Date(2016, 5, 25);
         ctrl.beginningHour = "08:00";
         ctrl.endHour = "08:00";
-        ctrl.trainingLocation = "Salle Phuket";
+        var meetingRoom1 = {name: 'Salle Phuket'};
+        ctrl.trainingLocation = meetingRoom1;
         var session = {
             trainingDescription: ctrl.training,
             beginning: filter('date')(ctrl.d1.dt, "dd/MM/yyyy"),
             ending: filter('date')(ctrl.d2.dt, "dd/MM/yyyy"),
             beginningTime: ctrl.beginningHour,
             endingTime: ctrl.endHour,
-            location: ctrl.trainingLocation
+            location: ctrl.trainingLocation.name
         };
         httpBackend.expectPOST("api/sessions", session).respond(false);
         ctrl.verifyForm(false);
