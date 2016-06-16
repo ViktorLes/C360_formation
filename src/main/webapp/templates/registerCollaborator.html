@@ -20,7 +20,7 @@
                                ng-model="EC.collaborator.personnalIdNumber" required
                                ng-pattern="EC.regex.personnalIdNumber" ng-minlength="3" ng-maxlength="20"
                                placeholder="Matricule">
-                        <p ng-show="collaborateurForm.personnalIdNumber.$invalid && collaborateurForm.personnalIdNumber.$dirty  && collaborateurForm.personnalIdNumber"
+                        <p ng-show="collaborateurForm.personnalIdNumber.$invalid && collaborateurForm.personnalIdNumber.$dirty  && collaborateurForm.personnalIdNumber.$touched"
                            class="help-block">Numéro de matricule invalide (Exemple valide : ABC1234)</p>
                     </div>
 
