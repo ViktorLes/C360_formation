@@ -83,9 +83,8 @@ angular.module('controllers')
                 if (self.isFalseForm === false && self.isFalseTimeSlot === false && self.isFalseDate === false && self.isWorkingDay === true) self.saveAction();
             }
             else {
-                console.log("self.isFalseDate: ",self.isFalseDate);
                 self.isFalseForm = true;
-                while (self.isFalseDate == true) self.isFalseForm = false;
+                if (self.isFalseDate == true) self.isFalseForm = false;
             }
         };
 
