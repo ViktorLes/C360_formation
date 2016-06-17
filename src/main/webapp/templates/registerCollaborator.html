@@ -11,38 +11,39 @@
             </div>
 
             <div class="panel-body">
-                <form name="collaborateurForm" ng-submit="EC.verifyForm(collaborateurForm)" novalidate>
+                <form name="collaborateurForm" novalidate>
 
                     <!-- MATRICULE -->
-                    <div class="form-group"
-                         ng-class="{ 'has-error' : collaborateurForm.personnalIdNumber.$invalid && collaborateurForm.personnalIdNumber.$dirty }">
+                    <div class="form-group" ng-class="{ 'has-error' : EC.isErrorInputMessageDisplayed(collaborateurForm.personnalIdNumber,focus.personnalIdNumber)}">
                         <input type="text" name="personnalIdNumber" class="form-control"
                                ng-model="EC.collaborator.personnalIdNumber" required
                                ng-pattern="EC.regex.personnalIdNumber" ng-minlength="3" ng-maxlength="20"
+                               ng-focus="focus.personnalIdNumber=true" ng-blur="focus.personnalIdNumber=false"
                                placeholder="Matricule">
-                        <p ng-show="collaborateurForm.personnalIdNumber.$invalid && collaborateurForm.personnalIdNumber.$dirty  && collaborateurForm.personnalIdNumber"
+                        <p ng-show="EC.isErrorInputMessageDisplayed(collaborateurForm.personnalIdNumber, focus.personnalIdNumber)"
                            class="help-block">Numéro de matricule invalide (Exemple valide : ABC1234)</p>
                     </div>
 
                     <!-- NOM -->
                     <div class="form-group"
-                         ng-class="{ 'has-error' : collaborateurForm.lastName.$invalid && collaborateurForm.lastName.$dirty }">
+                         ng-class="{ 'has-error' : EC.isErrorInputMessageDisplayed(collaborateurForm.lastName, focus.lastName) }">
                         <input type="text" name="lastName" class="form-control" ng-model="EC.collaborator.lastName"
                                required ng-pattern="EC.regex.lastName" ng-minlength="2" ng-maxlength="120"
+                               ng-focus="focus.lastName=true" ng-blur="focus.lastName=false"
                                ng-trim="true" placeholder="Nom">
-                        <p ng-show="collaborateurForm.lastName.$invalid && collaborateurForm.lastName.$dirty"
-                           class="help-block">Veuillez entrer un nom valide</p>
+                        <p ng-show="EC.isErrorInputMessageDisplayed(collaborateurForm.lastName, focus.lastName)" class="help-block">Veuillez entrer un nom valide</p>
                     </div>
 
                     <!-- PRENOM -->
                     <div class="form-group"
-                         ng-class="{ 'has-error' : collaborateurForm.firstName.$invalid && collaborateurForm.firstName.$dirty }">
+                         ng-class="{ 'has-error' : EC.isErrorInputMessageDisplayed(collaborateurForm.firstName, focus.firstName) }">
                         <input type="text" name="firstName" class="form-control" ng-model="EC.collaborator.firstName"
                                required ng-pattern="EC.regex.firstName" ng-minlength="2" ng-maxlength="120"
+                               ng-focus="focus.firstName=true" ng-blur="focus.firstName=false"
                                ng-trim="true" placeholder="Prénom">
-                        <p ng-show="collaborateurForm.firstName.$invalid && collaborateurForm.firstName.$dirty"
-                           class="help-block">Veuillez entrer un prénom valide</p>
+                        <p ng-show="EC.isErrorInputMessageDisplayed(collaborateurForm.firstName, focus.firstName)" class="help-block">Veuillez entrer un prénom valide</p>
                     </div>
+
                     <button class="center-block alert alert-danger" role="alert" disabled="disabled"
                             ng-show="!EC.isNewPersonalIdNumber">
                         Ce matricule a déjà été enregistré
@@ -53,10 +54,10 @@
                     </button>
                     <button class="center-block alert alert-danger" disabled="disabled" role="alert"
                             ng-show="EC.isFalseForm">
-                        Veuillez remplir corretement tous les champs
+                        Veuillez remplir correctement tous les champs
                     </button>
 
-                    <button type="submit" class="btn btn-primary center-block">Enregistrer</button>
+                    <button type="submit" ng-mousedown="EC.verifyForm(collaborateurForm)" class="btn btn-primary center-block">Enregistrer</button>
                 </form>
             </div>
 
