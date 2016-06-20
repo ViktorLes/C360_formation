@@ -5,9 +5,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.viseo.c360.formation.converters.training.DescriptionToTraining;
-import com.viseo.c360.formation.converters.training.ListTrainingToListDescription;
+import com.viseo.c360.formation.converters.training.TrainingToDescription;
 import com.viseo.c360.formation.converters.trainingsession.DescriptionToTrainingSession;
-import com.viseo.c360.formation.converters.trainingsession.ListTrainingSessionToListDescription;
+import com.viseo.c360.formation.converters.trainingsession.TrainingSessionToDescription;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 
@@ -46,7 +46,7 @@ public class TrainingWS {
     @RequestMapping(value = "${endpoint.trainings}", method = RequestMethod.GET)
     @ResponseBody
     public List<TrainingDescription> getAllTrainingsDescriptions() {
-        return new ListTrainingToListDescription().convert(trainingDAO.getAllTrainings());
+        return new TrainingToDescription().convert(trainingDAO.getAllTrainings());
     }
 
     /***
@@ -75,12 +75,12 @@ public class TrainingWS {
     @RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.GET)
     @ResponseBody
     public List<TrainingSessionDescription> getTrainingSessionsDescriptions() {
-        return new ListTrainingSessionToListDescription().convert(trainingDAO.getAllTrainingSessions());
+        return new TrainingSessionToDescription().convert(trainingDAO.getAllTrainingSessions());
     }
 
     @RequestMapping(value = "${endpoint.sessionsbyid}", method = RequestMethod.GET)
     @ResponseBody
     public List<TrainingSessionDescription> getTrainingSessionsByTraining(@PathVariable String id) {
-        return new ListTrainingSessionToListDescription().convert(trainingDAO.getSessionByTraining(Long.parseLong(id)));
+        return new TrainingSessionToDescription().convert(trainingDAO.getSessionByTraining(Long.parseLong(id)));
     }
 }
