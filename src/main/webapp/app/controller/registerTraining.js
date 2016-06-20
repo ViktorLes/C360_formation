@@ -12,26 +12,20 @@ angular.module('controllers')
         self.isFalseForm = false;
         self.isThereAnEmptyField = false;
 
-        self.checkValidForm = function (trainingForm) {
-            if (trainingForm.$invalid == true) {
-                self.isFalseForm = true;
-                self.isThereAnEmptyField = false;
-            }
+        self.isErrorInputMessageDisplayed = function (inputForm, focus) {
+            return !inputForm.$error.required && inputForm.$invalid && !focus;
         };
 
         self.verifyForm = function (trainingForm) {
-            if (self.training !== undefined) {
-                if (self.training.trainingTitle === "" || self.training.numberHalfDays === "") {
-                    self.isThereAnEmptyField = true;
-                    self.isFalseForm = false;
-                }
-                else self.checkValidForm(trainingForm);
+            if (trainingForm.$error.required) {
+                self.isThereAnEmptyField = true;
+                self.isFalseForm = false;
+            }
+            else if (trainingForm.$invalid) {
+                self.isFalseForm = true;
+                self.isThereAnEmptyField = false;
             }
             else {
-                self.isThereAnEmptyField = true;
-            }
-
-            if (self.isFalseForm == false && self.isThereAnEmptyField == false) {
                 self.saveAction();
             }
         };
