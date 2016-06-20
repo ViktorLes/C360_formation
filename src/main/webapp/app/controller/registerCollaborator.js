@@ -17,7 +17,7 @@ angular.module('controllers')
             return !inputForm.$error.required && inputForm.$invalid && !focus;
         };
 
-        self.verifyForm = function (collaboratorForm) {
+        self.verifyForm = function(collaboratorForm) {
             if (collaboratorForm.$error.required) {
                     self.isThereAnEmptyField = true;
                     self.isFalseForm = false;
