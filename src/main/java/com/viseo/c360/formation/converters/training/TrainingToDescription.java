@@ -9,6 +9,8 @@ import org.springframework.core.convert.converter.Converter;
 
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrainingToDescription {
 
@@ -21,5 +23,13 @@ public class TrainingToDescription {
         dto.setNumberHalfDays(source.getNumberHalfDays());
         dto.setTrainingTitle(source.getTrainingTitle());
         return dto;
+    }
+
+    public List<TrainingDescription> convert(List<Training> trainings) {
+        List<TrainingDescription> listDescription = new ArrayList<TrainingDescription>();
+        for(Training myTraining : trainings){
+            listDescription.add(convert(myTraining));
+        }
+        return listDescription;
     }
 }

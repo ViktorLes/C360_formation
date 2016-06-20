@@ -9,6 +9,8 @@ import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.TypeDescriptor;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DescriptionToCollaborator {
 
@@ -22,5 +24,13 @@ public class DescriptionToCollaborator {
         domain.setLastName(dto.getLastName());
         domain.setPersonnalIdNumber(dto.getPersonnalIdNumber());
         return domain;
+    }
+
+    public List<Collaborator> convert(List<CollaboratorDescription> sourceList) {
+        List<Collaborator> listCollaborator = new ArrayList<>();
+        for (CollaboratorDescription collaboratorDescription : sourceList) {
+            listCollaborator.add(convert(collaboratorDescription));
+        }
+        return listCollaborator;
     }
 }
