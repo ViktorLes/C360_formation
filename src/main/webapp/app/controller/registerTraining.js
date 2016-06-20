@@ -10,13 +10,23 @@ angular.module('controllers')
         });
         self.isNewTrainingTitle = true;
         self.isFalseForm = false;
+        self.isThereAnEmptyField = false;
+
+        self.isErrorInputMessageDisplayed = function (inputForm, focus) {
+            return !inputForm.$error.required && inputForm.$invalid && !focus;
+        };
 
         self.verifyForm = function (trainingForm) {
-            if (trainingForm.$invalid == false) {
-                self.saveAction();
+            if (trainingForm.$error.required) {
+                self.isThereAnEmptyField = true;
+                self.isFalseForm = false;
+            }
+            else if (trainingForm.$invalid) {
+                self.isFalseForm = true;
+                self.isThereAnEmptyField = false;
             }
             else {
-                self.isFalseForm = true;
+                self.saveAction();
             }
         };
 
