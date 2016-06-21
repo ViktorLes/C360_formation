@@ -3,11 +3,11 @@ describe('update Affectation session', function () {
     var backend;
     var sessionsList = JSON.parse('[{"id":4,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"04/05/2016","ending":"06/05/2016","beginningTime":"08:00","endingTime":"08:00","location":"Salle Phuket"},{"id":5,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"07/05/2016","ending":"10/05/2016","beginningTime":"08:00","endingTime":"17:00","location":"Salle Bali"},{"id":6,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"31/05/2016","ending":"31/05/2016","beginningTime":"08:00","endingTime":"08:30","location":"Salle Phuket"}]');
 
-    var collabortorThomas = JSON.parse('{"id":2,"version":0,"personnalIdNumber":"TLE","lastName":"Lecomte","firstName":"Thomas"}');
-    var collabortorNada = JSON.parse('{"id":3,"version":0,"personnalIdNumber":"NKA","lastName":"Kalmouni","firstName":"Nada"}');
-    var collaboratorBayrek = JSON.parse('{"id":7,"version":0,"personnalIdNumber":"MBO","lastName":"MOKNI","firstName":"Bayrek"}');
-    var collaboratorJihad = JSON.parse('{"id":10,"version":0,"personnalIdNumber":"JEL","lastName":"ELKADIR","firstName":"Jihad"}');
-    var collaboratorRiheb = JSON.parse('{"id":11,"version":0,"personnalIdNumber":"RHA","lastName":"HAFI","firstName":"Riheb"}');
+    var collabortorThomas = JSON.parse('{"id":2,"version":0,"personnalIdNumber":"TLE1234","lastName":"Lecomte","firstName":"Thomas"}');
+    var collabortorNada = JSON.parse('{"id":3,"version":0,"personnalIdNumber":"NKA1234","lastName":"Kalmouni","firstName":"Nada"}');
+    var collaboratorBayrek = JSON.parse('{"id":7,"version":0,"personnalIdNumber":"MBO1234","lastName":"MOKNI","firstName":"Bayrek"}');
+    var collaboratorJihad = JSON.parse('{"id":10,"version":0,"personnalIdNumber":"JEL1234","lastName":"ELKADIR","firstName":"Jihad"}');
+    var collaboratorRiheb = JSON.parse('{"id":11,"version":0,"personnalIdNumber":"RHA1234","lastName":"HAFI","firstName":"Riheb"}');
     var availableRequestingCollaboratorList=[collabortorThomas,collaboratorBayrek];
     var allAvailableCollaboratorList = [collabortorThomas, collaboratorBayrek,collaboratorJihad,collaboratorRiheb];
     var affectedCollaboratorList = [collabortorNada];

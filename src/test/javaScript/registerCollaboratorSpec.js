@@ -15,11 +15,11 @@ describe('Enregistrement Collaborateur', function () {
     describe('Test EnregistrementCollaborateur', function () {
 
         beforeEach(function () {
-            backend.expectGET('api/collaborateurs/regex').respond('{"PERSONNAL_ID_NUMBER":"^[A-Z0-9]+$","LAST_NAME":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$","FIRST_NAME":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$"}');
+            backend.expectGET('api/collaborateurs/regex').respond('{"PERSONNAL_ID_NUMBER":"[A-Z]{3}[0-9]{4}","LAST_NAME":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$","FIRST_NAME":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$"}');
             ctrl.collaborator = {};
             ctrl.collaborator.lastName = "Darmet";
             ctrl.collaborator.firstName = "Henri";
-            ctrl.collaborator.personnalIdnumber = "BB554";
+            ctrl.collaborator.personnalIdnumber = "HDA1234";
             backend.flush();
         });
 

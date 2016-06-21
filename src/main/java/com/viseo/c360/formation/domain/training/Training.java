@@ -1,6 +1,7 @@
 package com.viseo.c360.formation.domain.training;
 
 import com.viseo.c360.formation.domain.BaseEntity;
+import com.viseo.c360.formation.dto.training.TrainingDescription;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.Max;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Pattern;
 public class Training extends BaseEntity {
 
 	@NotNull
+	@Pattern(regexp= TrainingDescription.Regex.TRAINING_TITLE+"*")
 	String trainingTitle;
 
 	@NotNull

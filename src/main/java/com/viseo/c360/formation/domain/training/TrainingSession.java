@@ -7,11 +7,12 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import com.viseo.c360.formation.domain.BaseEntity;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
