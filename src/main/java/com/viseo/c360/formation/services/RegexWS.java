@@ -26,7 +26,7 @@ public class RegexWS {
     @ResponseBody
     public Map<String,String> getRegexCollaborators(){
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("PERSONNAL_ID_NUMBER", "[A-Z]{3}[0-9]{4}");
+		map.put("PERSONNAL_ID_NUMBER", "^"+CollaboratorDescription.Regex.PERSONNAL_ID_NUMBER+"$");
 		map.put("LAST_NAME","^"+ CollaboratorDescription.Regex.LAST_NAME +"+$");
 		map.put("FIRST_NAME","^"+ CollaboratorDescription.Regex.FIRST_NAME +"+$");
 		return map;
