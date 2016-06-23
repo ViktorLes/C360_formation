@@ -26,7 +26,7 @@
                     <!-- Nombre de 1/2 journée -->
                     <div class="form-group"
                          ng-class="{ 'has-error' : DF.isErrorInputMessageDisplayed(formationForm.numberHalfDays, focus.numberHalfDays) }">
-                        <input type="text" name="numberHalfDays" class="form-control"
+                        <input type="number" name="numberHalfDays" class="form-control "
                                ng-model="DF.training.numberHalfDays"
                                required ng-pattern="DF.regex.numberHalfDays" min="1" max="200"
                                ng-focus="focus.numberHalfDays=true" ng-blur="focus.numberHalfDays=false"
