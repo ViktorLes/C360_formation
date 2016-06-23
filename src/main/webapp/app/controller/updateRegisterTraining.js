@@ -11,40 +11,6 @@ angular.module('controllers')
         self.isNewTrainingTitle = true;
         self.isFalseForm = false;
         self.isThereAnEmptyField = false;
-        var topic1 = {name: "Développement Mobile"};
-        var topic2 = {name: "Développement Web"};
-        self.topicList = [topic1, topic2];
-
-
-        var distinctTopicList = [];
-        var indexedTeams = [];
-        self.isTopicTrue = function (training) {
-            var isNewTopic = distinctTopicList.indexOf(training.topicName) == -1;
-            if (isNewTopic) indexedTeams.push(training.topicName);
-            return isNewTopic;
-        };
-
-        // A supprimer après l'intégration du Back
-        self.trainingList = [
-            {
-                "id": 1,
-                "trainingTitle": "KKK",
-                "topicName": "topic1",
-                "numberHalfDays": 5
-            },
-            {
-                "id": 2,
-                "trainingTitle": "HHH",
-                "topicName": "topic2",
-                "numberHalfDays": 4
-            },
-            {
-                "id": 3,
-                "trainingTitle": "LLL",
-                "topicName": "topic1",
-                "numberHalfDays": 2
-            }];
-        ////////////////////////////////////////
 
         self.isErrorInputMessageDisplayed = function (inputForm, focus) {
             return !inputForm.$error.required && inputForm.$invalid && !focus;
@@ -78,6 +44,41 @@ angular.module('controllers')
             });
         };
 
+//Afficher les sessions par thèmes
+        var topic1 = {name: "Développement Mobile"};
+        var topic2 = {name: "Développement Web"};
+        self.topicList = [topic1, topic2];
+        // A supprimer après l'intégration du Back
+        self.trainingList = [
+            {
+                "id": 1,
+                "trainingTitle": "KKK",
+                "topicName": "topic1",
+                "numberHalfDays": 5
+            },
+            {
+                "id": 2,
+                "trainingTitle": "HHH",
+                "topicName": "topic2",
+                "numberHalfDays": 4
+            },
+            {
+                "id": 3,
+                "trainingTitle": "LLL",
+                "topicName": "topic1",
+                "numberHalfDays": 2
+            }];
+        ////////////////////////////////////////
+        var indexedTeams = [];
+        self.returnTrainingListToFilter = function() {
+            indexedTeams = [];
+            return self.trainingList;
+        };
+        self.filterTopic = function (training) {
+            var isNewTopic = indexedTeams.indexOf(training.topicName) == -1;
+            if (isNewTopic) indexedTeams.push(training.topicName);
+            return isNewTopic;
+        };
     }])
 
     .config(['$routeProvider', function ($routeProvider) {

@@ -59,10 +59,9 @@
                     </button>
                 </form>
 
-                <div ng-repeat="topic in DF.topicList"> here1: {{topic.name}}
-                </div>
-
-                <div ng-repeat="topic in DF.trainingList | filter:isTopicTrue"> here2: {{topic.topicName}}
+                <div class="boxed" ng-repeat="topic in DF.returnTrainingListToFilter() | filter:DF.filterTopic">
+                    <b>{{topic.topicName}}</b>
+                    <div class="boxedTraining" ng-repeat="training in DF.trainingList | filter:{topicName:topic.topicName}">{{training.trainingTitle}}</div>
                 </div>
 
 
