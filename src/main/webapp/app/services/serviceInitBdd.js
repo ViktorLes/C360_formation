@@ -20,12 +20,12 @@ angular.module('controllers').factory('InitBddService',['$http', function($http)
 			location: "Salle Bali"
 	};
 	var collaborator1={
-		personnalIdNumber: "TLE",
+		personnalIdNumber: "TLE3467",
 		lastName: "Lecomte",
 		firstName: "Thomas"
 	};
 	var collaborator2={
-		personnalIdNumber: "NKA",
+		personnalIdNumber: "NKA7896",
 		lastName: "Kalmouni",
 		firstName: "Nada"
 	};
