@@ -1,5 +1,6 @@
 package com.viseo.c360.formation.converters.trainingsession;
 
+import com.viseo.c360.formation.converters.training.DescriptionToTraining;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
@@ -9,6 +10,8 @@ import org.springframework.core.convert.TypeDescriptor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DescriptionToTrainingSession {
 
@@ -29,5 +32,17 @@ public class DescriptionToTrainingSession {
                     new Throwable(e.getMessage()));
         }
         return domain;
+    }
+
+    public List<TrainingSession> convert(List<TrainingSessionDescription> listDto) {
+        List<TrainingSession> listTrainingSession = new ArrayList<TrainingSession>();
+        for (TrainingSessionDescription myTrainingSessionDescription : listDto) {
+            listTrainingSession.add(
+                    convert(myTrainingSessionDescription,
+                            new DescriptionToTraining().convert(myTrainingSessionDescription.getTrainingDescription())
+                    )
+            );
+        }
+        return listTrainingSession;
     }
 }

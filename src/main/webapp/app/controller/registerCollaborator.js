@@ -2,6 +2,9 @@ angular.module('controllers')
     .controller('controllerRegisterCollaborator', ['$http', '$location', function ($http, $location) {
         var self = this;
         self.regex = {};
+        self.isNewPersonalIdNumber = true;
+        self.isFalseForm = false;
+        self.isThereAnEmptyField = false;
 
         /*** Recupération des regex **/
         $http.get("api/collaborateurs/regex").then(function (data) {
@@ -10,15 +13,21 @@ angular.module('controllers')
             self.regex.firstName = new RegExp(data.data.FIRST_NAME);
         });
 
-        self.isNewPersonalIdNumber = "true";
-        self.isFalseForm = false;
+        self.isErrorInputMessageDisplayed = function(inputForm, focus){
+            return !inputForm.$error.required && inputForm.$invalid && !focus;
+        };
 
-        self.verifyForm = function (collaboratorForm) {
-            if (collaboratorForm.$invalid == false) {
-                self.saveAction();
+        self.verifyForm = function(collaboratorForm) {
+            if (collaboratorForm.$error.required) {
+                    self.isThereAnEmptyField = true;
+                    self.isFalseForm = false;
+            }
+            else if(collaboratorForm.$invalid) {
+                self.isFalseForm = true;
+                self.isThereAnEmptyField = false;
             }
             else {
-                self.isFalseForm = true;
+                self.saveAction();
             }
         };
 
@@ -29,7 +38,7 @@ angular.module('controllers')
 
             //post the form to the server
             $http.post("api/collaborateurs", self.collaborator).success(function (data) {
-                if (data == "true" || data == true) {
+                if (data === "true" || data === true) {
                     self.isNewPersonalIdNumber = true;
                     $location.url('/pageblanche');
                 }

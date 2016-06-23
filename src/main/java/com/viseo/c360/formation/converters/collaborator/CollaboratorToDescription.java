@@ -4,6 +4,9 @@ package com.viseo.c360.formation.converters.collaborator;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class CollaboratorToDescription {
 
@@ -18,4 +21,13 @@ public class CollaboratorToDescription {
         dto.setFirstName(source.getFirstName());
         return dto;
     }
+
+    public List<CollaboratorDescription> convert(List<Collaborator> sourceList) {
+        List<CollaboratorDescription> listDto = new ArrayList<>();
+        for (Collaborator collaborator : sourceList) {
+            listDto.add(convert(collaborator));
+        }
+        return listDto;
+    }
+
 }

@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>Viseo</groupId>
-	<artifactId>C360</artifactId>
+	<artifactId>C360_formation</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>C360 Maven Webapp</name>
@@ -276,7 +276,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>C360</finalName>
+		<finalName>C360_formation</finalName>
 
 		<plugins>
 			<plugin>

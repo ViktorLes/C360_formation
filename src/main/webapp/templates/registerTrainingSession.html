@@ -11,6 +11,7 @@
             </div>
             <div class="MainContainer">
 
+
                 <div class="panel-body">
 
                     <div class="form-horizontal" name="sessionForm" ng-submit="DS.verifyForm(sessionForm.$invalid)"
@@ -25,7 +26,9 @@
                         </div>
 
                         <div class="row">
+
                             <div class="col-sm-6">
+
                                 <h5><span class="label label-default">Date et Heure de Début:</span></h5>
                                 <p class="input-group">
                                     <input type="text" name="date1"
@@ -48,8 +51,6 @@
                                         ng-options='horaire as horaire for horaire in DS.timeSlotsTraining'></select>
                             </div>
                         </div>
-
-
                         <div class="row">
                             <div class="col-sm-6">
                                 <h5><span class="label label-default">Date et Heure de Fin:</span></h5>
@@ -57,7 +58,8 @@
                                     <input type="text" name="date2"
                                            ng-pattern='^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((1[6-9]|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$'
                                            class="form-control" uib-datepicker-popup="dd/MM/yyyy"
-                                           ui-date="{ dateFormat: 'dd/MM/yyyy' }" ng-model="DS.d2.dt" ng-trim="true"
+                                           ui-date="{ dateFormat: 'dd/MM/yyyy' }" ng-model="DS.d2.dt"
+                                           ng-trim="true"
                                            ng-click="DS.d2.open1()" is-open="DS.d2.popup1.opened"
                                            datepicker-options="DS.d2.dateOptions" ng-required="true"
                                            close-text="Close"
@@ -66,7 +68,6 @@
 				            <button type="button" class="btn btn-default" ng-click="DS.d2.open1()"><i
                                     class="glyphicon glyphicon-calendar"></i></button>
 				           </span>
-
                                 </p>
                             </div>
 
@@ -76,6 +77,7 @@
                                         ng-options='horaire as horaire for horaire in DS.timeSlotsTraining'></select>
                             </div>
                         </div>
+
                         <!-- Lieu de la session -->
                         <div class="row">
                             <div class="col-md-12">
@@ -87,36 +89,37 @@
                             </div>
                         </div>
 
-                        <button class="center-block small alert alert-danger" disabled="disabled" role="alert"
-                                ng-show="DS.isSessionAlreadyPlanned">
-                            Il existe déjà une session pour cette formation dans ces tranches horaires.
-                        </button>
-                        <button class="center-block small alert alert-danger" role="alert" disabled="disabled"
-                                ng-show="!DS.DateCorrect() &&
-                                        (!(sessionForm.date2.$error.pattern && sessionForm.date2.$dirty || sessionForm.date2.$invalid) ||
-                                        !(sessionForm.date1.$error.pattern && sessionForm.date1.$dirty || sessionForm.date1.$invalid))">
-                            Veuillez choisir une date de fin superieure à la date de debut.
-                        </button>
-                        <button class="center-block small alert alert-danger" disabled="disabled" role="alert"
-                                ng-show="DS.isFalseForm">
-                            Veuillez remplir tous les champs
-                        </button>
-                        <button class="center-block small alert alert-danger" disabled="disabled"
-                                ng-show="DS.isWeekENDD1() || DS.isWeekENDD2()">
-                            <strong>Attention:</strong> Le jour selectionné est un jour non ouvrable
-                        </button>
-                        <button class="center-block small alert alert-danger" disabled="disabled"
-                                ng-show="((sessionForm.date1.$error.pattern && sessionForm.date1.$dirty || sessionForm.date1.$invalid))
-                                        || (sessionForm.date2.$error.pattern && sessionForm.date2.$dirty || sessionForm.date2.$invalid)">
-                            <strong></strong> Le format de la date n'est pas correct : (JJ/MM/AAAA)
-                        </button>
-
-                    </div>
-                    <button type="submit" class="center-block btn btn-primary">Enregistrer</button>
-
-                    </form>
+                <div class="alertMessageSpace">
+                    <button class="center-block small alert alert-danger" disabled="disabled" role="alert"
+                            ng-show="DS.isSessionAlreadyPlanned">
+                        Il existe déjà une session pour cette formation dans ces tranches horaires
+                    </button>
+                    <button class="center-block small alert alert-danger" disabled="disabled" role="alert"
+                            ng-show="DS.isFalseTimeSlot">
+                        Veuillez choisir une date de fin superieure à la date de début
+                    </button>
+                    <button class="center-block small alert alert-danger" disabled="disabled" role="alert"
+                            ng-show="DS.isFalseForm">
+                        Veuillez remplir tous les champs
+                    </button>
+                    <button class="center-block small alert alert-danger" disabled="disabled" role="alert"
+                            ng-show="!DS.isWorkingDay && !DS.isFalseForm">
+                        <strong>Attention:</strong> Le jour selectionné est un jour non ouvrable
+                    </button>
+                    <button class="center-block small alert alert-danger" disabled="disabled" role="alert"
+                            ng-show="DS.isFalseDate && !DS.isFalseForm">
+                        Le format de la date n'est pas correct : (JJ/MM/AAAA)
+                    </button>
                 </div>
+
+                <button type="submit" class="center-block btn btn-primary"
+                        ng-blur="DS.isSessionAlreadyPlanned = false"> Enregistrer
+                </button>
+                </form>
             </div>
+            </form>
         </div>
     </div>
 </div>
+</div>
+    </div>

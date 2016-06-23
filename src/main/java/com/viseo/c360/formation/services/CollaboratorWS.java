@@ -4,9 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.viseo.c360.formation.converters.collaborator.CollaboratorToDescription;
 import com.viseo.c360.formation.converters.collaborator.DescriptionToCollaborator;
-import com.viseo.c360.formation.converters.collaborator.ListCollaboratorToListDescription;
-import com.viseo.c360.formation.converters.collaborator.ListDescriptionToListCollaborator;
 import com.viseo.c360.formation.converters.requestTraining.DescriptionToRequestTraining;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
@@ -32,23 +31,19 @@ public class CollaboratorWS {
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
     @ResponseBody
     public boolean addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
-        if (!collaboratorDAO.isPersonnalIdNumberPersisted(myCollaboratorDescription.getPersonnalIdNumber())) {
-            try {
-                collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
-                return true;
-            } catch (ConversionException e) {
-                e.printStackTrace();
-                throw new RuntimeException(e);
-            }
+        try {
+            return collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
+        } catch (ConversionException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return false;
     }
 
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.GET)
     @ResponseBody
     public List<CollaboratorDescription> getAllCollaborators() {
         try {
-            return new ListCollaboratorToListDescription().convert(collaboratorDAO.getAllCollaborators());
+            return new CollaboratorToDescription().convert(collaboratorDAO.getAllCollaborators());
         } catch (ConversionException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -61,7 +56,7 @@ public class CollaboratorWS {
         try {
             TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
             if (trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
-            return new ListCollaboratorToListDescription().convert(collaboratorDAO.getNotAffectedCollaborators(trainingSession));
+            return new CollaboratorToDescription().convert(collaboratorDAO.getNotAffectedCollaborators(trainingSession));
         } catch (PersistentObjectNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -74,7 +69,7 @@ public class CollaboratorWS {
         try {
             TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
             if (trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
-            return new ListCollaboratorToListDescription().convert(trainingSession.getCollaborators());
+            return new CollaboratorToDescription().convert(trainingSession.getCollaborators());
         } catch (PersistentObjectNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -101,7 +96,7 @@ public class CollaboratorWS {
         try {
             TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
             if (trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
-            collaboratorDAO.affectCollaboratorsTrainingSession(trainingSession, new ListDescriptionToListCollaborator().convert(collaboratorDescriptions));
+            collaboratorDAO.affectCollaboratorsTrainingSession(trainingSession, new DescriptionToCollaborator().convert(collaboratorDescriptions));
             return true;
         } catch (PersistentObjectNotFoundException | ConversionException e) {
             e.printStackTrace();
@@ -112,7 +107,7 @@ public class CollaboratorWS {
     @RequestMapping(value = "${endpoint.collaboratorsRequestingListByTrainingSession}", method = RequestMethod.GET)
     @ResponseBody
     public List<CollaboratorDescription> getCollaboratorsRequestingListByTrainingSession(@PathVariable Long id) {
-            TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
-        return new ListCollaboratorToListDescription().convert(collaboratorDAO.getCollaboratorsRequestingBySession(trainingSession));
+        TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
+        return new CollaboratorToDescription().convert(collaboratorDAO.getCollaboratorsRequestingBySession(trainingSession));
     }
 }
