@@ -13,16 +13,16 @@ angular.module('controllers')
             self.regex.firstName = new RegExp(data.data.FIRST_NAME);
         });
 
-        self.isErrorInputMessageDisplayed = function(inputForm, focus){
+        self.isErrorInputMessageDisplayed = function (inputForm, focus) {
             return !inputForm.$error.required && inputForm.$invalid && !focus;
         };
 
-        self.verifyForm = function(collaboratorForm) {
+        self.verifyForm = function (collaboratorForm) {
             if (collaboratorForm.$error.required) {
-                    self.isThereAnEmptyField = true;
-                    self.isFalseForm = false;
+                self.isThereAnEmptyField = true;
+                self.isFalseForm = false;
             }
-            else if(collaboratorForm.$invalid) {
+            else if (collaboratorForm.$invalid) {
                 self.isFalseForm = true;
                 self.isThereAnEmptyField = false;
             }

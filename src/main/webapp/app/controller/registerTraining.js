@@ -17,6 +17,7 @@ angular.module('controllers')
         };
 
         self.verifyForm = function (trainingForm) {
+            console.log(trainingForm);
             if (trainingForm.$error.required) {
                 self.isThereAnEmptyField = true;
                 self.isFalseForm = false;
