@@ -7,9 +7,6 @@ import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
-import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +21,12 @@ public class CollaboratorDAO {
 
     //collaborateur
     @Transactional
-    public void addCollaborator(Collaborator collaborator) {
-        em.persist(collaborator);
+    public boolean addCollaborator(Collaborator collaborator) {
+        if (!this.isPersonnalIdNumberPersisted(collaborator.getPersonnalIdNumber())) {
+                em.merge(collaborator);
+                return true;
+            }
+            return false;
     }
 
     public boolean isPersonnalIdNumberPersisted(String personnalIdNumber) {

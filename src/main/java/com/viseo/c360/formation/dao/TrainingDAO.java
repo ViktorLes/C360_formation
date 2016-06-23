@@ -31,16 +31,12 @@ public class TrainingDAO {
     }
 
     @Transactional
-    public void addTraining(String trainingTitle, int numberHalfDays) {
-        Training training = new Training();
-        training.setTrainingTitle(trainingTitle);
-        training.setNumberHalfDays(numberHalfDays);
-        em.persist(training);
-    }
-
-    @Transactional
-    public void addTraining(Training training) {
-        em.persist(training);
+    public boolean addTraining(Training training) {
+        if (!this.isTrainingPersisted(training.getTrainingTitle())) {
+            em.merge(training);
+            return true;
+        }
+        return false;
     }
 
     public boolean isTrainingPersisted(String trainingTitle) {

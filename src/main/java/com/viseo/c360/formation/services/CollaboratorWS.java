@@ -31,16 +31,12 @@ public class CollaboratorWS {
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
     @ResponseBody
     public boolean addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
-        if (!collaboratorDAO.isPersonnalIdNumberPersisted(myCollaboratorDescription.getPersonnalIdNumber())) {
-            try {
-                collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
-                return true;
-            } catch (ConversionException e) {
-                e.printStackTrace();
-                throw new RuntimeException(e);
-            }
+        try {
+            return collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
+        } catch (ConversionException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return false;
     }
 
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.GET)
@@ -111,7 +107,7 @@ public class CollaboratorWS {
     @RequestMapping(value = "${endpoint.collaboratorsRequestingListByTrainingSession}", method = RequestMethod.GET)
     @ResponseBody
     public List<CollaboratorDescription> getCollaboratorsRequestingListByTrainingSession(@PathVariable Long id) {
-            TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
+        TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
         return new CollaboratorToDescription().convert(collaboratorDAO.getCollaboratorsRequestingBySession(trainingSession));
     }
 }

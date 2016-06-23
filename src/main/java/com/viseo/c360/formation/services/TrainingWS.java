@@ -11,6 +11,7 @@ import com.viseo.c360.formation.converters.trainingsession.TrainingSessionToDesc
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 
+import org.springframework.core.convert.ConversionException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,11 +37,12 @@ public class TrainingWS {
     @RequestMapping(value = "${endpoint.trainings}", method = RequestMethod.POST)
     @ResponseBody
     public boolean addTraining(@RequestBody TrainingDescription myTrainingDescription) {
-        if (!trainingDAO.isTrainingPersisted(myTrainingDescription.getTrainingTitle())) {
-            trainingDAO.addTraining(new DescriptionToTraining().convert(myTrainingDescription));
-            return true;
+        try {
+            return (trainingDAO.addTraining(new DescriptionToTraining().convert(myTrainingDescription)));
+        } catch (ConversionException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return false;
     }
 
     @RequestMapping(value = "${endpoint.trainings}", method = RequestMethod.GET)
@@ -62,7 +64,7 @@ public class TrainingWS {
             TrainingSession myTrainingSession = new DescriptionToTrainingSession().convert(myTrainingSessionDescription, training);
             if (!trainingDAO.isThereOneSessionTrainingAlreadyPlanned(myTrainingSession)
                     && myTrainingSession.getBeginning().before(myTrainingSession.getEnding())
-            ) {
+                    ) {
                 trainingDAO.addSessionTraining(myTrainingSession);
                 return true;
             }
