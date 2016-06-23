@@ -34,8 +34,7 @@
                                     </div>
                                 </div>
                                 <ul>
-                                    <li ng-repeat="myCollaborator in filterResultList = (AS.availableCollaboratorList |
-                                     searchByString: searchCollaboratorField:'firstName':'lastName' | orderBy:'firstName')">
+                                    <li ng-repeat="myCollaborator in filterResultList | filter:searchCollaboratorField">
                                         <span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
                                         <button class="glyphicon glyphicon-chevron-right btn btn-xs btn-default btn-success pull-right"
                                                 ng-click="AS.moveItem(myCollaborator, AS.availableCollaboratorList , AS.selectedCollaboratorList)"></button>

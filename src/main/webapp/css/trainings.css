@@ -78,5 +78,29 @@ ul li:first-child {
 .calenderSpan:hover{
     color: #000066;
     font-size: 110%;
+}
 
+.defaultSelectedValue{
+    color: grey;
+}
+
+.defaultSelectedValue option:first-child{
+    display: none;
+}
+
+.glyphiconInfoSetMarge{
+    padding-top: 10px ;
+}
+
+.boxed {
+    border: 3px solid black ;
+    margin: 5px;
+}
+
+.boxedTraining{
+    background-color: lightgrey;
+    width: 300px;
+    padding: 25px;
+    border: 1px solid navy;
+    margin: 25px;
 }
