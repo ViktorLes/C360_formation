@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-9">
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Liste des formations</h3>
+            </div>
+            <div class="panel-body">
+                <form name="formationForm" ng-submit="DF.verifyForm(formationForm)" novalidate>
+
+                    <!-- Titre de la Training -->
+                    <div class="row">
+                    <div class="col-sm-3"
+                         ng-class="{ 'has-error' : DF.isErrorInputMessageDisplayed(formationForm.trainingTitle, focus.trainingTitle) }">
+                        <input type="text" name="trainingTitle" class="form-control"
+                               ng-model="DF.training.trainingTitle"
+                               required ng-pattern="DF.regex.trainingTitle"
+                               ng-focus="focus.trainingTitle=true" ng-blur="focus.trainingTitle=false"
+                               ng-trim="true" placeholder="Nom de la formation">
+                        <p ng-show="DF.isErrorInputMessageDisplayed(formationForm.trainingTitle, focus.trainingTitle)"
+                           class="help-block">Veuillez entrer un titre de formation valide</p>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <select required class="defaultSelectedValue selectpicker form-control" ng-options="topic.name for topic in DF.topicList" ng-model="DF.training.topic">
+                            <option value="" disabled selected>Thèmes...</option>
+                        </select>
+                    </div>
+
+                    <!-- Nombre de 1/2 journée -->
+                    <div class="col-sm-3"
+                         ng-class="{ 'has-error' : DF.isErrorInputMessageDisplayed(formationForm.numberHalfDays, focus.numberHalfDays) }">
+                        <input type="text" name="numberHalfDays" class="form-control"
+                               ng-model="DF.training.numberHalfDays"
+                               required ng-pattern="DF.regex.numberHalfDays" min="1" max="200"
+                               ng-focus="focus.numberHalfDays=true" ng-blur="focus.numberHalfDays=false"
+                               ng-trim="true" placeholder="Nombre de 1/2 journée">
+                        <p ng-show="DF.isErrorInputMessageDisplayed(formationForm.numberHalfDays, focus.numberHalfDays)"
+                           class="help-block">Veuillez entrer un nombre de demi-journée valide (Entre 1 et 200)</p>
+                    </div>
+                        <button type="submit" class="col-sm-1 btn btn-primary">Ajouter</button>
+                    </div>
+                    <p><span class="glyphicon glyphicon-info-sign glyphiconInfoSetMarge"></span> Cliquer sur une formation pour gérer ses sessions</p>
+                    <br>
+                    <button class="center-block alert alert-danger" role="alert" disabled="disabled"
+                            ng-show="!DF.isNewTrainingTitle">
+                        Une formation identique existe déjà dans le système
+                    </button>
+                    <button class="center-block alert alert-danger" disabled="disabled" role="alert"
+                            ng-show="DF.isThereAnEmptyField">
+                        Veuillez remplir tous les champs
+                    </button>
+                    <button class="center-block alert alert-danger" disabled="disabled" role="alert"
+                            ng-show="DF.isFalseForm">
+                        Veuillez remplir corretement tous les champs
+                    </button>
+                </form>
+
+                <div ng-repeat="topic in DF.topicList"> here1: {{topic.name}}
+                </div>
+
+                <div ng-repeat="topic in DF.trainingList | filter:isTopicTrue"> here2: {{topic.topicName}}
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
