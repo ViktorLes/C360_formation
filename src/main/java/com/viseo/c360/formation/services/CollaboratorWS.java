@@ -4,26 +4,26 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import com.viseo.c360.formation.converters.collaborator.CollaboratorToDescription;
 import com.viseo.c360.formation.converters.collaborator.DescriptionToCollaborator;
+import com.viseo.c360.formation.domain.collaborator.RequestTraining;
+import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
+import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
+import com.viseo.c360.formation.converters.collaborator.CollaboratorToDescription;
 import com.viseo.c360.formation.converters.requestTraining.DescriptionToRequestTraining;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
-import com.viseo.c360.formation.domain.collaborator.RequestTraining;
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
-import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
+import com.viseo.c360.formation.dao.CollaboratorDAO;
 import org.springframework.core.convert.ConversionException;
 import org.springframework.web.bind.annotation.*;
-import com.viseo.c360.formation.dao.CollaboratorDAO;
 
 
 @RestController
 public class CollaboratorWS {
 
     @Inject
-    CollaboratorDAO collaboratorDAO;
+    public CollaboratorDAO collaboratorDAO;
     @Inject
     TrainingDAO trainingDAO;
 

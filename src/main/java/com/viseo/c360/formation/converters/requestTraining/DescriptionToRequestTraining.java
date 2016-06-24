@@ -1,11 +1,11 @@
 package com.viseo.c360.formation.converters.requestTraining;
 
 import com.viseo.c360.formation.converters.training.DescriptionToTraining;
+import com.viseo.c360.formation.domain.collaborator.RequestTraining;
+import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
 import com.viseo.c360.formation.converters.trainingsession.DescriptionToTrainingSession;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
-import com.viseo.c360.formation.domain.collaborator.RequestTraining;
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
 
 
 public class DescriptionToRequestTraining {

@@ -13,7 +13,7 @@ public class Collaborator extends BaseEntity {
 
 	@NotNull
 	@Size(min=3, max=20)
-	@Pattern(regexp=CollaboratorDescription.Regex.PERSONNAL_ID_NUMBER)
+	@Pattern(regexp= CollaboratorDescription.Regex.PERSONNAL_ID_NUMBER)
 	String personnalIdNumber;
 	
 	@NotNull

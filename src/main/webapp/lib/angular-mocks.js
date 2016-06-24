@@ -229,8 +229,8 @@ angular.mock.$ExceptionHandlerProvider = function() {
    *            mode stores an array of errors in `$exceptionHandler.errors`, to allow later
    *            assertion of them. See {@link ngMock.$log#assertEmpty assertEmpty()} and
    *            {@link ngMock.$log#reset reset()}
-   *   - `rethrow`: If any errors are passed to the handler in tests, it typically means that there
-   *                is a bug in the application or test, so this mock will make these tests fail.
+   *   - `rethrow`: If any errors are passed to the handler in fake, it typically means that there
+   *                is a bug in the application or test, so this mock will make these fake fail.
    *                For any implementations that expect exceptions to be thrown, the `rethrow` mode
    *                will also maintain a log of thrown errors.
    */
@@ -2621,7 +2621,7 @@ angular.mock.$RootScopeDecorator = ['$delegate', function($delegate) {
    * @description
    *
    * *NOTE*: This function is also published on window for easy access.<br>
-   * *NOTE*: This function is declared ONLY WHEN running tests with jasmine or mocha
+   * *NOTE*: This function is declared ONLY WHEN running fake with jasmine or mocha
    *
    * This function registers a module configuration code. It collects the configuration information
    * which will be used when the injector is created by {@link angular.mock.inject inject}.
@@ -2678,9 +2678,9 @@ angular.mock.$RootScopeDecorator = ['$delegate', function($delegate) {
    * @name angular.mock.module.sharedInjector
    * @description
    *
-   * *NOTE*: This function is declared ONLY WHEN running tests with jasmine or mocha
+   * *NOTE*: This function is declared ONLY WHEN running fake with jasmine or mocha
    *
-   * This function ensures a single injector will be used for all tests in a given describe context.
+   * This function ensures a single injector will be used for all fake in a given describe context.
    * This contrasts with the default behaviour where a new injector is created per test case.
    *
    * Use sharedInjector when you want to take advantage of Jasmine's `beforeAll()`, or mocha's
@@ -2693,7 +2693,7 @@ angular.mock.$RootScopeDecorator = ['$delegate', function($delegate) {
    *
    * Typically beforeAll is used to make many assertions about a single operation. This can
    * cut down test run-time as the test setup doesn't need to be re-run, and enabling focussed
-   * tests each with a single assertion.
+   * fake each with a single assertion.
    *
    * ```js
    * describe("Deep Thought", function() {

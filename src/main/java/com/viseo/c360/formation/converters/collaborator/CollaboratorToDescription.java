@@ -1,8 +1,8 @@
 package com.viseo.c360.formation.converters.collaborator;
 
 
-import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
+import com.viseo.c360.formation.domain.collaborator.Collaborator;
 
 import java.util.ArrayList;
 import java.util.List;

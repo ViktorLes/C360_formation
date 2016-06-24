@@ -1,14 +1,9 @@
 package com.viseo.c360.formation.converters.training;
 
-import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.dto.training.TrainingDescription;
-import org.springframework.core.convert.ConversionFailedException;
-import org.springframework.core.convert.TypeDescriptor;
-import org.springframework.core.convert.converter.Converter;
 
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
