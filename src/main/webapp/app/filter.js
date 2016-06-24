@@ -20,16 +20,4 @@ angular.module('filter')
             }
             return listObject;
         };
-    }])
-    .filter('distinctTopicFilter',[function () {
-        return function () {
-            var trainingList = arguments[0];
-            var distinctTopicList = [];
-
-
-            var isNewTopic = distinctTopicList.indexOf(trainingList[0].topicName);
-            if(isNewTopic) distinctTopicList.push(trainingList[0]);
-            return distinctTopicList;
-        }
-    }
-    ]);
+    }]);

@@ -1,5 +1,5 @@
 angular.module('controllers')
-    .controller('controllerUpdateRegisterTraining', ['$http', '$location', '$filter', function ($http, $location, $filter) {
+    .controller('controllerUpdateRegisterTraining', ['$http', '$location', '$filter', function ($http, $location) {
 
         var self = this;
         self.regex = {};
@@ -53,19 +53,19 @@ angular.module('controllers')
             {
                 "id": 1,
                 "trainingTitle": "KKK",
-                "topicName": "topic1",
+                "topic": topic1,
                 "numberHalfDays": 5
             },
             {
                 "id": 2,
                 "trainingTitle": "HHH",
-                "topicName": "topic2",
+                "topic": topic2,
                 "numberHalfDays": 4
             },
             {
                 "id": 3,
                 "trainingTitle": "LLL",
-                "topicName": "topic1",
+                "topic": topic1,
                 "numberHalfDays": 2
             }];
         ////////////////////////////////////////
@@ -75,10 +75,13 @@ angular.module('controllers')
             return self.trainingList;
         };
         self.filterTopic = function (training) {
-            var isNewTopic = indexedTeams.indexOf(training.topicName) == -1;
-            if (isNewTopic) indexedTeams.push(training.topicName);
+            var isNewTopic = indexedTeams.indexOf(training.topic.name) == -1;
+            if (isNewTopic) indexedTeams.push(training.topic.name);
             return isNewTopic;
         };
+        self.manageSession=function (training) {
+            $location.url("/RegisterTrainingSession");
+        }
     }])
 
     .config(['$routeProvider', function ($routeProvider) {
