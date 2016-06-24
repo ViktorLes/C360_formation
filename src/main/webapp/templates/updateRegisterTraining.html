@@ -41,7 +41,9 @@
                         <p ng-show="DF.isErrorInputMessageDisplayed(formationForm.numberHalfDays, focus.numberHalfDays)"
                            class="help-block">Veuillez entrer un nombre de demi-journée valide (Entre 1 et 200)</p>
                     </div>
-                        <button type="submit" class="col-sm-1 btn btn-primary">Ajouter</button>
+                        <div class="col-sm-3">
+                        <button type="submit" class="center-block btn btn-primary">Ajouter</button>
+                        </div>
                     </div>
                     <p><span class="glyphicon glyphicon-info-sign glyphiconInfoSetMarge"></span> Cliquer sur une formation pour gérer ses sessions</p>
                     <br>
@@ -59,13 +61,11 @@
                     </button>
                 </form>
 
-                <div class="boxed" ng-repeat="distinctedTopic in DF.returnTrainingListToFilter() | filter:DF.filterTopic">
-                    <b>{{distinctedTopic.topic.name}}</b>
-                    <div ng-click="DF.manageSession(training)" class="boxedTraining"
-                         ng-repeat="training in DF.trainingList | filter:{$:distinctedTopic.topic.name}">{{training.trainingTitle}}</div>
+                <div class="box-set" ng-repeat="distinctedTopic in DF.returnTrainingListToFilter() | filter:DF.filterTopic">
+                    <b class="box-set-name">{{distinctedTopic.topic.name}}</b>
+                    <figure ng-click="DF.manageSession(training)" ng-repeat="training in DF.trainingList | filter:{$:distinctedTopic.topic.name}"
+                            class="box"><p class="boxText">{{training.trainingTitle}}</p></figure>
                 </div>
-
-
             </div>
         </div>
     </div>

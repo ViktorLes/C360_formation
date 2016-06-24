@@ -58,7 +58,7 @@ angular.module('controllers')
             },
             {
                 "id": 2,
-                "trainingTitle": "HHH",
+                "trainingTitle": "HHHHHHHHHHHHH",
                 "topic": topic2,
                 "numberHalfDays": 4
             },

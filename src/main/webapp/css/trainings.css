@@ -92,15 +92,35 @@ ul li:first-child {
     padding-top: 10px ;
 }
 
-.boxed {
-    border: 3px solid black ;
-    margin: 5px;
+.box-set {
+    border-style: solid;
+    border-color: darkgrey;
+    margin: 1.5%;
+    background: #eaeaed;
+    overflow: auto;
 }
 
-.boxedTraining{
-    background-color: lightgrey;
-    width: 300px;
-    padding: 25px;
-    border: 1px solid black;
-    margin: 25px;
+.box-set-name{
+    border-radius: 6px;
+    background-color: white;
+    padding: 2px;
+    position: absolute;
+    float: left;
+}
+
+.box {
+    border-radius: 6px;
+    background: #0074D9;
+    float: left;
+    margin: 30px 10px 10px 10px;
+    padding: 10px;
+    text-align: center;
+    min-width: 15%;
+}
+.box:hover{
+    background-color: #2e6da4;
+}
+
+.boxText{
+    color: white;
 }
