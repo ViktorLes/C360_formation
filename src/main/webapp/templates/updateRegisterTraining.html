@@ -61,9 +61,10 @@
                     </button>
                 </form>
 
-                <div class="myBox-set well" ng-repeat="distinctedTopic in DF.returnTrainingListToFilter() | filter:DF.filterTopic">
+                <div class="myBox-set well"
+                     ng-repeat="distinctedTopic in (DF.returnTrainingListToFilter() | filter:DF.filterTopic) | orderBy : 'topic.name'">
                     <b class="myBox-set-title well well-sm">{{distinctedTopic.topic.name}}</b>
-                    <figure ng-click="DF.manageSession(training)" ng-repeat="training in DF.trainingList | filter:{$:distinctedTopic.topic.name}"
+                    <figure ng-click="DF.manageSession(training)" ng-repeat="training in (DF.trainingList | filter:{$:distinctedTopic.topic.name}) | orderBy : 'trainingTitle'"
                             class="myBox well"><p class="myBoxText">{{training.trainingTitle}}</p></figure>
                 </div>
             </div>

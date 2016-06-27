@@ -70,7 +70,7 @@ angular.module('controllers')
             }];
         ////////////////////////////////////////
         var indexedTeams = [];
-        self.returnTrainingListToFilter = function() {
+        self.returnTrainingListToFilter = function () {
             indexedTeams = [];
             return self.trainingList;
         };
@@ -79,7 +79,7 @@ angular.module('controllers')
             if (isNewTopic) indexedTeams.push(training.topic.name);
             return isNewTopic;
         };
-        self.manageSession=function (training) {
+        self.manageSession = function (training) {
             $location.url("/manageSession");
         }
     }])
