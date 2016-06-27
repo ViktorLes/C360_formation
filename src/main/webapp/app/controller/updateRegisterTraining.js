@@ -58,19 +58,19 @@ angular.module('controllers')
             },
             {
                 "id": 2,
-                "trainingTitle": "HHHHHHHHHHHHH",
+                "trainingTitle": "HHHHHHHHHHHHHMMMMMMMMMMHHHHHHHH",
                 "topic": topic2,
                 "numberHalfDays": 4
             },
             {
                 "id": 3,
-                "trainingTitle": "LLL",
+                "trainingTitle": "HHHHHHHHLLLHHHHHHHH",
                 "topic": topic1,
                 "numberHalfDays": 2
             }];
         ////////////////////////////////////////
         var indexedTeams = [];
-        self.returnTrainingListToFilter = function() {
+        self.returnTrainingListToFilter = function () {
             indexedTeams = [];
             return self.trainingList;
         };
@@ -79,8 +79,8 @@ angular.module('controllers')
             if (isNewTopic) indexedTeams.push(training.topic.name);
             return isNewTopic;
         };
-        self.manageSession=function (training) {
-            $location.url("/RegisterTrainingSession");
+        self.manageSession = function (training) {
+            $location.url("/manageSession");
         }
     }])
 

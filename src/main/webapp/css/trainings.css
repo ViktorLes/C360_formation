@@ -92,35 +92,30 @@ ul li:first-child {
     padding-top: 10px ;
 }
 
-.box-set {
-    border-style: solid;
-    border-color: darkgrey;
+.myBox-set {
     margin: 1.5%;
-    background: #eaeaed;
     overflow: auto;
 }
 
-.box-set-name{
-    border-radius: 6px;
+.myBox-set-title{
+    margin-top: -2.5%;
     background-color: white;
-    padding: 2px;
     position: absolute;
-    float: left;
 }
 
-.box {
-    border-radius: 6px;
-    background: #0074D9;
+.myBox {
+    background: #3c763d;
     float: left;
-    margin: 30px 10px 10px 10px;
+    margin: 20px 10px 10px 10px;
     padding: 10px;
     text-align: center;
     min-width: 15%;
 }
-.box:hover{
-    background-color: #2e6da4;
+.myBox:hover{
+    background-color: #4cae4c;
+    cursor: hand;
 }
 
-.boxText{
+.myBoxText{
     color: white;
 }
