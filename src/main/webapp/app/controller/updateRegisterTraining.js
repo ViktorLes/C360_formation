@@ -80,7 +80,7 @@ angular.module('controllers')
             return isNewTopic;
         };
         self.manageSession=function (training) {
-            $location.url("/RegisterTrainingSession");
+            $location.url("/manageSession");
         }
     }])
 
