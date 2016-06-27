@@ -78,5 +78,49 @@ ul li:first-child {
 .calenderSpan:hover{
     color: #000066;
     font-size: 110%;
+}
 
+.defaultSelectedValue{
+    color: grey;
+}
+
+.defaultSelectedValue option:first-child{
+    display: none;
+}
+
+.glyphiconInfoSetMarge{
+    padding-top: 10px ;
+}
+
+.box-set {
+    border-style: solid;
+    border-color: darkgrey;
+    margin: 1.5%;
+    background: #eaeaed;
+    overflow: auto;
+}
+
+.box-set-name{
+    border-radius: 6px;
+    background-color: white;
+    padding: 2px;
+    position: absolute;
+    float: left;
+}
+
+.box {
+    border-radius: 6px;
+    background: #0074D9;
+    float: left;
+    margin: 30px 10px 10px 10px;
+    padding: 10px;
+    text-align: center;
+    min-width: 15%;
+}
+.box:hover{
+    background-color: #2e6da4;
+}
+
+.boxText{
+    color: white;
 }
