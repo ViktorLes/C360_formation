@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
@@ -39,6 +40,23 @@ public class TrainingDAO {
         return false;
     }
 
+    @Transactional
+    public boolean addTopic (Topic topic){
+        if(this.isTopicPersisted((topic.getName()))) {
+            em.merge(topic);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isTopicPersisted(String name) {
+        em.setFlushMode(FlushModeType.COMMIT);
+        Collection<Topic> listTopic =
+                (Collection<Topic>) em.createQuery("select t from Topic t where t.name = :name")
+                        .setParameter("name", name).getResultList();
+        return !listTopic.isEmpty();
+    }
+
     public boolean isTrainingPersisted(String trainingTitle) {
         em.setFlushMode(FlushModeType.COMMIT);
         Collection<Training> listTrainings =
@@ -51,6 +69,20 @@ public class TrainingDAO {
         em.setFlushMode(FlushModeType.COMMIT);
         return em.createQuery("select a from Training a", Training.class).getResultList();
     }
+
+    public List<Topic> getAllTopic(){
+        em.setFlushMode(FlushModeType.COMMIT);
+        return em.createQuery("select t from Topic t", Topic.class).getResultList();
+    }
+
+    //Recuperer les formations par theme:
+    public List<Training> getTrainingsByTopic(long myTopicId) {
+        em.setFlushMode(FlushModeType.COMMIT);
+        Query q = em.createQuery("select t from Training t where t.training.topic=:myTopicId")
+                .setParameter("myTopicId",myTopicId);
+        return q.getResultList();
+    }
+
 
     /***
      * Session Training
