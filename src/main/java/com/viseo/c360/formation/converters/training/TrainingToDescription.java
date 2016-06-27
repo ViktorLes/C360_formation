@@ -22,6 +22,7 @@ public class TrainingToDescription {
         dto.setId(source.getId());
         dto.setNumberHalfDays(source.getNumberHalfDays());
         dto.setTrainingTitle(source.getTrainingTitle());
+        dto.setTopic(source.getTopic());
         return dto;
     }
 

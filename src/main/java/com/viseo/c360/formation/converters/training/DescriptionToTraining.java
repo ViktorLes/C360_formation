@@ -21,6 +21,7 @@ public class DescriptionToTraining {
         domain.setId(dto.getId());
         domain.setTrainingTitle(dto.getTrainingTitle());
         domain.setNumberHalfDays(dto.getNumberHalfDays());
+        domain.setTopic(dto.getTopic());
         return domain;
     }
 }

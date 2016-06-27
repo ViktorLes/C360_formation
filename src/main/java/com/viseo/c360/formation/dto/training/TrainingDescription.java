@@ -1,7 +1,6 @@
 package com.viseo.c360.formation.dto.training;
 
 
-import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.dto.BaseDTO;
 
 public class TrainingDescription extends BaseDTO{
@@ -15,7 +14,7 @@ public class TrainingDescription extends BaseDTO{
 
     int numberHalfDays;
 
-    Topic topic;
+    TopicDescription topicDescription;
 
     public TrainingDescription() {
     }
@@ -36,11 +35,11 @@ public class TrainingDescription extends BaseDTO{
         this.numberHalfDays = numberHalfDays;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public TopicDescription getTopicDescription() {
+        return topicDescription;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setTopicDescription(TopicDescription topicDescription) {
+        this.topicDescription = topicDescription;
     }
 }
