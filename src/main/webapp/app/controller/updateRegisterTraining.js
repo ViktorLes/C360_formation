@@ -58,13 +58,13 @@ angular.module('controllers')
             },
             {
                 "id": 2,
-                "trainingTitle": "HHHHHHHHHHHHH",
+                "trainingTitle": "HHHHHHHHHHHHHMMMMMMMMMMHHHHHHHH",
                 "topic": topic2,
                 "numberHalfDays": 4
             },
             {
                 "id": 3,
-                "trainingTitle": "LLL",
+                "trainingTitle": "HHHHHHHHLLLHHHHHHHH",
                 "topic": topic1,
                 "numberHalfDays": 2
             }];

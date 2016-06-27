@@ -61,10 +61,10 @@
                     </button>
                 </form>
 
-                <div class="box-set" ng-repeat="distinctedTopic in DF.returnTrainingListToFilter() | filter:DF.filterTopic">
-                    <b class="box-set-name">{{distinctedTopic.topic.name}}</b>
+                <div class="myBox-set well" ng-repeat="distinctedTopic in DF.returnTrainingListToFilter() | filter:DF.filterTopic">
+                    <b class="myBox-set-title well well-sm">{{distinctedTopic.topic.name}}</b>
                     <figure ng-click="DF.manageSession(training)" ng-repeat="training in DF.trainingList | filter:{$:distinctedTopic.topic.name}"
-                            class="box"><p class="boxText">{{training.trainingTitle}}</p></figure>
+                            class="myBox well"><p class="myBoxText">{{training.trainingTitle}}</p></figure>
                 </div>
             </div>
         </div>
