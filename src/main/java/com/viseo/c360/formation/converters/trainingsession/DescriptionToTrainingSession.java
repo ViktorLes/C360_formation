@@ -1,6 +1,7 @@
 package com.viseo.c360.formation.converters.trainingsession;
 
 import com.viseo.c360.formation.converters.training.DescriptionToTraining;
+import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
@@ -34,12 +35,12 @@ public class DescriptionToTrainingSession {
         return domain;
     }
 
-    public List<TrainingSession> convert(List<TrainingSessionDescription> listDto) {
+    public List<TrainingSession> convert(List<TrainingSessionDescription> listDto,Topic topic) {
         List<TrainingSession> listTrainingSession = new ArrayList<TrainingSession>();
         for (TrainingSessionDescription myTrainingSessionDescription : listDto) {
             listTrainingSession.add(
                     convert(myTrainingSessionDescription,
-                            new DescriptionToTraining().convert(myTrainingSessionDescription.getTrainingDescription())
+                            new DescriptionToTraining().convert(myTrainingSessionDescription.getTrainingDescription(),topic)
                     )
             );
         }

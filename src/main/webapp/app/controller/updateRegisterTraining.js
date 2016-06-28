@@ -8,6 +8,17 @@ angular.module('controllers')
             self.regex.trainingTitle = new RegExp(data.data.TRAINING_TITLE);
             self.regex.numberHalfDays = new RegExp(data.data.NUMBER_HALF_DAYS);
         });
+
+        /*** Recupération des Thèmes **/
+        $http.get("api/themes").then(function (data) {
+            self.topicList = data.data;
+        });
+
+        /*** Recupération des formations **/
+        $http.get("api/formations").then(function (data) {
+            self.trainingList = data.data;
+        });
+
         self.isNewTrainingTitle = true;
         self.isFalseForm = false;
         self.isThereAnEmptyField = false;
@@ -32,11 +43,10 @@ angular.module('controllers')
 
         self.saveAction = function () {
             self.training.trainingTitle = self.training.trainingTitle.replace(/ +/g, " ");
-            console.log("object: ", self.training);
             $http.post("api/formations", self.training).success(function (data) {
                 if (data == "true" || data == true) {
                     self.isNewTrainingTitle = true;
-                    $location.url('/pageblanche');
+                    self.trainingList.push(self.training);
                 }
                 else {
                     self.isNewTrainingTitle = false;
@@ -44,39 +54,14 @@ angular.module('controllers')
             });
         };
 
-//Afficher les sessions par thèmes
-        var topic1 = {name: "Développement Mobile"};
-        var topic2 = {name: "Développement Web"};
-        self.topicList = [topic1, topic2];
-        // A supprimer après l'intégration du Back
-        self.trainingList = [
-            {
-                "id": 1,
-                "trainingTitle": "KKK",
-                "topic": topic1,
-                "numberHalfDays": 5
-            },
-            {
-                "id": 2,
-                "trainingTitle": "HHHHHHHHHHHHHMMMMMMMMMMHHHHHHHH",
-                "topic": topic2,
-                "numberHalfDays": 4
-            },
-            {
-                "id": 3,
-                "trainingTitle": "HHHHHHHHLLLHHHHHHHH",
-                "topic": topic1,
-                "numberHalfDays": 2
-            }];
-        ////////////////////////////////////////
         var indexedTeams = [];
         self.returnTrainingListToFilter = function () {
             indexedTeams = [];
             return self.trainingList;
         };
         self.filterTopic = function (training) {
-            var isNewTopic = indexedTeams.indexOf(training.topic.name) == -1;
-            if (isNewTopic) indexedTeams.push(training.topic.name);
+            var isNewTopic = indexedTeams.indexOf(training.topicDescription.name) == -1;
+            if (isNewTopic) indexedTeams.push(training.topicDescription.name);
             return isNewTopic;
         };
         self.manageSession = function (training) {

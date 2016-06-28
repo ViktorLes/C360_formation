@@ -10,6 +10,7 @@ import com.viseo.c360.formation.converters.requestTraining.DescriptionToRequestT
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.collaborator.RequestTraining;
+import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
@@ -80,8 +81,9 @@ public class CollaboratorWS {
     @ResponseBody
     public boolean addRequestTraining(@RequestBody RequestTrainingDescription myRequestTrainingDescription) {
         try {
+            Topic topic = trainingDAO.getTopic(myRequestTrainingDescription.getTrainingDescription().getTopicDescription().getId());
             Collaborator myCollaborator = collaboratorDAO.getCollaborator(myRequestTrainingDescription.getCollaboratorIdentity().getId());
-            RequestTraining myRequestTraining = new DescriptionToRequestTraining().convert(myRequestTrainingDescription, myCollaborator);
+            RequestTraining myRequestTraining = new DescriptionToRequestTraining().convert(myRequestTrainingDescription, myCollaborator,topic);
             collaboratorDAO.addRequestTraining(myRequestTraining);
             return true;
         } catch (ConversionException e) {

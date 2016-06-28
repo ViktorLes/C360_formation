@@ -1,6 +1,7 @@
 package com.viseo.c360.formation.domain.training;
 
 import com.viseo.c360.formation.domain.BaseEntity;
+import com.viseo.c360.formation.dto.training.TopicDescription;
 import com.viseo.c360.formation.dto.training.TrainingDescription;
 
 import javax.persistence.Entity;

@@ -1,7 +1,9 @@
 package com.viseo.c360.formation.converters.training;
 
+import com.viseo.c360.formation.converters.topic.TopicToDescription;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.training.Training;
+import com.viseo.c360.formation.dto.training.TopicDescription;
 import com.viseo.c360.formation.dto.training.TrainingDescription;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.TypeDescriptor;
@@ -22,7 +24,7 @@ public class TrainingToDescription {
         dto.setId(source.getId());
         dto.setNumberHalfDays(source.getNumberHalfDays());
         dto.setTrainingTitle(source.getTrainingTitle());
-        dto.setTopic(source.getTopic());
+        dto.setTopicDescription(new TopicToDescription().convert(source.getTopic()));
         return dto;
     }
 

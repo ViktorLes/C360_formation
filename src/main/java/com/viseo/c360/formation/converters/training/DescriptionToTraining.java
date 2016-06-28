@@ -2,6 +2,7 @@ package com.viseo.c360.formation.converters.training;
 
 
 import com.viseo.c360.formation.dao.TrainingDAO;
+import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.dto.training.TrainingDescription;
 import org.springframework.core.convert.ConversionFailedException;
@@ -15,13 +16,13 @@ public class DescriptionToTraining {
     public DescriptionToTraining() {
     }
 
-    public Training convert(TrainingDescription dto) {
+    public Training convert(TrainingDescription dto, Topic topic) {
         Training domain = new Training();
 
         domain.setId(dto.getId());
         domain.setTrainingTitle(dto.getTrainingTitle());
         domain.setNumberHalfDays(dto.getNumberHalfDays());
-        domain.setTopic(dto.getTopic());
+        domain.setTopic(topic);
         return domain;
     }
 }

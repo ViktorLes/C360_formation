@@ -6,18 +6,18 @@ import com.viseo.c360.formation.dto.BaseDTO;
 
 import java.util.List;
 
-public class TopicDescription extends BaseDTO{
+public class TopicDescription extends BaseDTO {
 
-    List<TrainingDescription>trainingDescriptions;
+    String name;
 
     public TopicDescription() {
     }
 
-    public List<TrainingDescription> getTrainingDescriptions() {
-        return trainingDescriptions;
+    public String getName() {
+        return name;
     }
 
-    public void setTrainingDescriptions(List<TrainingDescription> trainingDescriptions) {
-        this.trainingDescriptions = trainingDescriptions;
+    public void setName(String name) {
+        this.name = name;
     }
 }

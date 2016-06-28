@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
@@ -42,11 +43,20 @@ public class TrainingDAO {
 
     @Transactional
     public boolean addTopic (Topic topic){
-        if(this.isTopicPersisted((topic.getName()))) {
-            em.merge(topic);
+        if(!this.isTopicPersisted((topic.getName()))) {
+            topic = em.merge(topic);
             return true;
         }
         return false;
+    }
+
+    public Topic getTopic(long id){
+        return em.find(Topic.class,id);
+    }
+
+    public List<Topic> getAllTopics(){
+        em.setFlushMode(FlushModeType.COMMIT);
+        return em.createQuery("select t from Topic t", Topic.class).getResultList();
     }
 
     public boolean isTopicPersisted(String name) {
@@ -68,11 +78,6 @@ public class TrainingDAO {
     public List<Training> getAllTrainings() {
         em.setFlushMode(FlushModeType.COMMIT);
         return em.createQuery("select a from Training a", Training.class).getResultList();
-    }
-
-    public List<Topic> getAllTopic(){
-        em.setFlushMode(FlushModeType.COMMIT);
-        return em.createQuery("select t from Topic t", Topic.class).getResultList();
     }
 
     //Recuperer les formations par theme:
