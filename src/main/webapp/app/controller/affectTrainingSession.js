@@ -3,11 +3,12 @@
 //***** Description: moveItem / moveAll / CtrlItemIsSelectedTOEnableOrDisableButton
 //*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
 //************************************************************************************//
-angular.module('controllers').controller('controllerAffectTraining', ['$http', '$location', '$filter', '$timeout', function ($http, $location, $filter, $timeout) {
+angular.module('controllers').controller('controllerAffectTraining'/*'controllerUpdateAffectTraining'*/, ['$http', '$location', '$filter', '$timeout', function ($http, $location, $filter, $timeout) {
 
     var self = this;
     self.isCollabaratorListUpdated = false;
     self.boolErrNoSessionSelected = false;
+    self.showRequests = true;
     self.isValidSession = true;
 
     //Récupérer la liste des sessions disponible
@@ -15,19 +16,13 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
         self.trainingSessionList = data.data;
     });
 
-    //Récupérer la liste des collaborateurs affectés et non affectés à la session
-    self.loadNotAffectedAndAffectedCollaboratorsList = function () {
-        self.availableCollaboratorList = [];
-        self.selectedCollaboratorList = [];
-        self.boolErrNoSessionSelected = false;
-        self.sessionSelected = self.selectSessionObjectFromInputText();
-        if (self.sessionSelected) {
-            $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsnotaffected").then(function (data) {
-                self.availableCollaboratorList = data.data;
-            });
-            $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsaffected").then(function (data) {
-                self.selectedCollaboratorList = data.data;
-            });
+    self.updateCollaboratorAvailableByListIntersection = function () {
+        for (var counterLeft = 0; counterLeft < self.availableCollaboratorList.length; counterLeft++) {
+            for (var counterRight = 0; counterRight < self.selectedCollaboratorList.length; counterRight++) {
+                if (self.selectedCollaboratorList[counterRight].id === self.availableCollaboratorList[counterLeft].id) {
+                    self.availableCollaboratorList.splice(counterLeft, 1);
+                }
+            }
         }
     };
 
@@ -38,6 +33,34 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
             }
         }
         else self.isValidSession = true;
+    };
+
+    self.showRequestChanged = function () {
+        self.availableCollaboratorList = [];
+        if (!self.showRequests) {
+            $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsnotaffected").then(function (data) {
+                self.availableCollaboratorList = data.data;
+                self.updateCollaboratorAvailableByListIntersection();
+            });
+        }
+        else {
+            $http.get("api/requests/session/" + self.sessionSelected.id + "/collaborators").then(function (data) {
+                self.availableCollaboratorList = data.data;
+                self.updateCollaboratorAvailableByListIntersection();
+            });
+        }
+    };
+    //Récupérer la liste des collaborateurs affectés et non affectés à la session
+    self.loadNotAffectedAndAffectedCollaboratorsList = function () {
+        self.selectedCollaboratorList = [];
+        self.boolErrNoSessionSelected = false;
+        self.sessionSelected = self.selectSessionObjectFromInputText();
+        if (self.sessionSelected) {
+            self.showRequestChanged();
+            $http.get("api/sessions/" + self.sessionSelected.id + "/collaboratorsaffected").then(function (data) {
+                self.selectedCollaboratorList = data.data;
+            });
+        }
     };
 
     self.displayTrainingSession = function (mySession) {
@@ -105,6 +128,11 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
 }])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
+            /*.when('/updateAffectTraining', {
+                templateUrl: 'templates/updateAffectTrainingSession.html',
+                controller: 'controllerUpdateAffectTraining',
+                controllerAs: 'AS'
+            })*/
             .when('/AffectTraining', {
                 templateUrl: 'templates/affectTrainingSession.html',
                 controller: 'controllerAffectTraining',
