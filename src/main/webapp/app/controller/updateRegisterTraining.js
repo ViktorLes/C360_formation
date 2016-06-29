@@ -53,6 +53,7 @@ angular.module('controllers')
                     self.trainingList.push(self.trainingAdded);
                     self.isTrainingSaved=true;
                     self.training.trainingTitle=null;
+                    self.training.topicDescription=null;
                     self.training.numberHalfDays=null;
                     self.setConfirmationMessageTimOut();
                 }
