@@ -1,12 +1,10 @@
 package com.viseo.c360.formation.domain.training;
 
 
-import com.sun.istack.internal.NotNull;
 import com.viseo.c360.formation.domain.BaseEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Topic extends BaseEntity {
