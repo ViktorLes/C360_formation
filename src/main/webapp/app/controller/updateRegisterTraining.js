@@ -29,6 +29,9 @@ angular.module('controllers')
         };
 
         self.verifyForm = function (trainingForm) {
+            self.isNewTrainingTitle=true;
+            self.isThereAnEmptyField=false;
+            self.isFalseForm=false;
             if (trainingForm.$error.required) {
                 self.isThereAnEmptyField = true;
                 self.isFalseForm = false;
@@ -46,12 +49,12 @@ angular.module('controllers')
             self.training.trainingTitle = self.training.trainingTitle.replace(/ +/g, " ");
             $http.post("api/formations", self.training).success(function (data) {
                 if (data == "true" || data == true) {
-                    self.trainingList.push(self.training);
-                    self.setConfirmationMessageTimOut();
-                    self.isNewTrainingTitle=true;
-                    self.isThereAnEmptyField=false;
-                    self.isFalseForm=false;
+                    self.trainingAdded=JSON.parse(JSON.stringify(self.training));
+                    self.trainingList.push(self.trainingAdded);
                     self.isTrainingSaved=true;
+                    self.training.trainingTitle=null;
+                    self.training.numberHalfDays=null;
+                    self.setConfirmationMessageTimOut();
                 }
                 else {
                     self.isNewTrainingTitle = false;
