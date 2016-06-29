@@ -3,6 +3,11 @@ describe('Declaration Formation', function () {
     var backend;
     var loc;
     var form;
+    var topic1=JSON.parse('{"id":1,"name":"Développement Web"}');
+    var topic2=JSON.parse('{"id":2,"name":"Développement Mobile"}');
+    var topicList=[topic1,topic2];
+
+    var trainingList=JSON.parse('[{"id":3,"trainingTitle":"AngularJS","numberHalfDays":1,"topicDescription":{"id":1,"name":"Développement Web"}},{"id":4,"trainingTitle":"AAA","numberHalfDays":5,"topicDescription":{"id":1,"name":"Développement Web"}}]');
 
     beforeEach(module('App'));
 
@@ -23,6 +28,8 @@ describe('Declaration Formation', function () {
 
         beforeEach(function () {
             backend.expectGET('api/formations/regex').respond('{"TRAINING_TITLE":"^[a-zA-Z0-9+#\'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$","NUMBER_HALF_DAYS":"^[0-9]+$"}');
+            backend.expectGET('api/themes').respond(topicList);
+            backend.expectGET('api/formations').respond(trainingList);
             ctrl.training = {};
             backend.flush();
         });
@@ -54,7 +61,7 @@ describe('Declaration Formation', function () {
             expect(ctrl.isNewTrainingTitle).toBeTruthy();
             expect(ctrl.isFalseForm).toBeFalsy();
             expect(ctrl.isThereAnEmptyField).toBeFalsy();
-            expect(loc.path()).toBe('/pageblanche');
+            expect(loc.path()).toBe('/RegisterTraining');
         });
 
         it('Invalid because of training title', function () {

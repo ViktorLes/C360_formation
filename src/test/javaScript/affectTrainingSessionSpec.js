@@ -14,7 +14,7 @@ describe('Affectation session', function () {
     beforeEach(module('App'));
 
     beforeEach(inject(function ($controller, $httpBackend, $filter) {
-        ctrl = $controller(/*'controllerUpdateAffectTraining'*/'controllerAffectTraining');
+        ctrl = $controller('controllerAffectTraining');
         backend = $httpBackend;
         filter = $filter('searchByString');
         backend.expectGET('api/sessions').respond(sessionsList);
