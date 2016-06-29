@@ -41,6 +41,22 @@ public class TrainingDAO {
         return false;
     }
 
+    public boolean isTrainingPersisted(String trainingTitle) {
+        em.setFlushMode(FlushModeType.COMMIT);
+        Collection<Training> listTrainings =
+                (Collection<Training>) em.createQuery("select t from Training t where upper(t.trainingTitle) = :trainingTitle")
+                        .setParameter("trainingTitle", trainingTitle.toUpperCase()).getResultList();
+        return !listTrainings.isEmpty();
+    }
+
+    public List<Training> getAllTrainings() {
+        em.setFlushMode(FlushModeType.COMMIT);
+        return em.createQuery("select a from Training a", Training.class).getResultList();
+    }
+
+    /***
+     * Topic
+     ***/
     @Transactional
     public boolean addTopic (Topic topic){
         if(!this.isTopicPersisted((topic.getName()))) {
@@ -67,26 +83,6 @@ public class TrainingDAO {
         return !listTopic.isEmpty();
     }
 
-    public boolean isTrainingPersisted(String trainingTitle) {
-        em.setFlushMode(FlushModeType.COMMIT);
-        Collection<Training> listTrainings =
-                (Collection<Training>) em.createQuery("select t from Training t where t.trainingTitle = :trainingTitle")
-                        .setParameter("trainingTitle", trainingTitle).getResultList();
-        return !listTrainings.isEmpty();
-    }
-
-    public List<Training> getAllTrainings() {
-        em.setFlushMode(FlushModeType.COMMIT);
-        return em.createQuery("select a from Training a", Training.class).getResultList();
-    }
-
-    //Recuperer les formations par theme:
-    public List<Training> getTrainingsByTopic(long myTopicId) {
-        em.setFlushMode(FlushModeType.COMMIT);
-        Query q = em.createQuery("select t from Training t where t.training.topic=:myTopicId")
-                .setParameter("myTopicId",myTopicId);
-        return q.getResultList();
-    }
 
 
     /***

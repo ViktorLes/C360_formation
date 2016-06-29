@@ -19,7 +19,7 @@ describe('Declaration Formation', function () {
         };
     }));
 
-    describe('Test DeclarationFormation', function () {
+    describe('Test Declaration Formation', function () {
 
         beforeEach(function () {
             backend.expectGET('api/formations/regex').respond('{"TRAINING_TITLE":"^[a-zA-Z0-9+#\'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$","NUMBER_HALF_DAYS":"^[0-9]+$"}');
@@ -32,7 +32,7 @@ describe('Declaration Formation', function () {
             backend.verifyNoOutstandingRequest();
         });
 
-        it('Valide', function () {
+        it('1) Valide', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.trainingTitle, true)).toBeFalsy();
             ctrl.training.trainingTitle = "Title";
             expect(ctrl.training.trainingTitle).toMatch(ctrl.regex.trainingTitle);
@@ -57,7 +57,7 @@ describe('Declaration Formation', function () {
             expect(loc.path()).toBe('/pageblanche');
         });
 
-        it('Invalid because of training title', function () {
+        it('2) Invalid because of training title', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.trainingTitle, true)).toBeFalsy();
             ctrl.training.trainingTitle = "Title";
             expect(ctrl.training.trainingTitle).toMatch(ctrl.regex.trainingTitle);
@@ -82,7 +82,7 @@ describe('Declaration Formation', function () {
             expect(loc.path()).toBe('/RegisterTraining');
         });
 
-        it('Invalid because of input avoid', function () {
+        it('3) Invalid because of input avoid', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.trainingTitle, true)).toBeFalsy();
             ctrl.training.trainingTitle = "Title@";
             expect(ctrl.training.trainingTitle).not.toMatch(ctrl.regex.trainingTitle);
@@ -101,7 +101,7 @@ describe('Declaration Formation', function () {
             expect(loc.path()).toBe('/RegisterTraining');
         });
 
-        it('Invalid because of inputs incorrect', function () {
+        it('4) Invalid because of inputs incorrect', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.trainingTitle, true)).toBeFalsy();
             ctrl.training.trainingTitle = "Title@";
             expect(ctrl.training.trainingTitle).not.toMatch(ctrl.regex.trainingTitle);
@@ -122,6 +122,18 @@ describe('Declaration Formation', function () {
             expect(ctrl.isFalseForm).toBeTruthy();
             expect(ctrl.isThereAnEmptyField).toBeFalsy();
             expect(loc.path()).toBe('/RegisterTraining');
+        });
+
+        it("5) Au clic sur une formation, on est redirigé vers la page de gestion des sessions",function () {
+            
+        });
+
+        it("6) Cliquer sur AJOUTER alors que l'un des champs est vide",function () {
+            
+        });
+        
+        it("7) Cliquer sur AJOUTER alors que l'un des champs est incorrect",function () {
+            
         });
     });
 });
