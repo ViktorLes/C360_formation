@@ -50,7 +50,7 @@
                     <br>
                     <button class="center-block alert alert-danger" role="alert" disabled="disabled"
                             ng-show="!DF.isNewTrainingTitle">
-                        Une formation identique existe déjà dans le système
+                        Une formation avec le même nom existe déjà
                     </button>
                     <button class="center-block alert alert-danger" disabled="disabled" role="alert"
                             ng-show="DF.isThereAnEmptyField">
@@ -62,7 +62,7 @@
                     </button>
                     <button class="center-block small alert alert-success"  disabled="disabled" role="alert"
                                 ng-show="DF.isTrainingSaved">
-                        <strong>Vos modifications ont bien été enregistrées</strong>
+                        <strong>La formation {{DF.training.trainingTitle}} a été créée avec succès.</strong>
                     </button>
             </div>
                 <div class="myBox-set well"
