@@ -45,6 +45,7 @@
                             <button type="submit" class="center-block btn btn-primary">Ajouter</button>
                         </div>
                     </div>
+                </form>
                     <p><span class="glyphicon glyphicon-info-sign glyphiconInfoSetMarge"></span> Cliquer sur une formation pour gérer ses sessions</p>
                     <br>
                     <button class="center-block alert alert-danger" role="alert" disabled="disabled"
@@ -59,7 +60,10 @@
                             ng-show="DF.isFalseForm">
                         Veuillez remplir corretement tous les champs
                     </button>
-                </form>
+                    <button class="center-block small alert alert-success"  disabled="disabled" role="alert"
+                                ng-show="DF.isTrainingSaved">
+                        <strong>Vos modifications ont bien été enregistrées</strong>
+                    </button>
             </div>
                 <div class="myBox-set well"
                      ng-repeat="distinctedTopic in (DF.returnTrainingListToFilter() | filter:DF.filterTopic) | orderBy : 'topicDescription.name'">

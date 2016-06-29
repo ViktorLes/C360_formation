@@ -85,19 +85,19 @@
                 </div>
                 <br>
                 <div id="Actions were successfully saved">
-                    <button class="center-block small alert alert-success"
+                    <button class="center-block small alert alert-success" disabled="disabled" role="alert"
                             ng-show="AS.isCollabaratorListUpdated">
                         <strong>Vos modifications ont bien été enregistrées</strong>
                     </button>
                 </div>
                 <div id="No session was selected">
-                    <button class="center-block small alert alert-danger"
+                    <button class="center-block small alert alert-danger" disabled="disabled" role="alert"
                             ng-show="AS.boolErrNoSessionSelected === true">
                         <strong>Erreur: </strong> Aucune session n'a été selectionnée
                     </button>
                 </div>
                 <div id="Not a valid Session">
-                    <button class="center-block small alert alert-danger"
+                    <button class="center-block small alert alert-danger" disabled="disabled" role="alert"
                             ng-show="AS.isValidSession === false">
                         <strong>Erreur: </strong> Veuillez sélectionner une session valide
                     </button>

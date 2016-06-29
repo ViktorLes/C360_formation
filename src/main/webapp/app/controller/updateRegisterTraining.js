@@ -1,5 +1,5 @@
 angular.module('controllers')
-    .controller('controllerUpdateRegisterTraining', ['$http', '$location', '$filter', function ($http, $location) {
+    .controller('controllerUpdateRegisterTraining', ['$http', '$location', '$timeout', function ($http, $location,$timeout) {
 
         var self = this;
         self.regex = {};
@@ -22,6 +22,7 @@ angular.module('controllers')
         self.isNewTrainingTitle = true;
         self.isFalseForm = false;
         self.isThereAnEmptyField = false;
+        self.isTrainingSaved=false;
 
         self.isErrorInputMessageDisplayed = function (inputForm, focus) {
             return !inputForm.$error.required && inputForm.$invalid && !focus;
@@ -45,13 +46,23 @@ angular.module('controllers')
             self.training.trainingTitle = self.training.trainingTitle.replace(/ +/g, " ");
             $http.post("api/formations", self.training).success(function (data) {
                 if (data == "true" || data == true) {
-                    self.isNewTrainingTitle = true;
                     self.trainingList.push(self.training);
+                    self.setConfirmationMessageTimOut();
+                    self.isNewTrainingTitle=true;
+                    self.isThereAnEmptyField=false;
+                    self.isFalseForm=false;
+                    self.isTrainingSaved=true;
                 }
                 else {
                     self.isNewTrainingTitle = false;
                 }
             });
+        };
+
+        self.setConfirmationMessageTimOut = function () {
+            $timeout(function () {
+                self.isTrainingSaved = false;
+            }, 3000);
         };
 
         var indexedTeams = [];
