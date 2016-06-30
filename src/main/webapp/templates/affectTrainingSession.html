@@ -71,9 +71,9 @@
                             <div class="collaborator-box">
                                 <ul>
                                     <li ng-repeat="myCollaborator in AS.selectedCollaboratorList">
-                                        <span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
-                                        <button class="glyphicon glyphicon-chevron-left btn btn-xs btn-default pull-right btn-info"
+                                        <button class="myPullLeftButton glyphicon glyphicon-chevron-left btn btn-xs btn-default pull-left btn-info"
                                                 ng-click="AS.moveItem(myCollaborator, AS.selectedCollaboratorList, AS.availableCollaboratorList)"></button>
+                                        <span ng-bind="myCollaborator.firstName+' '+myCollaborator.lastName"></span>
                                     </li>
                                 </ul>
                             </div>

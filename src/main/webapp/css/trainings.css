@@ -66,6 +66,10 @@ ul li:first-child {
     pointer-events: none;
 }
 
+.myPullLeftButton{
+    margin-right: 10px;
+}
+
 .h5 {
     font-size: 1em;
 }
