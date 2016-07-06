@@ -1,5 +1,5 @@
 angular.module('controllers')
-    .controller('controllerRegisterTraining', ['$http', '$location', '$timeout', function ($http, $location,$timeout) {
+    .controller('controllerRegisterTraining', ['$http', '$location', '$timeout','SelectTrainingService', function ($http, $location,$timeout,SelectTrainingService) {
 
         var self = this;
         self.regex = {};
@@ -81,7 +81,8 @@ angular.module('controllers')
             return isNewTopic;
         };
         self.manageSession = function (training) {
-            $location.url("/manageSession");
+            SelectTrainingService.select(training);
+            $location.url("/ManageSession");
         }
     }])
 

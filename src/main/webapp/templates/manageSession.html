@@ -4,17 +4,24 @@
 
     <div class="col-md-9">
         <div class="panel panel-default">
-
             <div class="panel-heading">
                 <h3 class="panel-title">Gerer sessions</h3>
             </div>
             <div>
-                <p>trainingTitle</p>
+                <button type="submit" class="left-block btn btn-primary" ng-click="MS.returnToRegisterTraining()">
+                    Retour
+                </button>
+                <p>{{MS.training.trainingTitle}}</p>
             </div>
-            <button type="submit" class="center-block btn btn-primary" ng-click="MS.returnToRegisterTraining()"> Retour
+            <button type="submit" class="center-block btn btn-primary" ng-click="MS.registerTrainingSession()"> Ajouter
+                une session
             </button>
-            <button type="submit" class="center-block btn btn-primary" ng-click="MS.registerTrainingSession()"> Ajouter une session
-            </button>
+            <ul>
+                <li ng-repeat="s in MS.listTrainingSession">
+                    <input type="checkbox" ng-model="s.isChecked">
+                    {{s.beginning | date:"dd LLLL yyyy"}} - {{s.ending | date:"dd LLLL yyyy"}} - {{s.location}}
+                </li>
+            </ul>
         </div>
     </div>
 </div>
