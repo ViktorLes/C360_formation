@@ -128,11 +128,6 @@ angular.module('controllers').controller('controllerAffectTraining'/*'controller
 }])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
-            /*.when('/updateAffectTraining', {
-                templateUrl: 'templates/updateAffectTrainingSession.html',
-                controller: 'controllerUpdateAffectTraining',
-                controllerAs: 'AS'
-            })*/
             .when('/AffectTraining', {
                 templateUrl: 'templates/affectTrainingSession.html',
                 controller: 'controllerAffectTraining',

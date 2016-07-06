@@ -7,14 +7,15 @@
         <div class="panel panel-default">
 
             <div class="panel-heading">
-                <h3 class="panel-title">Enregistrement collaborator</h3>
+                <h3 class="panel-title">Créer un compte</h3>
             </div>
 
             <div class="panel-body">
                 <form name="collaborateurForm" novalidate>
 
                     <!-- MATRICULE -->
-                    <div class="form-group" ng-class="{ 'has-error' : EC.isErrorInputMessageDisplayed(collaborateurForm.personnalIdNumber,focus.personnalIdNumber)}">
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : EC.isErrorInputMessageDisplayed(collaborateurForm.personnalIdNumber,focus.personnalIdNumber)}">
                         <input type="text" name="personnalIdNumber" class="form-control"
                                ng-model="EC.collaborator.personnalIdNumber" required
                                ng-pattern="EC.regex.personnalIdNumber" ng-minlength="3" ng-maxlength="20"
@@ -30,7 +31,8 @@
                                required ng-pattern="EC.regex.lastName" ng-minlength="2" ng-maxlength="120"
                                ng-focus="focus.lastName=true" ng-blur="focus.lastName=false"
                                ng-trim="true" placeholder="Nom">
-                        <p ng-show="EC.isErrorInputMessageDisplayed(collaborateurForm.lastName, focus.lastName)" class="help-block">Veuillez entrer un nom valide</p>
+                        <p ng-show="EC.isErrorInputMessageDisplayed(collaborateurForm.lastName, focus.lastName)"
+                           class="help-block">Veuillez entrer un nom valide</p>
                     </div>
 
                     <!-- PRENOM -->
@@ -40,7 +42,42 @@
                                required ng-pattern="EC.regex.firstName" ng-minlength="2" ng-maxlength="120"
                                ng-focus="focus.firstName=true" ng-blur="focus.firstName=false"
                                ng-trim="true" placeholder="Prénom">
-                        <p ng-show="EC.isErrorInputMessageDisplayed(collaborateurForm.firstName, focus.firstName)" class="help-block">Veuillez entrer un prénom valide</p>
+                        <p ng-show="EC.isErrorInputMessageDisplayed(collaborateurForm.firstName, focus.firstName)"
+                           class="help-block">Veuillez entrer un prénom valide</p>
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : EC.isErrorInputMessageDisplayed(collaborateurForm.email, focus.email) }">
+                        <input type="email" name="email" class="form-control" ng-model="EC.collaborator.email"
+                               required ng-focus="focus.email=true" ng-blur="focus.email=false"
+                               placeholder="Email"/>
+                        <p ng-show="EC.isErrorInputMessageDisplayed(collaborateurForm.email, focus.email)"
+                           class="help-block">Veuillez entrer un mail valide</p>
+                    </div>
+
+                    <!-- MOT DE PASSE -->
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : EC.isErrorInputMessageDisplayed(collaborateurForm.password, focus.password) }">
+                        <input type="password" name="password" class="form-control" ng-model="EC.collaborator.password"
+                               ng-minlength="6"
+                               required ng-focus="focus.password=true" ng-blur="focus.password=false"
+                               placeholder="Mot de passe"/>
+                        <p ng-show="EC.isErrorInputMessageDisplayed(collaborateurForm.password, focus.password)"
+                           class="help-block">Le mot de passe doit avoir minimum 6 caractères</p>
+
+                    </div>
+
+                    <!-- CONFIRMATION MOT DE PASSE -->
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : EC.isErrorInputMessageDisplayed(collaborateurForm.confirmPassword, focus.confirmPassword) }">
+                        <input type="password" name="confirmPassword" class="form-control"
+                               ng-model="EC.collaborator.confirmPassword"
+                               required ng-focus="focus.confirmPassword=true" ng-blur="focus.confirmPassword=false"
+                               placeholder="Confirmation mot de passe"
+                               pw-Check="EC.collaborator.password"/>
+                        <p ng-show="EC.isErrorInputMessageDisplayed(collaborateurForm.confirmPassword, focus.confirmPassword)"
+                           class="help-block">La confirmation du mot de passe n'est pas valide</p>
                     </div>
 
                     <button class="center-block alert alert-danger" role="alert" disabled="disabled"
@@ -56,7 +93,9 @@
                         Veuillez remplir correctement tous les champs
                     </button>
 
-                    <button type="submit" ng-mousedown="EC.verifyForm(collaborateurForm)" class="btn btn-primary center-block">Enregistrer</button>
+                    <button type="submit" ng-mousedown="EC.verifyForm(collaborateurForm)"
+                            class="btn btn-primary center-block">Enregistrer
+                    </button>
                 </form>
             </div>
 
