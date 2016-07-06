@@ -1,21 +1,14 @@
 angular.module('controllers')
     .controller('ctrlManageSession', ['$http', '$location', 'SelectTrainingService', function ($http, $location, SelectTrainingService) {
         var self = this;
-        console.log("hfqsjhf");
-        var tempTraining = {
-            id: 3,
-            numberHalfDays: 1,
-            trainingTitle: "AngularJS",
-            topicDescription: {
-                id: 1,
-                name: "Développement Web"
-            }
-        };
+        self.listTrainingSession=[];
+
         self.training = SelectTrainingService.get();
-        /*** Recupération des formations **/
+        /*** Recupération les sessions **/
         $http.get("api/formations/" + self.training.id + "/sessions").then(function (data) {
-            console.log(data);
+            self.listTrainingSession=data.data;
         });
+
         self.registerTrainingSession = function () {
             $location.url("/RegisterTrainingSession");
         };

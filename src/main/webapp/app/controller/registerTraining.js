@@ -49,8 +49,9 @@ angular.module('controllers')
         self.saveAction = function () {
             self.training.trainingTitle = self.training.trainingTitle.replace(/ +/g, " ");
             $http.post("api/formations", self.training).success(function (data) {
-                if (data == "true" || data == true) {
+                if (data >0) {
                     self.trainingAdded=JSON.parse(JSON.stringify(self.training));
+                    self.trainingAdded.id=data;
                     self.trainingList.push(self.trainingAdded);
                     self.isTrainingSaved=true;
                     self.training.trainingTitle=null;

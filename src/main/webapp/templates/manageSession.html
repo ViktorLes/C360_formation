@@ -11,16 +11,15 @@
                 <button type="submit" class="left-block btn btn-primary" ng-click="MS.returnToRegisterTraining()">
                     Retour
                 </button>
-                <p>{{MS.training.trainingTitle}}</p>
+                <h3>{{MS.training.trainingTitle}}</h3>
             </div>
-            <button type="submit" class="center-block btn btn-primary" ng-click="MS.registerTrainingSession()"> Ajouter
+            <button type="submit" style="border-bottom-color: #3c763d " class="center-block btn btn-primary" ng-click="MS.registerTrainingSession()"> Ajouter
                 une session
             </button>
             <ul>
-                <li ng-repeat="s in MS.listTrainingSession">
-                    <input type="checkbox" ng-model="s.isChecked">
+                <li ng-repeat="s in MS.listTrainingSession"><a href="#/RegisterTrainingSession" data-toggle="tooltip" data-placement="bottom" title="Cliquer pour modifier la session">
                     {{s.beginning | date:"dd LLLL yyyy"}} - {{s.ending | date:"dd LLLL yyyy"}} - {{s.location}}
-                </li>
+                    </a></li>
             </ul>
         </div>
     </div>
