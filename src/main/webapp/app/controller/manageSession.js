@@ -1,5 +1,5 @@
 angular.module('controllers')
-    .controller('ctrlManageSession', ['$http', '$location', 'SelectTrainingService', function ($http, $location, SelectTrainingService) {
+    .controller('ctrlManageSession', ['$http', '$location', 'SelectTrainingService','SelectSessionService', function ($http, $location, SelectTrainingService,SelectSessionService) {
         var self = this;
         self.listTrainingSession=[];
 
@@ -9,11 +9,15 @@ angular.module('controllers')
             self.listTrainingSession=data.data;
         });
 
-        self.registerTrainingSession = function () {
+        self.redirectRegisterTrainingSession = function () {
             $location.url("/RegisterTrainingSession");
         };
         self.returnToRegisterTraining = function () {
             $location.url("/RegisterTraining");
+        };
+        self.redirectToSession=function (session) {
+            SelectSessionService.select(session);
+            $location.url("/ChangeRegisterTrainingSession");  
         };
     }])
 
