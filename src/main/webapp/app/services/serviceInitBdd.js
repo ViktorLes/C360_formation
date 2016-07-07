@@ -25,12 +25,16 @@ angular.module('controllers').factory('InitBddService', ['$http', function ($htt
     var collaborator1 = {
         personnalIdNumber: "TLE3467",
         lastName: "Lecomte",
-        firstName: "Thomas"
+        firstName: "Thomas",
+        email:"Thomas.lecompte@yahoo.fr",
+        password:"thomas"
     };
     var collaborator2 = {
         personnalIdNumber: "NKA7896",
         lastName: "Kalmouni",
-        firstName: "Nada"
+        firstName: "Nada",
+        email:"Nada.kalmouni@yahoo.fr",
+        password:"nada"
     };
 
     return {
