@@ -55,6 +55,7 @@ angular.module('controllers')
 
         self.saveAction = function () {
             var session = {
+                id : SelectSessionService.get().id,
                 trainingDescription: self.training,
                 beginning: $filter('date')(self.d1.dt, "dd/MM/yyyy"),
                 ending: $filter('date')(self.d2.dt, "dd/MM/yyyy"),
@@ -62,7 +63,7 @@ angular.module('controllers')
                 endingTime: self.endHour,
                 location: self.trainingLocation.name
             };
-            $http.post("api/sessions", session).success(function (data) {
+            $http.put("api/sessions", session).success(function (data) {
                 if (data == "true" || data == true) {
                     self.isSessionAlreadyPlanned = false;
                     $location.url('/pageblanche');
