@@ -94,6 +94,12 @@ public class TrainingDAO {
         return q.getResultList();
     }
 
+
+
+
+
+
+
     public List<TrainingSession> getAllTrainingSessions() {
         em.setFlushMode(FlushModeType.COMMIT);
         return em.createQuery("select s from TrainingSession s", TrainingSession.class).getResultList();
@@ -115,6 +121,11 @@ public class TrainingDAO {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    @Transactional
+    public TrainingSession updateTrainingSession(TrainingSession trainingSession){
+            return em.merge(trainingSession);
     }
 
     public boolean isThereOneSessionTrainingAlreadyPlanned(TrainingSession trainingSession) {

@@ -23,6 +23,8 @@ public class DescriptionToCollaborator {
         domain.setFirstName(dto.getFirstName());
         domain.setLastName(dto.getLastName());
         domain.setPersonnalIdNumber(dto.getPersonnalIdNumber());
+        domain.setEmail(dto.getEmail());
+        domain.setPassword(dto.getPassword());
         return domain;
     }
 

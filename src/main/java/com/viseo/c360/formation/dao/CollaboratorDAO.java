@@ -22,18 +22,18 @@ public class CollaboratorDAO {
     //collaborateur
     @Transactional
     public boolean addCollaborator(Collaborator collaborator) {
-        if (!this.isPersonnalIdNumberPersisted(collaborator.getPersonnalIdNumber())) {
+        if (!this.isPersonnalIdNumberOrEmailPersisted(collaborator.getPersonnalIdNumber())) {
                 em.merge(collaborator);
                 return true;
             }
             return false;
     }
 
-    public boolean isPersonnalIdNumberPersisted(String personnalIdNumber) {
+    public boolean isPersonnalIdNumberOrEmailPersisted(String personnalIdNumber) {
         em.setFlushMode(FlushModeType.COMMIT);
         Collection<Collaborator> listCollaborator =
                 (Collection<Collaborator>) em.createQuery(
-                        "select c from Collaborator c where c.personnalIdNumber = :personnalIdNumber", Collaborator.class)
+                        "select c from Collaborator c where c.personnalIdNumber = :personnalIdNumber" , Collaborator.class)
                         .setParameter("personnalIdNumber", personnalIdNumber).getResultList();
         return !listCollaborator.isEmpty();
     }
