@@ -38,6 +38,7 @@ angular.module('controllers')
 
             //post the form to the server
             $http.post("api/collaborateurs", self.collaborator).success(function (data) {
+                console.log("self.collaborator: ",self.collaborator);
                 if (data === "true" || data === true) {
                     self.isNewPersonalIdNumber = true;
                     $location.url('/pageblanche');

@@ -53,7 +53,7 @@
                                required ng-focus="focus.email=true" ng-blur="focus.email=false"
                                placeholder="Email"/>
                         <p ng-show="EC.isErrorInputMessageDisplayed(collaborateurForm.email, focus.email)"
-                           class="help-block">Veuillez entrer un mail valide</p>
+                           class="help-block">L'adresse email n'est pas valide</p>
                     </div>
 
                     <!-- MOT DE PASSE -->
@@ -80,7 +80,7 @@
                            class="help-block">La confirmation du mot de passe n'est pas valide</p>
                     </div>
 
-                    <button class="center-block alert alert-danger" role="alert" disabled="disabled"
+                    <button class="center-block alert alert-danger" disabled="disabled" role="alert"
                             ng-show="!EC.isNewPersonalIdNumber">
                         Ce matricule a déjà été enregistré
                     </button>
