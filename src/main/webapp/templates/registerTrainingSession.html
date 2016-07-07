@@ -13,17 +13,17 @@
                           novalidate>
                         <div class="row">
                             <div class="col-md-12">
-                                <h5><span class="label label-default">Nom de la formation: </span></h5>
                                 <label>{{DS.training.trainingTitle}}</label>
                             </div>
                             <div class="col-md-12">
+                                <h5><span class="label label-default">Planification de la session: </span></h5>
                                 <p>cette formation dure {{DS.training.numberHalfDays}} demi-journées</p>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-6" id="Date-Debut">
-                                <h5><span class="label label-default">Date et Heure de Début:</span></h5>
+                                <h5><span class="label label-default">Date de Début:</span></h5>
                                 <p class="input-group">
                                     <input type="text" name="date1"
                                            ng-pattern='DS.regex.beginning'

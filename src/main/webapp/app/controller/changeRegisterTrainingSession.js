@@ -19,13 +19,19 @@ angular.module('controllers')
         self.endHour = self.timeSlotsTraining[20];
 
         var session = SelectSessionService.get();
-        self.d1.dt=session.beginning;
-        self.d2.dt=session.ending;
+        self.d1.dt=parseDate(session.beginning);
+        self.d2.dt=parseDate(session.ending);
         self.beginningHour=session.beginningTime;
         self.endHour=session.endingTime;
-        self.trainingLocation=session.location;
-
+        self.trainingLocation=self.meetingRoomList.find(function(elem){
+                return session.location===elem.name;
+        });
         self.training=session.trainingDescription;
+        
+        function parseDate(input) {
+            var parts=input.split('/');
+            return new Date(parts[2],parts[1]-1,parts[0]);
+        }
 
         function initTimeSlot() {
             function pad2(number) {
