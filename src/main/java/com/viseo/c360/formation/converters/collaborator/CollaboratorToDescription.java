@@ -19,6 +19,8 @@ public class CollaboratorToDescription {
         dto.setPersonnalIdNumber(source.getPersonnalIdNumber());
         dto.setLastName(source.getLastName());
         dto.setFirstName(source.getFirstName());
+        dto.setEmail(source.getEmail());
+        dto.setPassword(source.getPassword());
         return dto;
     }
 

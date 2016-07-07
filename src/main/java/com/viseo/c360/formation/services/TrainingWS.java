@@ -107,6 +107,22 @@ public class TrainingWS {
         return false;
     }
 
+    //Update Training Session
+    @RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.PUT)
+    @ResponseBody
+    public boolean updateTrainingSession(@RequestBody TrainingSessionDescription trainingSessionDescription) {
+        try {
+            Training training = trainingDAO.getTraining(trainingSessionDescription.getTrainingDescription().getId());
+            TrainingSession trainingSession = new DescriptionToTrainingSession().convert(trainingSessionDescription,training);
+            if (trainingSession == null) throw new PersistentObjectNotFoundException(trainingSession.getId(), TrainingSession.class);
+            trainingDAO.updateTrainingSession(trainingSession);
+            return true;
+        } catch (PersistentObjectNotFoundException | ConversionException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     @RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.GET)
     @ResponseBody
     public List<TrainingSessionDescription> getTrainingSessionsDescriptions() {
