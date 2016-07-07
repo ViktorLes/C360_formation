@@ -33,12 +33,11 @@ public class TrainingDAO {
     }
 
     @Transactional
-    public boolean addTraining(Training training) {
+    public Training addTraining(Training training) {
         if (!this.isTrainingPersisted(training.getTrainingTitle())) {
-            em.merge(training);
-            return true;
+            return em.merge(training);
         }
-        return false;
+        return null;
     }
 
     public boolean isTrainingPersisted(String trainingTitle) {

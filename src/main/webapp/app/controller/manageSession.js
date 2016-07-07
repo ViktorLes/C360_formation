@@ -1,20 +1,22 @@
 angular.module('controllers')
-    .controller('ctrlManageSession', ['$http', '$location', function ($http, $location) {
+    .controller('ctrlManageSession', ['$http', '$location', 'SelectTrainingService', function ($http, $location, SelectTrainingService) {
         var self = this;
-        
-        /*** Recupération des formations **/
-        $http.get("api/formations").then(function (data) {
-            self.trainings = data.data;
+        self.listTrainingSession=[];
+
+        self.training = SelectTrainingService.get();
+        /*** Recupération les sessions **/
+        $http.get("api/formations/" + self.training.id + "/sessions").then(function (data) {
+            self.listTrainingSession=data.data;
         });
-        
+
         self.registerTrainingSession = function () {
             $location.url("/RegisterTrainingSession");
         };
-        self.returnToRegisterTraining=function () {
-          $location.url("/RegisterTraining");
+        self.returnToRegisterTraining = function () {
+            $location.url("/RegisterTraining");
         };
     }])
-    
+
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/ManageSession', {

@@ -9,7 +9,7 @@
 		  <div class="panel-body">
 			  <form name="formationForm" ng-submit="DmF.verifyForm()" novalidate >
 				<div class="form-group">
-				<label>Selectionner training</label>
+				<label>Selectionner une formation</label>
  						<select class="selectpicker form-control" ng-model="DmF.requestedTraining" ng-options="training.trainingTitle for training in DmF.trainings"
 								ng-change="DmF.loadTrainingSessions()">
  						<option value="" disabled selected style="display: none;">--Sélectionner une formation--</option>
