@@ -6,7 +6,7 @@ angular.module('controllers')
         self.isFalseForm = false;
         self.isThereAnEmptyField = false;
 
-        /*** Recupération des regex **/
+        /*** Recupération des regex ***/
         $http.get("api/collaborateurs/regex").then(function (data) {
             self.regex.personnalIdNumber = new RegExp(data.data.PERSONNAL_ID_NUMBER);
             self.regex.lastName = new RegExp(data.data.LAST_NAME);
@@ -44,7 +44,7 @@ angular.module('controllers')
             $http.post("api/collaborateurs", collaboratorToRegister).success(function (data) {
                 if (data === "true" || data === true) {
                     self.isNewPersonalIdNumber = true;
-                    $location.url('/pageblanche');
+                    $location.url('/Authentication');
                 }
                 else self.isNewPersonalIdNumber = false;
             });
