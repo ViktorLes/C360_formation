@@ -37,7 +37,7 @@ public class CollaboratorDAO {
         Collection<Collaborator> listCollaborator =
                 (Collection<Collaborator>) em.createQuery(
                         "select c from Collaborator c where c.personnalIdNumber = :personnalIdNumber" , Collaborator.class)
-                        .setParameter(personnalIdNumber,"personnalIdNumber").getResultList();
+                        .setParameter("personnalIdNumber",personnalIdNumber).getResultList();
         if(!listCollaborator.isEmpty()) checkCollaboratorPersistedResponse="IdNumberPersisted";
         return checkCollaboratorPersistedResponse;
     }
@@ -47,7 +47,7 @@ public class CollaboratorDAO {
         Collection<Collaborator> listCollaborator =
                 (Collection<Collaborator>) em.createQuery(
                         "select c from Collaborator c where c.email = :email" , Collaborator.class)
-                        .setParameter(email,"email").getResultList();
+                        .setParameter("email",email).getResultList();
         if(!listCollaborator.isEmpty()) checkCollaboratorPersistedResponse="EmailPersisted";
         return checkCollaboratorPersistedResponse;
     }
