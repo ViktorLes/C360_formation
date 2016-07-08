@@ -9,12 +9,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
-import org.hibernate.Hibernate;
 import org.springframework.core.convert.ConversionException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -94,11 +92,6 @@ public class TrainingDAO {
                 .setParameter("myTrainingId", myTrainingId);
         return q.getResultList();
     }
-
-
-
-
-
 
 
     public List<TrainingSession> getAllTrainingSessions() {
