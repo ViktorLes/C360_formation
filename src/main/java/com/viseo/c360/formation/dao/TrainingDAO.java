@@ -13,6 +13,7 @@ import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
 import org.hibernate.Hibernate;
 import org.springframework.core.convert.ConversionException;
@@ -124,8 +125,12 @@ public class TrainingDAO {
     }
 
     @Transactional
-    public TrainingSession updateTrainingSession(TrainingSession trainingSession){
-            return em.merge(trainingSession);
+    public TrainingSession updateTrainingSession(TrainingSession trainingSession, TrainingSession trainingSessionTemp){
+        trainingSession = em.merge(trainingSession);
+        trainingSession.setBeginning(trainingSessionTemp.getBeginning());
+        trainingSession.setEnding(trainingSessionTemp.getEnding());
+        trainingSession.setLocation(trainingSessionTemp.getLocation());
+        return trainingSession;
     }
 
     public boolean isThereOneSessionTrainingAlreadyPlanned(TrainingSession trainingSession) {

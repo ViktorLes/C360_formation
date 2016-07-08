@@ -116,10 +116,12 @@ public class TrainingWS {
     @ResponseBody
     public boolean updateTrainingSession(@RequestBody TrainingSessionDescription trainingSessionDescription) {
         try {
-            Training training = trainingDAO.getTraining(trainingSessionDescription.getTrainingDescription().getId());
-            TrainingSession trainingSession = new DescriptionToTrainingSession().convert(trainingSessionDescription,training);
+            TrainingSession trainingSession = trainingDAO.getSessionTraining(trainingSessionDescription.getId());
             if (trainingSession == null) throw new PersistentObjectNotFoundException(trainingSession.getId(), TrainingSession.class);
-            trainingDAO.updateTrainingSession(trainingSession);
+            trainingDAO.updateTrainingSession(
+                    trainingSession,
+                    new DescriptionToTrainingSession().convert(trainingSessionDescription, trainingSession.getTraining())
+            );
             return true;
         } catch (PersistentObjectNotFoundException | ConversionException e) {
             e.printStackTrace();
