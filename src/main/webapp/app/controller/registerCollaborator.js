@@ -1,5 +1,5 @@
 angular.module('controllers')
-    .controller('controllerRegisterCollaborator', ['$http', '$location','sha1', function ($http, $location,sha1) {
+    .controller('controllerRegisterCollaborator', ['$http', '$location', 'hash', function ($http, $location, hash) {
         var self = this;
         self.regex = {};
         self.isNewPersonalIdNumber = true;
@@ -27,23 +27,21 @@ angular.module('controllers')
                 self.isThereAnEmptyField = false;
             }
             else {
-                self.saveAction();
+                var collaboratorToRegister = JSON.parse(JSON.stringify(self.collaborator));
+                resetForm();
+                self.saveAction(collaboratorToRegister);
             }
         };
 
-        self.saveAction = function () {
+        self.saveAction = function (collaboratorToRegister) {
             //delete useless spaces between words 
-            self.collaborator.lastName = self.collaborator.lastName.replace(/ +/g, " ");
-            self.collaborator.firstName = self.collaborator.firstName.replace(/ +/g, " ");
-            self.collaborator.password = sha1(self.collaborator.password);
-
-            var collaboratorToRegister = self.collaborator;
-            console.log("collaboratorToRegister: ",collaboratorToRegister);
-            reset(collaboratorForm);
-            console.log("self.collaborator: ",self.collaborator);
+            collaboratorToRegister.lastName = collaboratorToRegister.lastName.replace(/ +/g, " ");
+            collaboratorToRegister.firstName = collaboratorToRegister.firstName.replace(/ +/g, " ");
+            //Crypter le mot de passe (Algorithme sha1)
+            collaboratorToRegister.password = hash(collaboratorToRegister.password);
+            delete collaboratorToRegister['confirmPassword'];
             //post the form to the server
             $http.post("api/collaborateurs", collaboratorToRegister).success(function (data) {
-
                 if (data === "true" || data === true) {
                     self.isNewPersonalIdNumber = true;
                     $location.url('/pageblanche');
@@ -51,13 +49,15 @@ angular.module('controllers')
                 else self.isNewPersonalIdNumber = false;
             });
         };
-        self.reset = function(form) {
-            if (form) {
-                form.$setPristine();
-                form.$setUntouched();
-            }
-            $scope.user = angular.copy($scope.master);
-        };
+        //Reset the Form
+        resetForm = function () {
+            self.collaborator.personnalIdNumber = "";
+            self.collaborator.lastName = "";
+            self.collaborator.firstName = "";
+            self.collaborator.email = "";
+            self.collaborator.password = "";
+            self.collaborator.confirmPassword = "";
+        }
     }])
     .directive('pwCheck', [function () {
         return {
