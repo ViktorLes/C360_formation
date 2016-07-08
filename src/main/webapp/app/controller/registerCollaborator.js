@@ -29,7 +29,6 @@ angular.module('controllers')
             }
             else {
                 var collaboratorToRegister = JSON.parse(JSON.stringify(self.collaborator));
-                resetForm();
                 self.saveAction(collaboratorToRegister);
             }
         };
@@ -39,13 +38,12 @@ angular.module('controllers')
             collaboratorToRegister.lastName = collaboratorToRegister.lastName.replace(/ +/g, " ");
             collaboratorToRegister.firstName = collaboratorToRegister.firstName.replace(/ +/g, " ");
             //Crypter le mot de passe (Algorithme sha1)
-            //collaboratorToRegister.password = hash(collaboratorToRegister.password);
+            collaboratorToRegister.password = hash(collaboratorToRegister.password);
             delete collaboratorToRegister['confirmPassword'];
-            console.log(collaboratorToRegister);
             //post the form to the server
             $http.post("api/collaborateurs", collaboratorToRegister).success(function (data) {
-                console.log("data: ", data);
                 if (data.response === "NotPersisted") {
+                    resetForm(); //Reset the Form
                     self.isNewEmail = true;
                     self.isNewPersonalIdNumber = true;
                     $location.url('/Authentication');
@@ -53,7 +51,6 @@ angular.module('controllers')
                 else if (data.response === "IdNumberPersisted") {
                     self.isNewPersonalIdNumber = false;
                     self.isNewEmail = true;
-
                 }
                 else {
                     self.isNewEmail = false;

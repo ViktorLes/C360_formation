@@ -16,7 +16,7 @@ import com.viseo.c360.formation.domain.collaborator.RequestTraining;
 @Repository
 public class CollaboratorDAO {
 
-    String checkCollaboratorPersistedResponse = "NotPersisted";
+    String checkCollaboratorPersistedResponse;
 
     @PersistenceContext
     EntityManager em;
@@ -24,6 +24,7 @@ public class CollaboratorDAO {
     //collaborateur
     @Transactional
     public String addCollaborator(Collaborator collaborator) {
+        checkCollaboratorPersistedResponse = "NotPersisted";
         if (this.isPersonnalIdNumberPersisted(collaborator.getPersonnalIdNumber())=="NotPersisted")
         {
             if(this.isEmailPersisted(collaborator.getEmail())=="NotPersisted")
