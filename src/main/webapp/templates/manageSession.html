@@ -1,36 +1,40 @@
 <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-4">
     </div>
 
-    <div class="col-md-5">
+    <div class="col-md-3">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <label class="panel-title">Gerer sessions</label>
+                <label class="panel-title">Gérer sessions</label>
             </div>
-            <div>
-                <div class="col-md-2">
-                    <div class="col-md-7">
-                        <div class="row">
-                            <button type="submit" class="left-block btn btn-primary"
-                                    ng-click="MS.returnToRegisterTraining()"
-                                    style="background-color: #5e5e5e">
-                                Retour
-                            </button>
-                        </div>
+            <div class="MainContainer">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-3" >
+                        <button type="submit" class="left-block btn btn-primary"
+                                ng-click="MS.returnToRegisterTraining()"
+                                style="background-color: #5e5e5e">
+                            Retour
+                        </button>
                     </div>
                 </div>
-                <div class="col-md-7">
+
                     <div class="row">
-                        <div class="col-md-12">
-                            <h3 class="center-block">{{MS.training.trainingTitle}}</h3>
+                        <div class="col-md-6 col-md-push-4">
+                            <h4 class="center-block">{{MS.training.trainingTitle}}</h4>
                         </div>
-                        <div class="col-md-12">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-md-push-3">
                             <button type="submit" style="background-color: #3c763d " class="left-block btn btn-primary"
                                     ng-click="MS.redirectRegisterTrainingSession()"> Ajouter
                                 une session
                             </button>
                         </div>
-                        <div class="col-md-12">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9 col-md-push-2">
                             <ul>
                                 <li ng-repeat="s in MS.listTrainingSession" class="center-block"
                                     ng-click="MS.redirectToSession(s)"><a
@@ -44,8 +48,10 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
+
+    </div>
+    <div class="col-md-4">
     </div>
 </div>
