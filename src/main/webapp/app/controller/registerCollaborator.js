@@ -3,6 +3,7 @@ angular.module('controllers')
         var self = this;
         self.regex = {};
         self.isNewPersonalIdNumber = true;
+        self.isNewEmail = true;
         self.isFalseForm = false;
         self.isThereAnEmptyField = false;
 
@@ -42,11 +43,17 @@ angular.module('controllers')
             delete collaboratorToRegister['confirmPassword'];
             //post the form to the server
             $http.post("api/collaborateurs", collaboratorToRegister).success(function (data) {
-                if (data === "true" || data === true) {
+                if (data === "NotPersisted") {
+                    self.isNewEmail = true;
                     self.isNewPersonalIdNumber = true;
                     $location.url('/pageblanche');
                 }
-                else self.isNewPersonalIdNumber = false;
+                else if(data === "IdNumberPersisted")
+                {
+                    self.isNewPersonalIdNumber = false;
+
+                }else
+                    self.isNewEmail = false;
             });
         };
         //Reset the Form

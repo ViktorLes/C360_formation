@@ -31,7 +31,7 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
+    public String addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
         try {
             return collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
         } catch (ConversionException e) {
@@ -76,6 +76,7 @@ public class CollaboratorWS {
             throw new RuntimeException(e);
         }
     }
+
 
     @RequestMapping(value = "${endpoint.requests}", method = RequestMethod.POST)
     @ResponseBody
