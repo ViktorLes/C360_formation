@@ -85,6 +85,10 @@
                         Ce matricule a déjà été enregistré
                     </button>
                     <button class="center-block alert alert-danger" disabled="disabled" role="alert"
+                            ng-show="!EC.isNewEmail">
+                        Cet email a déjà été enregistré
+                    </button>
+                    <button class="center-block alert alert-danger" disabled="disabled" role="alert"
                             ng-show="EC.isThereAnEmptyField">
                         Veuillez remplir tous les champs
                     </button>

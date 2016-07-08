@@ -3,6 +3,7 @@ angular.module('controllers')
         var self = this;
         self.regex = {};
         self.isNewPersonalIdNumber = true;
+        self.isNewEmail = true;
         self.isFalseForm = false;
         self.isThereAnEmptyField = false;
 
@@ -38,16 +39,29 @@ angular.module('controllers')
             collaboratorToRegister.lastName = collaboratorToRegister.lastName.replace(/ +/g, " ");
             collaboratorToRegister.firstName = collaboratorToRegister.firstName.replace(/ +/g, " ");
             //Crypter le mot de passe (Algorithme sha1)
-            collaboratorToRegister.password = hash(collaboratorToRegister.password);
+            //collaboratorToRegister.password = hash(collaboratorToRegister.password);
             delete collaboratorToRegister['confirmPassword'];
+            console.log(collaboratorToRegister);
             //post the form to the server
             $http.post("api/collaborateurs", collaboratorToRegister).success(function (data) {
-                if (data === "true" || data === true) {
+                console.log("data: ", data);
+                if (data.response === "NotPersisted") {
+                    self.isNewEmail = true;
                     self.isNewPersonalIdNumber = true;
                     $location.url('/Authentication');
                 }
-                else self.isNewPersonalIdNumber = false;
+                else if (data.response === "IdNumberPersisted") {
+                    self.isNewPersonalIdNumber = false;
+                    self.isNewEmail = true;
+
+                }
+                else {
+                    self.isNewEmail = false;
+                    self.isNewPersonalIdNumber = true;
+                }
+                data.response = undefined;
             });
+
         };
         //Reset the Form
         resetForm = function () {
