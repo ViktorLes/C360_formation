@@ -72,7 +72,7 @@
                     <div class="form-group"
                          ng-class="{ 'has-error' : EC.isErrorInputMessageDisplayed(collaborateurForm.confirmPassword, focus.confirmPassword) }">
                         <input type="password" name="confirmPassword" class="form-control"
-                               ng-model="EC.collaborator.confirmPassword"
+                               ng-model="confirmPassword"
                                required ng-focus="focus.confirmPassword=true" ng-blur="focus.confirmPassword=false"
                                placeholder="Confirmation mot de passe"
                                pw-Check="EC.collaborator.password"/>
