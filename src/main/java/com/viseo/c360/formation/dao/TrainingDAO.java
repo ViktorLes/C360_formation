@@ -155,6 +155,7 @@ public class TrainingDAO {
                 )
         );
         Collection<TrainingSession> list = (Collection<TrainingSession>) em.createQuery(q).getResultList();
+        list.remove(trainingSession);
         return !list.isEmpty();
     }
 }
