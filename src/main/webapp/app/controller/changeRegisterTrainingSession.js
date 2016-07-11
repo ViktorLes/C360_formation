@@ -66,7 +66,7 @@ angular.module('controllers')
             $http.put("api/sessions", session).success(function (data) {
                 if (data == "true" || data == true) {
                     self.isSessionAlreadyPlanned = false;
-                    $location.url('/pageblanche');
+                    $location.url('/ManageSession');
                 } else {
                     self.isSessionAlreadyPlanned = true;
                 }

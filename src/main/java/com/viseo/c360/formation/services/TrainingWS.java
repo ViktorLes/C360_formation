@@ -118,11 +118,13 @@ public class TrainingWS {
         try {
             TrainingSession trainingSession = trainingDAO.getSessionTraining(trainingSessionDescription.getId());
             if (trainingSession == null) throw new PersistentObjectNotFoundException(trainingSession.getId(), TrainingSession.class);
+
             trainingDAO.updateTrainingSession(
                     trainingSession,
                     new DescriptionToTrainingSession().convert(trainingSessionDescription, trainingSession.getTraining())
             );
             return true;
+
         } catch (PersistentObjectNotFoundException | ConversionException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

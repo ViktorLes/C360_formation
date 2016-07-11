@@ -7,10 +7,6 @@ angular.module('controllers')
         self.regex={};
         self.regex.beginning="^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$";
         self.regex.ending="^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$";
-/*        $http.get("api/formations").then(function (data) {
-            self.trainings = data.data;
-            self.training = self.trainings[0];
-        });*/
         self.training = SelectTrainingService.get();
         self.d1 = datepicker.build();
         self.d2 = datepicker.build();
@@ -21,8 +17,7 @@ angular.module('controllers')
         initTimeSlot();
         self.beginningHour = self.timeSlotsTraining[0];
         self.endHour = self.timeSlotsTraining[20];
-
-
+        
         function initTimeSlot() {
             function pad2(number) {
                 return (number < 10 ? '0' : '') + number;
@@ -55,7 +50,7 @@ angular.module('controllers')
                 $http.post("api/sessions", session).success(function (data) {
                     if (data == "true" || data == true) {
                         self.isSessionAlreadyPlanned = false;
-                        $location.url('/pageblanche');
+                        $location.url('/ManageSession');
                     } else {
                         self.isSessionAlreadyPlanned = true;
                     }
