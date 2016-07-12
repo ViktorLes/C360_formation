@@ -11,6 +11,7 @@ angular.module('controllers')
             self.trainings = data.data;
             self.training = self.trainings[0];
         });
+        
         self.d1 = datepicker.build();
         self.d2 = datepicker.build();
         var meetingRoom1 = {name: 'Salle Phuket'};

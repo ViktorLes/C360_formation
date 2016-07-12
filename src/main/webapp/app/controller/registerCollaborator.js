@@ -59,7 +59,7 @@ angular.module('controllers')
                     self.isNewEmail = false;
                     self.isNewPersonalIdNumber = true;
                 }
-                data.response = undefined;
+                data = undefined;
             });
 
         };
