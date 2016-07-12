@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Connexion</h3>
+            </div>
+
+            <div class="panel-body">
+                <form name="collaborateurForm" novalidate>
+                    <!-- EMAIL -->
+                    <div class="form-group">
+                        <input type="text" name="email" class="form-control"
+                               ng-model="CC.user.email" required
+                               placeholder="Matricule">
+                    </div>
+                    <!-- PASSWORD -->
+                    <div class="form-group">
+                        <input type="text" name="password" class="form-control"
+                               ng-model="CC.user.password" required
+                               placeholder="Password">
+                    </div>
+                </form>
+                <button class="center-block btn btn-primary" type="submit">Connexion</button>
+            </div>
+        </div>
+    </div>
+</div>
