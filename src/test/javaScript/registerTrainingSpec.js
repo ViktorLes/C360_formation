@@ -146,7 +146,7 @@ describe('Declaration Formation', function () {
 
         it('Au clic sur une formation, on est redirigé vers la page de gestion des sessions', function () {
             ctrl.manageSession();
-            expect(loc.path()).toEqual("/manageSession");
+            expect(loc.path()).toEqual("/ManageSession");
         });
     });
 });
