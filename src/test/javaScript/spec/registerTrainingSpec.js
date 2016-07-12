@@ -8,25 +8,6 @@ describe('Declaration Formation', function () {
     var topicList = [topic1, topic2];
     var trainingList = JSON.parse('[{"id":3,"trainingTitle":"AngularJS","numberHalfDays":1,"topicDescription":{"id":1,"name":"Développement Web"}},{"id":4,"trainingTitle":"AAA","numberHalfDays":5,"topicDescription":{"id":1,"name":"Développement Web"}}]');
 
-    function refreshFormAfterFillingField(form, inputName, error) {
-        form.$error.required.splice(0,1);
-        if(error) {
-            form[inputName].$error = error;
-            form[inputName].$invalid = true;
-        } else {
-            form[inputName].$error = {};
-            form[inputName].$invalid = false;
-        }
-        if(!form.$error.required[0]) {
-            form.$error = {};
-        }
-    }
-    
-    function expectFormToBeFilled(form) {
-        expect(form.$error.required).toBeUndefined();
-        form.$invalid = false;
-    }
-    
     beforeEach(module('App'));
 
     beforeEach(inject(function ($controller, $httpBackend, $location) {
