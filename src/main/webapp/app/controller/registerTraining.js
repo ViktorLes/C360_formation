@@ -3,36 +3,33 @@ angular.module('controllers')
 
         var self = this;
         self.regex = {};
+        self.isNewTrainingTitle = true;
+        self.isFalseForm = false;
+        self.isThereAnEmptyField = false;
+        self.isTrainingSaved=false;
         /*** Recupération des regex **/
         $http.get("api/formations/regex").then(function (data) {
             self.regex.trainingTitle = new RegExp(data.data.TRAINING_TITLE);
             self.regex.numberHalfDays = new RegExp(data.data.NUMBER_HALF_DAYS);
         });
-
         /*** Recupération des Thèmes **/
         $http.get("api/themes").then(function (data) {
             self.topicList = data.data;
         });
-
         /*** Recupération des formations **/
         $http.get("api/formations").then(function (data) {
             self.trainingList = data.data;
         });
-
-        self.isNewTrainingTitle = true;
-        self.isFalseForm = false;
-        self.isThereAnEmptyField = false;
-        self.isTrainingSaved=false;
 
         self.isErrorInputMessageDisplayed = function (inputForm, focus) {
             return !inputForm.$error.required && inputForm.$invalid && !focus;
         };
 
         self.verifyForm = function (trainingForm) {
-            console.log("trainingForm: ",trainingForm);
-            self.isNewTrainingTitle=true;
-            self.isThereAnEmptyField=false;
-            self.isFalseForm=false;
+            self.isNewTrainingTitle = true;
+            self.isFalseForm = false;
+            self.isThereAnEmptyField = false;
+            self.isTrainingSaved=false;
             if (trainingForm.$error.required) {
                 self.isThereAnEmptyField = true;
                 self.isFalseForm = false;

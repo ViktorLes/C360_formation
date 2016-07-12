@@ -8,6 +8,25 @@ describe('Declaration Formation', function () {
     var topicList = [topic1, topic2];
     var trainingList = JSON.parse('[{"id":3,"trainingTitle":"AngularJS","numberHalfDays":1,"topicDescription":{"id":1,"name":"Développement Web"}},{"id":4,"trainingTitle":"AAA","numberHalfDays":5,"topicDescription":{"id":1,"name":"Développement Web"}}]');
 
+    function refreshFormAfterFillingField(form, inputName, error) {
+        form.$error.required.splice(0,1);
+        if(error) {
+            form[inputName].$error = error;
+            form[inputName].$invalid = true;
+        } else {
+            form[inputName].$error = {};
+            form[inputName].$invalid = false;
+        }
+        if(!form.$error.required[0]) {
+            form.$error = {};
+        }
+    }
+    
+    function expectFormToBeFilled(form) {
+        expect(form.$error.required).toBeUndefined();
+        form.$invalid = false;
+    }
+    
     beforeEach(module('App'));
 
     beforeEach(inject(function ($controller, $httpBackend, $location) {
@@ -42,20 +61,16 @@ describe('Declaration Formation', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.trainingTitle, true)).toBeFalsy();
             ctrl.training.trainingTitle = "Title";
             expect(ctrl.training.trainingTitle).toMatch(ctrl.regex.trainingTitle);
-            form.$error.required = [{}, {}];
-            form.trainingTitle.$error = {};
-            form.trainingTitle.$invalid = false;
+            refreshFormAfterFillingField(form, "trainingTitle");
             expect(ctrl.isErrorInputMessageDisplayed(form.trainingTitle, false)).toBeFalsy();
             ctrl.training.topicDescription = topic1;
-            form.$error.required = [{}];
+            form.$error.required.splice(0,1);
             expect(ctrl.isErrorInputMessageDisplayed(form.numberHalfDays, true)).toBeFalsy();
             ctrl.training.numberHalfDays = "4";
             expect(ctrl.training.numberHalfDays).toMatch(ctrl.regex.numberHalfDays);
-            form.$error = {};
-            form.numberHalfDays.$error = {};
-            form.numberHalfDays.$invalid = false;
+            refreshFormAfterFillingField(form, "numberHalfDays");
             expect(ctrl.isErrorInputMessageDisplayed(form.numberHalfDays, false)).toBeFalsy();
-            form.$invalid = false;
+            expectFormToBeFilled(form);
             backend.expectPOST('api/formations').respond('true');
             ctrl.verifyForm(form);
             backend.flush();
@@ -70,23 +85,17 @@ describe('Declaration Formation', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.trainingTitle, true)).toBeFalsy();
             ctrl.training.trainingTitle = "Title";
             expect(ctrl.training.trainingTitle).toMatch(ctrl.regex.trainingTitle);
-            form.$error.required = [{}, {}];
-            form.trainingTitle.$error = {};
-            form.trainingTitle.$invalid = false;
+            refreshFormAfterFillingField(form, 'trainingTitle');
             expect(ctrl.isErrorInputMessageDisplayed(form.trainingTitle, false)).toBeFalsy();
             ctrl.training.topicDescription = topic1;
-            form.$error.required = [{}];
+            form.$error.required.splice(0,1);
             expect(ctrl.isErrorInputMessageDisplayed(form.numberHalfDays, true)).toBeFalsy();
             ctrl.training.numberHalfDays = "4";
             expect(ctrl.training.numberHalfDays).toMatch(ctrl.regex.numberHalfDays);
-            form.$error = {};
-            form.numberHalfDays.$error = {};
-            form.numberHalfDays.$invalid = false;
+            refreshFormAfterFillingField(form, 'numberHalfDays');
             expect(ctrl.isErrorInputMessageDisplayed(form.numberHalfDays, false)).toBeFalsy();
-            form.$invalid = false;
+            expectFormToBeFilled(form);
             backend.expectPOST('api/formations').respond('false');
-            console.log("ctrl.training: ", ctrl.training);
-            console.log("form: ", form);
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewTrainingTitle).toBeFalsy();
@@ -100,16 +109,14 @@ describe('Declaration Formation', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.trainingTitle, true)).toBeFalsy();
             ctrl.training.trainingTitle = "Title@";
             expect(ctrl.training.trainingTitle).not.toMatch(ctrl.regex.trainingTitle);
-            form.$error.required = [{}, {}];
-            form.trainingTitle.$error = {pattern: true};
-            form.trainingTitle.$invalid = true;
+            refreshFormAfterFillingField(form, 'trainingTitle', {pattern: true});
             expect(ctrl.isErrorInputMessageDisplayed(form.trainingTitle, false)).toBeTruthy();
             ctrl.training.topicDescription = topic1;
-            form.$error.required = [{}];
+            form.$error.required.splice(0,1);
             expect(ctrl.isErrorInputMessageDisplayed(form.numberHalfDays, true)).toBeFalsy();
             ctrl.training.numberHalfDays = "";
             expect(ctrl.isErrorInputMessageDisplayed(form.numberHalfDays, false)).toBeFalsy();
-            form.$invalid = true;
+            expect(form.$error.required).toBeDefined();
             ctrl.verifyForm(form);
             expect(ctrl.isNewTrainingTitle).toBeTruthy();
             expect(ctrl.isFalseForm).toBeFalsy();
@@ -122,20 +129,17 @@ describe('Declaration Formation', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.trainingTitle, true)).toBeFalsy();
             ctrl.training.trainingTitle = "Title@";
             expect(ctrl.training.trainingTitle).not.toMatch(ctrl.regex.trainingTitle);
-            form.$error.required = [{}, {}];
-            form.trainingTitle.$error = {pattern: true};
-            form.trainingTitle.$invalid = true;
+            refreshFormAfterFillingField(form, 'trainingTitle', {pattern: true});
             expect(ctrl.isErrorInputMessageDisplayed(form.trainingTitle, false)).toBeTruthy();
             ctrl.training.topicDescription = topic1;
-            form.$error.required = [{}];
+            form.$error.required.splice(0,1);
             expect(ctrl.isErrorInputMessageDisplayed(form.numberHalfDays, true)).toBeFalsy();
             ctrl.training.numberHalfDays = "@";
             expect(ctrl.training.numberHalfDays).not.toMatch(ctrl.regex.numberHalfDays);
-            form.$error = {};
-            form.numberHalfDays.$error = {pattern: true};
-            form.numberHalfDays.$invalid = true;
+            refreshFormAfterFillingField(form, 'numberHalfDays', {pattern: true});
             expect(ctrl.isErrorInputMessageDisplayed(form.numberHalfDays, false)).toBeTruthy();
-            form.$invalid = true;
+            expect(form.$error.required).toBeUndefined();
+            expect(form.$invalid).toBeTruthy();
             ctrl.verifyForm(form);
             expect(ctrl.isNewTrainingTitle).toBeTruthy();
             expect(ctrl.isFalseForm).toBeTruthy();

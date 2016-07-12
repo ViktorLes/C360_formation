@@ -15,6 +15,9 @@ describe('Enregistrement Collaborateur', function () {
             lastName: {$invalid: true, $error: {required: true}},
             firstName: {$invalid: true, $error: {required: true}},
             personnalIdNumber: {$invalid: true, $error: {required: true}},
+            email: {$invalid: true, $error: {required: true}},
+            password: {$invalid: true, $error: {required: true}},
+            confirmPassword: {$invalid: true, $error: {required: true}},
             $invalid: true,
             $error: {required: [{}, {}, {}]}
         };
@@ -33,62 +36,39 @@ describe('Enregistrement Collaborateur', function () {
             backend.verifyNoOutstandingRequest();
         });
 
-        it('Valide', function () {
+        function fillFormCorrectlyBeforeSubmit(){
             expect(ctrl.isErrorInputMessageDisplayed(form.lastName, true)).toBeFalsy();
             ctrl.collaborator.lastName = "Darmet";
             expect(ctrl.collaborator.lastName).toMatch(ctrl.regex.lastName);
-            form.$error.required = [{}, {}];
-            form.lastName.$error = {};
-            form.lastName.$invalid = false;
+            refreshFormAfterFillingField(form, 'lastName');
             expect(ctrl.isErrorInputMessageDisplayed(form.lastName, false)).toBeFalsy();
             expect(ctrl.isErrorInputMessageDisplayed(form.firstName, true)).toBeFalsy();
             ctrl.collaborator.firstName = "Henri";
             expect(ctrl.collaborator.firstName).toMatch(ctrl.regex.firstName);
-            form.$error.required = [{}];
-            form.firstName.$error = {};
-            form.firstName.$invalid = false;
+            refreshFormAfterFillingField(form, 'firstName');
             expect(ctrl.isErrorInputMessageDisplayed(form.firstName, false)).toBeFalsy();
             expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, true)).toBeFalsy();
             ctrl.collaborator.personnalIdNumber = "HDA1234";
             expect(ctrl.collaborator.personnalIdNumber).toMatch(ctrl.regex.personnalIdNumber);
-            form.$error = {};
-            form.personnalIdNumber.$error = {};
-            form.personnalIdNumber.$invalid = false;
+            refreshFormAfterFillingField(form, 'personnalIdNumber');
             expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, false)).toBeFalsy();
-            form.$invalid = false;
-            backend.expectPOST('api/collaborateurs').respond('true');
+            expectFormToBeFilled(form);
+        }
+
+        it('Valide', function () {
+            fillFormCorrectlyBeforeSubmit();
+            backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "NotPersisted"});
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
             expect(ctrl.isFalseForm).toBeFalsy();
             expect(ctrl.isThereAnEmptyField).toBeFalsy();
-            expect(loc.path()).toBe('/pageblanche');
+            expect(loc.path()).toBe('/Authentication');
         });
 
         it('Invalid because of matricule', function () {
-            expect(ctrl.isErrorInputMessageDisplayed(form.lastName, true)).toBeFalsy();
-            ctrl.collaborator.lastName = "Darmet";
-            expect(ctrl.collaborator.lastName).toMatch(ctrl.regex.lastName);
-            form.$error.required = [{}, {}];
-            form.lastName.$error = {};
-            form.lastName.$invalid = false;
-            expect(ctrl.isErrorInputMessageDisplayed(form.lastName, false)).toBeFalsy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.firstName, true)).toBeFalsy();
-            ctrl.collaborator.firstName = "Henri";
-            expect(ctrl.collaborator.firstName).toMatch(ctrl.regex.firstName);
-            form.$error.required = [{}];
-            form.firstName.$error = {};
-            form.firstName.$invalid = false;
-            expect(ctrl.isErrorInputMessageDisplayed(form.firstName, false)).toBeFalsy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, true)).toBeFalsy();
-            ctrl.collaborator.personnalIdNumber = "HDA1234";
-            expect(ctrl.collaborator.personnalIdNumber).toMatch(ctrl.regex.personnalIdNumber);
-            form.$error = {};
-            form.personnalIdNumber.$error = {};
-            form.personnalIdNumber.$invalid = false;
-            expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, false)).toBeFalsy();
-            form.$invalid = false;
-            backend.expectPOST('api/collaborateurs').respond('false');
+            fillFormCorrectlyBeforeSubmit();
+            backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "IdNumberPersisted"});
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewPersonalIdNumber).toBeFalsy();
@@ -101,9 +81,7 @@ describe('Enregistrement Collaborateur', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.lastName, true)).toBeFalsy();
             ctrl.collaborator.lastName = "Darmet@";
             expect(ctrl.collaborator.lastName).not.toMatch(ctrl.regex.lastName);
-            form.$error.required = [{}, {}];
-            form.lastName.$error = {pattern: true};
-            form.lastName.$invalid = true;
+            refreshFormAfterFillingField(form, 'lastName', {pattern: true});
             expect(ctrl.isErrorInputMessageDisplayed(form.lastName, false)).toBeTruthy();
             expect(ctrl.isErrorInputMessageDisplayed(form.firstName, true)).toBeFalsy();
             ctrl.collaborator.firstName = "";
@@ -111,10 +89,8 @@ describe('Enregistrement Collaborateur', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, true)).toBeFalsy();
             ctrl.collaborator.personnalIdNumber = "HDA1234";
             expect(ctrl.collaborator.personnalIdNumber).toMatch(ctrl.regex.personnalIdNumber);
-            form.personnalIdNumber.$error = {};
-            form.personnalIdNumber.$invalid = false;
+            refreshFormAfterFillingField(form, 'personnalIdNumber');
             expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, false)).toBeFalsy();
-            form.$invalid = true;
             ctrl.verifyForm(form);
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
             expect(ctrl.isFalseForm).toBeFalsy();
@@ -126,25 +102,19 @@ describe('Enregistrement Collaborateur', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.lastName, true)).toBeFalsy();
             ctrl.collaborator.lastName = "Darmet@";
             expect(ctrl.collaborator.lastName).not.toMatch(ctrl.regex.lastName);
-            form.$error.required = [{}, {}];
-            form.lastName.$error = {pattern: true};
-            form.lastName.$invalid = true;
+            refreshFormAfterFillingField(form, 'lastName', {pattern: true});
             expect(ctrl.isErrorInputMessageDisplayed(form.lastName, false)).toBeTruthy();
             expect(ctrl.isErrorInputMessageDisplayed(form.firstName, true)).toBeFalsy();
             ctrl.collaborator.firstName = "888";
             expect(ctrl.collaborator.firstName).not.toMatch(ctrl.regex.firstName);
-            form.$error.required = [{}];
-            form.firstName.$error = {pattern: true};
-            form.firstName.$invalid = true;
+            refreshFormAfterFillingField(form, 'firstName', {pattern: true});
             expect(ctrl.isErrorInputMessageDisplayed(form.firstName, false)).toBeTruthy();
             expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, true)).toBeFalsy();
             ctrl.collaborator.personnalIdNumber = "HDA1234";
             expect(ctrl.collaborator.personnalIdNumber).toMatch(ctrl.regex.personnalIdNumber);
-            form.$error = {};
-            form.personnalIdNumber.$error = {};
-            form.personnalIdNumber.$invalid = false;
+            refreshFormAfterFillingField(form, 'personnalIdNumber');
             expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, false)).toBeFalsy();
-            form.$invalid = true;
+            expect(form.$error.required).toBeUndefined();
             ctrl.verifyForm(form);
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
             expect(ctrl.isFalseForm).toBeTruthy();
