@@ -8,16 +8,23 @@ angular.module('controllers')
         self.regex={};
         self.regex.beginning="^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$";
         self.regex.ending="^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$";
+        initTimeSlot();
+        self.beginningHour = self.timeSlotsTraining[0];
+        self.endHour = self.timeSlotsTraining[20];
         self.d1 = datepicker.build();
         self.d2 = datepicker.build();
+        selectTime(self.d1.dt,self.beginningHour);
+        selectTime(self.d2.dt,self.endHour);
         var meetingRoom1 = {name: 'Salle Phuket'};
         var meetingRoom2 = {name: 'Salle Bali'};
         self.meetingRoomList = [meetingRoom1, meetingRoom2];
         self.trainingLocation = meetingRoom1;
-        initTimeSlot();
-        self.beginningHour = self.timeSlotsTraining[0];
-        self.endHour = self.timeSlotsTraining[20];
 
+        function selectTime (date,time) {
+            var tab = time.split(":");
+            date.setHours(parseInt(tab[0],10));
+            date.setMinutes(parseInt(tab[1],10));
+        }
         var session = SelectSessionService.get();
         self.d1.dt=parseDate(session.beginning);
         self.d2.dt=parseDate(session.ending);
@@ -31,7 +38,13 @@ angular.module('controllers')
         function parseDate(input) {
             var parts=input.split('/');
             return new Date(parts[2],parts[1]-1,parts[0]);
-        }
+        };
+        
+        self.selectTime=function (date,time) {
+            var tab = time.split(":");
+            date.setHours(parseInt(tab[0],10));
+            date.setMinutes(parseInt(tab[1],10));
+        };
 
         function initTimeSlot() {
             function pad2(number) {
@@ -79,7 +92,7 @@ angular.module('controllers')
         };
 
         self.DateCorrect = function () {
-            if (self.d1.dt < self.d2.dt && self.beginningHour < self.endHour) {
+            if (self.d1.dt < self.d2.dt) {
                 self.isFalseForm = false;
                 self.isFalseTimeSlot = false;
             }
@@ -89,6 +102,8 @@ angular.module('controllers')
         };
 
         self.verifyForm = function (sessionFormIsInvalid) {
+            selectTime(self.d1.dt,self.beginningHour);
+            selectTime(self.d2.dt,self.endHour);
             if (sessionFormIsInvalid === false) {
                 validateTraining();
                 if (self.isFalseForm === false && self.isFalseTimeSlot === false && self.isFalseDate === false && self.isWorkingDay === true) self.saveAction();
