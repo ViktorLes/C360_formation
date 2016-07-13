@@ -66,7 +66,7 @@ angular.module('controllers')
         };
 
         self.DateCorrect = function () {
-            if (self.d1.dt < self.d2.dt && self.beginningHour < self.endHour) {
+            if (self.d1.dt < self.d2.dt) {
                 self.isFalseForm = false;
                 self.isFalseTimeSlot = false;
             }
