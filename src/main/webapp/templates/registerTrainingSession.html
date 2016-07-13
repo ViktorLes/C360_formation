@@ -13,15 +13,17 @@
                           novalidate>
                         <div class="row">
                             <div class="col-md-12">
-                                <h5><span class="label label-default">Nom de la formation: </span></h5>
-                                <select class="selectpicker form-control" name="training" ng-model="DS.training"
-                                        ng-options='myTraining.trainingTitle for myTraining in DS.trainings'></select>
+                                <label>{{DS.training.trainingTitle}}</label>
+                            </div>
+                            <div class="col-md-12">
+                                <h5><span class="label label-default">Planification de la session: </span></h5>
+                                <p>cette formation dure {{DS.training.numberHalfDays}} demi-journées</p>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-6" id="Date-Debut">
-                                <h5><span class="label label-default">Date et Heure de Début:</span></h5>
+                                <h5><span class="label label-default">Date de Début:</span></h5>
                                 <p class="input-group">
                                     <input type="text" name="date1"
                                            ng-pattern='DS.regex.beginning'
@@ -30,8 +32,9 @@
                                            ng-click="DS.d1.open1()" is-open="DS.d1.popup1.opened"
                                            datepicker-options="DS.d1.dateOptions" ng-required="true"
                                            close-text="Close"
-                                           alt-input-formats="DS.d1.altInputFormats" ng-change="DS.checkDateValide(DS.d1)"/>
-                      <span class="input-group-addon calenderSpan"  ng-click="DS.d1.open1()">
+                                           alt-input-formats="DS.d1.altInputFormats"
+                                           ng-change="DS.checkDateValide(DS.d1)"/>
+                      <span class="input-group-addon calenderSpan" ng-click="DS.d1.open1()">
                           <span class="glyphicon glyphicon-calendar"></span>
                       </span>
                                 </p>
@@ -45,7 +48,7 @@
 
                         <div class="row">
                             <div class="col-sm-6" id="Date-Fin">
-                                <h5><span class="label label-default">Date et Heure de Fin:</span></h5>
+                                <h5><span class="label label-default">Date de Fin:</span></h5>
                                 <p class="input-group">
                                     <input type="text" name="date2"
                                            ng-pattern='DS.regex.ending'
@@ -54,7 +57,8 @@
                                            ng-click="DS.d2.open1()" is-open="DS.d2.popup1.opened"
                                            datepicker-options="DS.d2.dateOptions" ng-required="true"
                                            close-text="Close"
-                                           alt-input-formats="DS.d2.altInputFormats" ng-change="DS.checkDateValide(DS.d2)"/>
+                                           alt-input-formats="DS.d2.altInputFormats"
+                                           ng-change="DS.checkDateValide(DS.d2)"/>
                                     <span class="input-group-addon calenderSpan" ng-click="DS.d2.open1()">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -105,7 +109,6 @@
                         </button>
                     </form>
                 </div>
-                </form>
             </div>
         </div>
     </div>

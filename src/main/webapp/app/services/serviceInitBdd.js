@@ -49,7 +49,7 @@ angular.module('controllers').factory('InitBddService', ['$http', function ($htt
               return $http.post("api/formations", training)
             }).then(function (data) {
                 training.id = 3;
-                if (data.data)console.log("ajout training", training);
+                if (data.data>0)console.log("ajout training", training);
                 return $http.post("api/collaborateurs", collaborator1);
             }).then(function (data) {
                 collaborator1.id = 4;

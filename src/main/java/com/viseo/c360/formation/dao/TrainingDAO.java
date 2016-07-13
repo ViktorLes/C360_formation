@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
 import org.springframework.core.convert.ConversionException;
 import org.springframework.stereotype.Repository;
@@ -31,12 +32,11 @@ public class TrainingDAO {
     }
 
     @Transactional
-    public boolean addTraining(Training training) {
+    public Training addTraining(Training training) {
         if (!this.isTrainingPersisted(training.getTrainingTitle())) {
-            em.merge(training);
-            return true;
+            return em.merge(training);
         }
-        return false;
+        return null;
     }
 
     public boolean isTrainingPersisted(String trainingTitle) {
@@ -118,8 +118,12 @@ public class TrainingDAO {
     }
 
     @Transactional
-    public TrainingSession updateTrainingSession(TrainingSession trainingSession){
-            return em.merge(trainingSession);
+    public TrainingSession updateTrainingSession(TrainingSession trainingSession, TrainingSession trainingSessionTemp){
+        trainingSession = em.merge(trainingSession);
+        trainingSession.setBeginning(trainingSessionTemp.getBeginning());
+        trainingSession.setEnding(trainingSessionTemp.getEnding());
+        trainingSession.setLocation(trainingSessionTemp.getLocation());
+        return trainingSession;
     }
 
     public boolean isThereOneSessionTrainingAlreadyPlanned(TrainingSession trainingSession) {
@@ -144,6 +148,7 @@ public class TrainingDAO {
                 )
         );
         Collection<TrainingSession> list = (Collection<TrainingSession>) em.createQuery(q).getResultList();
+        list.remove(trainingSession);
         return !list.isEmpty();
     }
 }

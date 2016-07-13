@@ -1,22 +1,25 @@
-describe('Register Training Session', function () {
+describe('Change Register Training Session', function () {
     var ctrl;
     var datePiker;
     var httpBackend;
     var filter;
+    var selectSessionService;
     var selectTrainingService;
     var TRAINING = JSON.parse('{"id":3,"trainingTitle":"AngularJS","numberHalfDays":1,"topicDescription":{"id":1,"name":"Développement Web"}}');
-
+    var SESSION=JSON.parse('{"id":6,"trainingDescription":{"id":3,"trainingTitle":"AngularJS","numberHalfDays":1,"topicDescription":{"id":1,"name":"Développement Web"}},"beginning":"13/07/2016","ending":"13/07/2016","beginningTime":"08:00","endingTime":"18:00","location":"Salle Phuket"}');
     beforeEach(module('App'));
 
-    beforeEach(inject(function ($controller, DatepickerService, $httpBackend, $filter, $location,SelectTrainingService) {
+    beforeEach(inject(function ($controller, DatepickerService, $httpBackend, $filter, $location,SelectSessionService,SelectTrainingService) {
         datePiker = DatepickerService;
         httpBackend = $httpBackend;
         filter = $filter;
+        selectSessionService = SelectSessionService;
         selectTrainingService = SelectTrainingService;
         selectTrainingService.select(TRAINING);
-        ctrl = $controller('controllerRegisterTrainingSession');
+        selectSessionService.select(SESSION);
+        ctrl = $controller('controllerChangeRegisterTrainingSession');
         loc = $location;
-        loc.url('/RegisterTrainingSession');
+        loc.url('/ChangeRegisterTrainingSession');
         expect(ctrl.isSessionAlreadyPlanned).toBeFalsy();
     }));
 
@@ -37,7 +40,9 @@ describe('Register Training Session', function () {
         ctrl.endHour = "08:00";
         var meetingRoom1 = {name: 'Salle Phuket'};
         ctrl.trainingLocation = meetingRoom1;
+
         var session = {
+            id : selectSessionService.get().id,
             trainingDescription: ctrl.training,
             beginning: dateBeginning,
             ending: dateEnding,
@@ -45,7 +50,7 @@ describe('Register Training Session', function () {
             endingTime: ctrl.endHour,
             location: ctrl.trainingLocation.name
         };
-        httpBackend.expectPOST("api/sessions", session).respond(true);
+        httpBackend.expectPUT("api/sessions", session).respond(true);
         ctrl.verifyForm(false);
         httpBackend.flush();
         expect(ctrl.isSessionAlreadyPlanned).toBeFalsy();
@@ -56,7 +61,7 @@ describe('Register Training Session', function () {
         expect(ctrl.isFalseForm).toBeFalsy();
         ctrl.verifyForm(true);
         expect(ctrl.isFalseForm).toBeTruthy();
-        expect(loc.path()).toBe('/RegisterTrainingSession');
+        expect(loc.path()).toBe('/ChangeRegisterTrainingSession');
     });
 
     it('3 Enregistrement avec une date invalide',function () {
@@ -89,7 +94,9 @@ describe('Register Training Session', function () {
         ctrl.endHour = "08:00";
         var meetingRoom1 = {name: 'Salle Phuket'};
         ctrl.trainingLocation = meetingRoom1;
+
         var session = {
+            id : selectSessionService.get().id,
             trainingDescription: ctrl.training,
             beginning: dateBeginning,
             ending: dateEnding,
@@ -97,10 +104,10 @@ describe('Register Training Session', function () {
             endingTime: ctrl.endHour,
             location: ctrl.trainingLocation.name
         };
-        httpBackend.expectPOST("api/sessions", session).respond(false);
+        httpBackend.expectPUT("api/sessions", session).respond(false);
         ctrl.verifyForm(false);
         httpBackend.flush();
         expect(ctrl.isSessionAlreadyPlanned).toBeTruthy();
-        expect(loc.path()).toBe('/RegisterTrainingSession');
+        expect(loc.path()).toBe('/ChangeRegisterTrainingSession');
     });
 });

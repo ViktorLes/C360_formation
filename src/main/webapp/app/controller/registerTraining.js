@@ -1,5 +1,5 @@
 angular.module('controllers')
-    .controller('controllerRegisterTraining', ['$http', '$location', '$timeout', function ($http, $location,$timeout) {
+    .controller('controllerRegisterTraining', ['$http', '$location', '$timeout','SelectTrainingService', function ($http, $location,$timeout,SelectTrainingService) {
 
         var self = this;
         self.regex = {};
@@ -46,8 +46,9 @@ angular.module('controllers')
         self.saveAction = function () {
             self.training.trainingTitle = self.training.trainingTitle.replace(/ +/g, " ");
             $http.post("api/formations", self.training).success(function (data) {
-                if (data == "true" || data == true) {
+                if (data >0) {
                     self.trainingAdded=JSON.parse(JSON.stringify(self.training));
+                    self.trainingAdded.id=data;
                     self.trainingList.push(self.trainingAdded);
                     self.isTrainingSaved=true;
                     self.training.trainingTitle=null;
@@ -78,7 +79,8 @@ angular.module('controllers')
             return isNewTopic;
         };
         self.manageSession = function (training) {
-            $location.url("/manageSession");
+            SelectTrainingService.select(training);
+            $location.url("/ManageSession");
         }
     }])
 

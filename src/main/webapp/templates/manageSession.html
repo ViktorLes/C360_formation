@@ -1,21 +1,55 @@
 <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-4">
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-4">
         <div class="panel panel-default">
-
             <div class="panel-heading">
-                <h3 class="panel-title">Gerer sessions</h3>
+                <label class="panel-title">Gérer sessions</label>
             </div>
-            <div>
-                <p>trainingTitle</p>
+            <div class="MainContainer">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-4" >
+                        <button type="submit" class="left-block btn btn-primary"
+                                ng-click="MS.returnToRegisterTraining()"
+                                style="background-color: #5e5e5e"
+                                value="back">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            Retour
+                        </button>
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="col-md-6 col-md-push-4">
+                            <h4 class="center-block">{{MS.training.trainingTitle}}</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-md-push-3">
+                            <button type="submit" class="left-block btn btn-primary"
+                                    ng-click="MS.redirectRegisterTrainingSession()"> Ajouter
+                                une session
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7 col-md-push-2">
+                            <br>
+                                <li ng-repeat="s in MS.listTrainingSession" class="click"
+                                    ng-click="MS.redirectToSession(s)"><a
+                                        toggle="tooltip"
+                                        title="Cliquer pour modifier la session" href="">
+                                    {{s.beginning | date:"dd LLLL yyyy"}} - {{s.ending | date:"dd LLLL yyyy"}} -
+                                    {{s.location}}
+                                </a></li>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <button type="submit" class="center-block btn btn-primary" ng-click="MS.returnToRegisterTraining()"> Retour
-            </button>
-            <button type="submit" class="center-block btn btn-primary" ng-click="MS.registerTrainingSession()"> Ajouter une session
-            </button>
         </div>
+
     </div>
-</div>
 </div>

@@ -41,12 +41,16 @@ public class TrainingWS {
      ***/
     @RequestMapping(value = "${endpoint.trainings}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addTraining(@RequestBody TrainingDescription myTrainingDescription) {
+    public long addTraining(@RequestBody TrainingDescription myTrainingDescription) {
         try {
             long topicId = myTrainingDescription.getTopicDescription().getId();
-            Topic topic=trainingDAO.getTopic(topicId);
-            if(topic == null) throw new PersistentObjectNotFoundException(topicId,Topic.class);
-            return (trainingDAO.addTraining(new DescriptionToTraining().convert(myTrainingDescription,topic)));
+            Topic topic = trainingDAO.getTopic(topicId);
+            if (topic == null) throw new PersistentObjectNotFoundException(topicId, Topic.class);
+            Training training = (trainingDAO.addTraining(new DescriptionToTraining().convert(myTrainingDescription, topic)));
+            if (training == null) {
+                return 0;
+            }
+            return training.getId();
         } catch (ConversionException | PersistentObjectNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -112,11 +116,21 @@ public class TrainingWS {
     @ResponseBody
     public boolean updateTrainingSession(@RequestBody TrainingSessionDescription trainingSessionDescription) {
         try {
-            Training training = trainingDAO.getTraining(trainingSessionDescription.getTrainingDescription().getId());
-            TrainingSession trainingSession = new DescriptionToTrainingSession().convert(trainingSessionDescription,training);
-            if (trainingSession == null) throw new PersistentObjectNotFoundException(trainingSession.getId(), TrainingSession.class);
-            trainingDAO.updateTrainingSession(trainingSession);
-            return true;
+            TrainingSession trainingSession = trainingDAO.getSessionTraining(trainingSessionDescription.getId());
+            TrainingSession newTrainingSession = new DescriptionToTrainingSession().convert(trainingSessionDescription, trainingSession.getTraining());
+            if (trainingSession == null)
+                throw new PersistentObjectNotFoundException(trainingSession.getId(), TrainingSession.class);
+            if (!trainingDAO.isThereOneSessionTrainingAlreadyPlanned(newTrainingSession)
+                    && newTrainingSession.getBeginning().before(newTrainingSession.getEnding())
+                    )
+            {
+                trainingDAO.updateTrainingSession(
+                        trainingSession,
+                        newTrainingSession
+                );
+                return true;
+            }
+            return false;
         } catch (PersistentObjectNotFoundException | ConversionException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

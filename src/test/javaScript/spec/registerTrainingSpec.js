@@ -52,7 +52,7 @@ describe('Declaration Formation', function () {
             refreshFormAfterFillingField(form, "numberHalfDays");
             expect(ctrl.isErrorInputMessageDisplayed(form.numberHalfDays, false)).toBeFalsy();
             expectFormToBeFilled(form);
-            backend.expectPOST('api/formations').respond('true');
+            backend.expectPOST('api/formations').respond("4");
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewTrainingTitle).toBeTruthy();
@@ -76,7 +76,7 @@ describe('Declaration Formation', function () {
             refreshFormAfterFillingField(form, 'numberHalfDays');
             expect(ctrl.isErrorInputMessageDisplayed(form.numberHalfDays, false)).toBeFalsy();
             expectFormToBeFilled(form);
-            backend.expectPOST('api/formations').respond('false');
+            backend.expectPOST('api/formations').respond("0");
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewTrainingTitle).toBeFalsy();
@@ -131,7 +131,7 @@ describe('Declaration Formation', function () {
 
         it('Au clic sur une formation, on est redirigé vers la page de gestion des sessions', function () {
             ctrl.manageSession();
-            expect(loc.path()).toEqual("/manageSession");
+            expect(loc.path()).toEqual("/ManageSession");
         });
     });
 });
