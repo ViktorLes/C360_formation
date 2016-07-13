@@ -1,4 +1,4 @@
-describe('changeRegisterTrainingSession', function () {
+describe('Change Register Training Session', function () {
     var ctrl;
     var datePiker;
     var httpBackend;
@@ -16,7 +16,7 @@ describe('changeRegisterTrainingSession', function () {
         selectSessionService = SelectSessionService;
         selectTrainingService = SelectTrainingService;
         selectTrainingService.select(TRAINING);
-        selectSessionService.select(SESSION)
+        selectSessionService.select(SESSION);
         ctrl = $controller('controllerChangeRegisterTrainingSession');
         loc = $location;
         loc.url('/ChangeRegisterTrainingSession');

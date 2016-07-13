@@ -12,9 +12,11 @@ angular.module('controllers')
         self.redirectRegisterTrainingSession = function () {
             $location.url("/RegisterTrainingSession");
         };
+
         self.returnToRegisterTraining = function () {
             $location.url("/RegisterTraining");
         };
+
         self.redirectToSession=function (session) {
             SelectSessionService.select(session);
             $location.url("/ChangeRegisterTrainingSession");  

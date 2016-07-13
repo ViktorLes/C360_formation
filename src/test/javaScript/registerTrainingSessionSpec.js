@@ -1,10 +1,10 @@
-describe('registerTrainingSession', function () {
+describe('Register Training Session', function () {
     var ctrl;
     var datePiker;
     var httpBackend;
     var filter;
     var selectTrainingService;
-    var TRAININGS = JSON.parse('[{"id":3,"trainingTitle":"AngularJS","numberHalfDays":1,"topicDescription":{"id":1,"name":"Développement Web"}}]');
+    var TRAINING = JSON.parse('{"id":3,"trainingTitle":"AngularJS","numberHalfDays":1,"topicDescription":{"id":1,"name":"Développement Web"}}');
 
     beforeEach(module('App'));
 
@@ -13,7 +13,7 @@ describe('registerTrainingSession', function () {
         httpBackend = $httpBackend;
         filter = $filter;
         selectTrainingService = SelectTrainingService;
-        selectTrainingService.select(TRAININGS[0]);
+        selectTrainingService.select(TRAINING);
         ctrl = $controller('controllerRegisterTrainingSession');
         loc = $location;
         loc.url('/RegisterTrainingSession');
@@ -26,7 +26,7 @@ describe('registerTrainingSession', function () {
     });
 
     it('1) Enregistrement session', function () {
-        ctrl.training = TRAININGS[0];
+        ctrl.training = TRAINING;
         ctrl.d1.dt = new Date(2016, 5, 23);
         var dateBeginning=filter('date')(ctrl.d1.dt, "dd/MM/yyyy");
         expect(dateBeginning).toMatch(ctrl.regex.beginning);
@@ -61,7 +61,7 @@ describe('registerTrainingSession', function () {
     });
 
     it('3 Enregistrement avec une date invalide',function () {
-        ctrl.training = TRAININGS[0];
+        ctrl.training = TRAINING;
         ctrl.d1.dt = new Date(2016, 5, 23);
         ctrl.checkDateValide(ctrl.d1);
         var dateBeginning=filter('date')(ctrl.d1.dt, "dd/MM/yyyy");
@@ -79,7 +79,7 @@ describe('registerTrainingSession', function () {
     });
 
     it('4 Enregistrement avec session déjà planifiée', function () {
-        ctrl.training = TRAININGS[0];
+        ctrl.training = TRAINING;
         ctrl.d1.dt = new Date(2016, 5, 23);
         var dateBeginning=filter('date')(ctrl.d1.dt, "dd/MM/yyyy");
         expect(dateBeginning).toMatch(ctrl.regex.beginning);
