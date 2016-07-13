@@ -23,6 +23,7 @@ angular.module('controllers')
             self.isNewEmail = true;
             self.isFalseForm = false;
             self.isThereAnEmptyField = false;
+            console.log(collaboratorForm);
             if (collaboratorForm.$error.required) {
                 self.isThereAnEmptyField = true;
                 self.isFalseForm = false;

@@ -19,7 +19,7 @@ describe('Enregistrement Collaborateur', function () {
             password: {$invalid: true, $error: {required: true}},
             confirmPassword: {$invalid: true, $error: {required: true}},
             $invalid: true,
-            $error: {required: [{}, {}, {}]}
+            $error: {required: [{}, {}, {}, {}, {}, {}]}
         };
     }));
 
@@ -36,7 +36,25 @@ describe('Enregistrement Collaborateur', function () {
             backend.verifyNoOutstandingRequest();
         });
 
-        function fillFormCorrectlyBeforeSubmit(){
+        function fillEmailCorrectly(form){
+            expect(ctrl.isErrorInputMessageDisplayed(form.email, true)).toBeFalsy();
+            ctrl.collaborator.email = "henri.darmet@viseo.com";
+            refreshFormAfterFillingField(form, 'email');
+            expect(ctrl.isErrorInputMessageDisplayed(form.email, false)).toBeFalsy();
+        }
+
+        function fillPasswordCorrectly(form){
+            expect(ctrl.isErrorInputMessageDisplayed(form.password, true)).toBeFalsy();
+            ctrl.collaborator.password = "000000";
+            refreshFormAfterFillingField(form, 'password');
+            expect(ctrl.isErrorInputMessageDisplayed(form.password, false)).toBeFalsy();
+            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, true)).toBeFalsy();
+            ctrl.collaborator.confirmPassword = "000000";
+            refreshFormAfterFillingField(form, 'confirmPassword');
+            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, false)).toBeFalsy();
+        }
+
+        function fillIdentityCollaboratorCorrectly(form){
             expect(ctrl.isErrorInputMessageDisplayed(form.lastName, true)).toBeFalsy();
             ctrl.collaborator.lastName = "Darmet";
             expect(ctrl.collaborator.lastName).toMatch(ctrl.regex.lastName);
@@ -52,10 +70,16 @@ describe('Enregistrement Collaborateur', function () {
             expect(ctrl.collaborator.personnalIdNumber).toMatch(ctrl.regex.personnalIdNumber);
             refreshFormAfterFillingField(form, 'personnalIdNumber');
             expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, false)).toBeFalsy();
+        }
+
+        function fillFormCorrectlyBeforeSubmit(){
+            fillIdentityCollaboratorCorrectly(form);
+            fillEmailCorrectly(form);
+            fillPasswordCorrectly(form);
             expectFormToBeFilled(form);
         }
 
-        it('Valide', function () {
+        it('1) Valide', function () {
             fillFormCorrectlyBeforeSubmit();
             backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "NotPersisted"});
             ctrl.verifyForm(form);
@@ -66,18 +90,7 @@ describe('Enregistrement Collaborateur', function () {
             expect(loc.path()).toBe('/Authentication');
         });
 
-        it('Invalid because of matricule', function () {
-            fillFormCorrectlyBeforeSubmit();
-            backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "IdNumberPersisted"});
-            ctrl.verifyForm(form);
-            backend.flush();
-            expect(ctrl.isNewPersonalIdNumber).toBeFalsy();
-            expect(ctrl.isFalseForm).toBeFalsy();
-            expect(ctrl.isThereAnEmptyField).toBeFalsy();
-            expect(loc.path()).toBe('/RegisterCollaborator');
-        });
-
-        it('Invalid because of input avoid', function () {
+        it('2) Invalid because of input avoid', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.lastName, true)).toBeFalsy();
             ctrl.collaborator.lastName = "Darmet@";
             expect(ctrl.collaborator.lastName).not.toMatch(ctrl.regex.lastName);
@@ -91,14 +104,43 @@ describe('Enregistrement Collaborateur', function () {
             expect(ctrl.collaborator.personnalIdNumber).toMatch(ctrl.regex.personnalIdNumber);
             refreshFormAfterFillingField(form, 'personnalIdNumber');
             expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, false)).toBeFalsy();
+            fillEmailCorrectly(form);
+            expect(ctrl.isErrorInputMessageDisplayed(form.password, true)).toBeFalsy();
+            ctrl.collaborator.password = "000000";
+            refreshFormAfterFillingField(form, 'password');
+            expect(ctrl.isErrorInputMessageDisplayed(form.password, false)).toBeFalsy();
+            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, true)).toBeFalsy();
+            ctrl.collaborator.confirmPassword = "";
+            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, false)).toBeFalsy();
             ctrl.verifyForm(form);
+            expect(ctrl.isNewEmail).toBeTruthy();
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
             expect(ctrl.isFalseForm).toBeFalsy();
             expect(ctrl.isThereAnEmptyField).toBeTruthy();
             expect(loc.path()).toBe('/RegisterCollaborator');
         });
 
-        it('Invalid because of inputs incorrect', function () {
+        it('3) Password confirmation is invalid', function(){
+            fillIdentityCollaboratorCorrectly(form);
+            fillEmailCorrectly(form);
+            expect(ctrl.isErrorInputMessageDisplayed(form.password, true)).toBeFalsy();
+            ctrl.collaborator.password = "AAAAAAAAAAA";
+            refreshFormAfterFillingField(form, 'password');
+            expect(ctrl.isErrorInputMessageDisplayed(form.password, false)).toBeFalsy();
+            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, true)).toBeFalsy();
+            ctrl.collaborator.confirmPassword = "BBBBBBBBBBB";
+            refreshFormAfterFillingField(form, 'confirmPassword', {pwCheck: true});
+            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, false)).toBeTruthy();
+            expect(form.$error.required).toBeUndefined();
+            ctrl.verifyForm(form);
+            expect(ctrl.isNewEmail).toBeTruthy();
+            expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
+            expect(ctrl.isFalseForm).toBeTruthy();
+            expect(ctrl.isThereAnEmptyField).toBeFalsy();
+            expect(loc.path()).toBe('/RegisterCollaborator');
+        });
+
+        it('4) Invalid because of inputs incorrect', function () {
             expect(ctrl.isErrorInputMessageDisplayed(form.lastName, true)).toBeFalsy();
             ctrl.collaborator.lastName = "Darmet@";
             expect(ctrl.collaborator.lastName).not.toMatch(ctrl.regex.lastName);
@@ -114,8 +156,59 @@ describe('Enregistrement Collaborateur', function () {
             expect(ctrl.collaborator.personnalIdNumber).toMatch(ctrl.regex.personnalIdNumber);
             refreshFormAfterFillingField(form, 'personnalIdNumber');
             expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, false)).toBeFalsy();
+            fillEmailCorrectly(form);
+            fillPasswordCorrectly(form);
             expect(form.$error.required).toBeUndefined();
             ctrl.verifyForm(form);
+            expect(ctrl.isNewEmail).toBeTruthy();
+            expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
+            expect(ctrl.isFalseForm).toBeTruthy();
+            expect(ctrl.isThereAnEmptyField).toBeFalsy();
+            expect(loc.path()).toBe('/RegisterCollaborator');
+        });
+
+        it('5) E-mail address is invalid', function(){
+
+        });
+
+        it('6) Invalid because e-mail is already used', function () {
+            fillFormCorrectlyBeforeSubmit();
+            backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "EmailPersisted"});
+            ctrl.verifyForm(form);
+            backend.flush();
+            expect(ctrl.isNewEmail).toBeFalsy();
+            expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
+            expect(ctrl.isFalseForm).toBeFalsy();
+            expect(ctrl.isThereAnEmptyField).toBeFalsy();
+            expect(loc.path()).toBe('/RegisterCollaborator');
+        });
+
+        it('7) Invalid because matricule is already used', function () {
+            fillFormCorrectlyBeforeSubmit();
+            backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "IdNumberPersisted"});
+            ctrl.verifyForm(form);
+            backend.flush();
+            expect(ctrl.isNewEmail).toBeTruthy();
+            expect(ctrl.isNewPersonalIdNumber).toBeFalsy();
+            expect(ctrl.isFalseForm).toBeFalsy();
+            expect(ctrl.isThereAnEmptyField).toBeFalsy();
+            expect(loc.path()).toBe('/RegisterCollaborator');
+        });
+
+        it('8) Invalid because password is too short', function () {
+            fillIdentityCollaboratorCorrectly(form);
+            fillEmailCorrectly(form);
+            expect(ctrl.isErrorInputMessageDisplayed(form.password, true)).toBeFalsy();
+            ctrl.collaborator.password = "AAA";
+            refreshFormAfterFillingField(form, 'password', {minlength: true});
+            expect(ctrl.isErrorInputMessageDisplayed(form.password, false)).toBeTruthy();
+            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, true)).toBeFalsy();
+            ctrl.collaborator.confirmPassword = "AAA";
+            refreshFormAfterFillingField(form, 'confirmPassword');
+            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, false)).toBeFalsy();
+            expect(form.$error.required).toBeUndefined();
+            ctrl.verifyForm(form);
+            expect(ctrl.isNewEmail).toBeTruthy();
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
             expect(ctrl.isFalseForm).toBeTruthy();
             expect(ctrl.isThereAnEmptyField).toBeFalsy();
