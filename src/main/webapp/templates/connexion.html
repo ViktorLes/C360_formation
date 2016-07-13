@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <input type="text" name="email" class="form-control"
                                ng-model="CC.user.email" required
-                               placeholder="Matricule">
+                               placeholder="Email">
                     </div>
                     <!-- PASSWORD -->
                     <div class="form-group">
@@ -22,8 +22,16 @@
                                placeholder="Password">
                     </div>
                 </form>
-                <button class="center-block btn btn-primary" type="submit">Connexion</button>
+                <div>
+                    <button class="center-block btn btn-primary" type="submit">Connexion</button>
+                </div>
+            <div>
+                <button class="center-block btn btn-secondary" type="submit" ng-click="CC.NouveauUser(collaborator)">
+                    Pas encore inscrit ? Cliquez ici pour vous enregistrer
+                </button>
+                </div>
             </div>
         </div>
     </div>
+</div>
 </div>
