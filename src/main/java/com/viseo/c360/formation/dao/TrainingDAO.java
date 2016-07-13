@@ -9,12 +9,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
-import org.hibernate.Hibernate;
 import org.springframework.core.convert.ConversionException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,6 +93,7 @@ public class TrainingDAO {
         return q.getResultList();
     }
 
+
     public List<TrainingSession> getAllTrainingSessions() {
         em.setFlushMode(FlushModeType.COMMIT);
         return em.createQuery("select s from TrainingSession s", TrainingSession.class).getResultList();
@@ -116,6 +115,11 @@ public class TrainingDAO {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    @Transactional
+    public TrainingSession updateTrainingSession(TrainingSession trainingSession){
+            return em.merge(trainingSession);
     }
 
     public boolean isThereOneSessionTrainingAlreadyPlanned(TrainingSession trainingSession) {

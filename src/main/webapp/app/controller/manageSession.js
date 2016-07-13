@@ -1,5 +1,5 @@
 angular.module('controllers')
-    .controller('controllerManageSession', ['$http', '$location', function ($http, $location) {
+    .controller('ctrlManageSession', ['$http', '$location', function ($http, $location) {
         var self = this;
         
         /*** Recupération des formations **/
@@ -7,8 +7,11 @@ angular.module('controllers')
             self.trainings = data.data;
         });
         
-        self.registerTrainingSession = function (training) {
-            $location.url("/registerTrainingSession");
+        self.registerTrainingSession = function () {
+            $location.url("/RegisterTrainingSession");
+        };
+        self.returnToRegisterTraining=function () {
+          $location.url("/RegisterTraining");
         };
     }])
     
@@ -16,7 +19,7 @@ angular.module('controllers')
         $routeProvider
             .when('/ManageSession', {
                 templateUrl: 'templates/manageSession.html',
-                controller: 'controllerManageSession',
+                controller: 'ctrlManageSession',
                 controllerAs: 'MS'
             })
     }

@@ -3,7 +3,7 @@
 //***** Description: moveItem / moveAll / CtrlItemIsSelectedTOEnableOrDisableButton
 //*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
 //************************************************************************************//
-angular.module('controllers').controller('controllerAffectTraining'/*'controllerUpdateAffectTraining'*/, ['$http', '$location', '$filter', '$timeout', function ($http, $location, $filter, $timeout) {
+angular.module('controllers').controller('controllerAffectTraining', ['$http', '$location', '$filter', '$timeout', function ($http, $location, $filter, $timeout) {
 
     var self = this;
     self.isCollabaratorListUpdated = false;
@@ -128,11 +128,6 @@ angular.module('controllers').controller('controllerAffectTraining'/*'controller
 }])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
-            /*.when('/updateAffectTraining', {
-                templateUrl: 'templates/updateAffectTrainingSession.html',
-                controller: 'controllerUpdateAffectTraining',
-                controllerAs: 'AS'
-            })*/
             .when('/AffectTraining', {
                 templateUrl: 'templates/affectTrainingSession.html',
                 controller: 'controllerAffectTraining',

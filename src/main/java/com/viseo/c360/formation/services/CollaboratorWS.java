@@ -1,6 +1,8 @@
 package com.viseo.c360.formation.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -31,9 +33,12 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
+    public Map<String,String> addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
         try {
-            return collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
+            String response = collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
+            Map map = new HashMap<>();
+            map.put("response",response);
+            return map;
         } catch (ConversionException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -76,6 +81,7 @@ public class CollaboratorWS {
             throw new RuntimeException(e);
         }
     }
+
 
     @RequestMapping(value = "${endpoint.requests}", method = RequestMethod.POST)
     @ResponseBody

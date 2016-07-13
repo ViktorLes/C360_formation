@@ -16,26 +16,41 @@ import com.viseo.c360.formation.domain.collaborator.RequestTraining;
 @Repository
 public class CollaboratorDAO {
 
+    String checkCollaboratorPersistedResponse;
+
     @PersistenceContext
     EntityManager em;
 
     //collaborateur
     @Transactional
-    public boolean addCollaborator(Collaborator collaborator) {
-        if (!this.isPersonnalIdNumberPersisted(collaborator.getPersonnalIdNumber())) {
-                em.merge(collaborator);
-                return true;
-            }
-            return false;
+    public String addCollaborator(Collaborator collaborator) {
+        checkCollaboratorPersistedResponse = "NotPersisted";
+        if (this.isPersonnalIdNumberPersisted(collaborator.getPersonnalIdNumber())=="NotPersisted")
+        {
+            if(this.isEmailPersisted(collaborator.getEmail())=="NotPersisted")
+            em.merge(collaborator);
+        }
+        return checkCollaboratorPersistedResponse;
     }
 
-    public boolean isPersonnalIdNumberPersisted(String personnalIdNumber) {
+    public String isPersonnalIdNumberPersisted(String personnalIdNumber) {
         em.setFlushMode(FlushModeType.COMMIT);
         Collection<Collaborator> listCollaborator =
                 (Collection<Collaborator>) em.createQuery(
-                        "select c from Collaborator c where c.personnalIdNumber = :personnalIdNumber", Collaborator.class)
-                        .setParameter("personnalIdNumber", personnalIdNumber).getResultList();
-        return !listCollaborator.isEmpty();
+                        "select c from Collaborator c where c.personnalIdNumber = :personnalIdNumber" , Collaborator.class)
+                        .setParameter("personnalIdNumber",personnalIdNumber).getResultList();
+        if(!listCollaborator.isEmpty()) checkCollaboratorPersistedResponse="IdNumberPersisted";
+        return checkCollaboratorPersistedResponse;
+    }
+
+    public String isEmailPersisted(String email) {
+        em.setFlushMode(FlushModeType.COMMIT);
+        Collection<Collaborator> listCollaborator =
+                (Collection<Collaborator>) em.createQuery(
+                        "select c from Collaborator c where c.email = :email" , Collaborator.class)
+                        .setParameter("email",email).getResultList();
+        if(!listCollaborator.isEmpty()) checkCollaboratorPersistedResponse="EmailPersisted";
+        return checkCollaboratorPersistedResponse;
     }
 
     public List<Collaborator> getAllCollaborators() {
