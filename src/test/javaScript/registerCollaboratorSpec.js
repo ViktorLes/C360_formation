@@ -6,7 +6,7 @@ describe('Enregistrement Collaborateur', function () {
 
     beforeEach(module('App'));
 
-    beforeEach(inject(function ($controller, $httpBackend, $location) {
+    beforeEach(inject(function ($location, $controller, $httpBackend) {
         backend = $httpBackend;
         loc = $location;
         loc.url('/RegisterCollaborator');

@@ -12,6 +12,7 @@ angular.module('controllers')
             self.regex.personnalIdNumber = new RegExp(data.data.PERSONNAL_ID_NUMBER);
             self.regex.lastName = new RegExp(data.data.LAST_NAME);
             self.regex.firstName = new RegExp(data.data.FIRST_NAME);
+            self.regex.email = new RegExp(data.data.EMAIL);
         });
 
         self.isErrorInputMessageDisplayed = function (inputForm, focus) {
