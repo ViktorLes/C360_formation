@@ -4,9 +4,6 @@ angular.module('App')
             .when('/pageblanche',{
                 templateUrl: 'pageblanche.html'
             })
-            .when('/manageSession', {
-                templateUrl: 'templates/manageSession.html'
-            })
             .when('/Authentication', {
             templateUrl: 'templates/authentication.html'
         });
