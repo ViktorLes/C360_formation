@@ -10,6 +10,7 @@ angular.module('controllers')
         self.registerTrainingSession = function () {
             $location.url("/RegisterTrainingSession");
         };
+        
         self.returnToRegisterTraining=function () {
           $location.url("/RegisterTraining");
         };

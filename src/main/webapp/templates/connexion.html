@@ -8,24 +8,29 @@
             </div>
 
             <div class="panel-body">
-                <form name="collaborateurForm" novalidate>
+                <form name="userForm" novalidate>
                     <!-- EMAIL -->
                     <div class="form-group">
-                        <input type="text" name="email" class="form-control"
-                               ng-model="CC.user.email" required
-                               placeholder="Email">
+                        <input type="email" name="email" class="form-control" ng-model="CC.user.email"
+                               required ng-focus="focus.email=true" ng-blur="focus.email=false"
+                               placeholder="Email"
+                               type="email" name="email" class="form-control" >
                     </div>
                     <!-- PASSWORD -->
                     <div class="form-group">
-                        <input type="text" name="password" class="form-control"
+                        <input type="password" name="password" class="form-control"
                                ng-model="CC.user.password" required
                                placeholder="Password">
                     </div>
                 </form>
+                <button class="center-block alert alert-danger" disabled="disabled" role="alert"
+                        ng-show="CC.isThereAnEmptyField">
+                    Veuillez remplir correctement tous les champs
+                </button>
                 <div>
                     <button class="center-block btn btn-primary" type="submit">Connexion</button>
                 </div>
-            <div>
+                <div>
                 <button class="center-block btn btn-secondary" type="submit" ng-click="CC.NouveauUser(collaborator)">
                     Pas encore inscrit ? Cliquez ici pour vous enregistrer
                 </button>

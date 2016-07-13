@@ -1,8 +1,4 @@
-//************************************************************************************//
-//***** NAME: Controller Affectation session
-//***** Description: moveItem / moveAll / CtrlItemIsSelectedTOEnableOrDisableButton
-//*****              CtrlItemIsSelectedTOEnableOrDisableButton / CtrlMoveAllTOEnableOrDisableButton
-//************************************************************************************//
+
 angular.module('controllers').controller('controllerAffectTraining', ['$http', '$location', '$filter', '$timeout', function ($http, $location, $filter, $timeout) {
 
     var self = this;

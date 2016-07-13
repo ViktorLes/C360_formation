@@ -1,10 +1,23 @@
 angular.module('controllers')
     .controller('controllerConnexion', ['$http', '$location', function ($http, $location) {
         var self = this;
+        self.isThereAnEmptyField = false;
 
-
-        self.NouveauUser = function (collaborator) {
-            $location.url("/registerCollaborator");
+        self.verifyForm = function (userForm) {
+            if (userForm.$error.required) {
+                self.isThereAnEmptyField = true;
+            }
+            else if (userForm.$invalid) {
+                self.isThereAnEmptyField = false;
+            }
+        };
+        self.NouveauUser = function () {
+            $location.url("/RegisterCollaborator");
+        };
+        
+        self.SeConnecter = function () {
+            $http.post("api/users",user).success(function (data) {
+          
         };
     }])
 

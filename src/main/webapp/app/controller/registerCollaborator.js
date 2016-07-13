@@ -58,7 +58,6 @@ angular.module('controllers')
                 }
                 data.response = undefined;
             });
-
         };
         //Reset the Form
         resetForm = function () {
