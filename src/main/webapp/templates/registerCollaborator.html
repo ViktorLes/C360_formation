@@ -51,7 +51,7 @@
                          ng-class="{ 'has-error' : EC.isErrorInputMessageDisplayed(collaborateurForm.email, focus.email) }">
                         <input type="email" name="email" class="form-control" ng-model="EC.collaborator.email"
                                required ng-focus="focus.email=true" ng-blur="focus.email=false"
-                               placeholder="Email"/>
+                               placeholder="Email" ng-pattern="EC.regex.email"/>
                         <p ng-show="EC.isErrorInputMessageDisplayed(collaborateurForm.email, focus.email)"
                            class="help-block">L'adresse email n'est pas valide</p>
                     </div>
@@ -98,7 +98,7 @@
                     </button>
 
                     <button type="submit" ng-mousedown="EC.verifyForm(collaborateurForm)"
-                            class="btn btn-primary center-block">Enregistrer
+                            class="btn btn-primary center-block">S'enregistrer
                     </button>
                 </form>
             </div>

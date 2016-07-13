@@ -26,7 +26,7 @@ describe('Enregistrement Collaborateur', function () {
     describe('Test EnregistrementCollaborateur', function () {
 
         beforeEach(function () {
-            backend.expectGET('api/collaborateurs/regex').respond('{"PERSONNAL_ID_NUMBER":"[A-Z]{3}[0-9]{4}","LAST_NAME":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$","FIRST_NAME":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$"}');
+            backend.expectGET('api/collaborateurs/regex').respond('{"PERSONNAL_ID_NUMBER":"[A-Z]{3}[0-9]{4}","LAST_NAME":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$","FIRST_NAME":"^[a-zA-Z-\'. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$", "EMAIL":"^[_a-z0-9]+(\\\\.[_a-z0-9]+)*@[a-z0-9-]+(\\\\.[a-z0-9-]+)*(\\\\.[a-z]{2,4})+$"}');
             ctrl.collaborator = {};
             backend.flush();
         });
@@ -39,6 +39,7 @@ describe('Enregistrement Collaborateur', function () {
         function fillEmailCorrectly(form){
             expect(ctrl.isErrorInputMessageDisplayed(form.email, true)).toBeFalsy();
             ctrl.collaborator.email = "henri.darmet@viseo.com";
+            expect(ctrl.collaborator.email).toMatch(ctrl.regex.email);
             refreshFormAfterFillingField(form, 'email');
             expect(ctrl.isErrorInputMessageDisplayed(form.email, false)).toBeFalsy();
         }
@@ -168,7 +169,20 @@ describe('Enregistrement Collaborateur', function () {
         });
 
         it('5) E-mail address is invalid', function(){
-
+            fillIdentityCollaboratorCorrectly(form);
+            expect(ctrl.isErrorInputMessageDisplayed(form.email, true)).toBeFalsy();
+            ctrl.collaborator.email = "henri.darmet@viseocom";
+            expect(ctrl.collaborator.email).not.toMatch(ctrl.regex.email);
+            refreshFormAfterFillingField(form, 'email', {pattern: true});
+            expect(ctrl.isErrorInputMessageDisplayed(form.email, false)).toBeTruthy();
+            fillPasswordCorrectly(form);
+            expect(form.$error.required).toBeUndefined();
+            ctrl.verifyForm(form);
+            expect(ctrl.isNewEmail).toBeTruthy();
+            expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
+            expect(ctrl.isFalseForm).toBeTruthy();
+            expect(ctrl.isThereAnEmptyField).toBeFalsy();
+            expect(loc.path()).toBe('/RegisterCollaborator');
         });
 
         it('6) Invalid because e-mail is already used', function () {
