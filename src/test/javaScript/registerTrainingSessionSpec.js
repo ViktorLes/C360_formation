@@ -3,20 +3,23 @@ describe('registerTrainingSession', function () {
     var datePiker;
     var httpBackend;
     var filter;
-    var TRAININGS = JSON.parse('[{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1}]');
+    var selectSessionService;
+    var selectTrainingService;
+    var TRAININGS = JSON.parse('[{"id":3,"trainingTitle":"AngularJS","numberHalfDays":1,"topicDescription":{"id":1,"name":"Développement Web"}}]');
 
     beforeEach(module('App'));
 
-    beforeEach(inject(function ($controller, DatepickerService, $httpBackend, $filter, $location) {
+    beforeEach(inject(function ($controller, DatepickerService, $httpBackend, $filter, $location,SelectSessionService,SelectTrainingService) {
         datePiker = DatepickerService;
         httpBackend = $httpBackend;
         filter = $filter;
+        selectSessionService = SelectSessionService;
+        selectTrainingService = SelectTrainingService;
+        selectTrainingService.select(TRAININGS[0]);
         ctrl = $controller('controllerRegisterTrainingSession');
         loc = $location;
         loc.url('/RegisterTrainingSession');
         expect(ctrl.isSessionAlreadyPlanned).toBeFalsy();
-        httpBackend.expectGET("api/formations").respond(TRAININGS);
-        httpBackend.flush();
     }));
 
     afterEach(function () {
@@ -49,7 +52,7 @@ describe('registerTrainingSession', function () {
         ctrl.verifyForm(false);
         httpBackend.flush();
         expect(ctrl.isSessionAlreadyPlanned).toBeFalsy();
-        expect(loc.path()).toBe('/pageblanche');
+        expect(loc.path()).toBe('/ManageSession');
     });
 
     it('2) Enregistrement avec formulaire invalide', function () {

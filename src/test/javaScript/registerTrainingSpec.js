@@ -56,7 +56,7 @@ describe('Declaration Formation', function () {
             form.numberHalfDays.$invalid = false;
             expect(ctrl.isErrorInputMessageDisplayed(form.numberHalfDays, false)).toBeFalsy();
             form.$invalid = false;
-            backend.expectPOST('api/formations').respond('true');
+            backend.expectPOST('api/formations').respond(4);
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewTrainingTitle).toBeTruthy();
@@ -84,9 +84,7 @@ describe('Declaration Formation', function () {
             form.numberHalfDays.$invalid = false;
             expect(ctrl.isErrorInputMessageDisplayed(form.numberHalfDays, false)).toBeFalsy();
             form.$invalid = false;
-            backend.expectPOST('api/formations').respond('false');
-            console.log("ctrl.training: ", ctrl.training);
-            console.log("form: ", form);
+            backend.expectPOST('api/formations').respond(0);
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewTrainingTitle).toBeFalsy();
