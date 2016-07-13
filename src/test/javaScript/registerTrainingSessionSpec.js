@@ -3,17 +3,15 @@ describe('registerTrainingSession', function () {
     var datePiker;
     var httpBackend;
     var filter;
-    var selectSessionService;
     var selectTrainingService;
     var TRAININGS = JSON.parse('[{"id":3,"trainingTitle":"AngularJS","numberHalfDays":1,"topicDescription":{"id":1,"name":"Développement Web"}}]');
 
     beforeEach(module('App'));
 
-    beforeEach(inject(function ($controller, DatepickerService, $httpBackend, $filter, $location,SelectSessionService,SelectTrainingService) {
+    beforeEach(inject(function ($controller, DatepickerService, $httpBackend, $filter, $location,SelectTrainingService) {
         datePiker = DatepickerService;
         httpBackend = $httpBackend;
         filter = $filter;
-        selectSessionService = SelectSessionService;
         selectTrainingService = SelectTrainingService;
         selectTrainingService.select(TRAININGS[0]);
         ctrl = $controller('controllerRegisterTrainingSession');
