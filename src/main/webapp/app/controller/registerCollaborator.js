@@ -6,13 +6,7 @@ angular.module('controllers')
         self.isNewEmail = true;
         self.isFalseForm = false;
         self.isThereAnEmptyField = false;
-        //Variables pour les champs
-        self.isEmptyMatriculeField = false;
-        self.isEmptyFirstNameField = false;
-        self.isEmptyLastNameField = false;
-        self.isEmptyEmailField = false;
-        self.isEmptyPwdField = false;
-        self.isEmptyConfirmPwdField = false;
+
 
 
         /*** Recupération des regex ***/
@@ -75,7 +69,18 @@ angular.module('controllers')
             });
         };
 
+        //Variables pour les champs
+        var intiateAllVariable = function () {
+            self.isEmptyMatriculeField = false;
+            self.isEmptyFirstNameField = false;
+            self.isEmptyLastNameField = false;
+            self.isEmptyEmailField = false;
+            self.isEmptyPwdField = false;
+            self.isEmptyConfirmPwdField = false;
+        };
+
         var checkEmptyFields = function (form) {
+            intiateAllVariable();
             if (form.personnalIdNumber.$invalid) {
                 self.isEmptyMatriculeField = true;
             }
