@@ -36,7 +36,6 @@ describe('registerTrainingSession', function () {
         ctrl.endHour = "08:00";
         var meetingRoom1 = {name: 'Salle Phuket'};
         ctrl.trainingLocation = meetingRoom1;
-
         var session = {
             trainingDescription: ctrl.training,
             beginning: dateBeginning,
@@ -89,7 +88,6 @@ describe('registerTrainingSession', function () {
         ctrl.endHour = "08:00";
         var meetingRoom1 = {name: 'Salle Phuket'};
         ctrl.trainingLocation = meetingRoom1;
-
         var session = {
             trainingDescription: ctrl.training,
             beginning: dateBeginning,

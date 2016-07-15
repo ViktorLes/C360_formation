@@ -29,6 +29,7 @@ public class RegexWS {
 		map.put("PERSONNAL_ID_NUMBER", "^"+CollaboratorDescription.Regex.PERSONNAL_ID_NUMBER+"$");
 		map.put("LAST_NAME","^"+ CollaboratorDescription.Regex.LAST_NAME +"+$");
 		map.put("FIRST_NAME","^"+ CollaboratorDescription.Regex.FIRST_NAME +"+$");
+		map.put("EMAIL","^"+ CollaboratorDescription.Regex.EMAIL +"+$");
 		return map;
 	}
 }

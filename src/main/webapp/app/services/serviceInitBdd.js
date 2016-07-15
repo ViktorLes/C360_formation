@@ -26,7 +26,7 @@ angular.module('controllers').factory('InitBddService', ['$http', function ($htt
         personnalIdNumber: "TLE3467",
         lastName: "Lecomte",
         firstName: "Thomas",
-        email:"Thomas.lecompte@yahoo.fr",
+        email:"Thomas.lecomte@yahoo.fr",
         password:"thomas"
     };
     var collaborator2 = {

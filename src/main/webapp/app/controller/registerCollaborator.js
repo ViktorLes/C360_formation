@@ -7,11 +7,14 @@ angular.module('controllers')
         self.isFalseForm = false;
         self.isThereAnEmptyField = false;
 
+
+
         /*** Recupération des regex ***/
         $http.get("api/collaborateurs/regex").then(function (data) {
             self.regex.personnalIdNumber = new RegExp(data.data.PERSONNAL_ID_NUMBER);
             self.regex.lastName = new RegExp(data.data.LAST_NAME);
             self.regex.firstName = new RegExp(data.data.FIRST_NAME);
+            self.regex.email = new RegExp(data.data.EMAIL);
         });
 
         self.isErrorInputMessageDisplayed = function (inputForm, focus) {
@@ -19,7 +22,12 @@ angular.module('controllers')
         };
 
         self.verifyForm = function (collaboratorForm) {
+            self.isNewPersonalIdNumber = true;
+            self.isNewEmail = true;
+            self.isFalseForm = false;
+            self.isThereAnEmptyField = false;
             if (collaboratorForm.$error.required) {
+                checkEmptyFields(collaboratorForm);
                 self.isThereAnEmptyField = true;
                 self.isFalseForm = false;
             }
@@ -42,6 +50,7 @@ angular.module('controllers')
             delete collaboratorToRegister['confirmPassword'];
             //post the form to the server
             $http.post("api/collaborateurs", collaboratorToRegister).success(function (data) {
+                self.isThereAnEmptyField = false;
                 if (data.response === "NotPersisted") {
                     resetForm(); //Reset the Form
                     self.isNewEmail = true;
@@ -59,6 +68,39 @@ angular.module('controllers')
                 data.response = undefined;
             });
         };
+
+        //Variables pour les champs
+        var intiateAllVariable = function () {
+            self.isEmptyMatriculeField = false;
+            self.isEmptyFirstNameField = false;
+            self.isEmptyLastNameField = false;
+            self.isEmptyEmailField = false;
+            self.isEmptyPwdField = false;
+            self.isEmptyConfirmPwdField = false;
+        };
+
+        var checkEmptyFields = function (form) {
+            intiateAllVariable();
+            if (form.personnalIdNumber.$invalid) {
+                self.isEmptyMatriculeField = true;
+            }
+            if (form.firstName.$invalid) {
+                self.isEmptyFirstNameField = true;
+            }
+            if (form.lastName.$invalid) {
+                self.isEmptyLastNameField = true;
+            }
+            if (form.email.$invalid) {
+                self.isEmptyEmailField = true;
+            }
+            if (form.password.$invalid) {
+                self.isEmptyPwdField = true;
+            }
+            if (form.confirmPassword.$invalid) {
+                self.isEmptyConfirmPwdField = true;
+            }
+        };
+
         //Reset the Form
         resetForm = function () {
             self.collaborator.personnalIdNumber = "";
@@ -93,5 +135,4 @@ angular.module('controllers')
                 controllerAs: 'EC'
             })
     }
-    ])
-;
+    ]);

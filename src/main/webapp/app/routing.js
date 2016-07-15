@@ -6,6 +6,9 @@ angular.module('App')
             })
             .when('/manageSession', {
                 templateUrl: 'templates/manageSession.html'
-            });
+            })
+            .when('/Authentication', {
+            templateUrl: 'templates/authentication.html'
+        });
         }
     ]);
