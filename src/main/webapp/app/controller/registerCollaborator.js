@@ -6,6 +6,14 @@ angular.module('controllers')
         self.isNewEmail = true;
         self.isFalseForm = false;
         self.isThereAnEmptyField = false;
+        //Variables pour les champs
+        self.isEmptyMatriculeField = false;
+        self.isEmptyFirstNameField = false;
+        self.isEmptyLastNameField = false;
+        self.isEmptyEmailField = false;
+        self.isEmptyPwdField = false;
+        self.isEmptyConfirmPwdField = false;
+
 
         /*** Recupération des regex ***/
         $http.get("api/collaborateurs/regex").then(function (data) {
@@ -20,7 +28,10 @@ angular.module('controllers')
         };
 
         self.verifyForm = function (collaboratorForm) {
+            self.isNewPersonalIdNumber = true;
+            self.isNewEmail = true;
             if (collaboratorForm.$error.required) {
+                checkEmptyFields(collaboratorForm);
                 self.isThereAnEmptyField = true;
                 self.isFalseForm = false;
             }
@@ -43,6 +54,7 @@ angular.module('controllers')
             delete collaboratorToRegister['confirmPassword'];
             //post the form to the server
             $http.post("api/collaborateurs", collaboratorToRegister).success(function (data) {
+                self.isThereAnEmptyField = false;
                 if (data.response === "NotPersisted") {
                     resetForm(); //Reset the Form
                     self.isNewEmail = true;
@@ -59,8 +71,29 @@ angular.module('controllers')
                 }
                 data.response = undefined;
             });
-
         };
+
+        var checkEmptyFields = function (form) {
+            if (form.personnalIdNumber.$invalid) {
+                self.isEmptyMatriculeField = true;
+            }
+            if (form.firstName.$invalid) {
+                self.isEmptyFirstNameField = true;
+            }
+            if (form.lastName.$invalid) {
+                self.isEmptyLastNameField = true;
+            }
+            if (form.email.$invalid) {
+                self.isEmptyEmailField = true;
+            }
+            if (form.password.$invalid) {
+                self.isEmptyPwdField = true;
+            }
+            if (form.confirmPassword.$invalid) {
+                self.isEmptyConfirmPwdField = true;
+            }
+        };
+
         //Reset the Form
         resetForm = function () {
             self.collaborator.personnalIdNumber = "";
