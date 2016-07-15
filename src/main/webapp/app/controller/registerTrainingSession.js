@@ -66,7 +66,7 @@ angular.module('controllers')
         };
 
         self.DateCorrect = function () {
-            if (self.d1.dt < self.d2.dt && self.beginningHour < self.endHour) {
+            if (self.d1.dt < self.d2.dt) {
                 self.isFalseForm = false;
                 self.isFalseTimeSlot = false;
             }
@@ -78,7 +78,11 @@ angular.module('controllers')
         self.verifyForm = function (sessionFormIsInvalid) {
             if (sessionFormIsInvalid === false) {
                 validateTraining();
-                if (self.isFalseForm === false && self.isFalseTimeSlot === false && self.isFalseDate === false && self.isWorkingDay === true) self.saveAction();
+                if (self.isFalseForm === false && self.isFalseTimeSlot === false
+                    && self.isFalseDate === false && self.isWorkingDay === true)
+                {
+                    self.saveAction();
+                }
             }
             else {
                 self.isFalseForm = true;

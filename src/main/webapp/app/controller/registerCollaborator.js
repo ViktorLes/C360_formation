@@ -30,6 +30,8 @@ angular.module('controllers')
         self.verifyForm = function (collaboratorForm) {
             self.isNewPersonalIdNumber = true;
             self.isNewEmail = true;
+            self.isFalseForm = false;
+            self.isThereAnEmptyField = false;
             if (collaboratorForm.$error.required) {
                 checkEmptyFields(collaboratorForm);
                 self.isThereAnEmptyField = true;
