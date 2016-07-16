@@ -33,6 +33,16 @@ public class CollaboratorDAO {
         return checkCollaboratorPersistedResponse;
     }
 
+    public Collaborator getCollaboratorByLoginPassword(String personnalEmail,String personnalPassword){
+        em.setFlushMode(FlushModeType.COMMIT);
+        Collaborator registredUser =
+                (Collaborator) em.createQuery(
+                        "select c from Collaborator c where c.email = :personnalEmail and c.password = :personnalPassword",Collaborator.class)
+                    .setParameter("personnalEmail",personnalEmail).setParameter("personnalPassword",personnalPassword)
+                    .getSingleResult();
+        return registredUser;
+    }
+
     public String isPersonnalIdNumberPersisted(String personnalIdNumber) {
         em.setFlushMode(FlushModeType.COMMIT);
         Collection<Collaborator> listCollaborator =

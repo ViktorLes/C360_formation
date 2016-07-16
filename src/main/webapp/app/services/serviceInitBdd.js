@@ -1,4 +1,4 @@
-angular.module('controllers').factory('InitBddService', ['$http', function ($http) {
+angular.module('controllers').factory('InitBddService', ['$http','hash', function ($http,hash) {
     var topic1 = {name: "Développement Web"};
     var topic2 = {name: "Développement Mobile"};
     var training = {
@@ -36,6 +36,8 @@ angular.module('controllers').factory('InitBddService', ['$http', function ($htt
         email:"Nada.kalmouni@yahoo.fr",
         password:"nada"
     };
+    collaborator1.password=hash(collaborator1.password);
+    collaborator2.password=hash(collaborator2.password);
 
     return {
         init: function () {

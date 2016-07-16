@@ -31,6 +31,21 @@ public class CollaboratorWS {
     TrainingDAO trainingDAO;
 
 
+    @RequestMapping(value = "${endpoint.user}", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,CollaboratorDescription> getUserByLoginPassword(@RequestBody CollaboratorDescription myCollaboratorDescription) {
+        try {
+            Collaborator c = collaboratorDAO.getCollaboratorByLoginPassword(myCollaboratorDescription.getEmail(),myCollaboratorDescription.getPassword());
+            CollaboratorDescription user = new CollaboratorToDescription().convert(c);
+            Map map=new HashMap<>();
+            map.put("user",user);
+            return map;
+        } catch (ConversionException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,String> addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
