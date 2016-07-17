@@ -1,24 +1,24 @@
-angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', function(InitBddService, MockConnexionService, $http){
+angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', 'currentUserService', function (InitBddService, MockConnexionService, $http, currentUserService) {
     var self = this;
-    
-    self.initBase = function() {
+    self.isUserConnected = false;
+
+    self.initBase = function () {
         InitBddService.init();
-        $http.get("api/collaborateurs").then(function(response){
+        $http.get("api/collaborateurs").then(function (response) {
             self.collaborators = response.data;
             self.collaboratorSelected = self.collaborators[0];
             self.collaboratorConnected = self.collaborators[0];
         });
     };
-    
-    self.displayCollaborator = function(collaborator) {
-        if(collaborator) {
-            return collaborator.firstName+' '+collaborator.lastName;
-        }
+
+    self.displayCollaborator = function () {
+        if(currentUserService.getUserToken()) self.isUserConnected = true;
+            return currentUserService.getUserName();
     };
-    
-    self.selectCollaborator = function(myCollaborator){
+
+    self.selectCollaborator = function (myCollaborator) {
         MockConnexionService.select(myCollaborator);
         self.collaboratorConnected = MockConnexionService.getCollaboratorDescription();
     };
-    
+
 }]);
