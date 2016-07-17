@@ -4,7 +4,7 @@
         <div class="panel panel-default">
 
             <div class="panel-heading">
-                <h3 class="panel-title">Connexion</h3>
+                <h3 class="panel-title">Connexion {{CX.currentUser}}</h3>
             </div>
 
             <div class="panel-body">
@@ -29,6 +29,12 @@
                         <button class="center-block alert alert-danger" disabled="disabled" role="alert"
                                 ng-show="CX.isThereAnEmptyField">
                             Veuillez remplir correctement tous les champs
+                        </button>
+                    </div>
+                    <div>
+                        <button class="center-block alert alert-danger" disabled="disabled" role="alert"
+                                ng-show="CX.isErrorAuthentification">
+                            Connexion refusée : veuillez entrer une adresse e-mail et un mot de passe valide
                         </button>
                     </div>
                     <div>

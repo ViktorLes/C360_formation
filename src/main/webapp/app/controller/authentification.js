@@ -1,19 +1,23 @@
 angular.module('controllers')
-    .controller('controllerAuthentification', ['$http', '$location', 'hash', 'connectedUserService', function ($http, $location, hash, connectedUserService) {
+    .controller('controllerAuthentification', ['$http', '$location', 'hash','currentUserService', function ($http, $location, hash,currentUserService) {
         var self = this;
         self.isNotEmptyEmailField = true;
         self.isNotEmptyPasswordField = true;
+        self.isErrorAuthentification = false;
+        var connectedUser ="";
 
         self.submitLogin = function (userForm) {
             if (validateForm(userForm)) {
                 self.user.password = hash(self.user.password);
-                $http.post("api/user", self.user).success(function (userPersisted) {
+                $http.post("api/user", self.user).success(function (userPersistedToken) {
+                    self.isErrorAuthentification = false;
+                    connectedUser = currentUserService.getUserNameFromServer(Object.keys(userPersistedToken)[0]);
+                    currentUserService.setUserToken(userPersistedToken,connectedUser);
                     self.user.email = "";
                     self.user.password = "";
-                    connectedUserService.setUser(userPersisted);
                 }).error(function () {
                     self.user.password = "";
-                    console.log("erreur");
+                    self.isErrorAuthentification = true;
                 });
             }
         };
