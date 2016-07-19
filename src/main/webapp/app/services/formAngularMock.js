@@ -13,21 +13,28 @@ function Input() {
 }
 
 function Form() {
-    this.$error = {};
-    this.$invalid = false;
-    this.$valid = true;
-    this.inputs = [];
-    this.inputsMessages = [];
-    this.createInput = function (name, obj) {
+    var form = this;
+    form.$error = {};
+    form.$invalid = false;
+    form.$valid = true;
+    form.inputs = [];
+    form.inputsMessages = [];
+    form.createInput = function (name, obj) {
         var input = new Input;
         for (var property in obj) {
             if (input[property] !== undefined) {
                 input[property] = obj[property];
             }
         }
-        input.setValue = function(){
-
+        input.setValue = function(value){
+            input.model[name] = value;
+            //build errors
+            //change states of messages
+            form.actualiseForm();
         };
-        this.inputs[name] = input;
+        form.inputs[name] = input;
     };
+    form.actualiseForm = function(){
+        //passer en revue l'array d'inputs
+    }
 }
