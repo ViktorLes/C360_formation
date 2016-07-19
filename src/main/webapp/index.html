@@ -63,6 +63,17 @@
 		<!-- 		controller/-->
 	<script src="app/routing.js"></script>
 
+
+		<script src="app/services/formAngularMock.js"></script>
+		<script>
+			var form = new Form;
+			var collaborateur = {firstName: "Thomas"};
+			form.createInput('firstName', {'model': collaborateur, required: true});
+			form.inputs['firstName'].model.firstName = "Lecomte";
+			console.log("Form", form);
+			console.log("collaborateur.firstName", collaborateur.firstName);
+		</script>
+
 <scrip></scrip>
 
 </body>
