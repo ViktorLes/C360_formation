@@ -26,6 +26,7 @@ module.exports = function (config) {
             'src/main/webapp/app/services/*',
             'src/main/webapp/app/controller/*',
             'src/test/javaScript/formFunctions.js',
+            'src/test/javaScript/mock/*.js',
             'src/test/javaScript/spec/*.js'
         ],
 

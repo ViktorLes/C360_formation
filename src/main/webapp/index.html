@@ -92,6 +92,7 @@
 			formHTML.inputs['firstName'].setValue("Thomas");
 			formHTML.inputs['lastName'].setValue("Lecomte");
 			formHTML.inputs['age'].setValue(23);
+			expect(formHTML.form.$valid).toBeTruthy();
 
 			console.log("formHTML", formHTML);
 			console.log("collaborateur.firstName", collaborateur.firstName);
