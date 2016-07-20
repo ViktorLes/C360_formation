@@ -134,7 +134,6 @@ function FormHTML() {
             inputHTML.actualiseStatesInput();
             formHTML.actualiseStatesForm();
             //change states of messages
-
         };
     };
 }
