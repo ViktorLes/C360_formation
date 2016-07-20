@@ -68,14 +68,35 @@
 		<script>
 			var formHTML = new FormHTML;
 			var collaborateur = {firstName: "Thomas"};
-			try{
-				formHTML.createInputHTML({name: 'firstName', model: collaborateur, required: true});
-				formHTML.inputs['firstName'].model.firstName = "Lecomte";
-			}catch(e){
-				console.error(e.message);
-			}
+
+			formHTML.createInputHTML({
+				name: 'firstName',
+				required: true,
+				'ng-pattern': new RegExp("^[A-Za-z]+$"),
+				model: collaborateur
+			});
+			formHTML.createInputHTML({
+				name: 'lastName',
+				required: true,
+				'ng-pattern': new RegExp("^[A-Za-z]+$"),
+				model: collaborateur,
+				'ng-minlength': 3
+			});
+			formHTML.createInputHTML({
+				name: 'age',
+				type: 'number',
+				model: collaborateur,
+				min : 18,
+				required: true
+			});
+			formHTML.inputs['firstName'].setValue("Thomas");
+			formHTML.inputs['lastName'].setValue("Lecomte");
+			formHTML.inputs['age'].setValue(23);
+
 			console.log("formHTML", formHTML);
 			console.log("collaborateur.firstName", collaborateur.firstName);
+			console.log("collaborateur.lastName", collaborateur.lastName);
+			console.log("collaborateur.age", collaborateur.age);
 		</script>
 
 <scrip></scrip>

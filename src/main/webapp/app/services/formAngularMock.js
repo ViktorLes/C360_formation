@@ -4,6 +4,13 @@ function Input(){
     this.$error = {};
 }
 
+function Form(){
+    var form = this;
+    form.$error = {};
+    form.$invalid = false;
+    form.$valid = true;
+}
+
 function InputHTML() {
     var inputHTML = this;
     inputHTML.name = "";
@@ -12,7 +19,11 @@ function InputHTML() {
     inputHTML['ng-focus'] = null;
     inputHTML['ng-change'] = null;
     inputHTML['ng-blur'] = null;
+    inputHTML['ng-minlength'] = null;
+    inputHTML['ng-maxlength'] = null;
     inputHTML.required = false;
+    inputHTML.min = null;
+    inputHTML.max = null;
     inputHTML.model = null;
     inputHTML.initialValue = "";
     inputHTML.input = new Input;
@@ -29,17 +40,57 @@ function InputHTML() {
         }
     };
 
-    inputHTML.actualiseStatesInput = function(){
-       //inputHTML.model
-       //inputHTML.required
+    inputHTML.makeValid = function(){
+        inputHTML.input.$invalid = false;
+        inputHTML.input.$valid = true;
+        inputHTML.input.$error = {};
     };
-}
 
-function Form(){
-    var form = this;
-    form.$error = {};
-    form.$invalid = false;
-    form.$valid = true;
+    inputHTML.makeInvalid = function(){
+        inputHTML.input.$invalid = true;
+        inputHTML.input.$valid = false;
+    };
+
+    function actualiseStatesInputTypeText(){
+        if(inputHTML['ng-minlength'] && value.length < inputHTML['ng-minlength']){
+            inputHTML.input.$error.minlength = true;
+            inputHTML.makeInvalid();
+        }
+        if(inputHTML['ng-maxlength'] && value.length > inputHTML['ng-maxlength']){
+            inputHTML.input.$error.maxlength = true;
+            inputHTML.makeInvalid();
+        }
+    };
+
+    function actualiseStatesInputTypeNumber(){
+        if(inputHTML.min && value < inputHTML.min){
+            inputHTML.input.$error.min = true;
+            inputHTML.makeInvalid();
+        }
+        if(inputHTML.max && value > inputHTML.max){
+            inputHTML.input.$error.max = true;
+            inputHTML.makeInvalid();
+        }
+    }
+
+    inputHTML.actualiseStatesInput = function(){
+        inputHTML.makeValid();
+        if(inputHTML.required && !inputHTML.model[inputHTML.name]) {
+            inputHTML.input.$error.required = true;
+            inputHTML.makeInvalid();
+        }else {
+            value = inputHTML.model[inputHTML.name];
+            if(inputHTML['ng-pattern'] && !inputHTML['ng-pattern'].test(value)) {
+                inputHTML.input.$error.pattern = true;
+                inputHTML.makeInvalid();
+            }
+            if(inputHTML.type === 'text'){
+                actualiseStatesInputTypeText();
+            }else if(inputHTML.type === 'number'){
+                actualiseStatesInputTypeNumber();
+            }
+        }
+    };
 }
 
 function FormHTML() {
@@ -53,8 +104,8 @@ function FormHTML() {
         form.$error = {};
         form.$invalid = false;
         form.$valid = true;
-        formHTML.inputs.forEach(function(inputHTML){
-            var input = inputHTML.input;
+        for(var inputName in formHTML.inputs){
+            var input = formHTML.inputs[inputName].input;
             if(form.$valid && input.$invalid){
                 form.$invalid = true;
                 form.$valid = false;
@@ -67,7 +118,7 @@ function FormHTML() {
                     form.$error[error].push({});
                 }
             }
-        });
+        }
     };
 
     formHTML.createInputHTML = function(obj) {
@@ -80,9 +131,10 @@ function FormHTML() {
 
         inputHTML.setValue = function(value){
             inputHTML.model[inputHTML.name] = value;
-            //build errors
-            //change states of messages
+            inputHTML.actualiseStatesInput();
             formHTML.actualiseStatesForm();
+            //change states of messages
+
         };
     };
 }
