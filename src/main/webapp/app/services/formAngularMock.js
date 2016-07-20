@@ -1,4 +1,11 @@
-function Input() {
+function Input(){
+    this.$invalid = false;
+    this.$valid = true;
+    this.$error = {};
+}
+
+function InputHTML() {
+    this.input = new Input;
     this.type = 'text';
     this['ng-pattern'] = null;
     this['ng-focus'] = null;
@@ -7,34 +14,58 @@ function Input() {
     this.required = false;
     this.model = null;
     this.initialValue = "";
-    this.$invalid = false;
-    this.$valid = true;
-    this.$error = {};
 }
 
-function Form() {
+function Form(){
     var form = this;
     form.$error = {};
     form.$invalid = false;
     form.$valid = true;
-    form.inputs = [];
-    form.inputsMessages = [];
-    form.createInput = function (name, obj) {
-        var input = new Input;
+}
+
+function FormHTML() {
+    var formHTML = this;
+    formHTML.form = new Form;
+    var form = formHTML.form;
+    formHTML.inputs = [];
+    formHTML.inputsMessages = [];
+
+    formHTML.actualiseForm = function(){
+        form.$error = {};
+        form.$invalid = false;
+        form.$valid = true;
+        formHTML.inputs.forEach(function(inputHTML, inputName){
+            var input = inputHTML.input;
+            if(form.$valid && input.$invalid){
+                form.$invalid = true;
+                form.$valid = false;
+            }
+            for(var error in input.$error){
+                if(input.$error[error]){
+                    if(!Array.isArray(form.$error[error])){
+                        form.$error[error] = [];
+                    }
+                    form.$error[error].push({});
+                }
+            }
+        });
+    };
+
+    formHTML.createInputHTML = function (name, obj) {
+        var inputHTML = new InputHTML;
         for (var property in obj) {
-            if (input[property] !== undefined) {
-                input[property] = obj[property];
+            if (inputHTML[property] !== undefined) {
+                inputHTML[property] = obj[property];
             }
         }
-        input.setValue = function(value){
-            input.model[name] = value;
+        formHTML.inputs[name] = inputHTML;
+        formHTML.form[name] = inputHTML.input;
+
+        inputHTML.setValue = function(value){
+            inputHTML.model[name] = value;
             //build errors
             //change states of messages
-            form.actualiseForm();
+            formHTML.actualiseForm();
         };
-        form.inputs[name] = input;
     };
-    form.actualiseForm = function(){
-        //passer en revue l'array d'inputs
-    }
 }

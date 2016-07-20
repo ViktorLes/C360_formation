@@ -66,11 +66,11 @@
 
 		<script src="app/services/formAngularMock.js"></script>
 		<script>
-			var form = new Form;
+			var formHTML = new FormHTML;
 			var collaborateur = {firstName: "Thomas"};
-			form.createInput('firstName', {'model': collaborateur, required: true});
-			form.inputs['firstName'].model.firstName = "Lecomte";
-			console.log("Form", form);
+			formHTML.createInputHTML('firstName', {'model': collaborateur, required: true});
+			formHTML.inputs['firstName'].model.firstName = "Lecomte";
+			console.log("formHTML", formHTML);
 			console.log("collaborateur.firstName", collaborateur.firstName);
 		</script>
 
