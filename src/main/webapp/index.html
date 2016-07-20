@@ -68,8 +68,12 @@
 		<script>
 			var formHTML = new FormHTML;
 			var collaborateur = {firstName: "Thomas"};
-			formHTML.createInputHTML('firstName', {'model': collaborateur, required: true});
-			formHTML.inputs['firstName'].model.firstName = "Lecomte";
+			try{
+				formHTML.createInputHTML({name: 'firstName', model: collaborateur, required: true});
+				formHTML.inputs['firstName'].model.firstName = "Lecomte";
+			}catch(e){
+				console.error(e.message);
+			}
 			console.log("formHTML", formHTML);
 			console.log("collaborateur.firstName", collaborateur.firstName);
 		</script>

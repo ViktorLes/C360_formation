@@ -5,15 +5,34 @@ function Input(){
 }
 
 function InputHTML() {
-    this.input = new Input;
-    this.type = 'text';
-    this['ng-pattern'] = null;
-    this['ng-focus'] = null;
-    this['ng-change'] = null;
-    this['ng-blur'] = null;
-    this.required = false;
-    this.model = null;
-    this.initialValue = "";
+    var inputHTML = this;
+    inputHTML.name = "";
+    inputHTML.type = 'text';
+    inputHTML['ng-pattern'] = null;
+    inputHTML['ng-focus'] = null;
+    inputHTML['ng-change'] = null;
+    inputHTML['ng-blur'] = null;
+    inputHTML.required = false;
+    inputHTML.model = null;
+    inputHTML.initialValue = "";
+    inputHTML.input = new Input;
+    var input = inputHTML.input;
+
+    inputHTML.setProperties = function(obj){
+        for (var property in obj) {
+            if (inputHTML[property] !== undefined) {
+                inputHTML[property] = obj[property];
+            }
+        }
+        if(inputHTML.name && inputHTML.model && inputHTML.initialValue) {
+            inputHTML.model[inputHTML.name] = inputHTML.initialValue;
+        }
+    };
+
+    inputHTML.actualiseStatesInput = function(){
+       //inputHTML.model
+       //inputHTML.required
+    };
 }
 
 function Form(){
@@ -25,16 +44,16 @@ function Form(){
 
 function FormHTML() {
     var formHTML = this;
-    formHTML.form = new Form;
-    var form = formHTML.form;
     formHTML.inputs = [];
     formHTML.inputsMessages = [];
+    formHTML.form = new Form;
+    var form = formHTML.form;
 
-    formHTML.actualiseForm = function(){
+    formHTML.actualiseStatesForm = function(){
         form.$error = {};
         form.$invalid = false;
         form.$valid = true;
-        formHTML.inputs.forEach(function(inputHTML, inputName){
+        formHTML.inputs.forEach(function(inputHTML){
             var input = inputHTML.input;
             if(form.$valid && input.$invalid){
                 form.$invalid = true;
@@ -51,21 +70,19 @@ function FormHTML() {
         });
     };
 
-    formHTML.createInputHTML = function (name, obj) {
+    formHTML.createInputHTML = function(obj) {
         var inputHTML = new InputHTML;
-        for (var property in obj) {
-            if (inputHTML[property] !== undefined) {
-                inputHTML[property] = obj[property];
-            }
-        }
-        formHTML.inputs[name] = inputHTML;
-        formHTML.form[name] = inputHTML.input;
+        if(!obj.name) throw {message: "property 'name' of InputHTML is not defined"};
+        if(!obj.model) throw {message: "property 'model' of InputHTML '"+obj.name+"' is not defined"};
+        inputHTML.setProperties(obj);
+        formHTML.inputs[inputHTML.name] = inputHTML;
+        formHTML.form[inputHTML.name] = inputHTML.input;
 
         inputHTML.setValue = function(value){
-            inputHTML.model[name] = value;
+            inputHTML.model[inputHTML.name] = value;
             //build errors
             //change states of messages
-            formHTML.actualiseForm();
+            formHTML.actualiseStatesForm();
         };
     };
 }
