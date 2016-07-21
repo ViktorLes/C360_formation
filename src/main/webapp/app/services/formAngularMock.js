@@ -93,15 +93,6 @@ function InputHTML() {
     };
 }
 
-function messageHTML(){
-    this.isDisplay = false;
-    this['ng-show'] = null;
-    this['ng-hide'] = null;
-    this.actualiseStateMessageHTML = function() {
-        messageHTML.isDisplay =
-    };
-}
-
 function FormHTML() {
     var formHTML = this;
     formHTML.inputs = [];
@@ -142,17 +133,6 @@ function FormHTML() {
             inputHTML.model[inputHTML.name] = value;
             inputHTML.actualiseStatesInput();
             formHTML.actualiseStatesForm();
-            if(formHTML.inputsMessages[inputHTML.name]) {
-                formHTML.inputsMessages[inputHTML.name].actualiseStateMessageHTML();
-            }
         };
-    };
-
-    formHTML.createMessageHTML = function(messageProperties) {
-        var messageHTML = new messageHTML;
-        if(!messageProperties.name) throw {message: "property 'name' of MessageHTML is not defined"};
-        if(!messageProperties['ng-show'] && !messageProperties['ng-hide']) throw {message: "property 'ng-show' or 'ng-hide' of MessageHTML '"+messageProperties.name+"' is not defined"};
-        setProperties(messageHTML, messageProperties);
-        formHTML.inputsMessages[messageHTML.name] = messageHTML;
     };
 }
