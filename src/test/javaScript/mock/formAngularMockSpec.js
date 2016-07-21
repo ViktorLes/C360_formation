@@ -3,7 +3,7 @@ describe('test mock Form ', function(){
     var collaborateur;
 
     beforeEach(function(){
-        formHTML = new FormHTML
+        formHTML = new FormHTML;
         collaborateur = {};
         formHTML.createInputHTML({
             name: 'firstName',
@@ -14,6 +14,7 @@ describe('test mock Form ', function(){
         formHTML.createInputHTML({
             name: 'lastName',
             required: true,
+            initialValue: 'Lecomte',
             'ng-pattern': new RegExp("^[A-Za-z]+$"),
             model: collaborateur,
             'ng-minlength': 3
@@ -27,9 +28,9 @@ describe('test mock Form ', function(){
         });
     });
 
-    it('Saisi Collaborateur valide', function(){
+    it('Saisi Collaborateur valide (avec lastName déjà donné)', function(){
         formHTML.inputs['firstName'].setValue("Thomas");
-        formHTML.inputs['lastName'].setValue("Lecomte");
+        expect(collaborateur.lastName).toBe('Lecomte');
         formHTML.inputs['age'].setValue(23);
         expect(formHTML.form.$invalid).toBeFalsy();
         expect(formHTML.form.$valid).toBeTruthy();

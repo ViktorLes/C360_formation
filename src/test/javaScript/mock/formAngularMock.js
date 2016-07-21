@@ -27,9 +27,6 @@ function InputHTML() {
     inputHTML.name = "";
     inputHTML.type = 'text';
     inputHTML['ng-pattern'] = null;
-    inputHTML['ng-focus'] = null;
-    inputHTML['ng-change'] = null;
-    inputHTML['ng-blur'] = null;
     inputHTML['ng-minlength'] = null;
     inputHTML['ng-maxlength'] = null;
     inputHTML.required = false;
