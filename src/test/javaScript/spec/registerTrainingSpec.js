@@ -46,7 +46,7 @@ describe('Declaration Formation', function () {
         backend.verifyNoOutstandingRequest();
     });
 
-    function scenarioFormCorrectlyFilled(){
+    function scenarioOfFormCorrectlyFilled(){
         expect(ctrl.isErrorInputMessageDisplayed(formHTML.form.trainingTitle, true)).toBeFalsy();
         formHTML.inputs['trainingTitle'].setValue("AngularJS");
         expect(ctrl.training.trainingTitle).toMatch(ctrl.regex.trainingTitle);
@@ -61,7 +61,7 @@ describe('Declaration Formation', function () {
     }
 
     it('Valide', function () {
-        scenarioFormCorrectlyFilled();
+        scenarioOfFormCorrectlyFilled();
         backend.expectPOST('api/formations').respond("4");
         ctrl.verifyForm(formHTML.form);
         backend.flush();
@@ -73,7 +73,7 @@ describe('Declaration Formation', function () {
     });
 
     it('Invalid because of training title already exists', function () {
-        scenarioFormCorrectlyFilled();
+        scenarioOfFormCorrectlyFilled();
         backend.expectPOST('api/formations').respond("0");
         ctrl.verifyForm(formHTML.form);
         backend.flush();
