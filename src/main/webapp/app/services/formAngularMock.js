@@ -11,6 +11,17 @@ function Form(){
     form.$valid = true;
 }
 
+function setProperties(element, obj){
+    for (var property in obj) {
+        if (element[property] !== undefined) {
+            element[property] = obj[property];
+        }
+    }
+    if(element.name && element.model && element.initialValue) {
+        element.model[element.name] = element.initialValue;
+    }
+};
+
 function InputHTML() {
     var inputHTML = this;
     inputHTML.name = "";
@@ -28,17 +39,6 @@ function InputHTML() {
     inputHTML.initialValue = "";
     inputHTML.input = new Input;
     var input = inputHTML.input;
-
-    inputHTML.setProperties = function(obj){
-        for (var property in obj) {
-            if (inputHTML[property] !== undefined) {
-                inputHTML[property] = obj[property];
-            }
-        }
-        if(inputHTML.name && inputHTML.model && inputHTML.initialValue) {
-            inputHTML.model[inputHTML.name] = inputHTML.initialValue;
-        }
-    };
 
     inputHTML.makeValid = function(){
         inputHTML.input.$invalid = false;
@@ -93,6 +93,15 @@ function InputHTML() {
     };
 }
 
+function messageHTML(){
+    this.isDisplay = false;
+    this['ng-show'] = null;
+    this['ng-hide'] = null;
+    this.actualiseStateMessageHTML = function() {
+        messageHTML.isDisplay =
+    };
+}
+
 function FormHTML() {
     var formHTML = this;
     formHTML.inputs = [];
@@ -121,11 +130,11 @@ function FormHTML() {
         }
     };
 
-    formHTML.createInputHTML = function(obj) {
+    formHTML.createInputHTML = function(inputProperties) {
         var inputHTML = new InputHTML;
-        if(!obj.name) throw {message: "property 'name' of InputHTML is not defined"};
-        if(!obj.model) throw {message: "property 'model' of InputHTML '"+obj.name+"' is not defined"};
-        inputHTML.setProperties(obj);
+        if(!inputProperties.name) throw {message: "property 'name' of InputHTML is not defined"};
+        if(!inputProperties.model) throw {message: "property 'model' of InputHTML '"+inputProperties.name+"' is not defined"};
+        setProperties(inputHTML, inputProperties);
         formHTML.inputs[inputHTML.name] = inputHTML;
         formHTML.form[inputHTML.name] = inputHTML.input;
 
@@ -133,7 +142,17 @@ function FormHTML() {
             inputHTML.model[inputHTML.name] = value;
             inputHTML.actualiseStatesInput();
             formHTML.actualiseStatesForm();
-            //change states of messages
+            if(formHTML.inputsMessages[inputHTML.name]) {
+                formHTML.inputsMessages[inputHTML.name].actualiseStateMessageHTML();
+            }
         };
+    };
+
+    formHTML.createMessageHTML = function(messageProperties) {
+        var messageHTML = new messageHTML;
+        if(!messageProperties.name) throw {message: "property 'name' of MessageHTML is not defined"};
+        if(!messageProperties['ng-show'] && !messageProperties['ng-hide']) throw {message: "property 'ng-show' or 'ng-hide' of MessageHTML '"+messageProperties.name+"' is not defined"};
+        setProperties(messageHTML, messageProperties);
+        formHTML.inputsMessages[messageHTML.name] = messageHTML;
     };
 }
