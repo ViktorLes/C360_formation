@@ -23,7 +23,12 @@ describe('Declaration Formation', function () {
         backend.flush();
         ctrl.training = {};
         formHTML = new FormHTML;
-        formHTML.createInputHTML({name: 'trainingTitle', model: ctrl.training, required: true, 'ng-pattern': ctrl.regex.trainingTitle});
+        formHTML.createInputHTML({
+            name: 'trainingTitle',
+            model: ctrl.training,
+            required: true,
+            'ng-pattern': ctrl.regex.trainingTitle
+        });
         formHTML.createInputHTML({
             name: 'topicDescription',
             model: ctrl.training,
@@ -46,7 +51,7 @@ describe('Declaration Formation', function () {
         backend.verifyNoOutstandingRequest();
     });
 
-    function scenarioOfFormCorrectlyFilled(){
+    function scenarioOfFormCorrectlyFilled() {
         expect(ctrl.isErrorInputMessageDisplayed(formHTML.form.trainingTitle, true)).toBeFalsy();
         formHTML.inputs['trainingTitle'].setValue("AngularJS");
         expect(ctrl.training.trainingTitle).toMatch(ctrl.regex.trainingTitle);
