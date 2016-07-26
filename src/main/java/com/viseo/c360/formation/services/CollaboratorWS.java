@@ -22,11 +22,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
 
-import java.security.Key;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.core.convert.ConversionException;
-import org.springframework.core.convert.support.StringToCharsetConverter;
 import org.springframework.web.bind.annotation.*;
 import com.viseo.c360.formation.dao.CollaboratorDAO;
 
@@ -42,7 +40,7 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.user}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<CollaboratorDescription, String> getUserByLoginPassword(@RequestBody CollaboratorDescription myCollaboratorDescription) {
+    public Map<String,CollaboratorDescription> getUserByLoginPassword(@RequestBody CollaboratorDescription myCollaboratorDescription) {
         try {
             InitializeMap();
             Collaborator c = collaboratorDAO.getCollaboratorByLoginPassword(myCollaboratorDescription.getEmail(), myCollaboratorDescription.getPassword());
@@ -52,10 +50,10 @@ public class CollaboratorWS {
                     .setSubject(user.getEmail())
                     .signWith(SignatureAlgorithm.HS512, key)
                     .compact();
-            Map map = new HashMap<>();
-            putData(compactJws, user);
-            map.put(compactJws, "userConnected");
-            return map;
+            Map currentUserMap = new HashMap<>();
+            putUserInCache(compactJws, user);
+            currentUserMap.put("userConnected",compactJws);
+            return currentUserMap;
         } catch (ConversionException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -70,7 +68,7 @@ public class CollaboratorWS {
             mapUserCache =  new ConcurrentHashMap<String, CollaboratorDescription>();
     }
 
-    private void putData(String token, CollaboratorDescription user) {
+    private void putUserInCache(String token, CollaboratorDescription user) {
         mapUserCache.put(token, user);
     }
 
