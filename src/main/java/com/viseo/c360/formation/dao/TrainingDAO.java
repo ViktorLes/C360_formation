@@ -128,27 +128,16 @@ public class TrainingDAO {
 
     public boolean isThereOneSessionTrainingAlreadyPlanned(TrainingSession trainingSession) {
         em.setFlushMode(FlushModeType.COMMIT);
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<TrainingSession> q = cb.createQuery(TrainingSession.class);
-        Root<TrainingSession> c = q.from(TrainingSession.class);
-        q.select(c).where(cb.equal(c.get("training"), trainingSession.getTraining().getId()),
-                cb.or(
-                        cb.and(
-                                cb.greaterThanOrEqualTo(c.<Date>get("beginning"), trainingSession.getBeginning()),
-                                cb.lessThan(c.<Date>get("beginning"), trainingSession.getEnding())
-                        ),
-                        cb.and(
-                                cb.greaterThan(c.<Date>get("ending"), trainingSession.getBeginning()),
-                                cb.lessThanOrEqualTo(c.<Date>get("ending"), trainingSession.getEnding())
-                        ),
-                        cb.and(
-                                cb.lessThanOrEqualTo(c.<Date>get("beginning"), trainingSession.getBeginning()),
-                                cb.greaterThanOrEqualTo(c.<Date>get("ending"), trainingSession.getEnding())
-                        )
-                )
-        );
-        Collection<TrainingSession> list = (Collection<TrainingSession>) em.createQuery(q).getResultList();
-        list.remove(trainingSession);
+        Query q = em.createQuery("select s from TrainingSession s " +
+                "where s.training=:training and s.id != :trainingSessionId and" +
+                "( (s.beginning >= :beginning and s.beginning < :ending) or" +
+                "(s.ending >= :beginning and s.ending <= :ending) or " +
+                "(s.beginning <= :beginning and s.ending >= :ending) )"
+                ).setParameter("trainingSessionId", trainingSession.getId())
+                .setParameter("training", trainingSession.getTraining())
+                .setParameter("beginning", trainingSession.getBeginning())
+                .setParameter("ending", trainingSession.getEnding());
+        Collection<TrainingSession> list = (Collection<TrainingSession>) q.getResultList();
         return !list.isEmpty();
     }
 }
