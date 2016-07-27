@@ -36,52 +36,30 @@ describe('Enregistrement Collaborateur', function () {
             backend.verifyNoOutstandingRequest();
         });
 
-        function fillEmailCorrectly(form){
-            expect(ctrl.isErrorInputMessageDisplayed(form.email, true)).toBeFalsy();
+        function fillEmailCorrectly(){
             ctrl.collaborator.email = "henri.darmet@viseo.com";
             expect(ctrl.collaborator.email).toMatch(ctrl.regex.email);
-            refreshFormAfterFillingField(form, 'email');
-            expect(ctrl.isErrorInputMessageDisplayed(form.email, false)).toBeFalsy();
         }
 
-        function fillPasswordCorrectly(form){
-            expect(ctrl.isErrorInputMessageDisplayed(form.password, true)).toBeFalsy();
+        function fillPasswordCorrectly(){
             ctrl.collaborator.password = "000000";
-            refreshFormAfterFillingField(form, 'password');
-            expect(ctrl.isErrorInputMessageDisplayed(form.password, false)).toBeFalsy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, true)).toBeFalsy();
             ctrl.collaborator.confirmPassword = "000000";
-            refreshFormAfterFillingField(form, 'confirmPassword');
-            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, false)).toBeFalsy();
         }
 
-        function fillIdentityCollaboratorCorrectly(form){
-            expect(ctrl.isErrorInputMessageDisplayed(form.lastName, true)).toBeFalsy();
+        function fillIdentityCollaboratorCorrectly(){
             ctrl.collaborator.lastName = "Darmet";
             expect(ctrl.collaborator.lastName).toMatch(ctrl.regex.lastName);
-            refreshFormAfterFillingField(form, 'lastName');
-            expect(ctrl.isErrorInputMessageDisplayed(form.lastName, false)).toBeFalsy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.firstName, true)).toBeFalsy();
             ctrl.collaborator.firstName = "Henri";
             expect(ctrl.collaborator.firstName).toMatch(ctrl.regex.firstName);
-            refreshFormAfterFillingField(form, 'firstName');
-            expect(ctrl.isErrorInputMessageDisplayed(form.firstName, false)).toBeFalsy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, true)).toBeFalsy();
             ctrl.collaborator.personnalIdNumber = "HDA1234";
             expect(ctrl.collaborator.personnalIdNumber).toMatch(ctrl.regex.personnalIdNumber);
-            refreshFormAfterFillingField(form, 'personnalIdNumber');
-            expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, false)).toBeFalsy();
         }
-
-        function fillFormCorrectlyBeforeSubmit(){
-            fillIdentityCollaboratorCorrectly(form);
-            fillEmailCorrectly(form);
-            fillPasswordCorrectly(form);
-            expectFormToBeFilled(form);
-        }
+        
 
         it('1) Valide', function () {
-            fillFormCorrectlyBeforeSubmit();
+            fillIdentityCollaboratorCorrectly();
+            fillEmailCorrectly();
+            fillPasswordCorrectly();
             backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "NotPersisted"});
             ctrl.verifyForm(form);
             backend.flush();
