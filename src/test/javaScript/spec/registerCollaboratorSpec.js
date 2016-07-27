@@ -12,14 +12,14 @@ describe('Enregistrement Collaborateur', function () {
         loc.url('/RegisterCollaborator');
         ctrl = $controller('controllerRegisterCollaborator');
         form = {
-            lastName: {$invalid: true, $error: {required: true}},
-            firstName: {$invalid: true, $error: {required: true}},
-            personnalIdNumber: {$invalid: true, $error: {required: true}},
-            email: {$invalid: true, $error: {required: true}},
-            password: {$invalid: true, $error: {required: true}},
-            confirmPassword: {$invalid: true, $error: {required: true}},
-            $invalid: true,
-            $error: {required: [{}, {}, {}, {}, {}, {}]}
+            lastName: {$invalid: false},
+            firstName: {$invalid: false},
+            personnalIdNumber: {$invalid: false},
+            email: {$invalid: false},
+            password: {$invalid: false},
+            confirmPassword: {$invalid: false},
+            $invalid: false,
+            $error: {}
         };
     }));
 
@@ -36,52 +36,30 @@ describe('Enregistrement Collaborateur', function () {
             backend.verifyNoOutstandingRequest();
         });
 
-        function fillEmailCorrectly(form){
-            expect(ctrl.isErrorInputMessageDisplayed(form.email, true)).toBeFalsy();
+        function fillEmailCorrectly(){
             ctrl.collaborator.email = "henri.darmet@viseo.com";
             expect(ctrl.collaborator.email).toMatch(ctrl.regex.email);
-            refreshFormAfterFillingField(form, 'email');
-            expect(ctrl.isErrorInputMessageDisplayed(form.email, false)).toBeFalsy();
         }
 
-        function fillPasswordCorrectly(form){
-            expect(ctrl.isErrorInputMessageDisplayed(form.password, true)).toBeFalsy();
+        function fillPasswordCorrectly(){
             ctrl.collaborator.password = "000000";
-            refreshFormAfterFillingField(form, 'password');
-            expect(ctrl.isErrorInputMessageDisplayed(form.password, false)).toBeFalsy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, true)).toBeFalsy();
             ctrl.collaborator.confirmPassword = "000000";
-            refreshFormAfterFillingField(form, 'confirmPassword');
-            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, false)).toBeFalsy();
         }
 
-        function fillIdentityCollaboratorCorrectly(form){
-            expect(ctrl.isErrorInputMessageDisplayed(form.lastName, true)).toBeFalsy();
+        function fillIdentityCollaboratorCorrectly(){
             ctrl.collaborator.lastName = "Darmet";
             expect(ctrl.collaborator.lastName).toMatch(ctrl.regex.lastName);
-            refreshFormAfterFillingField(form, 'lastName');
-            expect(ctrl.isErrorInputMessageDisplayed(form.lastName, false)).toBeFalsy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.firstName, true)).toBeFalsy();
             ctrl.collaborator.firstName = "Henri";
             expect(ctrl.collaborator.firstName).toMatch(ctrl.regex.firstName);
-            refreshFormAfterFillingField(form, 'firstName');
-            expect(ctrl.isErrorInputMessageDisplayed(form.firstName, false)).toBeFalsy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, true)).toBeFalsy();
             ctrl.collaborator.personnalIdNumber = "HDA1234";
             expect(ctrl.collaborator.personnalIdNumber).toMatch(ctrl.regex.personnalIdNumber);
-            refreshFormAfterFillingField(form, 'personnalIdNumber');
-            expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, false)).toBeFalsy();
         }
 
-        function fillFormCorrectlyBeforeSubmit(){
-            fillIdentityCollaboratorCorrectly(form);
-            fillEmailCorrectly(form);
-            fillPasswordCorrectly(form);
-            expectFormToBeFilled(form);
-        }
 
         it('1) Valide', function () {
-            fillFormCorrectlyBeforeSubmit();
+            fillIdentityCollaboratorCorrectly();
+            fillEmailCorrectly();
+            fillPasswordCorrectly();
             backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "NotPersisted"});
             ctrl.verifyForm(form);
             backend.flush();
@@ -92,27 +70,24 @@ describe('Enregistrement Collaborateur', function () {
         });
 
         it('2) Invalid because of input avoid', function () {
-            expect(ctrl.isErrorInputMessageDisplayed(form.lastName, true)).toBeFalsy();
             ctrl.collaborator.lastName = "Darmet@";
             expect(ctrl.collaborator.lastName).not.toMatch(ctrl.regex.lastName);
-            refreshFormAfterFillingField(form, 'lastName', {pattern: true});
-            expect(ctrl.isErrorInputMessageDisplayed(form.lastName, false)).toBeTruthy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.firstName, true)).toBeFalsy();
             ctrl.collaborator.firstName = "";
-            expect(ctrl.isErrorInputMessageDisplayed(form.firstName, false)).toBeFalsy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, true)).toBeFalsy();
             ctrl.collaborator.personnalIdNumber = "HDA1234";
             expect(ctrl.collaborator.personnalIdNumber).toMatch(ctrl.regex.personnalIdNumber);
-            refreshFormAfterFillingField(form, 'personnalIdNumber');
-            expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, false)).toBeFalsy();
-            fillEmailCorrectly(form);
-            expect(ctrl.isErrorInputMessageDisplayed(form.password, true)).toBeFalsy();
+            fillEmailCorrectly();
             ctrl.collaborator.password = "000000";
-            refreshFormAfterFillingField(form, 'password');
-            expect(ctrl.isErrorInputMessageDisplayed(form.password, false)).toBeFalsy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, true)).toBeFalsy();
             ctrl.collaborator.confirmPassword = "";
-            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, false)).toBeFalsy();
+            form = {
+                lastName: {$invalid: true},
+                firstName: {$invalid: true},
+                personnalIdNumber: {$invalid: false},
+                email: {$invalid: false},
+                password: {$invalid: false},
+                confirmPassword: {$invalid: true},
+                $invalid: true,
+                $error: {required: [{}, {}], pwCheck: [{}], pattern:[{}]}
+            };
             ctrl.verifyForm(form);
             expect(ctrl.isNewEmail).toBeTruthy();
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
@@ -122,17 +97,20 @@ describe('Enregistrement Collaborateur', function () {
         });
 
         it('3) Password confirmation is invalid', function(){
-            fillIdentityCollaboratorCorrectly(form);
-            fillEmailCorrectly(form);
-            expect(ctrl.isErrorInputMessageDisplayed(form.password, true)).toBeFalsy();
+            fillIdentityCollaboratorCorrectly();
+            fillEmailCorrectly();
             ctrl.collaborator.password = "AAAAAAAAAAA";
-            refreshFormAfterFillingField(form, 'password');
-            expect(ctrl.isErrorInputMessageDisplayed(form.password, false)).toBeFalsy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, true)).toBeFalsy();
             ctrl.collaborator.confirmPassword = "BBBBBBBBBBB";
-            refreshFormAfterFillingField(form, 'confirmPassword', {pwCheck: true});
-            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, false)).toBeTruthy();
-            expect(form.$error.required).toBeUndefined();
+            form = {
+                lastName: {$invalid: false},
+                firstName: {$invalid: false},
+                personnalIdNumber: {$invalid: false},
+                email: {$invalid: false},
+                password: {$invalid: false},
+                confirmPassword: {$invalid: true},
+                $invalid: true,
+                $error: {pwCheck: [{}]}
+            };
             ctrl.verifyForm(form);
             expect(ctrl.isNewEmail).toBeTruthy();
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
@@ -142,24 +120,24 @@ describe('Enregistrement Collaborateur', function () {
         });
 
         it('4) Invalid because of inputs incorrect', function () {
-            expect(ctrl.isErrorInputMessageDisplayed(form.lastName, true)).toBeFalsy();
             ctrl.collaborator.lastName = "Darmet@";
             expect(ctrl.collaborator.lastName).not.toMatch(ctrl.regex.lastName);
-            refreshFormAfterFillingField(form, 'lastName', {pattern: true});
-            expect(ctrl.isErrorInputMessageDisplayed(form.lastName, false)).toBeTruthy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.firstName, true)).toBeFalsy();
             ctrl.collaborator.firstName = "888";
             expect(ctrl.collaborator.firstName).not.toMatch(ctrl.regex.firstName);
-            refreshFormAfterFillingField(form, 'firstName', {pattern: true});
-            expect(ctrl.isErrorInputMessageDisplayed(form.firstName, false)).toBeTruthy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, true)).toBeFalsy();
             ctrl.collaborator.personnalIdNumber = "HDA1234";
             expect(ctrl.collaborator.personnalIdNumber).toMatch(ctrl.regex.personnalIdNumber);
-            refreshFormAfterFillingField(form, 'personnalIdNumber');
-            expect(ctrl.isErrorInputMessageDisplayed(form.personnalIdNumber, false)).toBeFalsy();
-            fillEmailCorrectly(form);
-            fillPasswordCorrectly(form);
-            expect(form.$error.required).toBeUndefined();
+            fillEmailCorrectly();
+            fillPasswordCorrectly();
+            form = {
+                lastName: {$invalid: true},
+                firstName: {$invalid: true},
+                personnalIdNumber: {$invalid: false},
+                email: {$invalid: false},
+                password: {$invalid: false},
+                confirmPassword: {$invalid: true},
+                $invalid: true,
+                $error: {pwCheck: [{}], pattern: [{}, {}]}
+            };
             ctrl.verifyForm(form);
             expect(ctrl.isNewEmail).toBeTruthy();
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
@@ -169,14 +147,20 @@ describe('Enregistrement Collaborateur', function () {
         });
 
         it('5) E-mail address is invalid', function(){
-            fillIdentityCollaboratorCorrectly(form);
-            expect(ctrl.isErrorInputMessageDisplayed(form.email, true)).toBeFalsy();
+            fillIdentityCollaboratorCorrectly();
             ctrl.collaborator.email = "henri.darmet@viseocom";
             expect(ctrl.collaborator.email).not.toMatch(ctrl.regex.email);
-            refreshFormAfterFillingField(form, 'email', {pattern: true});
-            expect(ctrl.isErrorInputMessageDisplayed(form.email, false)).toBeTruthy();
             fillPasswordCorrectly(form);
-            expect(form.$error.required).toBeUndefined();
+            form = {
+                lastName: {$invalid: false},
+                firstName: {$invalid: false},
+                personnalIdNumber: {$invalid: false},
+                email: {$invalid: false},
+                password: {$invalid: false},
+                confirmPassword: {$invalid: true},
+                $invalid: true,
+                $error: {pattern: [{}]}
+            };
             ctrl.verifyForm(form);
             expect(ctrl.isNewEmail).toBeTruthy();
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
@@ -186,7 +170,9 @@ describe('Enregistrement Collaborateur', function () {
         });
 
         it('6) Invalid because e-mail is already used', function () {
-            fillFormCorrectlyBeforeSubmit();
+            fillIdentityCollaboratorCorrectly();
+            fillEmailCorrectly();
+            fillPasswordCorrectly();
             backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "EmailPersisted"});
             ctrl.verifyForm(form);
             backend.flush();
@@ -198,7 +184,9 @@ describe('Enregistrement Collaborateur', function () {
         });
 
         it('7) Invalid because matricule is already used', function () {
-            fillFormCorrectlyBeforeSubmit();
+            fillIdentityCollaboratorCorrectly();
+            fillEmailCorrectly();
+            fillPasswordCorrectly();
             backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "IdNumberPersisted"});
             ctrl.verifyForm(form);
             backend.flush();
@@ -210,17 +198,20 @@ describe('Enregistrement Collaborateur', function () {
         });
 
         it('8) Invalid because password is too short', function () {
-            fillIdentityCollaboratorCorrectly(form);
-            fillEmailCorrectly(form);
-            expect(ctrl.isErrorInputMessageDisplayed(form.password, true)).toBeFalsy();
+            fillIdentityCollaboratorCorrectly();
+            fillEmailCorrectly();
             ctrl.collaborator.password = "AAA";
-            refreshFormAfterFillingField(form, 'password', {minlength: true});
-            expect(ctrl.isErrorInputMessageDisplayed(form.password, false)).toBeTruthy();
-            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, true)).toBeFalsy();
             ctrl.collaborator.confirmPassword = "AAA";
-            refreshFormAfterFillingField(form, 'confirmPassword');
-            expect(ctrl.isErrorInputMessageDisplayed(form.confirmPassword, false)).toBeFalsy();
-            expect(form.$error.required).toBeUndefined();
+            form = {
+                lastName: {$invalid: false},
+                firstName: {$invalid: false},
+                personnalIdNumber: {$invalid: false},
+                email: {$invalid: false},
+                password: {$invalid: true},
+                confirmPassword: {$invalid: false},
+                $invalid: true,
+                $error: {minlength: [{}]}
+            };
             ctrl.verifyForm(form);
             expect(ctrl.isNewEmail).toBeTruthy();
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
