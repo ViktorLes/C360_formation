@@ -2,7 +2,6 @@ describe('Enregistrement Collaborateur', function () {
     var ctrl;
     var backend;
     var loc;
-    var form;
 
     beforeEach(module('App'));
 
@@ -11,16 +10,6 @@ describe('Enregistrement Collaborateur', function () {
         loc = $location;
         loc.url('/RegisterCollaborator');
         ctrl = $controller('controllerRegisterCollaborator');
-        form = {
-            lastName: {$invalid: true, $error: {required: true}},
-            firstName: {$invalid: true, $error: {required: true}},
-            personnalIdNumber: {$invalid: true, $error: {required: true}},
-            email: {$invalid: true, $error: {required: true}},
-            password: {$invalid: true, $error: {required: true}},
-            confirmPassword: {$invalid: true, $error: {required: true}},
-            $invalid: true,
-            $error: {required: [{}, {}, {}, {}, {}, {}]}
-        };
     }));
 
     describe('Test EnregistrementCollaborateur', function () {
