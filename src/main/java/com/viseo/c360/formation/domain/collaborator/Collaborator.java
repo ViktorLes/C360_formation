@@ -34,6 +34,9 @@ public class Collaborator extends BaseEntity {
 	@NotNull
 	String password;
 
+	@NotNull
+	Boolean isAdmin;
+
 	public Collaborator() {
 		super();
 	}
@@ -57,16 +60,13 @@ public class Collaborator extends BaseEntity {
 		this.firstName = firstName.replaceAll("( )+", " ").trim();
 	}
 	public String getEmail() {return email;}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getPassword() {
-		return password;
-	}
-
+	public String getPassword() {		return password;	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public Boolean getIsAdmin() {return isAdmin;}
+	public void setIsAdmin(Boolean admin) {this.isAdmin = admin;}
 }

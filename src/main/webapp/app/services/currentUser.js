@@ -1,22 +1,27 @@
-angular.module('authentication', [])
-    .service('currentUserService', ['$http', function ($http) {
+angular.module('authentication', ['angular-jwt'])
+    .service('currentUserService', ['$http','jwtHelper', function ($http,jwtHelper) {
         var self = this;
         return {
-            getUserNameFromServer: function (userToken) {
-                return $http.post("api/userName", userToken).then(function (userNameResponse) {
-                    var response = JSON.parse(JSON.stringify(userNameResponse));
-                    return response.data['userName'];
-                })
+            decodeThisToken : function (userToken) {
+                var tokenPayload=jwtHelper.decodeToken(userToken.data['userConnected']);
+                console.log("userToken: ",userToken);
+                console.log("tokenPayload['sub']: ",tokenPayload['sub']);
+                console.log("tokenPayload['roles']: ",tokenPayload['roles']);
+                return this.setUserData(userToken,tokenPayload['sub'],tokenPayload['roles']);
             },
-            setUserData: function (newUserName, userToken) {
-                self.name = newUserName;
+            setUserData: function (userToken,newUserName,newUserRole) {
                 self.token = userToken;
+                self.name = newUserName;
+                self.roles = newUserRole;
+            },
+            getUserToken: function () {
+                return self.token;
             },
             getUserName: function () {
                 return self.name;
             },
-            getUserToken: function () {
-                return self.token;
+            getUserRole: function () {
+                return self.roles;
             }
         };
     }]);

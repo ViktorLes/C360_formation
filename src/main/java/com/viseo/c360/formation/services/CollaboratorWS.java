@@ -18,6 +18,7 @@ import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
@@ -47,7 +48,8 @@ public class CollaboratorWS {
             CollaboratorDescription user = new CollaboratorToDescription().convert(c);
             Key key = MacProvider.generateKey();
             String compactJws = Jwts.builder()
-                    .setSubject(user.getEmail())
+                    .setSubject(user.getLastName())
+                    .claim("roles",user.getIsAdmin())
                     .signWith(SignatureAlgorithm.HS512, key)
                     .compact();
             Map currentUserMap = new HashMap<>();

@@ -25,6 +25,7 @@ public class DescriptionToCollaborator {
         domain.setPersonnalIdNumber(dto.getPersonnalIdNumber());
         domain.setEmail(dto.getEmail());
         domain.setPassword(dto.getPassword());
+        domain.setIsAdmin(dto.getIsAdmin());
         return domain;
     }
 
