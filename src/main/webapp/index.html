@@ -20,6 +20,7 @@
 <div ng-controller="globalController as ctrl">
     <div>
     <button ng-click="ctrl.initBase()">alimenter la base / refresh liste collaborateurs</button>
+        <a ng-click="ctrl.disconnectUser()">Deconnexion</a>
     <span ng-bind="ctrl.displayCollaborator()"></span>
     </div>
 

@@ -11,9 +11,13 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
         });
     };
 
+    self.disconnectUser = function () {
+        currentUserService.disconnectCurrentUser();
+    };
+
     self.displayCollaborator = function () {
-        if(currentUserService.getUserToken()) self.isUserConnected = true;
-            return currentUserService.getUserName();
+        if (currentUserService.getUserToken()) self.isUserConnected = true;
+        return currentUserService.getUserName();
     };
 
     self.selectCollaborator = function (myCollaborator) {

@@ -14,17 +14,17 @@ angular.module('controllers')
                         self.user.email = "";
                         self.user.password = "";
                         self.isErrorAuthentification = false;
-                        return currentUserService.decodeThisToken(userPersistedToken);
-                    })
-                    .then(function () {
-                        if (currentUserService.getUserRole()) {
-                            console.log("1) currentUserService.getUserRole(): ", currentUserService.getUserRole());
-                            $location.url('/RegisterTraining')
-                        }
-                        else {
-                            console.log("2) currentUserService.getUserRole(): ", currentUserService.getUserRole());
-                            $location.url('/RequestTraining')
-                        }
+                        self.isUserAuthenticated = true;
+                        var data=currentUserService.decodeThisToken(userPersistedToken);
+                        return data;
+                    }).then(function (data) {
+                        return function () {
+                            $timeout(function () {
+                                self.isUserAuthenticated = false;
+                            }, 3000)}
+                    }).then(function () {
+                        if (currentUserService.getUserRole()) {$location.url('/RegisterTraining')}
+                        else {$location.url('/RequestTraining')}
                     })
                     .catch(function () {
                         self.user.password = "";
@@ -32,16 +32,12 @@ angular.module('controllers')
                         self.isUserAuthenticated = false;
                     });
             }
-            if (!self.isErrorAuthentification) {
-                self.isUserAuthenticated = true;
-                self.setConfirmationMessageTimOut();
-            }
         };
-        self.setConfirmationMessageTimOut = function () {
+        /*self.setConfirmationMessageTimOut = function () {
             $timeout(function () {
                 self.isUserAuthenticated = false;
             }, 3000);
-        };
+        };*/
         var validateForm = function (userForm) {
             if (userForm.email.$invalid) {
                 self.isNotEmptyEmailField = false;

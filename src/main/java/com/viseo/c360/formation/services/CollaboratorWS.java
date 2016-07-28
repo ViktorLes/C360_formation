@@ -18,7 +18,6 @@ import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
@@ -74,15 +73,16 @@ public class CollaboratorWS {
         mapUserCache.put(token, user);
     }
 
-    @RequestMapping(value = "${endpoint.userName}", method = RequestMethod.POST)
+    @RequestMapping(value = "${endpoint.userDisconnect}", method = RequestMethod.POST)
     @ResponseBody
-    public Map getNameByToken(@RequestBody String token) {
-        if (mapUserCache.containsKey(token)){
-            Map mapUser = new HashMap<>();
-            mapUser.put("userName",mapUserCache.get(token).getFirstName());
-            return mapUser;
+    public boolean deleteDisconnectedUserFromCache(@RequestBody String token) {
+        try { mapUserCache.remove(token);
+        return true;
         }
-        else return null;
+        catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
