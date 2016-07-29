@@ -47,7 +47,8 @@ public class CollaboratorWS {
             CollaboratorDescription user = new CollaboratorToDescription().convert(c);
             Key key = MacProvider.generateKey();
             String compactJws = Jwts.builder()
-                    .setSubject(user.getLastName())
+                    .setSubject(user.getFirstName())
+                    .claim("lastName", user.getLastName())
                     .claim("roles", user.getIsAdmin())
                     .signWith(SignatureAlgorithm.HS512, key)
                     .compact();
@@ -77,8 +78,6 @@ public class CollaboratorWS {
     public Boolean deleteDisconnectedUserFromCache(@RequestBody String token) {
         try {
             mapUserCache.remove(token);
-            /*Map mapResponse = new HashMap<>();
-            mapResponse.put("disconnect",true);*/
             return true;
         } catch (Exception e) {
             e.printStackTrace();

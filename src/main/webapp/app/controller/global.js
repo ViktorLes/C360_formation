@@ -1,4 +1,4 @@
-angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', 'currentUserService','$location', function (InitBddService, MockConnexionService, $http, currentUserService,$location) {
+angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', 'currentUserService', '$location', function (InitBddService, MockConnexionService, $http, currentUserService, $location) {
     var self = this;
     self.isUserConnected = false;
 
@@ -17,8 +17,10 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
     };
 
     self.displayCollaborator = function () {
-        if (currentUserService.getUserToken()) self.isUserConnected = true;
-        return currentUserService.getUserName();
+        if (currentUserService.getUserLastName() != undefined) {
+            self.isUserConnected = true;
+            return currentUserService.getUserFirstName() + ' ' + currentUserService.getUserLastName().toUpperCase();
+        }
     };
 
     self.selectCollaborator = function (myCollaborator) {
