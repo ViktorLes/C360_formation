@@ -9,20 +9,25 @@
 </head>
 
 <body style="padding:10px;" class="container-fluid" ng-app="App">
-
-<header class="bg-primary row">
-    <div class="col-md-1"></div>
-    <div id="titreAppliquette" class="col-md-9">Gestions des formations</div>
-    <div id="titreProjet" class="col-md-2">Collaborateur 360</div>
-
-</header>
-
 <div ng-controller="globalController as ctrl">
-    <div>
+    <header class="bg-primary navbar-fixed-top">
+        <div>
+            <div id="titreAppliquette" class="col-md-10">Gestions des formations</div>
+            <div id="titreProjet" class="col-md-2">Collaborateur 360</div>
+        </div>
+        <div>
+            <div>
+                <div class="col-md-8"></div>
+                <div class="col-md-2"><span ng-bind="ctrl.displayCollaborator()"></span></div>
+                <div id="disconnect" class="col-md-2 myDisconnectClass" ng-click="ctrl.disconnectUser()">Deconnexion
+                </div>
+            </div>
+        </div>
+
+
+    </header>
     <button ng-click="ctrl.initBase()">alimenter la base / refresh liste collaborateurs</button>
-        <a ng-click="ctrl.disconnectUser()">Deconnexion</a>
-    <span ng-bind="ctrl.displayCollaborator()"></span>
-    </div>
+</div>
 
 
 <nav>
