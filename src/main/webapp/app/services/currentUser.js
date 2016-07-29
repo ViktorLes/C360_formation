@@ -4,20 +4,20 @@ angular.module('authentication', ['angular-jwt'])
         return {
             decodeThisToken: function (userToken) {
                 var tokenPayload = jwtHelper.decodeToken(userToken.data['userConnected']);
-                console.log("userToken: ", userToken);
-                console.log("tokenPayload['sub']: ", tokenPayload['sub']);
-                console.log("tokenPayload['roles']: ", tokenPayload['roles']);
-                return this.setUserData(userToken.data['userConnected'], tokenPayload['sub'], tokenPayload['roles']);
+                this.setUserData(userToken.data['userConnected'], tokenPayload['sub'], tokenPayload['roles']);
             },
             disconnectCurrentUser: function () {
-                console.log("token: ", this.getUserToken())
-                $http.post("api/user", this.getUserToken()).then(this.setUserData('', '', ''));
+                var self = this;
+                $http.post("api/userdisconnect", this.getUserToken()).then(function () {
+                        self.setUserData('', '', '')
+                    }).catch(function () {
+                        console.log("Error !! User is not connected");
+                })
             },
             setUserData: function (userToken, newUserName, newUserRole) {
                 self.token = userToken;
                 self.name = newUserName;
                 self.roles = newUserRole;
-                return this;
             },
             getUserToken: function () {
                 return self.token;

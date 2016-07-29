@@ -40,7 +40,7 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.user}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,CollaboratorDescription> getUserByLoginPassword(@RequestBody CollaboratorDescription myCollaboratorDescription) {
+    public Map<String, CollaboratorDescription> getUserByLoginPassword(@RequestBody CollaboratorDescription myCollaboratorDescription) {
         try {
             InitializeMap();
             Collaborator c = collaboratorDAO.getCollaboratorByLoginPassword(myCollaboratorDescription.getEmail(), myCollaboratorDescription.getPassword());
@@ -48,12 +48,12 @@ public class CollaboratorWS {
             Key key = MacProvider.generateKey();
             String compactJws = Jwts.builder()
                     .setSubject(user.getLastName())
-                    .claim("roles",user.getIsAdmin())
+                    .claim("roles", user.getIsAdmin())
                     .signWith(SignatureAlgorithm.HS512, key)
                     .compact();
             Map currentUserMap = new HashMap<>();
             putUserInCache(compactJws, user);
-            currentUserMap.put("userConnected",compactJws);
+            currentUserMap.put("userConnected", compactJws);
             return currentUserMap;
         } catch (ConversionException e) {
             e.printStackTrace();
@@ -63,23 +63,24 @@ public class CollaboratorWS {
 
     private static ConcurrentHashMap<String, CollaboratorDescription> mapUserCache;
 
-    private void InitializeMap()
-    {
-        if (mapUserCache==null)
-            mapUserCache =  new ConcurrentHashMap<String, CollaboratorDescription>();
+    private void InitializeMap() {
+        if (mapUserCache == null)
+            mapUserCache = new ConcurrentHashMap<String, CollaboratorDescription>();
     }
 
     private void putUserInCache(String token, CollaboratorDescription user) {
         mapUserCache.put(token, user);
     }
 
-    @RequestMapping(value = "${endpoint.userDisconnect}", method = RequestMethod.POST)
+    @RequestMapping(value = "${endpoint.userdisconnect}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean deleteDisconnectedUserFromCache(@RequestBody String token) {
-        try { mapUserCache.remove(token);
-        return true;
-        }
-        catch (Exception e){
+    public Boolean deleteDisconnectedUserFromCache(@RequestBody String token) {
+        try {
+            mapUserCache.remove(token);
+            /*Map mapResponse = new HashMap<>();
+            mapResponse.put("disconnect",true);*/
+            return true;
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }

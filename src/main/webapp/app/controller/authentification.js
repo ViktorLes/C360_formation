@@ -15,17 +15,19 @@ angular.module('controllers')
                         self.user.password = "";
                         self.isErrorAuthentification = false;
                         self.isUserAuthenticated = true;
-                        var data=currentUserService.decodeThisToken(userPersistedToken);
-                        return data;
-                    }).then(function (data) {
-                        return function () {
-                            $timeout(function () {
-                                self.isUserAuthenticated = false;
-                            }, 3000)}
+                        currentUserService.decodeThisToken(userPersistedToken);
                     }).then(function () {
-                        if (currentUserService.getUserRole()) {$location.url('/RegisterTraining')}
-                        else {$location.url('/RequestTraining')}
-                    })
+                    return $timeout(function () {
+                        self.isUserAuthenticated = false;
+                    }, 3000);
+                }).then(function () {
+                    if (currentUserService.getUserRole()) {
+                        $location.url('/RegisterTraining')
+                    }
+                    else {
+                        $location.url('/RequestTraining')
+                    }
+                })
                     .catch(function () {
                         self.user.password = "";
                         self.isErrorAuthentification = true;
@@ -33,11 +35,6 @@ angular.module('controllers')
                     });
             }
         };
-        /*self.setConfirmationMessageTimOut = function () {
-            $timeout(function () {
-                self.isUserAuthenticated = false;
-            }, 3000);
-        };*/
         var validateForm = function (userForm) {
             if (userForm.email.$invalid) {
                 self.isNotEmptyEmailField = false;

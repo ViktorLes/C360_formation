@@ -1,4 +1,4 @@
-angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', 'currentUserService', function (InitBddService, MockConnexionService, $http, currentUserService) {
+angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', 'currentUserService','$location', function (InitBddService, MockConnexionService, $http, currentUserService,$location) {
     var self = this;
     self.isUserConnected = false;
 
@@ -13,6 +13,7 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
 
     self.disconnectUser = function () {
         currentUserService.disconnectCurrentUser();
+        $location.url('/authentification')
     };
 
     self.displayCollaborator = function () {
