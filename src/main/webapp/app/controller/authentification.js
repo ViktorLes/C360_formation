@@ -1,10 +1,9 @@
 angular.module('controllers')
-    .controller('controllerAuthentification', ['$http', '$location', 'hash', 'currentUserService', '$timeout', function ($http, $location, hash, currentUserService, $timeout) {
+    .controller('controllerAuthentification', ['$http', '$location', 'hash', 'currentUserService', function ($http, $location, hash, currentUserService) {
         var self = this;
         self.isNotEmptyEmailField = true;
         self.isNotEmptyPasswordField = true;
         self.isErrorAuthentification = false;
-        self.isUserAuthenticated = false;
 
         self.submitLogin = function (userForm) {
             if (validateForm(userForm)) {
@@ -14,13 +13,8 @@ angular.module('controllers')
                         self.user.email = "";
                         self.user.password = "";
                         self.isErrorAuthentification = false;
-                        self.isUserAuthenticated = true;
                         currentUserService.decodeThisToken(userPersistedToken);
                     }).then(function () {
-                    return $timeout(function () {
-                        self.isUserAuthenticated = false;
-                    }, 3000);
-                }).then(function () {
                     if (currentUserService.getUserRole()) {
                         $location.url('/RegisterTraining')
                     }
@@ -31,7 +25,6 @@ angular.module('controllers')
                     .catch(function () {
                         self.user.password = "";
                         self.isErrorAuthentification = true;
-                        self.isUserAuthenticated = false;
                     });
             }
         };
