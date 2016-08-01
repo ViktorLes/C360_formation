@@ -15,20 +15,21 @@
             <div id="titreAppliquette" class="col-md-10">Gestions des formations</div>
             <div id="titreProjet" class="col-md-2">Collaborateur 360</div>
         </div>
-        <div>
-            <div>
-                <div class="col-md-8"></div>
-                <div class="col-md-2"><span ng-bind="ctrl.displayCollaborator()"></span></div>
-                <div id="disconnect" class="col-md-2 myDisconnectClass" ng-click="ctrl.disconnectUser()">Deconnexion
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <div class="col-md-8 col-md-push-4">
+                    <span class="glyphicon glyphicon-user" ng-bind="ctrl.displayCollaborator()"></span>
+                </div>
+                <div id="disconnect" class="col-md-4 myDisconnectClass" ng-click="ctrl.disconnectUser()">Deconnexion
                 </div>
             </div>
         </div>
-
-
     </header>
-    <button ng-click="ctrl.initBase()">alimenter la base / refresh liste collaborateurs</button>
+    <div>
+        <button class="myMargin" ng-click="ctrl.initBase()">alimenter la base / refresh liste collaborateurs</button>
+    </div>
 </div>
-
 
 <nav>
     <a href="#/authentification">Connexion</a>
