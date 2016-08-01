@@ -1,5 +1,6 @@
 package com.viseo.c360.formation.services;
 
+import java.security.Key;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,12 @@ import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.crypto.MacProvider;
+
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.springframework.core.convert.ConversionException;
 import org.springframework.web.bind.annotation.*;
 import com.viseo.c360.formation.dao.CollaboratorDAO;
@@ -31,13 +38,60 @@ public class CollaboratorWS {
     TrainingDAO trainingDAO;
 
 
+    @RequestMapping(value = "${endpoint.user}", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, CollaboratorDescription> getUserByLoginPassword(@RequestBody CollaboratorDescription myCollaboratorDescription) {
+        try {
+            InitializeMap();
+            Collaborator c = collaboratorDAO.getCollaboratorByLoginPassword(myCollaboratorDescription.getEmail(), myCollaboratorDescription.getPassword());
+            CollaboratorDescription user = new CollaboratorToDescription().convert(c);
+            Key key = MacProvider.generateKey();
+            String compactJws = Jwts.builder()
+                    .setSubject(user.getFirstName())
+                    .claim("lastName", user.getLastName())
+                    .claim("roles", user.getIsAdmin())
+                    .signWith(SignatureAlgorithm.HS512, key)
+                    .compact();
+            Map currentUserMap = new HashMap<>();
+            putUserInCache(compactJws, user);
+            currentUserMap.put("userConnected", compactJws);
+            return currentUserMap;
+        } catch (ConversionException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ConcurrentHashMap<String, CollaboratorDescription> mapUserCache;
+
+    private void InitializeMap() {
+        if (mapUserCache == null)
+            mapUserCache = new ConcurrentHashMap<String, CollaboratorDescription>();
+    }
+
+    private void putUserInCache(String token, CollaboratorDescription user) {
+        mapUserCache.put(token, user);
+    }
+
+    @RequestMapping(value = "${endpoint.userdisconnect}", method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean deleteDisconnectedUserFromCache(@RequestBody String token) {
+        try {
+            mapUserCache.remove(token);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,String> addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
+    public Map<String, String> addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
         try {
             String response = collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
             Map map = new HashMap<>();
-            map.put("response",response);
+            map.put("response", response);
             return map;
         } catch (ConversionException e) {
             e.printStackTrace();
@@ -89,7 +143,7 @@ public class CollaboratorWS {
         try {
             Topic topic = trainingDAO.getTopic(myRequestTrainingDescription.getTrainingDescription().getTopicDescription().getId());
             Collaborator myCollaborator = collaboratorDAO.getCollaborator(myRequestTrainingDescription.getCollaboratorIdentity().getId());
-            RequestTraining myRequestTraining = new DescriptionToRequestTraining().convert(myRequestTrainingDescription, myCollaborator,topic);
+            RequestTraining myRequestTraining = new DescriptionToRequestTraining().convert(myRequestTrainingDescription, myCollaborator, topic);
             collaboratorDAO.addRequestTraining(myRequestTraining);
             return true;
         } catch (ConversionException e) {

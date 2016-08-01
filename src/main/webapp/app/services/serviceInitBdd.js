@@ -1,4 +1,4 @@
-angular.module('controllers').factory('InitBddService', ['$http', function ($http) {
+angular.module('controllers').factory('InitBddService', ['$http','hash', function ($http,hash) {
     var topic1 = {name: "Développement Web"};
     var topic2 = {name: "Développement Mobile"};
     var training = {
@@ -27,15 +27,28 @@ angular.module('controllers').factory('InitBddService', ['$http', function ($htt
         lastName: "Lecomte",
         firstName: "Thomas",
         email:"Thomas.lecomte@yahoo.fr",
-        password:"thomas"
+        password:"thomas",
+        isAdmin: false
     };
     var collaborator2 = {
         personnalIdNumber: "NKA7896",
         lastName: "Kalmouni",
         firstName: "Nada",
         email:"Nada.kalmouni@yahoo.fr",
-        password:"nada"
+        password:"nada",
+        isAdmin: false
     };
+    var collaborator3 = {
+        personnalIdNumber: "JHA0000",
+        lastName: "Elkhadir",
+        firstName: "Jihad",
+        email:"elkhadir.jihad@gmail.com",
+        password:"jihad",
+        isAdmin: true
+    };
+    collaborator1.password=hash(collaborator1.password);
+    collaborator2.password=hash(collaborator2.password);
+    collaborator3.password=hash(collaborator3.password);
 
     return {
         init: function () {
@@ -58,6 +71,10 @@ angular.module('controllers').factory('InitBddService', ['$http', function ($htt
             }).then(function (data) {
                 collaborator2.id = 5;
                 if (data.data)console.log("ajout collaborator2", collaborator2);
+                return $http.post("api/collaborateurs", collaborator3);
+            }).then(function (data) {
+                collaborator3.id = 6;
+                if (data.data)console.log("ajout collaborator3", collaborator3);
                 return $http.post("api/sessions", session1);
             }).then(function (data) {
                 if (data.data)console.log("ajout session1", session1);

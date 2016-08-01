@@ -7,5 +7,4 @@ angular.module('App')
             .when('/Authentication', {
             templateUrl: 'templates/authentication.html'
         });
-        }
-    ]);
+    }]);

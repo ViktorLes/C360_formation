@@ -123,3 +123,20 @@ ul li:first-child {
 .myBoxText{
     color: white;
 }
+.myDisconnectClass {
+    text-decoration: underline;
+    color: white;
+    cursor: hand;
+}
+
+.myDisconnectClass:hover{
+    text-decoration: underline;
+    color: cornsilk;
+}
+.myMargin{
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+

@@ -135,5 +135,4 @@ angular.module('controllers')
                 controllerAs: 'EC'
             })
     }
-    ])
-;
+    ]);

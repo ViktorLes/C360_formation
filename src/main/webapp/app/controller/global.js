@@ -1,24 +1,31 @@
-angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', function(InitBddService, MockConnexionService, $http){
+angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', 'currentUserService', '$location', function (InitBddService, MockConnexionService, $http, currentUserService, $location) {
     var self = this;
-    
-    self.initBase = function() {
+    self.isUserConnected = false;
+
+    self.initBase = function () {
         InitBddService.init();
-        $http.get("api/collaborateurs").then(function(response){
+        $http.get("api/collaborateurs").then(function (response) {
             self.collaborators = response.data;
             self.collaboratorSelected = self.collaborators[0];
             self.collaboratorConnected = self.collaborators[0];
         });
     };
-    
-    self.displayCollaborator = function(collaborator) {
-        if(collaborator) {
-            return collaborator.firstName+' '+collaborator.lastName;
+
+    self.disconnectUser = function () {
+        currentUserService.disconnectCurrentUser();
+        $location.url('/authentification')
+    };
+
+    self.displayCollaborator = function () {
+        if (currentUserService.getUserLastName() != undefined) {
+            self.isUserConnected = true;
+            return currentUserService.getUserFirstName() + ' ' + currentUserService.getUserLastName().toUpperCase();
         }
     };
-    
-    self.selectCollaborator = function(myCollaborator){
+
+    self.selectCollaborator = function (myCollaborator) {
         MockConnexionService.select(myCollaborator);
         self.collaboratorConnected = MockConnexionService.getCollaboratorDescription();
     };
-    
+
 }]);

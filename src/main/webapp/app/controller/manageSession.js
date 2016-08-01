@@ -20,6 +20,7 @@ angular.module('controllers')
         self.redirectToSession=function (session) {
             SelectSessionService.select(session);
             $location.url("/ChangeRegisterTrainingSession");  
+
         };
     }])
 

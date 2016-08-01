@@ -16,6 +16,7 @@ public class CollaboratorDescription extends BaseDTO{
     String firstName;
     String email;
     String password;
+    Boolean isAdmin;
 
     public CollaboratorDescription() {
     }
@@ -56,5 +57,13 @@ public class CollaboratorDescription extends BaseDTO{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean admin) {
+        this.isAdmin = admin;
     }
 }
