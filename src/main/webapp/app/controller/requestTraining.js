@@ -1,5 +1,5 @@
 angular.module('controllers')
-    .controller('controllerRequestTraining', ['MockConnexionService', '$http', '$location', function (MockConnexionService, $http, $location) {
+    .controller('controllerRequestTraining', ['currentUserService', '$http', '$location', function (currentUserService, $http, $location) {
         var self = this;
         //Charge la liste de formations affiché dans le select box des formations
         $http.get("api/formations").then(function(data){
@@ -59,7 +59,7 @@ angular.module('controllers')
 
             var myRequest = {
                 trainingDescription: self.requestedTraining,
-                collaboratorIdentity: MockConnexionService.getCollaboratorIdentity(),
+                collaboratorIdentity: currentUserService.getCollaboratorIdentity(),
                 trainingSessionsDescriptions: getSessionsSelected(self.listTrainingSession)
             };
             $http.post("api/requests", myRequest).success(function (data) {

@@ -50,6 +50,7 @@ public class CollaboratorWS {
                     .setSubject(user.getFirstName())
                     .claim("lastName", user.getLastName())
                     .claim("roles", user.getIsAdmin())
+                    .claim("id",user.getId())
                     .signWith(SignatureAlgorithm.HS512, key)
                     .compact();
             Map currentUserMap = new HashMap<>();
