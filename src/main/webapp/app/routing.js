@@ -4,7 +4,5 @@ angular.module('App')
             .when('/pageblanche',{
                 templateUrl: 'pageblanche.html'
             })
-            .when('/Authentication', {
-            templateUrl: 'templates/authentication.html'
-        });
+            .otherwise({redirectTo:'/'});
     }]);

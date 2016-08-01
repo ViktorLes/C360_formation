@@ -1,6 +1,5 @@
 angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', 'currentUserService', '$location', function (InitBddService, MockConnexionService, $http, currentUserService, $location) {
     var self = this;
-    self.isUserConnected = false;
 
     self.initBase = function () {
         InitBddService.init();
@@ -13,12 +12,11 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
 
     self.disconnectUser = function () {
         currentUserService.disconnectCurrentUser();
-        $location.url('/authentification')
+        $location.url('/');
     };
 
     self.displayCollaborator = function () {
         if (currentUserService.getUserLastName() != undefined) {
-            self.isUserConnected = true;
             return currentUserService.getUserFirstName() + ' ' + currentUserService.getUserLastName().toUpperCase();
         }
     };
@@ -27,5 +25,9 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
         MockConnexionService.select(myCollaborator);
         self.collaboratorConnected = MockConnexionService.getCollaboratorDescription();
     };
+    
+    self.isUserConnected = function () {
+        return currentUserService.isUserConnected();
+    }
 
 }]);

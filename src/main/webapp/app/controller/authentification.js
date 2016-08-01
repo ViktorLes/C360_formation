@@ -45,7 +45,7 @@ angular.module('controllers')
     }])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
-            .when('/authentification', {
+            .when('/', {
                 templateUrl: 'templates/authentication.html',
                 controller: 'controllerAuthentification',
                 controllerAs: 'CX'

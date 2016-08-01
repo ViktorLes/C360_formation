@@ -35,6 +35,11 @@ angular.module('authentication', ['angular-jwt'])
             },
             getCollaboratorIdentity: function () {
                 return {id: self.userId};
+            },
+            isUserConnected: function () {
+                if (self.token)
+                    return true;
+                else return false;
             }
         };
     }]);
