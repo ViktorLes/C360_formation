@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import com.viseo.c360.formation.converters.collaborator.CollaboratorToDescription;
 import com.viseo.c360.formation.converters.collaborator.DescriptionToCollaborator;
 import com.viseo.c360.formation.converters.requestTraining.DescriptionToRequestTraining;
+import com.viseo.c360.formation.dao.CollaboratorPersisted;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.collaborator.RequestTraining;
@@ -17,6 +18,7 @@ import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
+import com.viseo.c360.formation.exceptions.C360Exception;
 import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -90,13 +92,19 @@ public class CollaboratorWS {
     @ResponseBody
     public Map<String, String> addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
         try {
-            String response = collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
+            CollaboratorPersisted response = collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
             Map map = new HashMap<>();
-            map.put("response", response);
+            map.put("response", response.getLabel());
             return map;
         } catch (ConversionException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
+        }catch(C360Exception e){
+            Map map = new HashMap<>();
+            if(e.getCollaboratorPersisted() != null){
+                map.put("response", e.getCollaboratorPersisted().getLabel());
+            }
+            return map;
         }
     }
 
