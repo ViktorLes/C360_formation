@@ -25,6 +25,7 @@ import io.jsonwebtoken.impl.crypto.MacProvider;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.core.convert.ConversionException;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 import com.viseo.c360.formation.dao.CollaboratorDAO;
 
@@ -36,6 +37,8 @@ public class CollaboratorWS {
     CollaboratorDAO collaboratorDAO;
     @Inject
     TrainingDAO trainingDAO;
+    //@Inject
+    //AuthenticationManager authenticationManager;
 
 
     @RequestMapping(value = "${endpoint.user}", method = RequestMethod.POST)
