@@ -38,6 +38,7 @@ public class TestCollaboratorDAO {
         prepareDto();
         collaboratorWS = new CollaboratorWS();
         collaboratorDAO = new CollaboratorDAO();
+        /**USE public collaboratorDAO !!!**/
         collaboratorWS.collaboratorDAO = collaboratorDAO;
         fakeDaoFacade = new FakeDAOFacade();
         fakeDaoFacade.declareEntityClasses(Collaborator.class);
@@ -50,6 +51,7 @@ public class TestCollaboratorDAO {
             Collaborator collaborator = (Collaborator) entity;
             return collaborator.getPersonnalIdNumber().equals(paramRegistry.get("personnalIdNumber"));
         });
+        /**USE public daoFacade !!!**/
         collaboratorDAO.daoFacade = fakeDaoFacade;
     }
 
