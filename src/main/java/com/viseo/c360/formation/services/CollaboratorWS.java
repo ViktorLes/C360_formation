@@ -96,32 +96,25 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
+    public WebServiceResponse addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
         try {
-            CollaboratorPersisted response = collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
+            Collaborator response = collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
             Map map = new HashMap<>();
-            map.put("response", response.getLabel());
-            return map;
+            //map.put("response", response.getLabel());
+            return new WebServiceResponse();
         } catch (ConversionException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
-        }catch(PersistenceException pe){
-        if(pe.getCause() instanceof ConstraintViolationException){
-            String field = exceptionUtil.getUniqueField((ConstraintViolationException)pe.getCause());
-            for(CollaboratorPersisted collaboratorPersisted : CollaboratorPersisted.values()) {
-                if(collaboratorPersisted.matches(field)) {
-                    throw new C360Exception(collaboratorPersisted);
+        } catch (PersistenceException pe) {
+            if (pe.getCause() instanceof ConstraintViolationException) {
+                String field = exceptionUtil.getUniqueField((ConstraintViolationException) pe.getCause());
+                for (CollaboratorPersisted collaboratorPersisted : CollaboratorPersisted.values()) {
+                    if (collaboratorPersisted.matches(field)) {
+                        throw new C360Exception(collaboratorPersisted);
+                    }
                 }
             }
-        }
-        throw new C360Exception("PersistenceException from CollaboratorDAO.addCollaborator");
-    }
-        catch(C360Exception e){
-            Map map = new HashMap<>();
-            if(e.getCollaboratorPersisted() != null){
-                map.put("response", e.getCollaboratorPersisted().getLabel());
-            }
-            return map;
+            throw new C360Exception("PersistenceException from CollaboratorDAO.addCollaborator");
         }
     }
 

@@ -22,10 +22,10 @@ public class CollaboratorDAO {
 
     //collaborateur
     @Transactional
-    public CollaboratorPersisted addCollaborator(Collaborator collaborator) throws PersistenceException {
+    public Collaborator addCollaborator(Collaborator collaborator) throws PersistenceException {
             em.persist(collaborator);
             em.flush();
-            return CollaboratorPersisted.NOT_PERSISTED;
+            return collaborator;
     }
 
     public Collaborator getCollaboratorByLoginPassword(String personnalEmail,String personnalPassword){
@@ -36,24 +36,6 @@ public class CollaboratorDAO {
                     .setParameter("personnalEmail",personnalEmail).setParameter("personnalPassword",personnalPassword)
                     .getSingleResult();
         return registredUser;
-    }
-
-    public boolean isPersonnalIdNumberPersisted(String personnalIdNumber) {
-        em.setFlushMode(FlushModeType.COMMIT);
-        Collection<Collaborator> listCollaborator =
-                (Collection<Collaborator>) em.createQuery(
-                        "select c from Collaborator c where c.personnalIdNumber = :personnalIdNumber" , Collaborator.class)
-                        .setParameter("personnalIdNumber",personnalIdNumber).getResultList();
-        return !listCollaborator.isEmpty();
-    }
-
-    public boolean isEmailPersisted(String email) {
-        em.setFlushMode(FlushModeType.COMMIT);
-        Collection<Collaborator> listCollaborator =
-                (Collection<Collaborator>) em.createQuery(
-                        "select c from Collaborator c where c.email = :email" , Collaborator.class)
-                        .setParameter("email",email).getResultList();
-        return !listCollaborator.isEmpty();
     }
 
     public List<Collaborator> getAllCollaborators() {
@@ -68,17 +50,23 @@ public class CollaboratorDAO {
 
     //request training
     @Transactional
-    public void addRequestTraining(RequestTraining requestTraining) {
+    public RequestTraining addRequestTraining(RequestTraining requestTraining) throws PersistenceException {
         em.persist(requestTraining);
+        em.flush();
+        return requestTraining;
     }
 
     @Transactional
-    public void affectCollaboratorsTrainingSession(TrainingSession myTrainingSession, List<Collaborator> collaborators) {
+    public TrainingSession affectCollaboratorsTrainingSession(TrainingSession myTrainingSession, List<Collaborator> collaborators)
+            throws PersistenceException
+    {
         myTrainingSession = em.merge(myTrainingSession);
         myTrainingSession.removeCollaborators();
         for (Collaborator myCollaborator : collaborators) {
             myTrainingSession.addCollaborator(myCollaborator);
         }
+        em.flush();
+        return myTrainingSession;
     }
 
     public List<Collaborator> getNotAffectedCollaborators(TrainingSession myTrainingSession) {
