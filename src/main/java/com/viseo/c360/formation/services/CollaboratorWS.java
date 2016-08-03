@@ -11,7 +11,7 @@ import javax.persistence.PersistenceException;
 import com.viseo.c360.formation.converters.collaborator.CollaboratorToDescription;
 import com.viseo.c360.formation.converters.collaborator.DescriptionToCollaborator;
 import com.viseo.c360.formation.converters.requestTraining.DescriptionToRequestTraining;
-import com.viseo.c360.formation.dao.CollaboratorPersisted;
+import com.viseo.c360.formation.dao.UniqueFieldErrors;
 import com.viseo.c360.formation.dao.ExceptionUtil;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
@@ -22,13 +22,15 @@ import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
 import com.viseo.c360.formation.exceptions.C360Exception;
 import com.viseo.c360.formation.exceptions.dao.PersistentObjectNotFoundException;
+import com.viseo.c360.formation.services.wsresponse.WSErrorResponse;
+import com.viseo.c360.formation.services.wsresponse.WSResponse;
+import com.viseo.c360.formation.services.wsresponse.WSSuccessResponse;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.convert.ConversionException;
 import org.springframework.web.bind.annotation.*;
 import com.viseo.c360.formation.dao.CollaboratorDAO;
@@ -96,25 +98,17 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
     @ResponseBody
-    public WebServiceResponse addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
+    public WSResponse addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
         try {
-            Collaborator response = collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
-            Map map = new HashMap<>();
-            //map.put("response", response.getLabel());
-            return new WebServiceResponse();
-        } catch (ConversionException e) {
-            e.printStackTrace();
-            throw new C360Exception(e);
+            collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
+            return new WSSuccessResponse(myCollaboratorDescription);
         } catch (PersistenceException pe) {
-            if (pe.getCause() instanceof ConstraintViolationException) {
-                String field = exceptionUtil.getUniqueField((ConstraintViolationException) pe.getCause());
-                for (CollaboratorPersisted collaboratorPersisted : CollaboratorPersisted.values()) {
-                    if (collaboratorPersisted.matches(field)) {
-                        throw new C360Exception(collaboratorPersisted);
-                    }
-                }
+            try {
+                UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
+                return new WSErrorResponse(uniqueFieldErrors.getMessage());
+            }catch (PersistenceException e) {
+                throw new C360Exception(e);
             }
-            throw new C360Exception("PersistenceException from CollaboratorDAO.addCollaborator");
         }
     }
 

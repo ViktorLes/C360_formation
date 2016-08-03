@@ -1,10 +1,10 @@
 package com.viseo.c360.formation.exceptions;
 
-import com.viseo.c360.formation.dao.CollaboratorPersisted;
+import com.viseo.c360.formation.dao.UniqueFieldErrors;
 
 public class C360Exception extends RuntimeException{
 
-    CollaboratorPersisted collaboratorPersisted;
+    UniqueFieldErrors uniqueFieldErrors;
 
     public C360Exception() {
     }
@@ -25,11 +25,11 @@ public class C360Exception extends RuntimeException{
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
-    public C360Exception(CollaboratorPersisted collaboratorPersisted) {
-        this.collaboratorPersisted = collaboratorPersisted;
+    public C360Exception(UniqueFieldErrors uniqueFieldErrors) {
+        this.uniqueFieldErrors = uniqueFieldErrors;
     }
 
-    public CollaboratorPersisted getCollaboratorPersisted() {
-        return collaboratorPersisted;
+    public UniqueFieldErrors getUniqueFieldErrors() {
+        return uniqueFieldErrors;
     }
 }

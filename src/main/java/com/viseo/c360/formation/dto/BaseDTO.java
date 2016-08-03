@@ -1,7 +1,7 @@
 package com.viseo.c360.formation.dto;
 
 
-public class BaseDTO {
+public abstract class BaseDTO {
 
     long id;
 
