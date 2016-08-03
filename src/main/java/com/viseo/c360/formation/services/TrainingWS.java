@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import com.viseo.c360.formation.converters.collaborator.CollaboratorToDescription;
 import com.viseo.c360.formation.converters.topic.DescriptionToTopic;
 import com.viseo.c360.formation.converters.topic.TopicToDescription;
 import com.viseo.c360.formation.converters.training.DescriptionToTraining;
@@ -16,6 +15,10 @@ import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 
 import com.viseo.c360.formation.dto.training.TopicDescription;
+import com.viseo.c360.formation.exceptions.C360Exception;
+import com.viseo.c360.formation.exceptions.dao.trainingsession.IncorrectDatesSession;
+import com.viseo.c360.formation.exceptions.dao.trainingsession.SessionAlreadyPlannedException;
+import com.viseo.c360.formation.exceptions.dao.trainingsession.TrainingSessionException;
 import org.springframework.core.convert.ConversionException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.viseo.c360.formation.dto.training.TrainingDescription;
 import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
-import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
+import com.viseo.c360.formation.exceptions.dao.PersistentObjectNotFoundException;
 
 
 import com.viseo.c360.formation.dao.TrainingDAO;
@@ -53,7 +56,7 @@ public class TrainingWS {
             return training.getId();
         } catch (ConversionException | PersistentObjectNotFoundException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new C360Exception(e);
         }
     }
 
@@ -68,13 +71,8 @@ public class TrainingWS {
      ***/
     @RequestMapping(value = "${endpoint.topics}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addTopic(@RequestBody TopicDescription myTopicDescription) {
-        try {
+    public Topic addTopic(@RequestBody TopicDescription myTopicDescription) {
             return (trainingDAO.addTopic(new DescriptionToTopic().convert(myTopicDescription)));
-        } catch (ConversionException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
     }
 
     @RequestMapping(value = "${endpoint.topics}", method = RequestMethod.GET)
@@ -84,7 +82,7 @@ public class TrainingWS {
             return new TopicToDescription().convert(trainingDAO.getAllTopics());
         } catch (ConversionException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new C360Exception(e);
         }
     }
 
@@ -99,14 +97,16 @@ public class TrainingWS {
             if (training == null)
                 throw new PersistentObjectNotFoundException(myTrainingSessionDescription.getTrainingDescription().getId(), Training.class);
             TrainingSession myTrainingSession = new DescriptionToTrainingSession().convert(myTrainingSessionDescription, training);
-            if (!trainingDAO.isThereOneSessionTrainingAlreadyPlanned(myTrainingSession)
-                    && myTrainingSession.getBeginning().before(myTrainingSession.getEnding())
-                    ) {
-                trainingDAO.addSessionTraining(myTrainingSession);
-                return true;
-            }
+            trainingDAO.addSessionTraining(myTrainingSession);
+            return true;
         } catch (PersistentObjectNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new C360Exception(e);
+        } catch (TrainingSessionException e) {
+            if(e instanceof SessionAlreadyPlannedException){
+
+            }else if(e instanceof IncorrectDatesSession){
+
+            }
         }
         return false;
     }
@@ -114,27 +114,24 @@ public class TrainingWS {
     //Update Training Session
     @RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.PUT)
     @ResponseBody
-    public boolean updateTrainingSession(@RequestBody TrainingSessionDescription trainingSessionDescription) {
+    public TrainingSessionDescription updateTrainingSession(@RequestBody TrainingSessionDescription trainingSessionDescription) {
         try {
             TrainingSession trainingSession = trainingDAO.getSessionTraining(trainingSessionDescription.getId());
             TrainingSession newTrainingSession = new DescriptionToTrainingSession().convert(trainingSessionDescription, trainingSession.getTraining());
             if (trainingSession == null)
                 throw new PersistentObjectNotFoundException(trainingSession.getId(), TrainingSession.class);
-            if (!trainingDAO.isThereOneSessionTrainingAlreadyPlanned(newTrainingSession)
-                    && newTrainingSession.getBeginning().before(newTrainingSession.getEnding())
-                    )
-            {
-                trainingDAO.updateTrainingSession(
-                        trainingSession,
-                        newTrainingSession
-                );
-                return true;
-            }
-            return false;
-        } catch (PersistentObjectNotFoundException | ConversionException e) {
+            return new TrainingSessionToDescription().convert(trainingDAO.updateTrainingSession(trainingSession, newTrainingSession));
+        } catch (PersistentObjectNotFoundException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new C360Exception(e);
+        } catch (TrainingSessionException e) {
+            if(e instanceof SessionAlreadyPlannedException){
+                return null;
+            }else if(e instanceof IncorrectDatesSession){
+                return null;
+            }
         }
+        return trainingSessionDescription;
     }
 
     @RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.GET)

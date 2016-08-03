@@ -1,4 +1,4 @@
-package com.viseo.c360.formation.exceptions;
+package com.viseo.c360.formation.exceptions.dao;
 
 public class PersistentObjectNotFoundException extends Exception{
     public PersistentObjectNotFoundException(){}

@@ -21,7 +21,7 @@ import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
 import com.viseo.c360.formation.exceptions.C360Exception;
-import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
+import com.viseo.c360.formation.exceptions.dao.PersistentObjectNotFoundException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
@@ -67,7 +67,7 @@ public class CollaboratorWS {
             return currentUserMap;
         } catch (ConversionException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new C360Exception(e);
         }
     }
 
@@ -90,7 +90,7 @@ public class CollaboratorWS {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new C360Exception(e);
         }
     }
 
@@ -104,7 +104,7 @@ public class CollaboratorWS {
             return new WebServiceResponse();
         } catch (ConversionException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new C360Exception(e);
         } catch (PersistenceException pe) {
             if (pe.getCause() instanceof ConstraintViolationException) {
                 String field = exceptionUtil.getUniqueField((ConstraintViolationException) pe.getCause());
@@ -125,7 +125,7 @@ public class CollaboratorWS {
             return new CollaboratorToDescription().convert(collaboratorDAO.getAllCollaborators());
         } catch (ConversionException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new C360Exception(e);
         }
     }
 
@@ -138,7 +138,7 @@ public class CollaboratorWS {
             return new CollaboratorToDescription().convert(collaboratorDAO.getNotAffectedCollaborators(trainingSession));
         } catch (PersistentObjectNotFoundException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new C360Exception(e);
         }
     }
 
@@ -151,7 +151,7 @@ public class CollaboratorWS {
             return new CollaboratorToDescription().convert(trainingSession.getCollaborators());
         } catch (PersistentObjectNotFoundException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new C360Exception(e);
         }
     }
 
@@ -167,7 +167,7 @@ public class CollaboratorWS {
             return true;
         } catch (ConversionException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new C360Exception(e);
         }
     }
 
@@ -181,14 +181,20 @@ public class CollaboratorWS {
             return true;
         } catch (PersistentObjectNotFoundException | ConversionException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new C360Exception(e);
         }
     }
 
     @RequestMapping(value = "${endpoint.collaboratorsRequestingListByTrainingSession}", method = RequestMethod.GET)
     @ResponseBody
     public List<CollaboratorDescription> getCollaboratorsRequestingListByTrainingSession(@PathVariable Long id) {
-        TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
-        return new CollaboratorToDescription().convert(collaboratorDAO.getCollaboratorsRequestingBySession(trainingSession));
+        TrainingSession trainingSession = null;
+        try {
+            trainingSession = trainingDAO.getSessionTraining(id);
+            return new CollaboratorToDescription().convert(collaboratorDAO.getCollaboratorsRequestingBySession(trainingSession));
+        } catch (PersistentObjectNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
