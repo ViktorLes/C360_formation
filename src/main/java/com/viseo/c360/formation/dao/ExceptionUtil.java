@@ -10,7 +10,4 @@ public class ExceptionUtil {
         String message = pe.getMessage().substring(pe.getMessage().indexOf("La clé ") + 10);
         return message.substring(0,message.indexOf(")"));
     }
-
-
-
 }

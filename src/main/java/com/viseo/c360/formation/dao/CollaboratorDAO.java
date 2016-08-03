@@ -1,19 +1,13 @@
 package com.viseo.c360.formation.dao;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.exceptions.C360Exception;
-import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,27 +20,12 @@ public class CollaboratorDAO {
     @PersistenceContext
     EntityManager em;
 
-    @Inject
-    ExceptionUtil exceptionUtil;
-
     //collaborateur
     @Transactional
-    public CollaboratorPersisted addCollaborator(Collaborator collaborator) {
-        try{
+    public CollaboratorPersisted addCollaborator(Collaborator collaborator) throws PersistenceException {
             em.persist(collaborator);
             em.flush();
             return CollaboratorPersisted.NOT_PERSISTED;
-        }catch(PersistenceException pe){
-           if(pe.getCause() instanceof ConstraintViolationException){
-               String field = exceptionUtil.getUniqueField((ConstraintViolationException)pe.getCause());
-               for(CollaboratorPersisted collaboratorPersisted : CollaboratorPersisted.values()) {
-                   if(collaboratorPersisted.matches(field)) {
-                       throw new C360Exception(collaboratorPersisted);
-                   }
-               }
-           }
-           throw new C360Exception("PersistenceException from CollaboratorDAO.addCollaborator");
-        }
     }
 
     public Collaborator getCollaboratorByLoginPassword(String personnalEmail,String personnalPassword){

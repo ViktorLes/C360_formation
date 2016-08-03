@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 
 import com.viseo.c360.formation.converters.collaborator.CollaboratorToDescription;
 import com.viseo.c360.formation.converters.collaborator.DescriptionToCollaborator;
 import com.viseo.c360.formation.converters.requestTraining.DescriptionToRequestTraining;
 import com.viseo.c360.formation.dao.CollaboratorPersisted;
+import com.viseo.c360.formation.dao.ExceptionUtil;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.collaborator.RequestTraining;
@@ -26,6 +28,7 @@ import io.jsonwebtoken.impl.crypto.MacProvider;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.convert.ConversionException;
 import org.springframework.web.bind.annotation.*;
 import com.viseo.c360.formation.dao.CollaboratorDAO;
@@ -38,6 +41,9 @@ public class CollaboratorWS {
     CollaboratorDAO collaboratorDAO;
     @Inject
     TrainingDAO trainingDAO;
+
+    @Inject
+    ExceptionUtil exceptionUtil;
 
 
     @RequestMapping(value = "${endpoint.user}", method = RequestMethod.POST)
@@ -99,7 +105,18 @@ public class CollaboratorWS {
         } catch (ConversionException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
-        }catch(C360Exception e){
+        }catch(PersistenceException pe){
+        if(pe.getCause() instanceof ConstraintViolationException){
+            String field = exceptionUtil.getUniqueField((ConstraintViolationException)pe.getCause());
+            for(CollaboratorPersisted collaboratorPersisted : CollaboratorPersisted.values()) {
+                if(collaboratorPersisted.matches(field)) {
+                    throw new C360Exception(collaboratorPersisted);
+                }
+            }
+        }
+        throw new C360Exception("PersistenceException from CollaboratorDAO.addCollaborator");
+    }
+        catch(C360Exception e){
             Map map = new HashMap<>();
             if(e.getCollaboratorPersisted() != null){
                 map.put("response", e.getCollaboratorPersisted().getLabel());
