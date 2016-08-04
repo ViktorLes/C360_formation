@@ -23,6 +23,6 @@ public class ExceptionUtil {
                 }
             }
         }
-        throw pe;
+        throw new C360Exception(pe);
     }
 }

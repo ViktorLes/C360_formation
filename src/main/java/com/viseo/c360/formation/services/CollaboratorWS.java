@@ -98,17 +98,14 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
     @ResponseBody
-    public WSResponse addCollaborator(@RequestBody CollaboratorDescription myCollaboratorDescription) {
+    public WSResponse addCollaborator(@RequestBody CollaboratorDescription collaboratorDescription) {
         try {
-            collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(myCollaboratorDescription));
-            return new WSSuccessResponse(myCollaboratorDescription);
+            Collaborator collaborator = collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(collaboratorDescription));
+            collaboratorDescription = new CollaboratorToDescription().convert(collaborator);
+            return new WSSuccessResponse(collaboratorDescription);
         } catch (PersistenceException pe) {
-            try {
-                UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
-                return new WSErrorResponse(uniqueFieldErrors.getMessage());
-            }catch (PersistenceException e) {
-                throw new C360Exception(e);
-            }
+            UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
+            return new WSErrorResponse(uniqueFieldErrors.getMessage());
         }
     }
 
@@ -152,16 +149,16 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.requests}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addRequestTraining(@RequestBody RequestTrainingDescription myRequestTrainingDescription) {
+    public WSResponse addRequestTraining(@RequestBody RequestTrainingDescription requestTrainingDescription) {
         try {
-            Topic topic = trainingDAO.getTopic(myRequestTrainingDescription.getTrainingDescription().getTopicDescription().getId());
-            Collaborator myCollaborator = collaboratorDAO.getCollaborator(myRequestTrainingDescription.getCollaboratorIdentity().getId());
-            RequestTraining myRequestTraining = new DescriptionToRequestTraining().convert(myRequestTrainingDescription, myCollaborator, topic);
-            collaboratorDAO.addRequestTraining(myRequestTraining);
-            return true;
-        } catch (ConversionException e) {
-            e.printStackTrace();
-            throw new C360Exception(e);
+            Topic topic = trainingDAO.getTopic(requestTrainingDescription.getTrainingDescription().getTopicDescription().getId());
+            Collaborator collaborator = collaboratorDAO.getCollaborator(requestTrainingDescription.getCollaboratorIdentity().getId());
+            RequestTraining requestTraining = new DescriptionToRequestTraining().convert(requestTrainingDescription, collaborator, topic);
+            requestTraining = collaboratorDAO.addRequestTraining(requestTraining);
+            return WSSuccessResponse(new );
+        } catch (PersistenceException pe) {
+            UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
+            return new WSErrorResponse(uniqueFieldErrors.getMessage());
         }
     }
 
