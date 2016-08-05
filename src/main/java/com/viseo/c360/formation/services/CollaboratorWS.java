@@ -13,8 +13,9 @@ import com.viseo.c360.formation.converters.collaborator.DescriptionToCollaborato
 import com.viseo.c360.formation.converters.requestTraining.DescriptionToRequestTraining;
 import com.viseo.c360.formation.converters.requestTraining.RequestTrainingToDescription;
 import com.viseo.c360.formation.converters.trainingsession.TrainingSessionToDescription;
-import com.viseo.c360.formation.dao.UniqueFieldErrors;
-import com.viseo.c360.formation.dao.ExceptionUtil;
+import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
+import com.viseo.c360.formation.exceptions.dao.UniqueFieldErrors;
+import com.viseo.c360.formation.exceptions.dao.ExceptionUtil;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.collaborator.RequestTraining;
@@ -23,13 +24,8 @@ import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorIdentity;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
-import com.viseo.c360.formation.dto.training.TrainingDescription;
-import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
 import com.viseo.c360.formation.exceptions.C360Exception;
 import com.viseo.c360.formation.exceptions.dao.PersistentObjectNotFoundException;
-import com.viseo.c360.formation.services.wsresponse.WSErrorResponse;
-import com.viseo.c360.formation.services.wsresponse.WSResponse;
-import com.viseo.c360.formation.services.wsresponse.WSSuccessResponse;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
@@ -103,14 +99,14 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
     @ResponseBody
-    public WSResponse addCollaborator(@RequestBody CollaboratorDescription collaboratorDescription) {
+    public CollaboratorDescription addCollaborator(@RequestBody CollaboratorDescription collaboratorDescription) {
         try {
             Collaborator collaborator = collaboratorDAO.addCollaborator(new DescriptionToCollaborator().convert(collaboratorDescription));
-            collaboratorDescription = new CollaboratorToDescription().convert(collaborator);
-            return new WSSuccessResponse(collaboratorDescription);
+            return new CollaboratorToDescription().convert(collaborator);
         } catch (PersistenceException pe) {
             UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
-            return new WSErrorResponse(uniqueFieldErrors.getMessage());
+            if(uniqueFieldErrors == null) throw new C360Exception(pe);
+            else throw new C360Exception(uniqueFieldErrors.getMessage());
         }
     }
 
@@ -154,27 +150,22 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.requests}", method = RequestMethod.POST)
     @ResponseBody
-    public WSResponse addRequestTraining(@RequestBody RequestTrainingDescription requestTrainingDescription) {
-        try {
-            Topic topic = trainingDAO.getTopic(requestTrainingDescription.getTrainingDescription().getTopicDescription().getId());
-            Collaborator collaborator = collaboratorDAO.getCollaborator(requestTrainingDescription.getCollaboratorIdentity().getId());
-            RequestTraining requestTraining = new DescriptionToRequestTraining().convert(requestTrainingDescription, collaborator, topic);
-            requestTraining = collaboratorDAO.addRequestTraining(requestTraining);
-            return new WSSuccessResponse(new RequestTrainingToDescription().convert(requestTraining));
-        } catch (PersistenceException pe) {
-            UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
-            return new WSErrorResponse(uniqueFieldErrors.getMessage());
-        }
+    public RequestTrainingDescription addRequestTraining(@RequestBody RequestTrainingDescription requestTrainingDescription) {
+        Topic topic = trainingDAO.getTopic(requestTrainingDescription.getTrainingDescription().getTopicDescription().getId());
+        Collaborator collaborator = collaboratorDAO.getCollaborator(requestTrainingDescription.getCollaboratorIdentity().getId());
+        RequestTraining requestTraining = new DescriptionToRequestTraining().convert(requestTrainingDescription, collaborator, topic);
+        requestTraining = collaboratorDAO.addRequestTraining(requestTraining);
+        return new RequestTrainingToDescription().convert(requestTraining);
     }
 
     @RequestMapping(value = "${endpoint.collaboratorsbysession}", method = RequestMethod.PUT)
     @ResponseBody
-    public WSResponse updateCollaboratorsTrainingSession(@PathVariable Long idTrainingSession, @RequestBody List<CollaboratorIdentity> collaboratorIdentities) {
+    public TrainingSessionDescription updateCollaboratorsTrainingSession(@PathVariable Long idTrainingSession, @RequestBody List<CollaboratorIdentity> collaboratorIdentities) {
         try {
             TrainingSession trainingSession = trainingDAO.getSessionTraining(idTrainingSession);
             if (trainingSession == null) throw new PersistentObjectNotFoundException(idTrainingSession, TrainingSession.class);
             trainingSession = collaboratorDAO.affectCollaboratorsTrainingSession(trainingSession, collaboratorIdentities);
-            return new WSSuccessResponse(new TrainingSessionToDescription().convert(trainingSession));
+            return new TrainingSessionToDescription().convert(trainingSession);
         } catch (PersistentObjectNotFoundException | ConversionException e) {
             e.printStackTrace();
             throw new C360Exception(e);
@@ -189,8 +180,7 @@ public class CollaboratorWS {
             trainingSession = trainingDAO.getSessionTraining(id);
             return new CollaboratorToDescription().convert(collaboratorDAO.getCollaboratorsRequestingBySession(trainingSession));
         } catch (PersistentObjectNotFoundException e) {
-            e.printStackTrace();
-            return null;
+            throw new C360Exception(e);
         }
     }
 }

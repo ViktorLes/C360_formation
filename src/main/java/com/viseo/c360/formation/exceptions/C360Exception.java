@@ -1,6 +1,6 @@
 package com.viseo.c360.formation.exceptions;
 
-import com.viseo.c360.formation.dao.UniqueFieldErrors;
+import com.viseo.c360.formation.exceptions.dao.UniqueFieldErrors;
 
 public class C360Exception extends RuntimeException{
 

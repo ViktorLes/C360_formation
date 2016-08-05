@@ -1,4 +1,4 @@
-package com.viseo.c360.formation.dao;
+package com.viseo.c360.formation.exceptions.dao;
 
 import com.viseo.c360.formation.exceptions.C360Exception;
 import org.hibernate.exception.ConstraintViolationException;
@@ -14,7 +14,7 @@ public class ExceptionUtil {
         return message.substring(0,message.indexOf(")"));
     }
 
-    public UniqueFieldErrors getUniqueFieldError(PersistenceException pe) throws PersistenceException {
+    public UniqueFieldErrors getUniqueFieldError(PersistenceException pe) {
         if (pe.getCause() instanceof ConstraintViolationException) {
             String field = this.getUniqueField((ConstraintViolationException) pe.getCause());
             for (UniqueFieldErrors uniqueFieldErrors : UniqueFieldErrors.values()) {
@@ -23,6 +23,6 @@ public class ExceptionUtil {
                 }
             }
         }
-        throw new C360Exception(pe);
+        return null;
     }
 }

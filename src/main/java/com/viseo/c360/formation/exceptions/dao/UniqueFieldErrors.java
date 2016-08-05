@@ -1,4 +1,4 @@
-package com.viseo.c360.formation.dao;
+package com.viseo.c360.formation.exceptions.dao;
 
 public enum UniqueFieldErrors {
     COLLABORATOR_ID_NUMBER_PERSISTED("personnalIdNumber", "IdNumberPersisted"),
