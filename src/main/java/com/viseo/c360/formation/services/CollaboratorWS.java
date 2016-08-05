@@ -12,6 +12,7 @@ import com.viseo.c360.formation.converters.collaborator.CollaboratorToDescriptio
 import com.viseo.c360.formation.converters.collaborator.DescriptionToCollaborator;
 import com.viseo.c360.formation.converters.requestTraining.DescriptionToRequestTraining;
 import com.viseo.c360.formation.converters.requestTraining.RequestTrainingToDescription;
+import com.viseo.c360.formation.converters.trainingsession.TrainingSessionToDescription;
 import com.viseo.c360.formation.dao.UniqueFieldErrors;
 import com.viseo.c360.formation.dao.ExceptionUtil;
 import com.viseo.c360.formation.dao.TrainingDAO;
@@ -20,7 +21,10 @@ import com.viseo.c360.formation.domain.collaborator.RequestTraining;
 import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
+import com.viseo.c360.formation.dto.collaborator.CollaboratorIdentity;
 import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
+import com.viseo.c360.formation.dto.training.TrainingDescription;
+import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
 import com.viseo.c360.formation.exceptions.C360Exception;
 import com.viseo.c360.formation.exceptions.dao.PersistentObjectNotFoundException;
 import com.viseo.c360.formation.services.wsresponse.WSErrorResponse;
@@ -165,12 +169,12 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.collaboratorsbysession}", method = RequestMethod.PUT)
     @ResponseBody
-    public boolean updateCollaboratorsTrainingSession(@PathVariable Long id, @RequestBody List<CollaboratorDescription> collaboratorDescriptions) {
+    public WSResponse updateCollaboratorsTrainingSession(@PathVariable Long idTrainingSession, @RequestBody List<CollaboratorIdentity> collaboratorIdentities) {
         try {
-            TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
-            if (trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
-            collaboratorDAO.affectCollaboratorsTrainingSession(trainingSession, new DescriptionToCollaborator().convert(collaboratorDescriptions));
-            return true;
+            TrainingSession trainingSession = trainingDAO.getSessionTraining(idTrainingSession);
+            if (trainingSession == null) throw new PersistentObjectNotFoundException(idTrainingSession, TrainingSession.class);
+            trainingSession = collaboratorDAO.affectCollaboratorsTrainingSession(trainingSession, collaboratorIdentities);
+            return new WSSuccessResponse(new TrainingSessionToDescription().convert(trainingSession));
         } catch (PersistentObjectNotFoundException | ConversionException e) {
             e.printStackTrace();
             throw new C360Exception(e);

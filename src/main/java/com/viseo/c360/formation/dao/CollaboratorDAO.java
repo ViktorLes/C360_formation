@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.dto.collaborator.CollaboratorIdentity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,17 +57,18 @@ public class CollaboratorDAO {
         return requestTraining;
     }
 
+
     @Transactional
-    public TrainingSession affectCollaboratorsTrainingSession(TrainingSession myTrainingSession, List<Collaborator> collaborators)
+    public TrainingSession affectCollaboratorsTrainingSession(TrainingSession trainingSession, List<CollaboratorIdentity> collaboratorIdentities)
             throws PersistenceException
     {
-        myTrainingSession = em.merge(myTrainingSession);
-        myTrainingSession.removeCollaborators();
-        for (Collaborator myCollaborator : collaborators) {
-            myTrainingSession.addCollaborator(myCollaborator);
+        trainingSession = em.merge(trainingSession);
+        trainingSession.removeCollaborators();
+        for (CollaboratorIdentity collaboratorIdentity : collaboratorIdentities) {
+            trainingSession.addCollaborator(em.find(Collaborator.class, collaboratorIdentity.getId()));
         }
         em.flush();
-        return myTrainingSession;
+        return trainingSession;
     }
 
     public List<Collaborator> getNotAffectedCollaborators(TrainingSession myTrainingSession) {
