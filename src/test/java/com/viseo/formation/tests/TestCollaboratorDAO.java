@@ -1,5 +1,6 @@
 package com.viseo.formation.tests;
 
+import com.viseo.TestUtil;
 import com.viseo.c360.formation.dao.CollaboratorDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.collaborator.RequestTraining;
@@ -39,7 +40,8 @@ public class TestCollaboratorDAO {
         collaboratorWS = new CollaboratorWS();
         collaboratorDAO = new CollaboratorDAO();
         /**USE public collaboratorDAO !!!**/
-        collaboratorWS.collaboratorDAO = collaboratorDAO;
+        TestUtil.inject(collaboratorWS, "collabortorDAO", collaboratorDAO);
+        //collaboratorWS.collaboratorDAO = collaboratorDAO;
         fakeDaoFacade = new FakeDAOFacade();
         fakeDaoFacade.declareEntityClasses(Collaborator.class);
         fakeDaoFacade.declareEntityClasses(RequestTraining.class);
