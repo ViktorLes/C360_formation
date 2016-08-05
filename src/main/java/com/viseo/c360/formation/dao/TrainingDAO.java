@@ -93,6 +93,14 @@ public class TrainingDAO {
         return q.getResultList();
     }
 
+    public List<TrainingSession> getRequestedSessionByTraining(long myTrainingId, long byCollabId) {
+        em.setFlushMode(FlushModeType.COMMIT);
+        Query q = em.createQuery("select s from RequestTraining t join t.sessions s where t.training.id=:myTrainingId and t.collaborator.id=:byCollabId")
+                .setParameter("myTrainingId", myTrainingId)
+                .setParameter("byCollabId",byCollabId);
+        return q.getResultList();
+    }
+
 
     public List<TrainingSession> getAllTrainingSessions() {
         em.setFlushMode(FlushModeType.COMMIT);
@@ -140,4 +148,5 @@ public class TrainingDAO {
         Collection<TrainingSession> list = (Collection<TrainingSession>) q.getResultList();
         return !list.isEmpty();
     }
+
 }

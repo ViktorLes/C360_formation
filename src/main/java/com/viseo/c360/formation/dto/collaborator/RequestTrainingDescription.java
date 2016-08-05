@@ -16,6 +16,8 @@ public class RequestTrainingDescription extends BaseDTO {
 
     CollaboratorIdentity collaboratorIdentity;
 
+    boolean doesNotMatter;
+
     public RequestTrainingDescription() {
         super();
     }
@@ -42,5 +44,13 @@ public class RequestTrainingDescription extends BaseDTO {
 
     public void setCollaboratorIdentity(CollaboratorIdentity collaboratorIdentity) {
         this.collaboratorIdentity = collaboratorIdentity;
+    }
+
+    public boolean isDoesNotMatter() {
+        return doesNotMatter;
+    }
+
+    public void setDoesNotMatter(boolean doesNotMatter) {
+        this.doesNotMatter = doesNotMatter;
     }
 }

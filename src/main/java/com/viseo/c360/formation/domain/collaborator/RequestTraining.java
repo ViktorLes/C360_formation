@@ -27,11 +27,13 @@ public class RequestTraining extends BaseEntity {
     @NotNull
     @Valid
     @ManyToMany
-    List<TrainingSession> listSession;
+    List<TrainingSession> sessions;
+
+    boolean doesNotMatter = false;
 
     public RequestTraining() {
         super();
-        this.listSession = new ArrayList<>();
+        this.sessions = new ArrayList<>();
     }
 
     public Collaborator getCollaborator() {
@@ -50,15 +52,19 @@ public class RequestTraining extends BaseEntity {
         this.training = training;
     }
 
-    public List<TrainingSession> getListSession() {
-        return Collections.unmodifiableList(listSession);
+    public List<TrainingSession> getSessions() {
+        return Collections.unmodifiableList(sessions);
     }
 
-    public void addListSession(TrainingSession trainingSession) {
-        this.listSession.add(trainingSession);
+    public void addSession(TrainingSession trainingSession) {
+        this.sessions.add(trainingSession);
     }
 
-    public void removeListSession(TrainingSession trainingSession) {
-        this.listSession.remove(trainingSession);
+    public void removeSession(TrainingSession trainingSession) {
+        this.sessions.remove(trainingSession);
     }
+
+    public boolean isDoesNotMatter() {return doesNotMatter;}
+
+    public void setDoesNotMatter(boolean doesNotMatter) {this.doesNotMatter = doesNotMatter;}
 }

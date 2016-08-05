@@ -2,7 +2,7 @@ angular.module('controllers')
     .controller('controllerRequestTraining', ['currentUserService', '$http', '$location', function (currentUserService, $http, $location) {
         var self = this;
         //Charge la liste de formations affiché dans le select box des formations
-        $http.get("api/formations").then(function(data){
+        $http.get("api/formations").then(function (data) {
             self.trainings = data.data;
         });
 
@@ -11,18 +11,31 @@ angular.module('controllers')
         self.loadTrainingSessions = function () {
             self.noneSessionSelected = false;
             self.hasToChooseOneTraining = false;
+            self.alreadRequestedSessions = {};
             self.listTrainingSession = [];
             if (Number.isInteger(self.requestedTraining.id)) {
-                $http.get("api/formations/" + self.requestedTraining.id + "/sessions").then(function (data) {
-                    Array.prototype.push.apply(self.listTrainingSession, data.data);
-                    if (self.listTrainingSession.length === 0) {
-                        self.isListEmpty = true;
-                    }
-                    else self.isListEmpty = false;
-                });
+                $http.get("api/formations/" + self.requestedTraining.id + "/alreadyrequestedsession/" + currentUserService.getCollaboratorIdentity().id)
+                    .then(function (data) {
+                        data.data.forEach(function (session) {console.log("alreadySelected");
+                            self.alreadRequestedSessions[session.id] = session; console.log("rq:"+session.id);
+                        });
+                        return $http.get("api/formations/" + self.requestedTraining.id + "/sessions");
+                    },function (err) {console.log("err:" +err);
+
+                    })
+                    .then(function (data) {console.log("all");
+                        Array.prototype.push.apply(self.listTrainingSession, data.data);
+                        if (self.listTrainingSession.length === 0) {
+                            self.isListEmpty = true;
+                        }
+                        else self.isListEmpty = false;
+                    });
             }
         };
 
+        self.isDisabled = function (session) {
+            return self.alreadRequestedSessions [session.id];console.log("disabled:"+session.id);
+        };
         self.verifyForm = function () {
             self.noneSessionSelected = false;
             self.hasToChooseOneTraining = false;
