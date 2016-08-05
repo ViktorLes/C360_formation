@@ -3,6 +3,7 @@ package com.viseo.c360.formation.services;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 
 import com.viseo.c360.formation.converters.topic.DescriptionToTopic;
 import com.viseo.c360.formation.converters.topic.TopicToDescription;
@@ -16,9 +17,8 @@ import com.viseo.c360.formation.domain.training.TrainingSession;
 
 import com.viseo.c360.formation.dto.training.TopicDescription;
 import com.viseo.c360.formation.exceptions.C360Exception;
-import com.viseo.c360.formation.exceptions.dao.trainingsession.IncorrectDatesSession;
-import com.viseo.c360.formation.exceptions.dao.trainingsession.SessionAlreadyPlannedException;
-import com.viseo.c360.formation.exceptions.dao.trainingsession.TrainingSessionException;
+import com.viseo.c360.formation.exceptions.dao.ExceptionUtil;
+import com.viseo.c360.formation.exceptions.dao.UniqueFieldErrors;
 import org.springframework.core.convert.ConversionException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,24 +39,27 @@ public class TrainingWS {
     @Inject
     TrainingDAO trainingDAO;
 
+    @Inject
+    ExceptionUtil exceptionUtil;
+
     /***
      * Training
      ***/
     @RequestMapping(value = "${endpoint.trainings}", method = RequestMethod.POST)
     @ResponseBody
-    public long addTraining(@RequestBody TrainingDescription myTrainingDescription) {
+    public TrainingDescription addTraining(@RequestBody TrainingDescription myTrainingDescription) {
         try {
             long topicId = myTrainingDescription.getTopicDescription().getId();
             Topic topic = trainingDAO.getTopic(topicId);
             if (topic == null) throw new PersistentObjectNotFoundException(topicId, Topic.class);
-            Training training = (trainingDAO.addTraining(new DescriptionToTraining().convert(myTrainingDescription, topic)));
-            if (training == null) {
-                return 0;
-            }
-            return training.getId();
-        } catch (ConversionException | PersistentObjectNotFoundException e) {
-            e.printStackTrace();
+            Training training = trainingDAO.addTraining(new DescriptionToTraining().convert(myTrainingDescription, topic));
+            return new TrainingToDescription().convert(training);
+        } catch (PersistentObjectNotFoundException e) {
             throw new C360Exception(e);
+        }catch (PersistenceException pe) {
+            UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
+            if(uniqueFieldErrors == null) throw new C360Exception(pe);
+            else throw new C360Exception(uniqueFieldErrors.getField());
         }
     }
 
@@ -71,8 +74,15 @@ public class TrainingWS {
      ***/
     @RequestMapping(value = "${endpoint.topics}", method = RequestMethod.POST)
     @ResponseBody
-    public Topic addTopic(@RequestBody TopicDescription myTopicDescription) {
-            return (trainingDAO.addTopic(new DescriptionToTopic().convert(myTopicDescription)));
+    public TopicDescription addTopic(@RequestBody TopicDescription topicDescription) {
+        try {
+            Topic topic = trainingDAO.addTopic(new DescriptionToTopic().convert(topicDescription));
+            return new TopicToDescription().convert(topic);
+        } catch (PersistenceException pe) {
+            UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
+            if (uniqueFieldErrors == null) throw new C360Exception(pe);
+            else throw new C360Exception(uniqueFieldErrors.getField());
+        }
     }
 
     @RequestMapping(value = "${endpoint.topics}", method = RequestMethod.GET)
@@ -91,24 +101,17 @@ public class TrainingWS {
      ***/
     @RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addTrainingSession(@RequestBody TrainingSessionDescription myTrainingSessionDescription) {
+    public TrainingSessionDescription addTrainingSession(@RequestBody TrainingSessionDescription trainingSessionDescription) {
         try {
-            Training training = trainingDAO.getTraining(myTrainingSessionDescription.getTrainingDescription().getId());
+            Training training = trainingDAO.getTraining(trainingSessionDescription.getTrainingDescription().getId());
             if (training == null)
-                throw new PersistentObjectNotFoundException(myTrainingSessionDescription.getTrainingDescription().getId(), Training.class);
-            TrainingSession myTrainingSession = new DescriptionToTrainingSession().convert(myTrainingSessionDescription, training);
-            trainingDAO.addSessionTraining(myTrainingSession);
-            return true;
+                throw new PersistentObjectNotFoundException(trainingSessionDescription.getTrainingDescription().getId(), Training.class);
+            TrainingSession trainingSession = new DescriptionToTrainingSession().convert(trainingSessionDescription, training);
+            trainingSession = trainingDAO.addSessionTraining(trainingSession);
+            return new TrainingSessionToDescription().convert(trainingSession);
         } catch (PersistentObjectNotFoundException e) {
             throw new C360Exception(e);
-        } catch (TrainingSessionException e) {
-            if(e instanceof SessionAlreadyPlannedException){
-
-            }else if(e instanceof IncorrectDatesSession){
-
-            }
         }
-        return false;
     }
 
     //Update Training Session
@@ -122,16 +125,8 @@ public class TrainingWS {
                 throw new PersistentObjectNotFoundException(trainingSession.getId(), TrainingSession.class);
             return new TrainingSessionToDescription().convert(trainingDAO.updateTrainingSession(trainingSession, newTrainingSession));
         } catch (PersistentObjectNotFoundException e) {
-            e.printStackTrace();
             throw new C360Exception(e);
-        } catch (TrainingSessionException e) {
-            if(e instanceof SessionAlreadyPlannedException){
-                return null;
-            }else if(e instanceof IncorrectDatesSession){
-                return null;
-            }
         }
-        return trainingSessionDescription;
     }
 
     @RequestMapping(value = "${endpoint.sessions}", method = RequestMethod.GET)

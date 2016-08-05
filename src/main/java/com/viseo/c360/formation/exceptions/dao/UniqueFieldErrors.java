@@ -11,15 +11,10 @@ public enum UniqueFieldErrors {
 
     UniqueFieldErrors(String field, String label){
         this.field = field;
-        this.message = label;
     }
 
     public String getField() {
         return field;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
     public boolean matches(String field){

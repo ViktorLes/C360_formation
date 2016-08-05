@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.persistence.PersistenceException;
 
 import com.viseo.c360.formation.converters.collaborator.CollaboratorToDescription;
+import com.viseo.c360.formation.converters.collaborator.CollaboratorToIdentity;
 import com.viseo.c360.formation.converters.collaborator.DescriptionToCollaborator;
 import com.viseo.c360.formation.converters.requestTraining.DescriptionToRequestTraining;
 import com.viseo.c360.formation.converters.requestTraining.RequestTrainingToDescription;
@@ -106,15 +107,15 @@ public class CollaboratorWS {
         } catch (PersistenceException pe) {
             UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
             if(uniqueFieldErrors == null) throw new C360Exception(pe);
-            else throw new C360Exception(uniqueFieldErrors.getMessage());
+            else throw new C360Exception(uniqueFieldErrors.getField());
         }
     }
 
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.GET)
     @ResponseBody
-    public List<CollaboratorDescription> getAllCollaborators() {
+    public List<CollaboratorIdentity> getAllCollaborators() {
         try {
-            return new CollaboratorToDescription().convert(collaboratorDAO.getAllCollaborators());
+            return new CollaboratorToIdentity().convert(collaboratorDAO.getAllCollaborators());
         } catch (ConversionException e) {
             e.printStackTrace();
             throw new C360Exception(e);

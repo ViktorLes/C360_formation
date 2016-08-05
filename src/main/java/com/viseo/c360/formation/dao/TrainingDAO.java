@@ -8,13 +8,10 @@ import javax.persistence.*;
 import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.exceptions.C360Exception;
 import com.viseo.c360.formation.exceptions.dao.PersistentObjectNotFoundException;
-import com.viseo.c360.formation.exceptions.dao.trainingsession.IncorrectDatesSession;
-import com.viseo.c360.formation.exceptions.dao.trainingsession.SessionAlreadyPlannedException;
-import com.viseo.c360.formation.exceptions.dao.trainingsession.TrainingSessionException;
-import org.springframework.core.convert.ConversionException;
+import com.viseo.c360.formation.exceptions.dao.TrainingSessionErrors;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
@@ -86,13 +83,13 @@ public class TrainingDAO {
             return trainingSession;
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
-    public TrainingSession addSessionTraining(TrainingSession trainingSession) throws TrainingSessionException {
+    @Transactional
+    public TrainingSession addSessionTraining(TrainingSession trainingSession) {
         if (this.isThereOneSessionTrainingAlreadyPlanned(trainingSession)){
-            throw new SessionAlreadyPlannedException();
+            throw new C360Exception(TrainingSessionErrors.TRAINING_SESSION_ALREADY_PLANNED.getMessage());
         }
-        if(trainingSession.getBeginning().before(trainingSession.getEnding())) {
-            throw new IncorrectDatesSession();
+        if(!trainingSession.getBeginning().before(trainingSession.getEnding())) {
+            throw new C360Exception(TrainingSessionErrors.TRAINING_SESSION_INCORRECT_DATES.getMessage());
         }
         em.persist(trainingSession);
         em.flush();
@@ -100,14 +97,12 @@ public class TrainingDAO {
     }
 
     @Transactional
-    public TrainingSession updateTrainingSession(TrainingSession trainingSession, TrainingSession trainingSessionTemp)
-            throws TrainingSessionException
-    {
+    public TrainingSession updateTrainingSession(TrainingSession trainingSession, TrainingSession trainingSessionTemp){
         if (this.isThereOneSessionTrainingAlreadyPlanned(trainingSessionTemp)){
-            throw new SessionAlreadyPlannedException();
+            throw new C360Exception(TrainingSessionErrors.TRAINING_SESSION_ALREADY_PLANNED.getMessage());
         }
-        if(trainingSessionTemp.getBeginning().before(trainingSessionTemp.getEnding())) {
-            throw new IncorrectDatesSession();
+        if(!trainingSessionTemp.getBeginning().before(trainingSessionTemp.getEnding())) {
+            throw new C360Exception(TrainingSessionErrors.TRAINING_SESSION_INCORRECT_DATES.getMessage());
         }
         trainingSession = em.merge(trainingSession);
         trainingSession.setBeginning(trainingSessionTemp.getBeginning());
