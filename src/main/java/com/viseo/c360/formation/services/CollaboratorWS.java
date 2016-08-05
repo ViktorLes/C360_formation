@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class CollaboratorWS {
 
     @Inject
-    public CollaboratorDAO collaboratorDAO;
+    CollaboratorDAO collaboratorDAO;
     @Inject
     TrainingDAO trainingDAO;
 

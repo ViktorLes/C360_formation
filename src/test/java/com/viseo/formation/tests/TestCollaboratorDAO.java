@@ -39,9 +39,7 @@ public class TestCollaboratorDAO {
         prepareDto();
         collaboratorWS = new CollaboratorWS();
         collaboratorDAO = new CollaboratorDAO();
-        /**USE public collaboratorDAO !!!**/
-        TestUtil.inject(collaboratorWS, "collabortorDAO", collaboratorDAO);
-        //collaboratorWS.collaboratorDAO = collaboratorDAO;
+        TestUtil.inject(collaboratorWS, "collaboratorDAO", collaboratorDAO);
         fakeDaoFacade = new FakeDAOFacade();
         fakeDaoFacade.declareEntityClasses(Collaborator.class);
         fakeDaoFacade.declareEntityClasses(RequestTraining.class);
@@ -53,8 +51,7 @@ public class TestCollaboratorDAO {
             Collaborator collaborator = (Collaborator) entity;
             return collaborator.getPersonnalIdNumber().equals(paramRegistry.get("personnalIdNumber"));
         });
-        /**USE public daoFacade !!!**/
-        collaboratorDAO.daoFacade = fakeDaoFacade;
+        TestUtil.inject(collaboratorDAO, "daoFacade", fakeDaoFacade);
     }
 
     @Test
