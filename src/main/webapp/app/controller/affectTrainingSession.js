@@ -92,6 +92,9 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
             if (response.data) {
                 self.isCollabaratorListUpdated = true;
             }
+        },
+        function (error) {
+            console.error(error);
         });
     };
 
