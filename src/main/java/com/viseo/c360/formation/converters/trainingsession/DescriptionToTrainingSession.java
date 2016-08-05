@@ -20,7 +20,8 @@ public class DescriptionToTrainingSession {
         TrainingSession domain = new TrainingSession();
         SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy|HH:mm");
         try {
-            if (dto.getId() > 0) domain.setId(dto.getId());
+            domain.setId(dto.getId());
+            domain.setVersion(dto.getVersion());
             domain.setTraining(training);
             domain.setBeginning(formatterDate.parse(dto.getBeginning() + "|" + dto.getBeginningTime()));
             domain.setEnding(formatterDate.parse(dto.getEnding() + "|" + dto.getEndingTime()));

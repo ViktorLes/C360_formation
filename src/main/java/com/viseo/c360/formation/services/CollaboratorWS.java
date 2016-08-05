@@ -11,6 +11,7 @@ import javax.persistence.PersistenceException;
 import com.viseo.c360.formation.converters.collaborator.CollaboratorToDescription;
 import com.viseo.c360.formation.converters.collaborator.DescriptionToCollaborator;
 import com.viseo.c360.formation.converters.requestTraining.DescriptionToRequestTraining;
+import com.viseo.c360.formation.converters.requestTraining.RequestTrainingToDescription;
 import com.viseo.c360.formation.dao.UniqueFieldErrors;
 import com.viseo.c360.formation.dao.ExceptionUtil;
 import com.viseo.c360.formation.dao.TrainingDAO;
@@ -155,7 +156,7 @@ public class CollaboratorWS {
             Collaborator collaborator = collaboratorDAO.getCollaborator(requestTrainingDescription.getCollaboratorIdentity().getId());
             RequestTraining requestTraining = new DescriptionToRequestTraining().convert(requestTrainingDescription, collaborator, topic);
             requestTraining = collaboratorDAO.addRequestTraining(requestTraining);
-            return WSSuccessResponse(new );
+            return new WSSuccessResponse(new RequestTrainingToDescription().convert(requestTraining));
         } catch (PersistenceException pe) {
             UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
             return new WSErrorResponse(uniqueFieldErrors.getMessage());

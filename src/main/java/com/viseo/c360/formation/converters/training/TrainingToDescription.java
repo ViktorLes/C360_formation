@@ -22,6 +22,7 @@ public class TrainingToDescription {
     public TrainingDescription convert(Training source) {
         TrainingDescription dto = new TrainingDescription();
         dto.setId(source.getId());
+        dto.setVersion(source.getVersion());
         dto.setNumberHalfDays(source.getNumberHalfDays());
         dto.setTrainingTitle(source.getTrainingTitle());
         dto.setTopicDescription(new TopicToDescription().convert(source.getTopic()));

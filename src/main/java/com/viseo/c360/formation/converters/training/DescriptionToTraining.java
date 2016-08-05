@@ -18,8 +18,8 @@ public class DescriptionToTraining {
 
     public Training convert(TrainingDescription dto, Topic topic) {
         Training domain = new Training();
-
         domain.setId(dto.getId());
+        domain.setVersion(dto.getVersion());
         domain.setTrainingTitle(dto.getTrainingTitle());
         domain.setNumberHalfDays(dto.getNumberHalfDays());
         domain.setTopic(topic);

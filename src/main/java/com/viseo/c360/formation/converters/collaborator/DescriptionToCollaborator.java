@@ -14,7 +14,8 @@ public class DescriptionToCollaborator {
 
     public Collaborator convert(CollaboratorDescription dto) {
         Collaborator domain = new Collaborator();
-        if (dto.getId() > 0) domain.setId(dto.getId());
+        domain.setId(dto.getId());
+        domain.setVersion(dto.getVersion());
         domain.setFirstName(dto.getFirstName());
         domain.setLastName(dto.getLastName());
         domain.setPersonnalIdNumber(dto.getPersonnalIdNumber());

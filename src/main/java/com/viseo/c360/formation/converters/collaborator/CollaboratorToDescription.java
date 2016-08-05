@@ -16,6 +16,7 @@ public class CollaboratorToDescription {
     public CollaboratorDescription convert(Collaborator source) {
         CollaboratorDescription dto = new CollaboratorDescription();
         dto.setId(source.getId());
+        dto.setVersion(source.getVersion());
         dto.setPersonnalIdNumber(source.getPersonnalIdNumber());
         dto.setLastName(source.getLastName());
         dto.setFirstName(source.getFirstName());
