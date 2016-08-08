@@ -19,6 +19,7 @@ public class CollaboratorDescription extends BaseDTO{
     Boolean isAdmin;
 
     public CollaboratorDescription() {
+        this.isAdmin = false;
     }
 
     public String getPersonnalIdNumber() {

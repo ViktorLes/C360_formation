@@ -54,7 +54,7 @@ angular.module('controllers')
                     self.setConfirmationMessageTimOut();
                 },
                 function (error) {
-                    if (error.message === "trainingTitle") {
+                    if (error.data.message === "trainingTitle") {
                         self.isNewTrainingTitle = false;
                     } else {
                         console.error(error);

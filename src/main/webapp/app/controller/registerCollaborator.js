@@ -58,11 +58,11 @@ angular.module('controllers')
                 //data.response = undefined;
             },
             function (error) {
-                if (error.message === "personnalIdNumber") {
+                if (error.data.message === "personnalIdNumber") {
                     self.isNewPersonalIdNumber = false;
                     self.isNewEmail = true;
                 }
-                else if(error.message === "email"){
+                else if(error.data.message === "email"){
                     self.isNewEmail = false;
                     self.isNewPersonalIdNumber = true;
                 }else{
