@@ -297,7 +297,6 @@ public class FakeDAOFacade implements DAOFacade {
 		}
 	}
 
-}
 
 // =================================================== //
 //						Ajouté 						   //
@@ -318,3 +317,15 @@ public class FakeDAOFacade implements DAOFacade {
 		}, paramRegistry);
 		return result.get(0);
 	}
+
+	@Override
+	public void flush() {
+
+	}
+
+	@Override
+	public void setFlushMode(FlushModeType flushModeType) {
+
+	}
+}
+
