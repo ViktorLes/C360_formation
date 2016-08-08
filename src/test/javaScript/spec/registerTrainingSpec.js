@@ -7,6 +7,7 @@ describe('Declaration Formation', function () {
     var topic2 = JSON.parse('{"id":2,"name":"Développement Mobile"}');
     var topicList = [topic1, topic2];
     var trainingList = JSON.parse('[{"id":3,"trainingTitle":"AngularJS","numberHalfDays":1,"topicDescription":{"id":1,"name":"Développement Web"}},{"id":4,"trainingTitle":"AAA","numberHalfDays":5,"topicDescription":{"id":1,"name":"Développement Web"}}]');
+    var trainingDescription = JSON.parse('{"id":4,"trainingTitle":"Hibernate","numberHalfDays":1,"topicDescription":{"id":1,"name":"Développement Web"}}');
 
     beforeEach(module('App'));
 
@@ -28,7 +29,7 @@ describe('Declaration Formation', function () {
     });
 
     function scenarioOfFormCorrectlyFilled() {
-        ctrl.training.trainingTitle = "AngularJS";
+        ctrl.training.trainingTitle = "Hibernate";
         expect(ctrl.training.trainingTitle).toMatch(ctrl.regex.trainingTitle);
         ctrl.training.topicDescription = topic1;
         ctrl.training.numberHalfDays = 4;
@@ -37,7 +38,7 @@ describe('Declaration Formation', function () {
 
     it('Valide', function () {
         scenarioOfFormCorrectlyFilled();
-        backend.expectPOST('api/formations').respond("4");
+        backend.expectPOST('api/formations').respond(trainingDescription);
         ctrl.verifyForm({$invalid: false, $error : {}});
         backend.flush();
         expect(ctrl.isNewTrainingTitle).toBeTruthy();
@@ -49,7 +50,7 @@ describe('Declaration Formation', function () {
 
     it('Invalid because of training title already exists', function () {
         scenarioOfFormCorrectlyFilled();
-        backend.expectPOST('api/formations').respond("0");
+        backend.expectPOST('api/formations').respond(400, {message: "trainingTitle"});
         ctrl.verifyForm({$invalid: false, $error : {}});
         backend.flush();
         expect(ctrl.isNewTrainingTitle).toBeFalsy();

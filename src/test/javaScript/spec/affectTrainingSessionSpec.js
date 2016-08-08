@@ -2,14 +2,14 @@ describe('Affectation session', function () {
     var ctrl;
     var backend;
     var sessionsList = JSON.parse('[{"id":4,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"04/05/2016","ending":"06/05/2016","beginningTime":"08:00","endingTime":"08:00","location":"Salle Phuket"},{"id":5,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"07/05/2016","ending":"10/05/2016","beginningTime":"08:00","endingTime":"17:00","location":"Salle Bali"},{"id":6,"trainingDescription":{"id":1,"version":0,"trainingTitle":"AngularJS","numberHalfDays":1},"beginning":"31/05/2016","ending":"31/05/2016","beginningTime":"08:00","endingTime":"08:30","location":"Salle Phuket"}]');
-
-    var collaboratorThomas = JSON.parse('{"id":2,"version":0,"personnalIdNumber":"TLE1234","lastName":"Lecomte","firstName":"Thomas"}');
-    var collaboratorNada = JSON.parse('{"id":3,"version":0,"personnalIdNumber":"NKA1234","lastName":"Kalmouni","firstName":"Nada"}');
-    var collaboratorBayrek = JSON.parse('{"id":7,"version":0,"personnalIdNumber":"MBO1234","lastName":"MOKNI","firstName":"Bayrek"}');
+    var collaboratorThomas = JSON.parse('{"id":2,"version":0,"lastName":"Lecomte","firstName":"Thomas"}');
+    var collaboratorNada = JSON.parse('{"id":3,"version":0,"lastName":"Kalmouni","firstName":"Nada"}');
+    var collaboratorBayrek = JSON.parse('{"id":7,"version":0,"lastName":"MOKNI","firstName":"Bayrek"}');
     var availableCollaboratorList = [collaboratorThomas, collaboratorBayrek];
     var affectedCollaboratorList = [collaboratorNada];
     var affectedCollaboratorListToBeSaved = JSON.parse(JSON.stringify(affectedCollaboratorList));
     affectedCollaboratorListToBeSaved.push(collaboratorThomas, collaboratorBayrek);
+
 
     beforeEach(module('App'));
 
@@ -34,7 +34,7 @@ describe('Affectation session', function () {
         backend.flush();
         ctrl.moveItem(collaboratorThomas, ctrl.availableCollaboratorList, ctrl.selectedCollaboratorList);
         ctrl.moveItem(collaboratorBayrek, ctrl.availableCollaboratorList, ctrl.selectedCollaboratorList);
-        backend.expectPUT("api/sessions/6/collaborators", affectedCollaboratorListToBeSaved).respond(true);
+        backend.expectPUT("api/sessions/6/collaborators", affectedCollaboratorListToBeSaved).respond(sessionsList[3]);
         ctrl.verifyForm();
         backend.flush();
         expect(ctrl.isCollabaratorListUpdated).toBeTruthy();
@@ -55,9 +55,8 @@ describe('Affectation session', function () {
         ctrl.loadNotAffectedAndAffectedCollaboratorsList();
         backend.flush();
         ctrl.moveItem(collaboratorNada, ctrl.selectedCollaboratorList, ctrl.availableCollaboratorList);
+        backend.expectPUT("api/sessions/6/collaborators", []).respond(sessionsList[3]);
         ctrl.verifyForm();
-        affectedCollaboratorListToBeSaved = [];
-        backend.expectPUT("api/sessions/6/collaborators", affectedCollaboratorListToBeSaved).respond(true);
         backend.flush();
         expect(ctrl.isCollabaratorListUpdated).toBeTruthy();
     });
