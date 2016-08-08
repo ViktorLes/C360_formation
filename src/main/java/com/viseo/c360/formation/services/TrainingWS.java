@@ -17,8 +17,9 @@ import com.viseo.c360.formation.domain.training.TrainingSession;
 
 import com.viseo.c360.formation.dto.training.TopicDescription;
 import com.viseo.c360.formation.exceptions.C360Exception;
-import com.viseo.c360.formation.exceptions.dao.ExceptionUtil;
-import com.viseo.c360.formation.exceptions.dao.UniqueFieldErrors;
+import com.viseo.c360.formation.exceptions.dao.UniqueFieldException;
+import com.viseo.c360.formation.exceptions.dao.util.ExceptionUtil;
+import com.viseo.c360.formation.exceptions.dao.util.UniqueFieldErrors;
 import org.springframework.core.convert.ConversionException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,7 +60,7 @@ public class TrainingWS {
         }catch (PersistenceException pe) {
             UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
             if(uniqueFieldErrors == null) throw new C360Exception(pe);
-            else throw new C360Exception(uniqueFieldErrors.getField());
+            else throw new UniqueFieldException(uniqueFieldErrors.getField());
         }
     }
 
@@ -81,7 +82,7 @@ public class TrainingWS {
         } catch (PersistenceException pe) {
             UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
             if (uniqueFieldErrors == null) throw new C360Exception(pe);
-            else throw new C360Exception(uniqueFieldErrors.getField());
+            else throw new UniqueFieldException(uniqueFieldErrors.getField());
         }
     }
 

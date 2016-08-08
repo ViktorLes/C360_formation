@@ -58,7 +58,7 @@ angular.module('controllers')
                     $location.url('/ManageSession');
                 },
                 function (error) {
-                    if (error === "TrainingSession already planned") {
+                    if (error.message === "TrainingSession already planned") {
                         self.isSessionAlreadyPlanned = true;
                     } else {
                         console.error(error);

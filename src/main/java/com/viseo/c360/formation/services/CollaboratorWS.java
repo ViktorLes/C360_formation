@@ -15,8 +15,9 @@ import com.viseo.c360.formation.converters.requestTraining.DescriptionToRequestT
 import com.viseo.c360.formation.converters.requestTraining.RequestTrainingToDescription;
 import com.viseo.c360.formation.converters.trainingsession.TrainingSessionToDescription;
 import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
-import com.viseo.c360.formation.exceptions.dao.UniqueFieldErrors;
-import com.viseo.c360.formation.exceptions.dao.ExceptionUtil;
+import com.viseo.c360.formation.exceptions.dao.UniqueFieldException;
+import com.viseo.c360.formation.exceptions.dao.util.UniqueFieldErrors;
+import com.viseo.c360.formation.exceptions.dao.util.ExceptionUtil;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.domain.collaborator.RequestTraining;
@@ -107,7 +108,7 @@ public class CollaboratorWS {
         } catch (PersistenceException pe) {
             UniqueFieldErrors uniqueFieldErrors = exceptionUtil.getUniqueFieldError(pe);
             if(uniqueFieldErrors == null) throw new C360Exception(pe);
-            else throw new C360Exception(uniqueFieldErrors.getField());
+            else throw new UniqueFieldException(uniqueFieldErrors.getField());
         }
     }
 
@@ -124,11 +125,11 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.collaboratorsNotAffectedBySession}", method = RequestMethod.GET)
     @ResponseBody
-    public List<CollaboratorDescription> getNotAffectedCollaboratorsList(@PathVariable Long id) {
+    public List<CollaboratorIdentity> getNotAffectedCollaboratorsList(@PathVariable Long id) {
         try {
             TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
             if (trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
-            return new CollaboratorToDescription().convert(collaboratorDAO.getNotAffectedCollaborators(trainingSession));
+            return new CollaboratorToIdentity().convert(collaboratorDAO.getNotAffectedCollaborators(trainingSession));
         } catch (PersistentObjectNotFoundException e) {
             e.printStackTrace();
             throw new C360Exception(e);
@@ -137,11 +138,11 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.collaboratorsAffectedBySession}", method = RequestMethod.GET)
     @ResponseBody
-    public List<CollaboratorDescription> getAffectedCollaboratorsList(@PathVariable Long id) {
+    public List<CollaboratorIdentity> getAffectedCollaboratorsList(@PathVariable Long id) {
         try {
             TrainingSession trainingSession = trainingDAO.getSessionTraining(id);
             if (trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
-            return new CollaboratorToDescription().convert(trainingSession.getCollaborators());
+            return new CollaboratorToIdentity().convert(trainingSession.getCollaborators());
         } catch (PersistentObjectNotFoundException e) {
             e.printStackTrace();
             throw new C360Exception(e);
@@ -167,7 +168,7 @@ public class CollaboratorWS {
             if (trainingSession == null) throw new PersistentObjectNotFoundException(idTrainingSession, TrainingSession.class);
             trainingSession = collaboratorDAO.affectCollaboratorsTrainingSession(trainingSession, collaboratorIdentities);
             return new TrainingSessionToDescription().convert(trainingSession);
-        } catch (PersistentObjectNotFoundException | ConversionException e) {
+        } catch (PersistentObjectNotFoundException e) {
             e.printStackTrace();
             throw new C360Exception(e);
         }
@@ -175,11 +176,11 @@ public class CollaboratorWS {
 
     @RequestMapping(value = "${endpoint.collaboratorsRequestingListByTrainingSession}", method = RequestMethod.GET)
     @ResponseBody
-    public List<CollaboratorDescription> getCollaboratorsRequestingListByTrainingSession(@PathVariable Long id) {
+    public List<CollaboratorIdentity> getCollaboratorsRequestingListByTrainingSession(@PathVariable Long id) {
         TrainingSession trainingSession = null;
         try {
             trainingSession = trainingDAO.getSessionTraining(id);
-            return new CollaboratorToDescription().convert(collaboratorDAO.getCollaboratorsRequestingBySession(trainingSession));
+            return new CollaboratorToIdentity().convert(collaboratorDAO.getCollaboratorsRequestingBySession(trainingSession));
         } catch (PersistentObjectNotFoundException e) {
             throw new C360Exception(e);
         }

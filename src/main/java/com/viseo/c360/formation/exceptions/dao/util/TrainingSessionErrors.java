@@ -1,4 +1,4 @@
-package com.viseo.c360.formation.exceptions.dao;
+package com.viseo.c360.formation.exceptions.dao.util;
 
 public enum TrainingSessionErrors {
     TRAINING_SESSION_ALREADY_PLANNED("TrainingSession already planned"),

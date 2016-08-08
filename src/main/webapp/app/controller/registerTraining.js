@@ -46,9 +46,7 @@ angular.module('controllers')
         self.saveAction = function () {
             self.training.trainingTitle = self.training.trainingTitle.replace(/ +/g, " ");
             $http.post("api/formations", self.training).then(function (response) {
-                    self.trainingAdded = JSON.parse(JSON.stringify(self.training));
-                    self.trainingAdded = response;
-                    self.trainingList.push(self.trainingAdded);
+                    self.trainingList.push(response.data);
                     self.isTrainingSaved = true;
                     self.training.trainingTitle = null;
                     self.training.topicDescription = null;
@@ -56,7 +54,7 @@ angular.module('controllers')
                     self.setConfirmationMessageTimOut();
                 },
                 function (error) {
-                    if (error === "trainingTitle") {
+                    if (error.message === "trainingTitle") {
                         self.isNewTrainingTitle = false;
                     } else {
                         console.error(error);

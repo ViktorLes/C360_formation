@@ -1,6 +1,5 @@
-package com.viseo.c360.formation.exceptions.dao;
+package com.viseo.c360.formation.exceptions.dao.util;
 
-import com.viseo.c360.formation.exceptions.C360Exception;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 
