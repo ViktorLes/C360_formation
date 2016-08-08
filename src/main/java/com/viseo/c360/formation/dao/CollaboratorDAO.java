@@ -2,58 +2,57 @@ package com.viseo.c360.formation.dao;
 
 import java.util.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.FlushModeType;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 
+import com.viseo.c360.formation.dao.db.DAOFacade;
+import com.viseo.c360.formation.domain.collaborator.RequestTraining;
 import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorIdentity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import static com.viseo.c360.formation.dao.db.DAOFacade.Parameter.param;
 
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
-import com.viseo.c360.formation.domain.collaborator.RequestTraining;
+
+import javax.inject.Inject;
+import javax.persistence.FlushModeType;
+import javax.persistence.PersistenceException;
 
 @Repository
 public class CollaboratorDAO {
 
-    @PersistenceContext
-    EntityManager em;
+    @Inject
+    DAOFacade daoFacade;
 
     //collaborateur
     @Transactional
     public Collaborator addCollaborator(Collaborator collaborator) throws PersistenceException {
-            em.persist(collaborator);
-            em.flush();
+        daoFacade.persist(collaborator);
+        daoFacade.flush();
             return collaborator;
     }
 
     public Collaborator getCollaboratorByLoginPassword(String personnalEmail,String personnalPassword){
-        em.setFlushMode(FlushModeType.COMMIT);
+        daoFacade.setFlushMode(FlushModeType.COMMIT);
         Collaborator registredUser =
-                (Collaborator) em.createQuery(
-                        "select c from Collaborator c where c.email = :personnalEmail and c.password = :personnalPassword",Collaborator.class)
-                    .setParameter("personnalEmail",personnalEmail).setParameter("personnalPassword",personnalPassword)
-                    .getSingleResult();
+                (Collaborator) daoFacade.getSingle(
+                        "select c from Collaborator c where c.email = :personnalEmail and c.password = :personnalPassword",
+                        param("personnalEmail",personnalEmail), param("personnalPassword",personnalPassword));
         return registredUser;
     }
 
     public List<Collaborator> getAllCollaborators() {
-        em.setFlushMode(FlushModeType.COMMIT);
-        return em.createQuery("select c from Collaborator c", Collaborator.class).getResultList();
+        return daoFacade.getList("select c from Collaborator c");
     }
 
     public Collaborator getCollaborator(long id) {
-        em.setFlushMode(FlushModeType.COMMIT);
-        return em.find(Collaborator.class, id);
+        return daoFacade.find(Collaborator.class, id);
     }
 
     //request training
     @Transactional
     public RequestTraining addRequestTraining(RequestTraining requestTraining) throws PersistenceException {
-        em.persist(requestTraining);
-        em.flush();
+        daoFacade.persist(requestTraining);
+        daoFacade.flush();
         return requestTraining;
     }
 
@@ -62,40 +61,37 @@ public class CollaboratorDAO {
     public TrainingSession affectCollaboratorsTrainingSession(TrainingSession trainingSession, List<CollaboratorIdentity> collaboratorIdentities)
             throws PersistenceException
     {
-        trainingSession = em.merge(trainingSession);
+        trainingSession = daoFacade.merge(trainingSession);
         trainingSession.removeCollaborators();
         for (CollaboratorIdentity collaboratorIdentity : collaboratorIdentities) {
-            trainingSession.addCollaborator(em.find(Collaborator.class, collaboratorIdentity.getId()));
+            trainingSession.addCollaborator(daoFacade.find(Collaborator.class, collaboratorIdentity.getId()));
         }
-        em.flush();
+        daoFacade.flush();
         return trainingSession;
     }
 
     public List<Collaborator> getNotAffectedCollaborators(TrainingSession myTrainingSession) {
-        em.setFlushMode(FlushModeType.COMMIT);
         if (!myTrainingSession.getCollaborators().isEmpty()) {
-            List<Collaborator> listCollaborator = (List<Collaborator>) em.createQuery(
-                    "select c from Collaborator c where c NOT IN :listCollaborators", Collaborator.class)
-                    .setParameter("listCollaborators", myTrainingSession.getCollaborators()).getResultList();
+            List<Collaborator> listCollaborator = daoFacade.getList(
+                    "select c from Collaborator c where c NOT IN :listCollaborators",
+                    param("listCollaborators", myTrainingSession.getCollaborators()));
             return listCollaborator;
         } else {
-            List<Collaborator> listCollaborator = (List<Collaborator>) em.createQuery(
-                    "select c from Collaborator c", Collaborator.class).getResultList();
+            List<Collaborator> listCollaborator = daoFacade.getList("select c from Collaborator c");
             return listCollaborator;
         }
     }
 
     public List<Collaborator> getCollaboratorsRequestingBySession(TrainingSession myTrainnigSession) {
-        em.setFlushMode(FlushModeType.COMMIT);
-        Set<Collaborator> listCollaborator = new HashSet<Collaborator>(em.createQuery(
-                "select c from RequestTraining r Inner Join r.  collaborator c Inner Join r.listSession s Where s = :session")
-                .setParameter("session", myTrainnigSession).getResultList());
-        listCollaborator.addAll(em.createQuery(
-                "select c from RequestTraining r Inner Join r.collaborator c Where r.training = :training")
-                .setParameter("training", myTrainnigSession.getTraining()).getResultList());
-        listCollaborator.removeAll(em.createQuery(
-                "select c from TrainingSession s Inner Join s.collaborators c Where s.training = :training")
-                .setParameter("training", myTrainnigSession.getTraining()).getResultList());
+        Set<Collaborator> listCollaborator = new HashSet<Collaborator>((Collection) daoFacade.getList(
+                "select c from RequestTraining r Inner Join r.collaborator c Inner Join r.listSession s Where s = :session",
+                param("session", myTrainnigSession)));
+        listCollaborator.addAll((Collection) daoFacade.getList(
+                "select c from RequestTraining r Inner Join r.collaborator c Where r.training = :training",
+                param("training", myTrainnigSession.getTraining())));
+        listCollaborator.removeAll(daoFacade.getList(
+                "select c from TrainingSession s Inner Join s.collaborators c Where s.training = :training",
+                param("training", myTrainnigSession.getTraining())));
         return new ArrayList<>(listCollaborator);
     }
 }

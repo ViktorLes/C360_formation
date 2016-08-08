@@ -5,13 +5,14 @@ import java.util.List;
 
 import javax.persistence.*;
 
+
 import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.exceptions.C360Exception;
 import com.viseo.c360.formation.exceptions.dao.PersistentObjectNotFoundException;
 import com.viseo.c360.formation.exceptions.dao.TrainingSessionException;
 import com.viseo.c360.formation.exceptions.dao.util.TrainingSessionErrors;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

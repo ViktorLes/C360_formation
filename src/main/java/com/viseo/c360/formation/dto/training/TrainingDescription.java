@@ -3,7 +3,7 @@ package com.viseo.c360.formation.dto.training;
 
 import com.viseo.c360.formation.dto.BaseDTO;
 
-public class TrainingDescription extends BaseDTO{
+public class TrainingDescription extends BaseDTO {
 
     public static class Regex{
         public static final String TRAINING_TITLE = "[a-zA-Z0-9+#'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæ\u0153ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝ\u0178Æ\u0152]";

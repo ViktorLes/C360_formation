@@ -1,6 +1,5 @@
 package com.viseo.c360.formation.converters.collaborator;
 
-
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
 

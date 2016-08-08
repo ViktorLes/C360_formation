@@ -8,9 +8,16 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
 
-import com.viseo.c360.formation.converters.collaborator.CollaboratorToDescription;
 import com.viseo.c360.formation.converters.collaborator.CollaboratorToIdentity;
 import com.viseo.c360.formation.converters.collaborator.DescriptionToCollaborator;
+import com.viseo.c360.formation.dao.CollaboratorDAO;
+import com.viseo.c360.formation.domain.collaborator.RequestTraining;
+import com.viseo.c360.formation.domain.training.Topic;
+import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
+import com.viseo.c360.formation.dto.collaborator.CollaboratorIdentity;
+import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
+import com.viseo.c360.formation.converters.collaborator.CollaboratorToDescription;
 import com.viseo.c360.formation.converters.requestTraining.DescriptionToRequestTraining;
 import com.viseo.c360.formation.converters.requestTraining.RequestTrainingToDescription;
 import com.viseo.c360.formation.converters.trainingsession.TrainingSessionToDescription;
@@ -20,12 +27,8 @@ import com.viseo.c360.formation.exceptions.dao.util.UniqueFieldErrors;
 import com.viseo.c360.formation.exceptions.dao.util.ExceptionUtil;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
-import com.viseo.c360.formation.domain.collaborator.RequestTraining;
-import com.viseo.c360.formation.domain.training.Topic;
-import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
-import com.viseo.c360.formation.dto.collaborator.CollaboratorIdentity;
-import com.viseo.c360.formation.dto.collaborator.RequestTrainingDescription;
+
+
 import com.viseo.c360.formation.exceptions.C360Exception;
 import com.viseo.c360.formation.exceptions.dao.PersistentObjectNotFoundException;
 import io.jsonwebtoken.Jwts;
@@ -33,10 +36,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
 
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.core.convert.ConversionException;
 import org.springframework.web.bind.annotation.*;
-import com.viseo.c360.formation.dao.CollaboratorDAO;
 
 
 @RestController
