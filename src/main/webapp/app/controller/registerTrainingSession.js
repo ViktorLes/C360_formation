@@ -45,20 +45,23 @@ angular.module('controllers')
         }
 
         self.saveAction = function () {
-                var session = {
-                    trainingDescription: self.training,
-                    beginning: $filter('date')(self.d1.dt, "dd/MM/yyyy"),
-                    ending: $filter('date')(self.d2.dt, "dd/MM/yyyy"),
-                    beginningTime: self.beginningHour,
-                    endingTime: self.endHour,
-                    location: self.trainingLocation.name
-                };
-                $http.post("api/sessions", session).success(function (data) {
-                    if (data == "true" || data == true) {
-                        self.isSessionAlreadyPlanned = false;
-                        $location.url('/ManageSession');
-                    } else {
+            var session = {
+                trainingDescription: self.training,
+                beginning: $filter('date')(self.d1.dt, "dd/MM/yyyy"),
+                ending: $filter('date')(self.d2.dt, "dd/MM/yyyy"),
+                beginningTime: self.beginningHour,
+                endingTime: self.endHour,
+                location: self.trainingLocation.name
+            };
+            $http.post("api/sessions", session).then(function (data) {
+                    self.isSessionAlreadyPlanned = false;
+                    $location.url('/ManageSession');
+                },
+                function (error) {
+                    if (error.data.message === "TrainingSession already planned") {
                         self.isSessionAlreadyPlanned = true;
+                    } else {
+                        console.error(error);
                     }
                 });
         };

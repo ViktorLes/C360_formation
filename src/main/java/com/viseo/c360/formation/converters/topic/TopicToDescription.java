@@ -15,6 +15,7 @@ public class TopicToDescription {
     public TopicDescription convert (Topic source){
         TopicDescription dto = new TopicDescription();
         dto.setId(source.getId());
+        dto.setVersion(source.getVersion());
         dto.setName(source.getName());
         return dto;
     }

@@ -62,11 +62,12 @@ angular.module('controllers')
                 collaboratorIdentity: currentUserService.getCollaboratorIdentity(),
                 trainingSessionsDescriptions: getSessionsSelected(self.listTrainingSession)
             };
-            $http.post("api/requests", myRequest).success(function (data) {
-                if (data === true || data === "true") {
+            $http.post("api/requests", myRequest).then(function (data) {
                     $location.url('/pageblanche');
-                }
-            });
+                },
+                function (error) {
+                    console.error(error);
+                });
         }
     }])
     .config(['$routeProvider', function ($routeProvider) {

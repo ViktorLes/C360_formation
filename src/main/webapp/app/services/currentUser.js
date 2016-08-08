@@ -34,7 +34,7 @@ angular.module('authentication', ['angular-jwt'])
                 return self.roles;
             },
             getCollaboratorIdentity: function () {
-                return {id: self.userId};
+                return {id: self.userId, firstName: self.firstName, lastName: self.lastName};
             },
             isUserConnected: function () {
                 if (self.token)

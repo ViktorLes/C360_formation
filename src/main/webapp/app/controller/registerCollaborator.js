@@ -49,23 +49,25 @@ angular.module('controllers')
             collaboratorToRegister.password = hash(collaboratorToRegister.password);
             delete collaboratorToRegister['confirmPassword'];
             //post the form to the server
-            $http.post("api/collaborateurs", collaboratorToRegister).success(function (data) {
+            $http.post("api/collaborateurs", collaboratorToRegister).then(function (data) {
                 self.isThereAnEmptyField = false;
-                if (data.response === "NotPersisted") {
-                    resetForm(); //Reset the Form
-                    self.isNewEmail = true;
-                    self.isNewPersonalIdNumber = true;
-                    $location.url('/Authentication');
-                }
-                else if (data.response === "IdNumberPersisted") {
+                resetForm(); //Reset the Form
+                self.isNewEmail = true;
+                self.isNewPersonalIdNumber = true;
+                $location.url('/Authentication');
+                //data.response = undefined;
+            },
+            function (error) {
+                if (error.data.message === "personnalIdNumber") {
                     self.isNewPersonalIdNumber = false;
                     self.isNewEmail = true;
                 }
-                else {
+                else if(error.data.message === "email"){
                     self.isNewEmail = false;
                     self.isNewPersonalIdNumber = true;
+                }else{
+                    console.error(error);
                 }
-                data.response = undefined;
             });
         };
 

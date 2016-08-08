@@ -45,7 +45,9 @@ describe('Register Training Session', function () {
             endingTime: ctrl.endHour,
             location: ctrl.trainingLocation.name
         };
-        httpBackend.expectPOST("api/sessions", session).respond(true);
+        var sessionDescription = JSON.parse(JSON.stringify(session));
+        sessionDescription.id = 1;
+        httpBackend.expectPOST("api/sessions", session).respond(sessionDescription);
         ctrl.verifyForm(false);
         httpBackend.flush();
         expect(ctrl.isSessionAlreadyPlanned).toBeFalsy();
@@ -97,7 +99,7 @@ describe('Register Training Session', function () {
             endingTime: ctrl.endHour,
             location: ctrl.trainingLocation.name
         };
-        httpBackend.expectPOST("api/sessions", session).respond(false);
+        httpBackend.expectPOST("api/sessions", session).respond(400, {message: "TrainingSession already planned"});
         ctrl.verifyForm(false);
         httpBackend.flush();
         expect(ctrl.isSessionAlreadyPlanned).toBeTruthy();

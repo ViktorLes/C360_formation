@@ -5,8 +5,10 @@ import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 
 import com.viseo.c360.formation.domain.training.TrainingSession;
+import com.viseo.c360.formation.dto.collaborator.CollaboratorIdentity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,21 +18,15 @@ import com.viseo.c360.formation.domain.collaborator.RequestTraining;
 @Repository
 public class CollaboratorDAO {
 
-    String checkCollaboratorPersistedResponse;
-
     @PersistenceContext
     EntityManager em;
 
     //collaborateur
     @Transactional
-    public String addCollaborator(Collaborator collaborator) {
-        checkCollaboratorPersistedResponse = "NotPersisted";
-        if (this.isPersonnalIdNumberPersisted(collaborator.getPersonnalIdNumber())=="NotPersisted")
-        {
-            if(this.isEmailPersisted(collaborator.getEmail())=="NotPersisted")
-            em.merge(collaborator);
-        }
-        return checkCollaboratorPersistedResponse;
+    public Collaborator addCollaborator(Collaborator collaborator) throws PersistenceException {
+            em.persist(collaborator);
+            em.flush();
+            return collaborator;
     }
 
     public Collaborator getCollaboratorByLoginPassword(String personnalEmail,String personnalPassword){
@@ -41,26 +37,6 @@ public class CollaboratorDAO {
                     .setParameter("personnalEmail",personnalEmail).setParameter("personnalPassword",personnalPassword)
                     .getSingleResult();
         return registredUser;
-    }
-
-    public String isPersonnalIdNumberPersisted(String personnalIdNumber) {
-        em.setFlushMode(FlushModeType.COMMIT);
-        Collection<Collaborator> listCollaborator =
-                (Collection<Collaborator>) em.createQuery(
-                        "select c from Collaborator c where c.personnalIdNumber = :personnalIdNumber" , Collaborator.class)
-                        .setParameter("personnalIdNumber",personnalIdNumber).getResultList();
-        if(!listCollaborator.isEmpty()) checkCollaboratorPersistedResponse="IdNumberPersisted";
-        return checkCollaboratorPersistedResponse;
-    }
-
-    public String isEmailPersisted(String email) {
-        em.setFlushMode(FlushModeType.COMMIT);
-        Collection<Collaborator> listCollaborator =
-                (Collection<Collaborator>) em.createQuery(
-                        "select c from Collaborator c where c.email = :email" , Collaborator.class)
-                        .setParameter("email",email).getResultList();
-        if(!listCollaborator.isEmpty()) checkCollaboratorPersistedResponse="EmailPersisted";
-        return checkCollaboratorPersistedResponse;
     }
 
     public List<Collaborator> getAllCollaborators() {
@@ -75,17 +51,24 @@ public class CollaboratorDAO {
 
     //request training
     @Transactional
-    public void addRequestTraining(RequestTraining requestTraining) {
+    public RequestTraining addRequestTraining(RequestTraining requestTraining) throws PersistenceException {
         em.persist(requestTraining);
+        em.flush();
+        return requestTraining;
     }
 
+
     @Transactional
-    public void affectCollaboratorsTrainingSession(TrainingSession myTrainingSession, List<Collaborator> collaborators) {
-        myTrainingSession = em.merge(myTrainingSession);
-        myTrainingSession.removeCollaborators();
-        for (Collaborator myCollaborator : collaborators) {
-            myTrainingSession.addCollaborator(myCollaborator);
+    public TrainingSession affectCollaboratorsTrainingSession(TrainingSession trainingSession, List<CollaboratorIdentity> collaboratorIdentities)
+            throws PersistenceException
+    {
+        trainingSession = em.merge(trainingSession);
+        trainingSession.removeCollaborators();
+        for (CollaboratorIdentity collaboratorIdentity : collaboratorIdentities) {
+            trainingSession.addCollaborator(em.find(Collaborator.class, collaboratorIdentity.getId()));
         }
+        em.flush();
+        return trainingSession;
     }
 
     public List<Collaborator> getNotAffectedCollaborators(TrainingSession myTrainingSession) {

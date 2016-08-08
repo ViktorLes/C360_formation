@@ -53,33 +53,42 @@ angular.module('controllers').factory('InitBddService', ['$http','hash', functio
     return {
         init: function () {
             return  $http.post("api/themes", topic1).then(function(data) {
-                topic1.id=1;
-                if(data.data) console.log("ajout theme", topic1);
+                topic1 = data.data;
+                if(data.data) {
+                    console.log("ajout theme", topic1);
+                    training.topicDescription = topic1;
+                }
                 return $http.post("api/themes", topic2)
             }).then(function (data) {
-                topic2.id=2;
+                topic2 = data.data;
                 if(data.data) console.log("ajout theme", topic2);
               return $http.post("api/formations", training)
             }).then(function (data) {
-                training.id = 3;
-                if (data.data>0)console.log("ajout training", training);
+                training = data.data;
+                if (data.data){
+                    console.log("ajout training", training);
+                    session1.trainingDescription = training;
+                    session2.trainingDescription = training;
+                }
                 return $http.post("api/collaborateurs", collaborator1);
             }).then(function (data) {
-                collaborator1.id = 4;
+                collaborator1 = data.data;
                 if (data.data)console.log("ajout collaborator1", collaborator1);
                 return $http.post("api/collaborateurs", collaborator2);
             }).then(function (data) {
-                collaborator2.id = 5;
+                collaborator2 = data.data;
                 if (data.data)console.log("ajout collaborator2", collaborator2);
                 return $http.post("api/collaborateurs", collaborator3);
             }).then(function (data) {
-                collaborator3.id = 6;
+                collaborator3 = data.data;
                 if (data.data)console.log("ajout collaborator3", collaborator3);
                 return $http.post("api/sessions", session1);
             }).then(function (data) {
+                session1 = data.data;
                 if (data.data)console.log("ajout session1", session1);
                 return $http.post("api/sessions", session2);
             }).then(function (data) {
+                session2 = data.data;
                 if (data.data)console.log("ajout session2", session2);
             });
         }

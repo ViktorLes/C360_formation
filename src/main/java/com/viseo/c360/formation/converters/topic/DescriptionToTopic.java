@@ -11,6 +11,7 @@ public class DescriptionToTopic {
     public Topic convert(TopicDescription dto){
         Topic domain = new Topic();
         domain.setId(dto.getId());
+        domain.setVersion(dto.getVersion());
         domain.setName(dto.getName());
         return domain;
     }

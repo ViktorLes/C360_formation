@@ -26,7 +26,6 @@ angular.module('controllers')
         };
 
         self.verifyForm = function (trainingForm) {
-            console.log(trainingForm);
             self.isNewTrainingTitle = true;
             self.isFalseForm = false;
             self.isThereAnEmptyField = false;
@@ -46,21 +45,21 @@ angular.module('controllers')
 
         self.saveAction = function () {
             self.training.trainingTitle = self.training.trainingTitle.replace(/ +/g, " ");
-            $http.post("api/formations", self.training).success(function (data) {
-                if (data >0) {
-                    self.trainingAdded=JSON.parse(JSON.stringify(self.training));
-                    self.trainingAdded.id=data;
-                    self.trainingList.push(self.trainingAdded);
-                    self.isTrainingSaved=true;
-                    self.training.trainingTitle=null;
-                    self.training.topicDescription=null;
-                    self.training.numberHalfDays=null;
+            $http.post("api/formations", self.training).then(function (response) {
+                    self.trainingList.push(response.data);
+                    self.isTrainingSaved = true;
+                    self.training.trainingTitle = null;
+                    self.training.topicDescription = null;
+                    self.training.numberHalfDays = null;
                     self.setConfirmationMessageTimOut();
-                }
-                else {
-                    self.isNewTrainingTitle = false;
-                }
-            });
+                },
+                function (error) {
+                    if (error.data.message === "trainingTitle") {
+                        self.isNewTrainingTitle = false;
+                    } else {
+                        console.error(error);
+                    }
+                });
         };
 
         self.setConfirmationMessageTimOut = function () {
