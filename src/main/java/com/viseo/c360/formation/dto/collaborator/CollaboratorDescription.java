@@ -2,7 +2,7 @@ package com.viseo.c360.formation.dto.collaborator;
 
 import com.viseo.c360.formation.dto.BaseDTO;
 
-public class CollaboratorDescription extends BaseDTO{
+public class CollaboratorDescription extends BaseDTO {
 
     public static class Regex{
         public static final String PERSONNAL_ID_NUMBER = "[A-Z]{3}[0-9]{4}";
@@ -19,6 +19,7 @@ public class CollaboratorDescription extends BaseDTO{
     Boolean isAdmin;
 
     public CollaboratorDescription() {
+        this.isAdmin = false;
     }
 
     public String getPersonnalIdNumber() {

@@ -1672,7 +1672,7 @@ angular.module('ui.bootstrap.position', [])
         hostElem = this.getRawNode(hostElem);
         targetElem = this.getRawNode(targetElem);
 
-        // need to read from prop to support tests.
+        // need to read from prop to support fake.
         var targetWidth = angular.isDefined(targetElem.offsetWidth) ? targetElem.offsetWidth : targetElem.prop('offsetWidth');
         var targetHeight = angular.isDefined(targetElem.offsetHeight) ? targetElem.offsetHeight : targetElem.prop('offsetHeight');
 

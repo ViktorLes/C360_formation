@@ -1,8 +1,8 @@
 package com.viseo.c360.formation.converters.collaborator;
 
 
-import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
+import com.viseo.c360.formation.domain.collaborator.Collaborator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,7 @@ public class CollaboratorToDescription {
     public CollaboratorDescription convert(Collaborator source) {
         CollaboratorDescription dto = new CollaboratorDescription();
         dto.setId(source.getId());
+        dto.setVersion(source.getVersion());
         dto.setPersonnalIdNumber(source.getPersonnalIdNumber());
         dto.setLastName(source.getLastName());
         dto.setFirstName(source.getFirstName());

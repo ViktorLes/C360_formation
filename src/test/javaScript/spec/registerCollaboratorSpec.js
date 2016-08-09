@@ -3,6 +3,14 @@ describe('Enregistrement Collaborateur', function () {
     var backend;
     var loc;
     var form;
+    var collaboratorDescription = {
+        id: 1,
+        personnalIdNumber: "HDA1234",
+        firstName: "Henri",
+        lastName: "Darmet",
+        email: "henri.darmet@viseo.com",
+        password: "................",
+    };
 
     beforeEach(module('App'));
 
@@ -60,7 +68,7 @@ describe('Enregistrement Collaborateur', function () {
             fillIdentityCollaboratorCorrectly();
             fillEmailCorrectly();
             fillPasswordCorrectly();
-            backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "NotPersisted"});
+            backend.expectPOST('api/collaborateurs', self.collaborator).respond({data: collaboratorDescription});
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
@@ -173,7 +181,7 @@ describe('Enregistrement Collaborateur', function () {
             fillIdentityCollaboratorCorrectly();
             fillEmailCorrectly();
             fillPasswordCorrectly();
-            backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "EmailPersisted"});
+            backend.expectPOST('api/collaborateurs', self.collaborator).respond(400, {message: "email"});
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewEmail).toBeFalsy();
@@ -187,7 +195,7 @@ describe('Enregistrement Collaborateur', function () {
             fillIdentityCollaboratorCorrectly();
             fillEmailCorrectly();
             fillPasswordCorrectly();
-            backend.expectPOST('api/collaborateurs', self.collaborator).respond({response: "IdNumberPersisted"});
+            backend.expectPOST('api/collaborateurs', self.collaborator).respond(400, {message: "personnalIdNumber"});
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewEmail).toBeTruthy();

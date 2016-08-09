@@ -18,6 +18,7 @@ public class TrainingSessionToDescription {
         SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
         SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
         dto.setId(source.getId());
+        dto.setVersion(source.getVersion());
         dto.setTrainingDescription(new TrainingToDescription().convert(source.getTraining()));
         dto.setBeginning(formatterDate.format(source.getBeginning()));
         dto.setBeginningTime(formatterTime.format(source.getBeginning()));

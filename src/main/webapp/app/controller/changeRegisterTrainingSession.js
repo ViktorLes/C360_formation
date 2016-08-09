@@ -76,14 +76,17 @@ angular.module('controllers')
                 endingTime: self.endHour,
                 location: self.trainingLocation.name
             };
-            $http.put("api/sessions", session).success(function (data) {
-                if (data == "true" || data == true) {
+            $http.put("api/sessions", session).then(function (data) {
                     self.isSessionAlreadyPlanned = false;
                     $location.url('/ManageSession');
-                } else {
-                    self.isSessionAlreadyPlanned = true;
-                }
-            });
+                },
+                function (error) {
+                    if (error.data.message === "TrainingSession already planned") {
+                        self.isSessionAlreadyPlanned = true;
+                    } else {
+                        console.error(error);
+                    }
+                });
         };
 
         validateTraining = function () {

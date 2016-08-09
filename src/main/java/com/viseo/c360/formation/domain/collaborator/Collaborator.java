@@ -2,8 +2,10 @@ package com.viseo.c360.formation.domain.collaborator;
 
 import com.viseo.c360.formation.domain.BaseEntity;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
+import org.hibernate.annotations.Index;
 import org.hibernate.validator.constraints.Email;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -15,6 +17,7 @@ public class Collaborator extends BaseEntity {
 	@NotNull
 	@Size(min=3, max=20)
 	@Pattern(regexp=CollaboratorDescription.Regex.PERSONNAL_ID_NUMBER)
+	@Column(unique=true, nullable=false)
 	String personnalIdNumber;
 	
 	@NotNull
@@ -29,6 +32,7 @@ public class Collaborator extends BaseEntity {
 
 	@NotNull
 	@Email
+	@Column(unique=true, nullable=false)
 	String email;
 
 	@NotNull

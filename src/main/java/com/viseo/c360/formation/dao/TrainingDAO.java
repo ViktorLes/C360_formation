@@ -2,19 +2,17 @@ package com.viseo.c360.formation.dao;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Date;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+
 
 import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
-import com.viseo.c360.formation.dto.training.TrainingSessionDescription;
-import com.viseo.c360.formation.exceptions.PersistentObjectNotFoundException;
-import org.springframework.core.convert.ConversionException;
+import com.viseo.c360.formation.exceptions.dao.PersistentObjectNotFoundException;
+import com.viseo.c360.formation.exceptions.dao.TrainingSessionException;
+import com.viseo.c360.formation.exceptions.dao.util.TrainingSessionErrors;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,19 +30,10 @@ public class TrainingDAO {
     }
 
     @Transactional
-    public Training addTraining(Training training) {
-        if (!this.isTrainingPersisted(training.getTrainingTitle())) {
-            return em.merge(training);
-        }
-        return null;
-    }
-
-    public boolean isTrainingPersisted(String trainingTitle) {
-        em.setFlushMode(FlushModeType.COMMIT);
-        Collection<Training> listTrainings =
-                (Collection<Training>) em.createQuery("select t from Training t where upper(t.trainingTitle) = :trainingTitle")
-                        .setParameter("trainingTitle", trainingTitle.toUpperCase()).getResultList();
-        return !listTrainings.isEmpty();
+    public Training addTraining(Training training) throws PersistenceException {
+        em.persist(training);
+        em.flush();
+        return training;
     }
 
     public List<Training> getAllTrainings() {
@@ -56,12 +45,10 @@ public class TrainingDAO {
      * Topic
      ***/
     @Transactional
-    public boolean addTopic (Topic topic){
-        if(!this.isTopicPersisted((topic.getName()))) {
-            topic = em.merge(topic);
-            return true;
-        }
-        return false;
+    public Topic addTopic(Topic topic) throws PersistenceException {
+        em.persist(topic);
+        em.flush();
+        return topic;
     }
 
     public Topic getTopic(long id){
@@ -71,14 +58,6 @@ public class TrainingDAO {
     public List<Topic> getAllTopics(){
         em.setFlushMode(FlushModeType.COMMIT);
         return em.createQuery("select t from Topic t", Topic.class).getResultList();
-    }
-
-    public boolean isTopicPersisted(String name) {
-        em.setFlushMode(FlushModeType.COMMIT);
-        Collection<Topic> listTopic =
-                (Collection<Topic>) em.createQuery("select t from Topic t where t.name = :name")
-                        .setParameter("name", name).getResultList();
-        return !listTopic.isEmpty();
     }
 
 
@@ -100,29 +79,39 @@ public class TrainingDAO {
     }
 
     @Transactional
-    public void addSessionTraining(TrainingSession trainingSession) {
-        em.persist(trainingSession);
-    }
-
-    @Transactional
-    public TrainingSession getSessionTraining(long id) {
-        try {
+    public TrainingSession getSessionTraining(long id) throws PersistentObjectNotFoundException{
             TrainingSession trainingSession = em.find(TrainingSession.class, id);
             if (trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
             trainingSession.getCollaborators().size();
             return trainingSession;
-        } catch (PersistentObjectNotFoundException | ConversionException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+    }
+
+    @Transactional
+    public TrainingSession addSessionTraining(TrainingSession trainingSession) {
+        if (this.isThereOneSessionTrainingAlreadyPlanned(trainingSession)){
+            throw new TrainingSessionException(TrainingSessionErrors.TRAINING_SESSION_ALREADY_PLANNED.getMessage());
         }
+        if(!trainingSession.getBeginning().before(trainingSession.getEnding())) {
+            throw new TrainingSessionException(TrainingSessionErrors.TRAINING_SESSION_INCORRECT_DATES.getMessage());
+        }
+        em.persist(trainingSession);
+        em.flush();
+        return trainingSession;
     }
 
     @Transactional
     public TrainingSession updateTrainingSession(TrainingSession trainingSession, TrainingSession trainingSessionTemp){
+        if (this.isThereOneSessionTrainingAlreadyPlanned(trainingSessionTemp)){
+            throw new TrainingSessionException(TrainingSessionErrors.TRAINING_SESSION_ALREADY_PLANNED.getMessage());
+        }
+        if(!trainingSessionTemp.getBeginning().before(trainingSessionTemp.getEnding())) {
+            throw new TrainingSessionException(TrainingSessionErrors.TRAINING_SESSION_INCORRECT_DATES.getMessage());
+        }
         trainingSession = em.merge(trainingSession);
         trainingSession.setBeginning(trainingSessionTemp.getBeginning());
         trainingSession.setEnding(trainingSessionTemp.getEnding());
         trainingSession.setLocation(trainingSessionTemp.getLocation());
+        em.flush();
         return trainingSession;
     }
 
