@@ -48,8 +48,8 @@ public class CollaboratorWS {
     CollaboratorDAO collaboratorDAO;
     @Inject
     TrainingDAO trainingDAO;
-    //@Inject
-    //AuthenticationManager authenticationManager;
+    @Inject
+    AuthenticationManager authenticationManager;
 
     @Inject
     ExceptionUtil exceptionUtil;

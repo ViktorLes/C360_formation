@@ -4,54 +4,22 @@
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-
-<!--
-    <http pattern="/css/**" security="none"/>
-    <http pattern="/pageblanche.html*" security="none"/>
-    <http>
-        <intercept-url pattern="/index.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/api/**" access="ROLE_USER" />
-        <form-login login-page='/index.html'/>
-        <csrf disabled="true"/>
-    </http>
-    -->
-    <!--
-    <http pattern="/app/**" security="none"/>
-    <http pattern="/css/**" security="none"/>
-    <http pattern="/fonts/**" security="none"/>
-    <http pattern="/lib/**" security="none"/>
-    <http pattern="/templates/**" security="none"/>
-    <http pattern="/index.html*" security="none"/>
-    <http pattern="/pageblanche.html*" security="none"/>
-    <http use-expressions="false">
-        <intercept-url pattern="/api/**" access="ROLE_USER" />
-        <http-basic />
-        <csrf disabled="true"/>
-    </http>
--->
-    <!--
-    <http pattern="/app/**" security="none"/>
-    <http pattern="/css/**" security="none"/>
-    <http pattern="/fonts/**" security="none"/>
-    <http pattern="/lib/**" security="none"/>
-    <http pattern="/templates/**" security="none"/>
-    <http pattern="/index.html*" security="none"/>
-    <http pattern="/pageblanche.html*" security="none"/>
-    -->
-    <!-- <http pattern="**" security="none"/> -->
-    <http use-expressions="false">
-        <intercept-url pattern='/api/collaborateurs**' access='ROLE_USER' />
-        <form-login login-page='/index.html' default-target-url='/index.html'
-                    always-use-default-target='true' />
+    <http pattern="/api/collaborateurs*" security="none"/>
+    <http use-expressions="false" authentication-manager-ref="authenticationManager">
+        <intercept-url pattern='/api/**' access='ROLE_USER' />
+        <form-login login-page='/index.html' default-target-url='/index.html' always-use-default-target='true' />
         <csrf disabled="true"/>
     </http>
 
-    <authentication-manager>
-    <authentication-provider>
-        <user-service id="myUserDetailsService">
-            <user name="user" password="password" authorities="ROLE_USER" />
-        </user-service>
-    </authentication-provider>
+
+    <authentication-manager id="authenticationManager">
+        <authentication-provider user-service-ref="myUserDetailsService">
+        </authentication-provider>
     </authentication-manager>
+
+    <user-service id="myUserDetailsService">
+      <!--  <user name="user" password="password" authorities="ROLE_USER" /> -->
+    </user-service>
+
 
 </b:beans>
