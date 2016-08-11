@@ -5,10 +5,10 @@ import java.lang.reflect.Field;
 public class TestUtil {
     public static void inject(Object target, String fieldName, Object value){
         try {
-            Field field = target.getClass().getDeclaredField(fieldName);
+            Field field = TestUtil.getField(target, fieldName);
             field.setAccessible(true);
             field.set(target, value);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
     }

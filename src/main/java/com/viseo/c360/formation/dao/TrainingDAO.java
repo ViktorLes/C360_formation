@@ -3,9 +3,11 @@ package com.viseo.c360.formation.dao;
 import java.util.Collection;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.*;
 
 
+import com.viseo.c360.formation.dao.db.DAOFacade;
 import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
 import com.viseo.c360.formation.domain.training.TrainingSession;
@@ -16,29 +18,31 @@ import com.viseo.c360.formation.exceptions.dao.util.TrainingSessionErrors;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.viseo.c360.formation.dao.db.DAOFacade.Parameter.param;
+
 @Repository
 public class TrainingDAO {
 
-    @PersistenceContext
-    EntityManager em;
+    @Inject
+    DAOFacade daoFacade;
 
     /***
      * Training
      ***/
     public Training getTraining(long id) {
-        return em.find(Training.class, id);
+        return daoFacade.find(Training.class, id);
     }
 
     @Transactional
     public Training addTraining(Training training) throws PersistenceException {
-        em.persist(training);
-        em.flush();
+        daoFacade.persist(training);
+        daoFacade.flush();
         return training;
     }
 
     public List<Training> getAllTrainings() {
-        em.setFlushMode(FlushModeType.COMMIT);
-        return em.createQuery("select a from Training a", Training.class).getResultList();
+        daoFacade.setFlushMode(FlushModeType.COMMIT);
+        return daoFacade.getList("select a from Training a");
     }
 
     /***
@@ -46,18 +50,18 @@ public class TrainingDAO {
      ***/
     @Transactional
     public Topic addTopic(Topic topic) throws PersistenceException {
-        em.persist(topic);
-        em.flush();
+        daoFacade.persist(topic);
+        daoFacade.flush();
         return topic;
     }
 
     public Topic getTopic(long id){
-        return em.find(Topic.class,id);
+        return daoFacade.find(Topic.class,id);
     }
 
     public List<Topic> getAllTopics(){
-        em.setFlushMode(FlushModeType.COMMIT);
-        return em.createQuery("select t from Topic t", Topic.class).getResultList();
+        daoFacade.setFlushMode(FlushModeType.COMMIT);
+        return daoFacade.getList("select t from Topic t");
     }
 
 
@@ -66,21 +70,20 @@ public class TrainingDAO {
      * Session Training
      ***/
     public List<TrainingSession> getSessionByTraining(long myTrainingId) {
-        em.setFlushMode(FlushModeType.COMMIT);
-        Query q = em.createQuery("select s from TrainingSession s where s.training.id=:myTrainingId")
-                .setParameter("myTrainingId", myTrainingId);
-        return q.getResultList();
+        daoFacade.setFlushMode(FlushModeType.COMMIT);
+        return daoFacade.getList("select s from TrainingSession s where s.training.id=:myTrainingId",
+        param("myTrainingId", myTrainingId));
     }
 
 
     public List<TrainingSession> getAllTrainingSessions() {
-        em.setFlushMode(FlushModeType.COMMIT);
-        return em.createQuery("select s from TrainingSession s", TrainingSession.class).getResultList();
+        daoFacade.setFlushMode(FlushModeType.COMMIT);
+        return daoFacade.getList("select s from TrainingSession s");
     }
 
     @Transactional
     public TrainingSession getSessionTraining(long id) throws PersistentObjectNotFoundException{
-            TrainingSession trainingSession = em.find(TrainingSession.class, id);
+            TrainingSession trainingSession = daoFacade.find(TrainingSession.class, id);
             if (trainingSession == null) throw new PersistentObjectNotFoundException(id, TrainingSession.class);
             trainingSession.getCollaborators().size();
             return trainingSession;
@@ -94,8 +97,8 @@ public class TrainingDAO {
         if(!trainingSession.getBeginning().before(trainingSession.getEnding())) {
             throw new TrainingSessionException(TrainingSessionErrors.TRAINING_SESSION_INCORRECT_DATES.getMessage());
         }
-        em.persist(trainingSession);
-        em.flush();
+        daoFacade.persist(trainingSession);
+        daoFacade.flush();
         return trainingSession;
     }
 
@@ -107,26 +110,25 @@ public class TrainingDAO {
         if(!trainingSessionTemp.getBeginning().before(trainingSessionTemp.getEnding())) {
             throw new TrainingSessionException(TrainingSessionErrors.TRAINING_SESSION_INCORRECT_DATES.getMessage());
         }
-        trainingSession = em.merge(trainingSession);
+        trainingSession = daoFacade.merge(trainingSession);
         trainingSession.setBeginning(trainingSessionTemp.getBeginning());
         trainingSession.setEnding(trainingSessionTemp.getEnding());
         trainingSession.setLocation(trainingSessionTemp.getLocation());
-        em.flush();
+        daoFacade.flush();
         return trainingSession;
     }
 
     public boolean isThereOneSessionTrainingAlreadyPlanned(TrainingSession trainingSession) {
-        em.setFlushMode(FlushModeType.COMMIT);
-        Query q = em.createQuery("select s from TrainingSession s " +
+        daoFacade.setFlushMode(FlushModeType.COMMIT);
+        List<TrainingSession> list = daoFacade.getList("select s from TrainingSession s " +
                 "where s.training=:training and s.id != :trainingSessionId and" +
                 "( (s.beginning >= :beginning and s.beginning < :ending) or" +
                 "(s.ending >= :beginning and s.ending <= :ending) or " +
-                "(s.beginning <= :beginning and s.ending >= :ending) )"
-                ).setParameter("trainingSessionId", trainingSession.getId())
-                .setParameter("training", trainingSession.getTraining())
-                .setParameter("beginning", trainingSession.getBeginning())
-                .setParameter("ending", trainingSession.getEnding());
-        Collection<TrainingSession> list = (Collection<TrainingSession>) q.getResultList();
+                "(s.beginning <= :beginning and s.ending >= :ending) )",
+                param("trainingSessionId", trainingSession.getId()),
+                param("training", trainingSession.getTraining()),
+                param("beginning", trainingSession.getBeginning()),
+                param("ending", trainingSession.getEnding()));
         return !list.isEmpty();
     }
 }
