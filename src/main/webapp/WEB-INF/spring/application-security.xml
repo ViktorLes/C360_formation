@@ -23,6 +23,10 @@
     </user-service>
     -->
 
+    <!--
+    <global-method-security pre-post-annotations="enabled" />
+-->
+
     <bean id="restAuthenticationEntryPoint" name="restAuthenticationEntryPoint" class="com.viseo.c360.formation.security.RestAuthenticationEntryPoint"/>
     <bean id="jwtAuthenticationProvider" name="jwtAuthenticationProvider" class="com.viseo.c360.formation.security.JwtAuthenticationProvider"/>
     <bean id="jwtAuthenticationSuccessHandler" name="jwtAuthenticationSuccessHandler" class="com.viseo.c360.formation.security.JwtAuthenticationSuccessHandler"/>
@@ -32,9 +36,11 @@
 
     <http pattern="/api/**" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
         <csrf disabled="true"/>
+        <!--
         <custom-filter before="FORM_LOGIN_FILTER" ref="jwtAuthenticationFilter"/>
+        -->
     </http>
-
+<!--
     <bean id="jwtAuthenticationFilter" name="jwtAuthenticationFilter" class="com.viseo.c360.formation.security.JwtAuthenticationFilter">
         <b:property name="authenticationManager" ref="authenticationManager" />
         <b:property name="authenticationSuccessHandler" ref="jwtAuthenticationSuccessHandler" />
@@ -43,5 +49,5 @@
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="jwtAuthenticationProvider" />
     </authentication-manager>
-
+-->
 </b:beans>
