@@ -3,6 +3,7 @@ package com.viseo.c360.formation.dao;
 import java.util.Collection;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.*;
 
 
@@ -22,7 +23,7 @@ import static com.viseo.c360.formation.dao.db.DAOFacade.Parameter.param;
 @Repository
 public class TrainingDAO {
 
-    @PersistenceContext
+    @Inject
     DAOFacade daoFacade;
 
     /***
