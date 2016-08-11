@@ -14,6 +14,7 @@ public class JwtAuthenticationToken implements Authentication {
     }
 
     public JwtAuthenticationToken(UsernamePasswordAuthenticationToken authentication) {
+       // authentication.
     }
 
     public JwtAuthenticationToken(String token) {

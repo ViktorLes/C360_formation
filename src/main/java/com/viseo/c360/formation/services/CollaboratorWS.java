@@ -95,7 +95,6 @@ public class CollaboratorWS {
         }
     }
 
-
     @RequestMapping(value = "${endpoint.requests}", method = RequestMethod.POST)
     @ResponseBody
     public RequestTrainingDescription addRequestTraining(@RequestBody RequestTrainingDescription requestTrainingDescription) {

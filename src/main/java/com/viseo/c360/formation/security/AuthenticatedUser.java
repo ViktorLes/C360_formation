@@ -7,41 +7,46 @@ import java.util.Collection;
 import java.util.List;
 
 public class AuthenticatedUser implements UserDetails {
-    public AuthenticatedUser(Object id, String username, String token, List<GrantedAuthority> authorityList) {
+
+    String username;
+    String token;
+    List<GrantedAuthority> authorityList;
+
+    public AuthenticatedUser(String username, String token, List<GrantedAuthority> authorityList) {
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorityList;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return token;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
