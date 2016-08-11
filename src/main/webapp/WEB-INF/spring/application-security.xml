@@ -27,27 +27,31 @@
     <global-method-security pre-post-annotations="enabled" />
 -->
 
-    <bean id="restAuthenticationEntryPoint" name="restAuthenticationEntryPoint" class="com.viseo.c360.formation.security.RestAuthenticationEntryPoint"/>
-    <bean id="jwtAuthenticationProvider" name="jwtAuthenticationProvider" class="com.viseo.c360.formation.security.JwtAuthenticationProvider"/>
-    <bean id="jwtAuthenticationSuccessHandler" name="jwtAuthenticationSuccessHandler" class="com.viseo.c360.formation.security.JwtAuthenticationSuccessHandler"/>
+
+    <b:bean id="restAuthenticationEntryPoint" name="restAuthenticationEntryPoint"
+            class="com.viseo.c360.formation.security.RestAuthenticationEntryPoint"/>
+    <b:bean id="jwtAuthenticationProvider" name="jwtAuthenticationProvider"
+            class="com.viseo.c360.formation.security.JwtAuthenticationProvider"/>
+    <b:bean id="jwtAuthenticationSuccessHandler" name="jwtAuthenticationSuccessHandler"
+            class="com.viseo.c360.formation.security.JwtAuthenticationSuccessHandler"/>
+    <b:bean id="jwtUtil" name="jwtUtil" class="com.viseo.c360.formation.security.JwtUtil"/>
+
 
     <http pattern="/api/user" security="none"/>
-    <http pattern="/api/collaborateurs" security="none"/> <!-- Security is not complete here ! -->
-
+    <http pattern="/api/collaborateurs" security="none"/>
     <http pattern="/api/**" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
         <csrf disabled="true"/>
-        <!--
         <custom-filter before="FORM_LOGIN_FILTER" ref="jwtAuthenticationFilter"/>
-        -->
     </http>
-<!--
-    <bean id="jwtAuthenticationFilter" name="jwtAuthenticationFilter" class="com.viseo.c360.formation.security.JwtAuthenticationFilter">
-        <b:property name="authenticationManager" ref="authenticationManager" />
-        <b:property name="authenticationSuccessHandler" ref="jwtAuthenticationSuccessHandler" />
-    </bean>
+
+    <b:bean id="jwtAuthenticationFilter" name="jwtAuthenticationFilter"
+            class="com.viseo.c360.formation.security.JwtAuthenticationFilter">
+        <b:property name="authenticationManager" ref="authenticationManager"/>
+        <b:property name="authenticationSuccessHandler" ref="jwtAuthenticationSuccessHandler"/>
+    </b:bean>
 
     <authentication-manager alias="authenticationManager">
-        <authentication-provider ref="jwtAuthenticationProvider" />
+        <authentication-provider ref="jwtAuthenticationProvider"/>
     </authentication-manager>
--->
+
 </b:beans>

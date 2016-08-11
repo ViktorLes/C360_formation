@@ -1,7 +1,6 @@
 package com.viseo.c360.formation.security;
 
 import com.viseo.c360.formation.exceptions.security.JwtTokenMalformedException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
@@ -9,11 +8,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
-    @Autowired
+    @Inject
     private JwtUtil jwtUtil;
 
     @Override
