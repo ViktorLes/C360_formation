@@ -1,5 +1,6 @@
 package com.viseo.c360.formation.security;
 
+import com.viseo.c360.formation.dto.collaborator.CollaboratorToken;
 import com.viseo.c360.formation.exceptions.security.JwtTokenMalformedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
@@ -14,7 +15,7 @@ import java.util.List;
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
     @Inject
-    private JwtUtil jwtUtil;
+    JwtUtil jwtUtil;
 
     @Override
     public boolean supports(Class<?> authentication) {
@@ -30,15 +31,15 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         JwtAuthenticationToken jwtAuthenticationToken = new JwtAuthenticationToken(authentication);//(JwtAuthenticationToken) authentication;
         String token = jwtAuthenticationToken.getToken();
 
-        User parsedUser = jwtUtil.parseToken(token);
+        CollaboratorToken parsedCollaborator = jwtUtil.parseToken(token);
 
-        if (parsedUser == null) {
+        if (parsedCollaborator == null) {
             throw new JwtTokenMalformedException("JWT token is not valid");
         }
 
-        List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(parsedUser.getRole());
+        List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(parsedCollaborator.getRoles());
 
-        return new AuthenticatedUser(parsedUser.getId(), parsedUser.getUsername(), token, authorityList);
+        return new AuthenticatedUser(parsedCollaborator.getId(), parsedCollaborator.getUsername(), token, authorityList);
     }
 
 }

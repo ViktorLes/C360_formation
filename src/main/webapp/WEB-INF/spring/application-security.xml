@@ -36,14 +36,6 @@
             class="com.viseo.c360.formation.security.JwtAuthenticationSuccessHandler"/>
     <b:bean id="jwtUtil" name="jwtUtil" class="com.viseo.c360.formation.security.JwtUtil"/>
 
-
-    <http pattern="/api/user" security="none"/>
-    <http pattern="/api/collaborateurs" security="none"/>
-    <http pattern="/api/**" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
-        <csrf disabled="true"/>
-        <custom-filter before="FORM_LOGIN_FILTER" ref="jwtAuthenticationFilter"/>
-    </http>
-
     <b:bean id="jwtAuthenticationFilter" name="jwtAuthenticationFilter"
             class="com.viseo.c360.formation.security.JwtAuthenticationFilter">
         <b:property name="authenticationManager" ref="authenticationManager"/>
@@ -53,5 +45,15 @@
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="jwtAuthenticationProvider"/>
     </authentication-manager>
+
+
+    <http pattern="/api/login" security="none"/>
+    <http pattern="/api/logout" security="none"/>
+    <http pattern="/api/collaborateurs" security="none"/>
+
+    <http pattern="/api/**" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
+        <csrf disabled="true"/>
+        <custom-filter before="FORM_LOGIN_FILTER" ref="jwtAuthenticationFilter"/>
+    </http>
 
 </b:beans>

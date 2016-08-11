@@ -5,6 +5,7 @@ import com.viseo.c360.formation.exceptions.C360Exception;
 import com.viseo.c360.formation.exceptions.dao.TrainingSessionException;
 import com.viseo.c360.formation.exceptions.dao.UniqueFieldException;
 
+import com.viseo.c360.formation.exceptions.security.JwtTokenMissingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

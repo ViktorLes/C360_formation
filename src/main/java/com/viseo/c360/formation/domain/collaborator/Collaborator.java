@@ -39,7 +39,7 @@ public class Collaborator extends BaseEntity {
 	String password;
 
 	@NotNull
-	Boolean isAdmin;
+	String roles;
 
 	public Collaborator() {
 		super();
@@ -71,6 +71,10 @@ public class Collaborator extends BaseEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Boolean getIsAdmin() {return isAdmin;}
-	public void setIsAdmin(Boolean admin) {this.isAdmin = admin;}
+	public String getRoles() {
+		return roles;
+	}
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
 }

@@ -16,10 +16,10 @@ public class CollaboratorDescription extends BaseDTO {
     String firstName;
     String email;
     String password;
-    Boolean isAdmin;
+    String roles;
 
     public CollaboratorDescription() {
-        this.isAdmin = false;
+        this.roles = "USER";
     }
 
     public String getPersonnalIdNumber() {
@@ -60,11 +60,11 @@ public class CollaboratorDescription extends BaseDTO {
         this.password = password;
     }
 
-    public Boolean getIsAdmin() {
-        return isAdmin;
+    public String getRoles() {
+        return roles;
     }
 
-    public void setIsAdmin(Boolean admin) {
-        this.isAdmin = admin;
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }

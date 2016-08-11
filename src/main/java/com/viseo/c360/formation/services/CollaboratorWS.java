@@ -1,9 +1,6 @@
 package com.viseo.c360.formation.services;
 
-import java.security.Key;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
@@ -48,60 +45,10 @@ public class CollaboratorWS {
     CollaboratorDAO collaboratorDAO;
     @Inject
     TrainingDAO trainingDAO;
-    @Inject
-    AuthenticationManager authenticationManager;
 
     @Inject
     ExceptionUtil exceptionUtil;
 
-
-    @RequestMapping(value = "${endpoint.user}", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, CollaboratorDescription> getUserByLoginPassword(@RequestBody CollaboratorDescription myCollaboratorDescription) {
-        try {
-            InitializeMap();
-            Collaborator c = collaboratorDAO.getCollaboratorByLoginPassword(myCollaboratorDescription.getEmail(), myCollaboratorDescription.getPassword());
-            CollaboratorDescription user = new CollaboratorToDescription().convert(c);
-            Key key = MacProvider.generateKey();
-            String compactJws = Jwts.builder()
-                    .setSubject(user.getFirstName())
-                    .claim("lastName", user.getLastName())
-                    .claim("roles", user.getIsAdmin())
-                    .claim("id",user.getId())
-                    .signWith(SignatureAlgorithm.HS512, key)
-                    .compact();
-            Map currentUserMap = new HashMap<>();
-            putUserInCache(compactJws, user);
-            currentUserMap.put("userConnected", compactJws);
-            return currentUserMap;
-        } catch (ConversionException e) {
-            e.printStackTrace();
-            throw new C360Exception(e);
-        }
-    }
-
-    private static ConcurrentHashMap<String, CollaboratorDescription> mapUserCache;
-
-    private void InitializeMap() {
-        if (mapUserCache == null)
-            mapUserCache = new ConcurrentHashMap<String, CollaboratorDescription>();
-    }
-
-    private void putUserInCache(String token, CollaboratorDescription user) {
-        mapUserCache.put(token, user);
-    }
-
-    @RequestMapping(value = "${endpoint.userdisconnect}", method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean deleteDisconnectedUserFromCache(@RequestBody String token) {
-        try {
-            mapUserCache.remove(token);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new C360Exception(e);
-        }
-    }
 
     @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
     @ResponseBody

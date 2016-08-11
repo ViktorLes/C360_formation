@@ -22,7 +22,7 @@ public class CollaboratorToDescription {
         dto.setFirstName(source.getFirstName());
         dto.setEmail(source.getEmail());
         dto.setPassword(source.getPassword());
-        dto.setIsAdmin(source.getIsAdmin());
+        dto.setRoles(source.getRoles());
         return dto;
     }
 

@@ -1,7 +1,10 @@
-angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', 'currentUserService', '$location', function (InitBddService, MockConnexionService, $http, currentUserService, $location) {
+angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', 'TestConnectionService', '$http', 'currentUserService', '$location', function (InitBddService, MockConnexionService, TestConnectionService, $http, currentUserService, $location) {
     var self = this;
 
+    TestConnectionService.init();
+
     self.initBase = function () {
+        TestConnectionService.init();
         InitBddService.init();
         $http.get("api/collaborateurs").then(function (response) {
             self.collaborators = response.data;
