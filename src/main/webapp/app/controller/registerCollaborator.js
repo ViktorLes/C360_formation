@@ -49,7 +49,7 @@ angular.module('controllers')
             collaboratorToRegister.password = hash(collaboratorToRegister.password);
             delete collaboratorToRegister['confirmPassword'];
             //post the form to the server
-            $http.post("api/collaborateurs", collaboratorToRegister).then(function (data) {
+            $http.post("api/signup", collaboratorToRegister).then(function (data) {
                 self.isThereAnEmptyField = false;
                 resetForm(); //Reset the Form
                 self.isNewEmail = true;

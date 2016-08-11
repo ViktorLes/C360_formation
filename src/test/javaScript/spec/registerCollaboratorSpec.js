@@ -68,7 +68,7 @@ describe('Enregistrement Collaborateur', function () {
             fillIdentityCollaboratorCorrectly();
             fillEmailCorrectly();
             fillPasswordCorrectly();
-            backend.expectPOST('api/collaborateurs', self.collaborator).respond({data: collaboratorDescription});
+            backend.expectPOST('api/signup', self.collaborator).respond({data: collaboratorDescription});
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewPersonalIdNumber).toBeTruthy();
@@ -181,7 +181,7 @@ describe('Enregistrement Collaborateur', function () {
             fillIdentityCollaboratorCorrectly();
             fillEmailCorrectly();
             fillPasswordCorrectly();
-            backend.expectPOST('api/collaborateurs', self.collaborator).respond(400, {message: "email"});
+            backend.expectPOST('api/signup', self.collaborator).respond(400, {message: "email"});
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewEmail).toBeFalsy();
@@ -195,7 +195,7 @@ describe('Enregistrement Collaborateur', function () {
             fillIdentityCollaboratorCorrectly();
             fillEmailCorrectly();
             fillPasswordCorrectly();
-            backend.expectPOST('api/collaborateurs', self.collaborator).respond(400, {message: "personnalIdNumber"});
+            backend.expectPOST('api/signup', self.collaborator).respond(400, {message: "personnalIdNumber"});
             ctrl.verifyForm(form);
             backend.flush();
             expect(ctrl.isNewEmail).toBeTruthy();

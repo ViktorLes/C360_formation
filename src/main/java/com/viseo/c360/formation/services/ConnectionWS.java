@@ -4,7 +4,6 @@ import com.viseo.c360.formation.converters.collaborator.CollaboratorToToken;
 import com.viseo.c360.formation.dao.CollaboratorDAO;
 import com.viseo.c360.formation.domain.collaborator.Collaborator;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorCredentials;
-import com.viseo.c360.formation.dto.collaborator.CollaboratorDescription;
 import com.viseo.c360.formation.dto.collaborator.CollaboratorToken;
 import com.viseo.c360.formation.security.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;

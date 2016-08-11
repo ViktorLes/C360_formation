@@ -4,29 +4,6 @@
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <!--
-    <http pattern="/api/collaborateurs*" security="none"/>
-    <http use-expressions="false" authentication-manager-ref="authenticationManager">
-        <intercept-url pattern='/api/**' access='ROLE_USER' />
-        <form-login login-page='/index.html' default-target-url='/index.html' always-use-default-target='true' />
-        <csrf disabled="true"/>
-    </http>
-
-
-    <authentication-manager id="authenticationManager">
-        <authentication-provider user-service-ref="myUserDetailsService">
-        </authentication-provider>
-    </authentication-manager>
-
-    <user-service id="myUserDetailsService">
-      <user name="user" password="password" authorities="ROLE_USER" />
-    </user-service>
-    -->
-
-    <!--
-    <global-method-security pre-post-annotations="enabled" />
--->
-
 
     <b:bean id="restAuthenticationEntryPoint" name="restAuthenticationEntryPoint"
             class="com.viseo.c360.formation.security.RestAuthenticationEntryPoint"/>
@@ -49,7 +26,7 @@
 
     <http pattern="/api/login" security="none"/>
     <http pattern="/api/logout" security="none"/>
-    <http pattern="/api/collaborateurs" security="none"/>
+    <http pattern="/api/signup" security="none"/>
 
     <http pattern="/api/**" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
         <csrf disabled="true"/>

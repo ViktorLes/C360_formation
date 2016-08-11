@@ -70,15 +70,15 @@ angular.module('controllers').factory('InitBddService', ['$http','hash', functio
                     session1.trainingDescription = training;
                     session2.trainingDescription = training;
                 }
-                return $http.post("api/collaborateurs", collaborator1);
+                return $http.post("api/signup", collaborator1);
             }).then(function (data) {
                 collaborator1 = data.data;
                 if (data.data)console.log("ajout collaborator1", collaborator1);
-                return $http.post("api/collaborateurs", collaborator2);
+                return $http.post("api/signup", collaborator2);
             }).then(function (data) {
                 collaborator2 = data.data;
                 if (data.data)console.log("ajout collaborator2", collaborator2);
-                return $http.post("api/collaborateurs", collaborator3);
+                return $http.post("api/signup", collaborator3);
             }).then(function (data) {
                 collaborator3 = data.data;
                 if (data.data)console.log("ajout collaborator3", collaborator3);

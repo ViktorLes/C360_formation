@@ -28,13 +28,8 @@ import com.viseo.c360.formation.domain.collaborator.Collaborator;
 
 import com.viseo.c360.formation.exceptions.C360Exception;
 import com.viseo.c360.formation.exceptions.dao.PersistentObjectNotFoundException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.crypto.MacProvider;
 
-import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.core.convert.ConversionException;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -50,7 +45,7 @@ public class CollaboratorWS {
     ExceptionUtil exceptionUtil;
 
 
-    @RequestMapping(value = "${endpoint.collaborators}", method = RequestMethod.POST)
+    @RequestMapping(value = "${endpoint.signup}", method = RequestMethod.POST)
     @ResponseBody
     public CollaboratorDescription addCollaborator(@RequestBody CollaboratorDescription collaboratorDescription) {
         try {
