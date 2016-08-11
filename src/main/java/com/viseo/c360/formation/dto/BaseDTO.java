@@ -35,10 +35,18 @@ public abstract class BaseDTO {
         if (obj1 == null || getClass() != obj1.getClass()) return false;
         BaseDTO that = this.getClass().cast(obj1);
         for (Field field : this.getClass().getDeclaredFields()){
-                field.setAccessible(true);
             try {
-                if (!(field.get(that).equals(field.get(this)))) {
-                    return false;
+                if(!field.isAccessible()) {
+                    field.setAccessible(true);
+                    if (!(field.get(that).equals(field.get(this)))) {
+                        field.setAccessible(false);
+                        return false;
+                    }
+                }
+                else{
+                    if (!(field.get(that).equals(field.get(this)))) {
+                        return false;
+                    }
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
