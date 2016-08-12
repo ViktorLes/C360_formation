@@ -4,7 +4,6 @@ import com.viseo.TestUtil;
 import com.viseo.c360.formation.dao.TrainingDAO;
 import com.viseo.c360.formation.domain.training.Topic;
 import com.viseo.c360.formation.domain.training.Training;
-import com.viseo.c360.formation.domain.training.TrainingSession;
 import com.viseo.c360.formation.dto.training.TopicDescription;
 import com.viseo.c360.formation.dto.training.TrainingDescription;
 import com.viseo.c360.formation.services.TrainingWS;
@@ -19,12 +18,16 @@ public class TestTrainingWS {
     TrainingWS trainingWS = null;
     TrainingDescription trainingDescription = null;
     TopicDescription topicDescription = null;
+    TrainingDescription trainingNotFilled = null;
     Topic topic = null;
 
-    public void prepareDTODomain(){
+    public void prepareBase(){
         topic = new Topic();
         topic.setName("Dev Web");
         fakeDaoFacade.persist(topic);
+    }
+
+    public void prepareDTO(){
         topicDescription = new TopicDescription();
         topicDescription.setName("Dev Web");
         topicDescription.setId(topic.getId());
@@ -32,8 +35,12 @@ public class TestTrainingWS {
         trainingDescription.setTrainingTitle("AngularJs");
         trainingDescription.setNumberHalfDays(5);
         trainingDescription.setTopicDescription(topicDescription);
-
+        trainingNotFilled = new TrainingDescription();
+        trainingNotFilled.setNumberHalfDays(0);
+        trainingNotFilled.setTopicDescription(topicDescription);
+        trainingNotFilled.setTrainingTitle("");
     }
+
 
     @Before
     public void setUp(){
@@ -46,7 +53,8 @@ public class TestTrainingWS {
         fakeDaoFacade.declareEntityClasses(Topic.class);
         fakeDaoFacade.registerFilter("select a from Training a",(facade, entity, paramRegistry) -> {
             return entity instanceof Training;});
-        prepareDTODomain();
+        prepareBase();
+        prepareDTO();
     }
 
     @Test
@@ -54,4 +62,5 @@ public class TestTrainingWS {
         trainingDescription = trainingWS.addTraining(trainingDescription);
         Assert.assertEquals(trainingDescription,trainingWS.getAllTrainingsDescriptions().get(0));
     }
+
 }
