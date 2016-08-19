@@ -45,7 +45,7 @@ public class ConnectionWS {
     public Token login(@RequestBody CollaboratorCredentials collaboratorCredentials) {
         Collaborator collaborator = collaboratorDAO.getCollaboratorByLoginPassword(collaboratorCredentials.getEmail(), collaboratorCredentials.getPassword());
         CollaboratorToken collaboratorToken = new CollaboratorToToken().convert(collaborator);
-        //authenticationManager.
+        authenticationManager.authenticate();
         return new Token(jwtUtil.generateToken(collaboratorToken));
     }
 

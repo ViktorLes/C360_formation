@@ -29,6 +29,7 @@
     <http pattern="/api/signup" security="none"/>
 
     <http pattern="/api/**" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
+        <intercept-url pattern="/api/admin/**"  access="ROLE_ADMIN"></intercept-url>
         <csrf disabled="true"/>
         <custom-filter before="FORM_LOGIN_FILTER" ref="jwtAuthenticationFilter"/>
     </http>

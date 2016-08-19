@@ -6,13 +6,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-public class AuthenticatedUser implements UserDetails {
+public class CollaboratorDetails implements UserDetails {
 
     String username;
     String token;
     List<GrantedAuthority> authorityList;
 
-    public AuthenticatedUser(String username, String token, List<GrantedAuthority> authorityList) {
+    public CollaboratorDetails(String username, String token, List<GrantedAuthority> authorityList) {
     }
 
     @Override
