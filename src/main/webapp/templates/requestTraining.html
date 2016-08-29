@@ -11,13 +11,13 @@
                     <div class="form-group">
                         <label>Selectionner une formation</label>
                         <select class="selectpicker form-control" ng-model="DmF.requestedTraining"
-                                ng-options="training.trainingTitle for training in DmF.training"
+                                ng-options="training.trainingTitle for training in DmF.trainings"
                                 ng-change="DmF.loadTrainingSessions()">
                             <option value="" disabled selected style="display: none;">--Sélectionner une formation--
                             </option>
                         </select>
 
-                        <ul>
+<!--                        <ul>
                             <li ng-repeat="training in DmF.training">
 
                                 <label class=" btn btn-default" ng-click="DmF.foldAndFoldUp">
@@ -25,10 +25,10 @@
 
                                 </label>
                             </li>
-                        </ul>
+                        </ul>-->
 
                         <ul>
-                            <li ng-repeat="s in DmF.listTrainingSession" ng-show="DmF.view">
+                            <li ng-repeat="s in DmF.listTrainingSession" >
  							<input type="checkbox" ng-model="s.isChecked" ng-disabled="DmF.isDisabled(s)">
  							{{s.beginning | date:"dd LLLL yyyy"}} - {{s.ending | date:"dd LLLL yyyy"}} - {{s.location}}
                             </li>
