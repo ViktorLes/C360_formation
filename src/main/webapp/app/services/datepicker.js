@@ -73,7 +73,6 @@ angular.module('serviceDatepicker').factory('DatepickerService', [function () {
 							}
 						}
 					}
-					console.log("here: ",date_eval);
 					return date_eval;
 				};
 				return {
