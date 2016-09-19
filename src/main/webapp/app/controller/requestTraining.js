@@ -75,21 +75,13 @@ angular.module('controllers')
                 collaboratorIdentity: currentUserService.getCollaboratorIdentity(),
                 trainingSessionsDescriptions: getSessionsSelected(self.listTrainingSession)
             };
-<<<<<<< HEAD
-            $http.post("api/requests", myRequest).then(function (data) {
-                    $location.url('/pageblanche');
-                },
-                function (error) {
-                    console.error(error);
-                });
-=======
+
             $http.post("api/requests", myRequest).success(function (data) {
                 if (data === true || data === "true") {
                     $location.url('/RequestTraining');
                 }
                 self.loadTrainingSessions();
             });
->>>>>>> fb623ff77b8704edfb1ab3ce7cd1609d3e1bb8ff
         }
     }])
     .config(['$routeProvider', function ($routeProvider) {

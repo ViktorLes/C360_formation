@@ -13,11 +13,15 @@ angular.module('controllers')
         self.endHour = self.timeSlotsTraining[20];
         self.d1 = datepicker.build();
         self.d2 = datepicker.build();
+        setEndDateByAddingNumberOfHalfDays(self.training.numberHalfDays);
         var meetingRoom1 = {name: 'Salle Phuket'};
         var meetingRoom2 = {name: 'Salle Bali'};
         self.meetingRoomList = [meetingRoom1, meetingRoom2];
         self.trainingLocation = meetingRoom1;
-        
+
+        function setEndDateByAddingNumberOfHalfDays(sessionNumberHalfDays){
+            self.d2.dt = self.d2.setEndDate(self.d1.dt,sessionNumberHalfDays);
+        }
         function selectTime (date,time) {
             var tab = time.split(":");
             date.setHours(parseInt(tab[0],10));
@@ -68,10 +72,10 @@ angular.module('controllers')
 
         validateTraining = function () {
             if (self.training === undefined) self.isFalseForm = true;
-            else self.DateCorrect();
+            else self.dateCorrect();
         };
 
-        self.DateCorrect = function () {
+        self.dateCorrect = function () {
             if (self.d1.dt < self.d2.dt) {
                 self.isFalseForm = false;
                 self.isFalseTimeSlot = false;
@@ -112,7 +116,7 @@ angular.module('controllers')
             else {
                 if (self.isWeekend(date)) {
                     self.isWorkingDay = false;
-                }
+                } else setEndDateByAddingNumberOfHalfDays(self.training.numberHalfDays);
             }
         };
 
