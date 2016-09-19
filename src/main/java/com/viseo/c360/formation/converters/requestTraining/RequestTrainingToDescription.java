@@ -15,7 +15,7 @@ public class RequestTrainingToDescription {
         dto.setVersion(source.getVersion());
         dto.setCollaboratorIdentity(new CollaboratorToIdentity().convert(source.getCollaborator()));
         dto.setTrainingDescription(new TrainingToDescription().convert(source.getTraining()));
-        dto.setTrainingSessionsDescriptions(new TrainingSessionToDescription().convert(source.getListSession()));
+        dto.setTrainingSessionsDescriptions(new TrainingSessionToDescription().convert(source.getSessions()));
         return dto;
     }
 }

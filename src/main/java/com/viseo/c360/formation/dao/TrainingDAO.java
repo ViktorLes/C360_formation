@@ -65,7 +65,6 @@ public class TrainingDAO {
     }
 
 
-
     /***
      * Session Training
      ***/
@@ -73,6 +72,18 @@ public class TrainingDAO {
         daoFacade.setFlushMode(FlushModeType.COMMIT);
         return daoFacade.getList("select s from TrainingSession s where s.training.id=:myTrainingId",
         param("myTrainingId", myTrainingId));
+    }
+
+    public List<TrainingSession> getRequestedSessionByTraining(long myTrainingId, long byCollabId) {
+        daoFacade.setFlushMode(FlushModeType.COMMIT);
+        return daoFacade.getList("select s from RequestTraining t join t.sessions s where t.training.id=:myTrainingId and t.collaborator.id=:byCollabId",
+                param("myTrainingId", myTrainingId),
+                param("byCollabId", byCollabId));
+        /*em.setFlushMode(FlushModeType.COMMIT);
+        Query q = em.createQuery("select s from RequestTraining t join t.sessions s where t.training.id=:myTrainingId and t.collaborator.id=:byCollabId")
+                .setParameter("myTrainingId", myTrainingId)
+                .setParameter("byCollabId",byCollabId);
+        return q.getResultList();*/
     }
 
 

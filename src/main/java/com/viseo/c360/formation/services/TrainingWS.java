@@ -141,4 +141,11 @@ public class TrainingWS {
     public List<TrainingSessionDescription> getTrainingSessionsByTraining(@PathVariable String id) {
         return new TrainingSessionToDescription().convert(trainingDAO.getSessionByTraining(Long.parseLong(id)));
     }
+
+    @RequestMapping(value = "${endpoint.alreadyrequestedsession}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<TrainingSessionDescription> getRequestedSessionByTraining(@PathVariable String trainingId, @PathVariable String collabId) {
+        return new TrainingSessionToDescription().convert(trainingDAO.getRequestedSessionByTraining(Long.parseLong(trainingId),Long.parseLong(collabId)));
+    }
+
 }
