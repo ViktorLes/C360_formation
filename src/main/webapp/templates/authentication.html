@@ -32,10 +32,11 @@
                         </button>
                     </div>
                     <div>
-                        <button class="btn btn-primary center-block" type="submit" ng-click="CX.submitLogin(CX.userForm)">Connexion</button>
+                        <button class="btn btn-primary center-block" type="submit"
+                                ng-click="CX.submitLogin(CX.userForm)" ng-enter="CX.test()">Connexion</button>
                     </div>
                     <div>
-                        <button class="center-block btn btn-link" type="submit"
+                        <button class="center-block btn btn-link"
                                 ng-click="CX.registerNewCollaborator()">
                             Pas encore inscrit ? Cliquez ici pour vous enregistrer
                         </button>

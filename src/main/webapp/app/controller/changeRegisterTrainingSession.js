@@ -1,61 +1,62 @@
-
 angular.module('controllers')
-    .controller('controllerChangeRegisterTrainingSession', ['DatepickerService', '$http', '$filter', '$location','SelectSessionService','SelectTrainingService', function (datepicker, $http, $filter, $location,SelectSessionService,SelectTrainingService) {
+    .controller('controllerChangeRegisterTrainingSession', ['DatepickerService', '$http', '$filter', '$location', 'SelectSessionService', 'SelectTrainingService', function (datepicker, $http, $filter, $location, SelectSessionService, SelectTrainingService) {
         var self = this;
         self.isSessionAlreadyPlanned = false;
         self.isFalseForm = false;
         self.isFalseTimeSlot = false;
-        self.regex={};
-        self.regex.beginning="^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$";
-        self.regex.ending="^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$";
+        self.regex = {};
+        self.regex.beginning = "^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$";
+        self.regex.ending = "^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$";
         initTimeSlot();
         self.beginningHour = self.timeSlotsTraining[0];
         self.endHour = self.timeSlotsTraining[20];
         self.d1 = datepicker.build();
         self.d2 = datepicker.build();
         setEndDateByAddingNumberOfHalfDays(self.training.numberHalfDays);
-        selectTime(self.d1.dt,self.beginningHour);
-        selectTime(self.d2.dt,self.endHour);
+        selectTime(self.d1.dt, self.beginningHour);
+        selectTime(self.d2.dt, self.endHour);
 
         var meetingRoom1 = {name: 'Salle Phuket'};
         var meetingRoom2 = {name: 'Salle Bali'};
         self.meetingRoomList = [meetingRoom1, meetingRoom2];
         self.trainingLocation = meetingRoom1;
 
-        function setEndDateByAddingNumberOfHalfDays(sessionNumberHalfDays){
-            self.d2.dt = self.d2.setEndDate(self.d1.dt,sessionNumberHalfDays);
+        function setEndDateByAddingNumberOfHalfDays(sessionNumberHalfDays) {
+            self.d2.dt = self.d2.setEndDate(self.d1.dt, sessionNumberHalfDays);
         }
 
-        function selectTime (date,time) {
+        function selectTime(date, time) {
             var tab = time.split(":");
-            date.setHours(parseInt(tab[0],10));
-            date.setMinutes(parseInt(tab[1],10));
+            date.setHours(parseInt(tab[0], 10));
+            date.setMinutes(parseInt(tab[1], 10));
         }
+
         var session = SelectSessionService.get();
-        self.d1.dt=parseDate(session.beginning);
-        self.d2.dt=parseDate(session.ending);
-        self.beginningHour=session.beginningTime;
-        self.endHour=session.endingTime;
-        self.trainingLocation=self.meetingRoomList.find(function(elem){
-                return session.location===elem.name;
+        self.d1.dt = parseDate(session.beginning);
+        self.d2.dt = parseDate(session.ending);
+        self.beginningHour = session.beginningTime;
+        self.endHour = session.endingTime;
+        self.trainingLocation = self.meetingRoomList.find(function (elem) {
+            return session.location === elem.name;
         });
-        self.training=session.trainingDescription;
-        
+        self.training = session.trainingDescription;
+
         function parseDate(input) {
-            var parts=input.split('/');
-            return new Date(parts[2],parts[1]-1,parts[0]);
+            var parts = input.split('/');
+            return new Date(parts[2], parts[1] - 1, parts[0]);
         }
-        
-        self.selectTime=function (date,time) {
+
+        self.selectTime = function (date, time) {
             var tab = time.split(":");
-            date.setHours(parseInt(tab[0],10));
-            date.setMinutes(parseInt(tab[1],10));
+            date.setHours(parseInt(tab[0], 10));
+            date.setMinutes(parseInt(tab[1], 10));
         };
 
         function initTimeSlot() {
             function pad2(number) {
                 return (number < 10 ? '0' : '') + number;
             }
+
             var myArray = [];
             var beginningHour = 8;
             var endHour = 18;
@@ -74,7 +75,7 @@ angular.module('controllers')
 
         self.saveAction = function () {
             var session = {
-                id : SelectSessionService.get().id,
+                id: SelectSessionService.get().id,
                 trainingDescription: self.training,
                 beginning: $filter('date')(self.d1.dt, "dd/MM/yyyy"),
                 ending: $filter('date')(self.d2.dt, "dd/MM/yyyy"),
@@ -111,8 +112,8 @@ angular.module('controllers')
         };
 
         self.verifyForm = function (sessionFormIsInvalid) {
-            selectTime(self.d1.dt,self.beginningHour);
-            selectTime(self.d2.dt,self.endHour);
+            selectTime(self.d1.dt, self.beginningHour);
+            selectTime(self.d2.dt, self.endHour);
             if (sessionFormIsInvalid === false) {
                 validateTraining();
                 if (self.isFalseForm === false && self.isFalseTimeSlot === false && self.isFalseDate === false && self.isWorkingDay === true) self.saveAction();
@@ -122,10 +123,8 @@ angular.module('controllers')
                 if (self.isFalseDate == true) self.isFalseForm = false;
             }
         };
-
         self.isFalseDate = false;
         self.isWorkingDay = true;
-
         self.checkDateValide = function (date) {
             self.isFalseForm = false;
             self.isWorkingDay = true;
@@ -140,12 +139,10 @@ angular.module('controllers')
                 }
             }
         };
-
         self.isWeekend = function (date) {
             return (date.dt.getDay() == 0 || date.dt.getDay() == 6);
         };
     }])
-
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/ChangeRegisterTrainingSession', {

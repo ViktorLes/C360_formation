@@ -1,3 +1,4 @@
+'use strict';
 angular.module('controllers')
     .controller('controllerAuthentification', ['$http', '$location', 'hash', 'currentUserService', function ($http, $location, hash, currentUserService) {
         var self = this;
