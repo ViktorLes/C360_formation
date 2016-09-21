@@ -2,7 +2,7 @@
     <div class="col-md-1">
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-10">
         <div class="panel panel-default">
 
             <div class="panel-heading">
@@ -25,10 +25,16 @@
                         </div>
 
                         <div class="col-sm-3">
-                            <select name="topic" required class="defaultSelectedValue selectpicker form-control"
-                                    ng-options="topic.name for topic in DF.topicList" ng-model="DF.training.topicDescription">
-                                <option value="" disabled selected>Thèmes...</option>
-                            </select>
+                            <p class="input-group">
+                                <select name="topic" required class="defaultSelectedValue selectpicker form-control"
+                                        ng-options="topic.name for topic in DF.topicList"
+                                        ng-model="DF.training.topicDescription">
+                                    <option value="" disabled selected>Thèmes...</option>
+                                </select>
+                                <span class="input-group-addon myPlusButton" ng-click="">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </span>
+                            </p>
                         </div>
 
                         <!-- Nombre de 1/2 journée -->
@@ -42,36 +48,38 @@
                             <p ng-show="DF.isErrorInputMessageDisplayed(formationForm.numberHalfDays, focus.numberHalfDays)"
                                class="help-block">Veuillez entrer un nombre de demi-journée valide (Entre 1 et 200)</p>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <button type="submit" class="center-block btn btn-primary">Ajouter</button>
                         </div>
                     </div>
                 </form>
-                    <p><span class="glyphicon glyphicon-info-sign glyphiconInfoSetMarge"></span> Cliquer sur une formation pour gérer ses sessions</p>
-                    <br>
-                    <button class="center-block alert alert-danger" role="alert" disabled="disabled"
-                            ng-show="!DF.isNewTrainingTitle">
-                        Une formation avec le même nom existe déjà
-                    </button>
-                    <button class="center-block alert alert-danger" disabled="disabled" role="alert"
-                            ng-show="DF.isThereAnEmptyField">
-                        Veuillez remplir tous les champs pour créer une formation
-                    </button>
-                    <button class="center-block alert alert-danger" disabled="disabled" role="alert"
-                            ng-show="DF.isFalseForm">
-                        Veuillez remplir corretement tous les champs
-                    </button>
-                    <button class="center-block small alert alert-success"  disabled="disabled" role="alert"
-                                ng-show="DF.isTrainingSaved">
-                        <strong>La formation {{DF.trainingAdded.trainingTitle}} a été créée avec succès.</strong>
-                    </button>
+                <p><span class="glyphicon glyphicon-info-sign glyphiconInfoSetMarge"></span> Cliquer sur une formation
+                    pour gérer ses sessions</p>
+                <br>
+                <button class="center-block alert alert-danger" role="alert" disabled="disabled"
+                        ng-show="!DF.isNewTrainingTitle">
+                    Une formation avec le même nom existe déjà
+                </button>
+                <button class="center-block alert alert-danger" disabled="disabled" role="alert"
+                        ng-show="DF.isThereAnEmptyField">
+                    Veuillez remplir tous les champs pour créer une formation
+                </button>
+                <button class="center-block alert alert-danger" disabled="disabled" role="alert"
+                        ng-show="DF.isFalseForm">
+                    Veuillez remplir corretement tous les champs
+                </button>
+                <button class="center-block small alert alert-success" disabled="disabled" role="alert"
+                        ng-show="DF.isTrainingSaved">
+                    <strong>La formation {{DF.trainingAdded.trainingTitle}} a été créée avec succès.</strong>
+                </button>
             </div>
-                <div class="myBox-set well"
-                     ng-repeat="distinctedTopic in (DF.returnTrainingListToFilter() | filter:DF.filterTopic) | orderBy : 'topicDescription.name'">
-                    <b class="myBox-set-title well well-sm">{{distinctedTopic.topicDescription.name}}</b>
-                    <figure ng-click="DF.manageSession(training)" ng-repeat="training in (DF.trainingList | filter:{$:distinctedTopic.topicDescription.name}) | orderBy : 'trainingTitle'"
-                            class="myBox well"><p class="myBoxText">{{training.trainingTitle}}</p></figure>
-                </div>
+            <div class="myBox-set well"
+                 ng-repeat="distinctedTopic in (DF.returnTrainingListToFilter() | filter:DF.filterTopic) | orderBy : 'topicDescription.name'">
+                <b class="myBox-set-title well well-sm">{{distinctedTopic.topicDescription.name}}</b>
+                <figure ng-click="DF.manageSession(training)"
+                        ng-repeat="training in (DF.trainingList | filter:{$:distinctedTopic.topicDescription.name}) | orderBy : 'trainingTitle'"
+                        class="myBox well"><p class="myBoxText">{{training.trainingTitle}}</p></figure>
+            </div>
 
         </div>
     </div>
