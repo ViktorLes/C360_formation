@@ -31,7 +31,7 @@
                                         ng-model="DF.training.topicDescription">
                                     <option value="" disabled selected>Thèmes...</option>
                                 </select>
-                                <span class="input-group-addon myPlusButton" ng-click="">
+                                <span class="input-group-addon myPlusButton" ng-click="DF.openAddTopicPopUp()">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </span>
                             </p>
@@ -80,6 +80,28 @@
                         ng-repeat="training in (DF.trainingList | filter:{$:distinctedTopic.topicDescription.name}) | orderBy : 'trainingTitle'"
                         class="myBox well"><p class="myBoxText">{{training.trainingTitle}}</p></figure>
             </div>
+
+            <script type="text/ng-template" id="templateId">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-3"
+                             ng-class="{ 'has-error' : DF.isErrorInputMessageDisplayed(formationForm.trainingTitle, focus.trainingTitle) }">
+                            <input type="text" name="topicTitle" class="form-control"
+                                   ng-model="DF.training.trainingTitle"
+                                   required ng-pattern="DF.regex.trainingTitle"
+                                   ng-focus="focus.trainingTitle=true" ng-blur="focus.trainingTitle=false"
+                                   ng-trim="true" placeholder="Nom du nouveau thème">
+                            <p ng-show="DF.isErrorInputMessageDisplayed(formationForm.trainingTitle, focus.trainingTitle)"
+                               class="help-block">Veuillez entrer un titre de thème valide</p>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <button type="submit" class="center-block btn btn-primary">Ajouter</button>
+                        </div>
+                    </div>
+                </div>
+            </script>
+
 
         </div>
     </div>

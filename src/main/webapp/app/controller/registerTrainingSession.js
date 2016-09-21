@@ -123,7 +123,6 @@ angular.module('controllers')
         self.isWeekend = function (date) {
             return (date.dt.getDay() == 0 || date.dt.getDay() == 6);
         };
-
     }])
 
     .config(['$routeProvider', function ($routeProvider) {

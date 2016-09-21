@@ -1,5 +1,5 @@
 angular.module('controllers')
-    .controller('controllerRegisterTraining', ['$http', '$location', '$timeout','SelectTrainingService', function ($http, $location,$timeout,SelectTrainingService) {
+    .controller('controllerRegisterTraining', ['ngDialog','$http', '$location', '$timeout','SelectTrainingService', function (ngDialog,$http, $location,$timeout,SelectTrainingService) {
 
         var self = this;
         self.regex = {};
@@ -81,6 +81,10 @@ angular.module('controllers')
         self.manageSession = function (training) {
             SelectTrainingService.select(training);
             $location.url("/ManageSession");
+        };
+        self.openAddTopicPopUp = function () {
+            console.log("here");
+            ngDialog.open({ template: 'templateId' });
         }
     }])
 
