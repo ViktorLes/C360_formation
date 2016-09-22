@@ -31,7 +31,8 @@
                                         ng-model="DF.training.topicDescription">
                                     <option value="" disabled selected>Thèmes...</option>
                                 </select>
-                                <span class="input-group-addon myPlusButton" ng-click="DF.openAddTopicPopUp()">
+                                <span class="input-group-addon myPlusButton" ng-dialog="firstDialogId" ng-dialog-controller="InsideCtrl"
+                                      ng-dialog-data="{{jsonData}}" ng-dialog-class="ngdialog-theme-default" ng-dialog-show-close="false">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </span>
                             </p>
@@ -81,27 +82,18 @@
                         class="myBox well"><p class="myBoxText">{{training.trainingTitle}}</p></figure>
             </div>
 
-            <script type="text/ng-template" id="templateId">
-                <div>
-                    <div class="row">
-                        <div class="col-sm-3"
-                             ng-class="{ 'has-error' : DF.isErrorInputMessageDisplayed(formationForm.trainingTitle, focus.trainingTitle) }">
-                            <input type="text" name="topicTitle" class="form-control"
-                                   ng-model="DF.training.trainingTitle"
-                                   required ng-pattern="DF.regex.trainingTitle"
-                                   ng-focus="focus.trainingTitle=true" ng-blur="focus.trainingTitle=false"
-                                   ng-trim="true" placeholder="Nom du nouveau thème">
-                            <p ng-show="DF.isErrorInputMessageDisplayed(formationForm.trainingTitle, focus.trainingTitle)"
-                               class="help-block">Veuillez entrer un titre de thème valide</p>
-                        </div>
-
-                        <div class="col-sm-2">
-                            <button type="submit" class="center-block btn btn-primary">Ajouter</button>
-                        </div>
+            <script type="text/ng-template" id="firstDialogId">
+                <div class="row">
+                    <div class="col-sm-8 ngdialog-message">
+                        <input type="text" name="topicTitle" class="form-control"
+                               ng-model="topic.name"
+                               placeholder="Nom du nouveau thème...">
+                    </div>
+                    <div class="ngdialog-buttons">
+                        <button type="submit" class="ngdialog-button ngdialog-button-primary" ng-click="addTopic(topic)">Ajouter</button>
                     </div>
                 </div>
             </script>
-
 
         </div>
     </div>
