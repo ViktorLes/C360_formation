@@ -1,6 +1,6 @@
 angular.module('controllers')
-    .controller('controllerRegisterTraining', ['$http', '$location', '$timeout', 'SelectTrainingService',
-        function ($http, $location, $timeout, SelectTrainingService) {
+    .controller('controllerRegisterTraining', ['$http', '$location', '$timeout', 'SelectTrainingService', 'mySharedService', '$scope',
+        function ($http, $location, $timeout, SelectTrainingService, mySharedService, $scope) {
 
             var self = this;
             self.regex = {};
@@ -20,6 +20,10 @@ angular.module('controllers')
             /*** Recupération des formations **/
             $http.get("api/formations").then(function (data) {
                 self.trainingList = data.data;
+            });
+            /*** Injecter le thème ajouté dans la liste currente **/
+            $scope.$on('handleTopicBroadcast', function () {
+                self.topicList.push(mySharedService.topicToAdd);
             });
 
             self.isErrorInputMessageDisplayed = function (inputForm, focus) {
@@ -85,22 +89,48 @@ angular.module('controllers')
             };
         }])
 
-    .controller('InsideCtrl', function ($scope,$http,ngDialog) {
+    .controller('controllerAddTopic', function ($scope, $http, ngDialog, mySharedService) {
         var self = $scope;
+        var myRegEx = new RegExp('^[a-zA-Z0-9+#\'-. áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$');
+        self.isNewTopic = true;
+        self.isErroneousTopic = false;
         self.addTopic = function (topic) {
-            console.log("here: ",topic);
-            $http.post("api/themes", topic).then(function (response) {
-                    console.log("ajout theme", response.data);
+            if (topic === undefined || topic.name === '' || self.verifyTopicName(topic)) {
+                self.isErroneousTopic = true;
+            }
+            else {
+                $http.post("api/themes", topic).then(function () {
+                        mySharedService.broadcastTopic(topic);
+                        ngDialog.close();
+                    },
+                    function (error) {
+                        if (error.data.message === "name") {
+                            self.isNewTopic = false;
+                        } else {
+                            console.error(error);
+                        }
+                    });
+            }
+        };
+        self.verifyTopicName = function (topic) {
+            return !myRegEx.test(topic.name);
+        };
+        self.initializeAlertMessage = function () {
+            self.isNewTopic = true;
+            self.isErroneousTopic = false;
+        };
+    })
 
-                    console.log("self.topicList: ", $scope.topicList);
-
-                    ngDialog.close();
-                },
-                function (error) {
-
-                });
-        }
-
+    .factory('mySharedService', function ($rootScope) {
+        var sharedTopicObject = {};
+        sharedTopicObject.broadcastTopic = function (topicToAddToCurrentList) {
+            sharedTopicObject.topicToAdd = topicToAddToCurrentList;
+            this.$broadcastItem();
+        };
+        sharedTopicObject.$broadcastItem = function () {
+            $rootScope.$broadcast('handleTopicBroadcast');
+        };
+        return sharedTopicObject;
     })
 
     .config(['$routeProvider', function ($routeProvider) {

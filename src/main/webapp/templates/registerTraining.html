@@ -31,7 +31,7 @@
                                         ng-model="DF.training.topicDescription">
                                     <option value="" disabled selected>Thèmes...</option>
                                 </select>
-                                <span class="input-group-addon myPlusButton" ng-dialog="firstDialogId" ng-dialog-controller="InsideCtrl"
+                                <span class="input-group-addon myPlusButton" ng-dialog="firstDialogId" ng-dialog-controller="controllerAddTopic"
                                       ng-dialog-data="{{jsonData}}" ng-dialog-class="ngdialog-theme-default" ng-dialog-show-close="false">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </span>
@@ -86,13 +86,15 @@
                 <div class="row">
                     <div class="col-sm-8 ngdialog-message">
                         <input type="text" name="topicTitle" class="form-control"
-                               ng-model="topic.name"
+                               ng-model="topic.name" ng-focus="initializeAlertMessage()"
                                placeholder="Nom du nouveau thème...">
                     </div>
                     <div class="ngdialog-buttons">
                         <button type="submit" class="ngdialog-button ngdialog-button-primary" ng-click="addTopic(topic)">Ajouter</button>
                     </div>
                 </div>
+                <button class="center-block alert alert-danger" disabled="disabled" role="alert" ng-show="!isNewTopic">Ce thème a déjà été ajouté</button>
+                <button class="center-block alert alert-danger" disabled="disabled" role="alert" ng-show="isErroneousTopic">Veuillez entrer un nom de thème valide</button>
             </script>
 
         </div>
