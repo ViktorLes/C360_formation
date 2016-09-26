@@ -72,6 +72,7 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
         if (actual) {
             from.splice(from.indexOf(actual), 1);
             to.push(item);
+            self.showRequestChanged();
         }
     };
 

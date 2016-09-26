@@ -35,7 +35,7 @@ angular.module('controllers').factory('InitBddService', ['$http','hash', functio
         lastName: "Kalmouni",
         firstName: "Nada",
         email:"Nada.kalmouni@yahoo.fr",
-        password:"nada",
+        password:"nada01",
         isAdmin: false
     };
     var collaborator3 = {
@@ -43,7 +43,7 @@ angular.module('controllers').factory('InitBddService', ['$http','hash', functio
         lastName: "Elkhadir",
         firstName: "Jihad",
         email:"elkhadir.jihad@gmail.com",
-        password:"jihad",
+        password:"jihad01",
         isAdmin: true
     };
     collaborator1.password=hash(collaborator1.password);
