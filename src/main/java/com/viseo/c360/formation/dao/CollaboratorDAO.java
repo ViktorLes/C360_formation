@@ -84,7 +84,7 @@ public class CollaboratorDAO {
 
     public List<Collaborator> getCollaboratorsRequestingBySession(TrainingSession myTrainnigSession) {
         Set<Collaborator> listCollaborator = new HashSet<Collaborator>((Collection) daoFacade.getList(
-                "select c from RequestTraining r Inner Join r.collaborator c Inner Join r.listSession s Where s = :session",
+                "select c from RequestTraining r Inner Join r.collaborator c Inner Join r.sessions s Where s = :session",
                 param("session", myTrainnigSession)));
         listCollaborator.addAll((Collection) daoFacade.getList(
                 "select c from RequestTraining r Inner Join r.collaborator c Where r.training = :training",

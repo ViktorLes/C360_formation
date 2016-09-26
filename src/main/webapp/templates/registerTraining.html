@@ -2,7 +2,7 @@
     <div class="col-md-1">
     </div>
 
-    <div class="col-md-10">
+    <div class="col-md-11">
         <div class="panel panel-default">
 
             <div class="panel-heading">
@@ -27,7 +27,7 @@
                         <div class="col-sm-3">
                             <p class="input-group">
                                 <select name="topic" required class="defaultSelectedValue selectpicker form-control"
-                                        ng-options="topic.name for topic in DF.topicList"
+                                        ng-options="topic.name for topic in DF.topicList | orderBy : 'name'"
                                         ng-model="DF.training.topicDescription">
                                     <option value="" disabled selected>Thèmes...</option>
                                 </select>
@@ -67,7 +67,7 @@
                 </button>
                 <button class="center-block alert alert-danger" disabled="disabled" role="alert"
                         ng-show="DF.isFalseForm">
-                    Veuillez remplir corretement tous les champs
+                    Veuillez remplir correctement tous les champs
                 </button>
                 <button class="center-block small alert alert-success" disabled="disabled" role="alert"
                         ng-show="DF.isTrainingSaved">
@@ -76,7 +76,7 @@
             </div>
             <div class="myBox-set well"
                  ng-repeat="distinctedTopic in (DF.returnTrainingListToFilter() | filter:DF.filterTopic) | orderBy : 'topicDescription.name'">
-                <b class="myBox-set-title well well-sm">{{distinctedTopic.topicDescription.name}}</b>
+                <p class="myBox-set-title well well-sm">{{distinctedTopic.topicDescription.name}}</p>
                 <figure ng-click="DF.manageSession(training)"
                         ng-repeat="training in (DF.trainingList | filter:{$:distinctedTopic.topicDescription.name}) | orderBy : 'trainingTitle'"
                         class="myBox well"><p class="myBoxText">{{training.trainingTitle}}</p></figure>

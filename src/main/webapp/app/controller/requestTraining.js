@@ -1,13 +1,13 @@
 angular.module('controllers')
-    .controller('controllerRequestTraining', ['currentUserService', '$http', '$location', function (currentUserService, $http, $location) {
+    .controller('controllerRequestTraining', ['currentUserService', '$http', '$location', '$timeout', function (currentUserService, $http, $location, $timeout) {
         var self = this;
-        //Charge la liste de formations affiché dans le select box des formations
+        self.isTrainingsRequestSent = false;
+        //Charge la liste de formations
         $http.get("api/formations").then(function (data) {
             self.trainings = data.data;
         });
 
         //Charge la liste de sessions disponible en fonction de l'ID de training
-        //selectionné grâce au 'select box' 
         self.loadTrainingSessions = function () {
             self.noneSessionSelected = false;
             self.hasToChooseOneTraining = false;
@@ -16,12 +16,14 @@ angular.module('controllers')
             if (Number.isInteger(self.requestedTraining.id)) {
                 $http.get("api/formations/" + self.requestedTraining.id + "/alreadyrequestedsession/" + currentUserService.getCollaboratorIdentity().id)
                     .then(function (data) {
-                        data.data.forEach(function (session) {console.log("alreadySelected");
-                            self.alreadyRequestedSessions[session.id] = session; console.log("rq:"+session.id);
+                        data.data.forEach(function (session) {
+                            self.alreadyRequestedSessions[session.id] = session;
                         });
                         return $http.get("api/formations/" + self.requestedTraining.id + "/sessions");
-                    },function (err) {console.log("err:" +err);})
-                    .then(function (data) {console.log("all");
+                    }, function (err) {
+                        console.log("err:" + err);
+                    })
+                    .then(function (data) {
                         Array.prototype.push.apply(self.listTrainingSession, data.data);
                         if (self.listTrainingSession.length === 0) {
                             self.isListEmpty = true;
@@ -32,11 +34,10 @@ angular.module('controllers')
         };
 
         self.isDisabled = function (session) {
-            return self.alreadyRequestedSessions [session.id];console.log("disabled:"+session.id);
+            return self.alreadyRequestedSessions [session.id];
         };
 
         self.verifyForm = function () {
-            console.log("alreadyRequestedSessions", self.alreadyRequestedSessions);
             self.noneSessionSelected = false;
             self.hasToChooseOneTraining = false;
             if (self.requestedTraining) {
@@ -77,12 +78,22 @@ angular.module('controllers')
             };
 
             $http.post("api/requests", myRequest).success(function (data) {
+                console.log("data: ",data);
                 if (data === true || data === "true") {
                     $location.url('/RequestTraining');
                 }
+                self.isTrainingsRequestSent = true;
+                self.isListEmpty = false;
+                self.setConfirmationMessageTimOut();
+            })
+        };
+
+        self.setConfirmationMessageTimOut = function () {
+            $timeout(function () {
+                self.isTrainingsRequestSent = false;
                 self.loadTrainingSessions();
-            });
-        }
+            }, 3000);
+        };
     }])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider

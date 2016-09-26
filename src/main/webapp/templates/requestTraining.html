@@ -16,26 +16,17 @@
                             <option value="" disabled selected style="display: none;">--Sélectionner une formation--
                             </option>
                         </select>
-
-<!--                        <ul>
-                            <li ng-repeat="training in DmF.training">
-
-                                <label class=" btn btn-default" ng-click="DmF.foldAndFoldUp">
-                                    <span ng-bind="training.trainingTitle"></span>
-
-                                </label>
-                            </li>
-                        </ul>-->
-
                         <ul>
-                            <li ng-repeat="s in DmF.listTrainingSession" >
- 							<input type="checkbox" ng-model="s.isChecked" ng-disabled="DmF.isDisabled(s)">
- 							{{s.beginning | date:"dd LLLL yyyy"}} - {{s.ending | date:"dd LLLL yyyy"}} - {{s.location}}
+                            <li ng-repeat="s in DmF.listTrainingSession">
+                                <input type="checkbox" ng-model="s.isChecked" ng-disabled="DmF.isDisabled(s)">
+                                {{s.beginning | date:"dd LLLL yyyy"}} - {{s.ending | date:"dd LLLL yyyy"}} -
+                                {{s.location}}
                             </li>
                         </ul>
                         <div ng-show="DmF.isListEmpty" class="info-text">Aucune session n'est prévue, vous pouvez
                             néanmoins envoyer une demande
                         </div>
+                        <div ng-show="DmF.noneSessionSelected" class="warning-text">Vous n'avez sélectionné aucune</div>
                         <div ng-show="DmF.noneSessionSelected" class="warning-text">Vous n'avez sélectionné aucune
                             session
                         </div>
@@ -43,9 +34,17 @@
                             session
                         </div>
 
+                        <div><button type="submit" class="center-block btn btn-primary">Envoyer demande</button></div>
+
+
                     </div>
-                    <button type="submit" class="btn btn-primary">Envoyer demande</button>
                 </form>
+                <div id="Trainnig request were successfully sent">
+                    <button class="center-block small alert alert-success" disabled="disabled" role="alert"
+                            ng-show="DmF.isTrainingsRequestSent">
+                        <strong>Vos modifications ont bien été enregistrées</strong>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

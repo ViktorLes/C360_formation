@@ -127,11 +127,12 @@ public class TrainingDAO {
     public boolean isThereOneSessionTrainingAlreadyPlanned(TrainingSession trainingSession) {
         daoFacade.setFlushMode(FlushModeType.COMMIT);
         List<TrainingSession> list = daoFacade.getList("select s from TrainingSession s " +
-                "where s.training=:training and s.id != :trainingSessionId and" +
+                "where s.training=:training and s.id != :trainingSessionId and s.location =:trainingSessionLocation and" +
                 "( (s.beginning >= :beginning and s.beginning < :ending) or" +
                 "(s.ending >= :beginning and s.ending <= :ending) or " +
                 "(s.beginning <= :beginning and s.ending >= :ending) )",
                 param("trainingSessionId", trainingSession.getId()),
+                param("trainingSessionLocation", trainingSession.getLocation()),
                 param("training", trainingSession.getTraining()),
                 param("beginning", trainingSession.getBeginning()),
                 param("ending", trainingSession.getEnding()));
