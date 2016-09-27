@@ -1,5 +1,5 @@
 angular.module('authentication', ['angular-jwt'])
-    .service('currentUserService', ['$http', 'jwtHelper', function ($http, jwtHelper) {
+    .service('currentUserService', ['$http', 'jwtHelper', '$location', '$q', function ($http, jwtHelper, $location, $q) {
         var self = this;
         return {
             decodeThisToken: function (userToken) {
@@ -9,7 +9,7 @@ angular.module('authentication', ['angular-jwt'])
             disconnectCurrentUser: function () {
                 var self = this;
                 $http.post("api/userdisconnect", this.getUserToken()).then(function () {
-                    self.setUserData('', '', '', '')
+                    self.setUserData(undefined, '', '', '','')
                 }).catch(function () {
                     console.log("Error !! User is not connected");
                 })
@@ -37,9 +37,33 @@ angular.module('authentication', ['angular-jwt'])
                 return {id: self.userId, firstName: self.firstName, lastName: self.lastName};
             },
             isUserConnected: function () {
-                if (self.token)
-                    return true;
-                else return false;
+                return self.token
+            },
+            checkIsAdminConnected: function () {
+                var deffered = $q.defer();
+                var userToken =this.getUserToken();
+                if ((userToken !== undefined) && (checkThisUser(userToken))) {
+                    deffered.resolve("Success")
+                }
+                else {
+                    deffered.reject("Error");
+                    $location.url('/authentication.html');
+                }
+
+                function checkThisUser(userToken) {
+                    return $http.post('api/checkisdminconnected', userToken).success(function (response) {
+                        if (response === false) {
+                            $location.url('/authentication.html');
+                            return false;
+                        }
+                        else return true;
+                    })
+                }
+                return deffered.promise;
+            },
+
+            checkIsCollaboratorConnected: function () {
+
             }
         };
     }]);

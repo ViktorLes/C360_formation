@@ -8,7 +8,6 @@ angular.module('controllers')
         /*** Recupération les sessions **/
         $http.get("api/formations/" + self.training.id + "/sessions").then(function (data) {
             self.listTrainingSession = data.data;
-            console.log("listTrainingSession: ",self.listTrainingSession.length);
             if (self.listTrainingSession.length === 0) self.isNoSessionPallend = true;
         });
 
@@ -31,7 +30,12 @@ angular.module('controllers')
             .when('/ManageSession', {
                 templateUrl: 'templates/manageSession.html',
                 controller: 'ctrlManageSession',
-                controllerAs: 'MS'
-            })
+                controllerAs: 'MS',
+                resolve: { isConnected : returnCurrentUserService }
+            });
+        function returnCurrentUserService(CurrentUserService) {
+            return CurrentUserService.checkIsAdminConnected();
+        }
+        returnCurrentUserService.$inject = ['currentUserService'];
     }
     ]);

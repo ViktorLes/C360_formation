@@ -88,6 +88,17 @@ public class CollaboratorWS {
         mapUserCache.put(token, user);
     }
 
+    @RequestMapping(value = "${endpoint.checkisdminconnected}", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean checkIsAdminAlreadyConnected(@RequestBody String thisToken){
+        try {
+            return mapUserCache.get(thisToken).getIsAdmin();
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new C360Exception(e);
+        }
+    }
+
     @RequestMapping(value = "${endpoint.userdisconnect}", method = RequestMethod.POST)
     @ResponseBody
     public Boolean deleteDisconnectedUserFromCache(@RequestBody String token) {

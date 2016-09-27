@@ -134,7 +134,12 @@ angular.module('controllers')
             .when('/RegisterCollaborator', {
                 templateUrl: 'templates/registerCollaborator.html',
                 controller: 'controllerRegisterCollaborator',
-                controllerAs: 'EC'
-            })
+                controllerAs: 'EC',
+                resolve: { isConnected : returnCurrentUserService }
+            });
+        function returnCurrentUserService(CurrentUserService) {
+            return CurrentUserService.checkIsAdminConnected();
+        }
+        returnCurrentUserService.$inject = ['currentUserService'];
     }
     ]);

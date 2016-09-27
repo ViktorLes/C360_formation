@@ -149,7 +149,12 @@ angular.module('controllers')
             .when('/ChangeRegisterTrainingSession', {
                 templateUrl: 'templates/registerTrainingSession.html',
                 controller: 'controllerChangeRegisterTrainingSession',
-                controllerAs: 'DS'
+                controllerAs: 'DS',
+                resolve: { isConnected : returnCurrentUserService }
             });
+        function returnCurrentUserService(CurrentUserService) {
+            return CurrentUserService.checkIsAdminConnected();
+        }
+        returnCurrentUserService.$inject = ['currentUserService'];
     }
     ]);

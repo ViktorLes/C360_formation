@@ -1,6 +1,4 @@
-
 angular.module('controllers').controller('controllerAffectTraining', ['$http', '$location', '$filter', '$timeout', function ($http, $location, $filter, $timeout) {
-
     var self = this;
     self.isCollabaratorListUpdated = false;
     self.boolErrNoSessionSelected = false;
@@ -91,10 +89,10 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
     self.saveAction = function () {
         $http.put("api/sessions/" + self.sessionSelected.id + "/collaborators", self.selectedCollaboratorList).then(function (response) {
                 self.isCollabaratorListUpdated = true;
-        },
-        function (error) {
-            console.error(error);
-        });
+            },
+            function (error) {
+                console.error(error);
+            });
     };
 
     self.setConfirmationMessageTimOut = function () {
@@ -129,7 +127,12 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
             .when('/AffectTraining', {
                 templateUrl: 'templates/affectTrainingSession.html',
                 controller: 'controllerAffectTraining',
-                controllerAs: 'AS'
-            })
+                controllerAs: 'AS',
+                resolve: { isConnected : returnCurrentUserService }
+            });
+        function returnCurrentUserService(CurrentUserService) {
+            return CurrentUserService.checkIsAdminConnected();
+        }
+        returnCurrentUserService.$inject = ['currentUserService'];
     }
     ]);
