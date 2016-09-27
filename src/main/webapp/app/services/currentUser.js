@@ -9,7 +9,7 @@ angular.module('authentication', ['angular-jwt'])
             disconnectCurrentUser: function () {
                 var self = this;
                 $http.post("api/userdisconnect", this.getUserToken()).then(function () {
-                    self.setUserData(undefined, '', '', '','')
+                    self.setUserData(undefined, '', '', '', '')
                 }).catch(function () {
                     console.log("Error !! User is not connected");
                 })
@@ -39,31 +39,38 @@ angular.module('authentication', ['angular-jwt'])
             isUserConnected: function () {
                 return self.token
             },
+            checkThisUserRole: function (userToken) {
+                return $http.post('api/getuserrole', userToken).success(function (response) {
+                    if (response === false) {
+                        $location.url('/authentication.html');
+                        return false;
+                    }
+                    else return true;
+                })
+            },
             checkIsAdminConnected: function () {
                 var deffered = $q.defer();
-                var userToken =this.getUserToken();
-                if ((userToken !== undefined) && (checkThisUser(userToken))) {
+                var userToken = this.getUserToken();
+                if ((userToken !== undefined) && (this.checkThisUserRole(userToken))) {
                     deffered.resolve("Success")
                 }
                 else {
                     deffered.reject("Error");
                     $location.url('/authentication.html');
                 }
-
-                function checkThisUser(userToken) {
-                    return $http.post('api/checkisdminconnected', userToken).success(function (response) {
-                        if (response === false) {
-                            $location.url('/authentication.html');
-                            return false;
-                        }
-                        else return true;
-                    })
-                }
                 return deffered.promise;
             },
-
             checkIsCollaboratorConnected: function () {
-
+                var deffered = $q.defer();
+                var userToken = this.getUserToken();
+                if ((userToken !== undefined) && (this.checkThisUserRole(userToken) === false)) {
+                    deffered.resolve("Success")
+                }
+                else {
+                    deffered.reject("Error");
+                    $location.url('/authentication.html');
+                }
+                return deffered.promise;
             }
         };
     }]);

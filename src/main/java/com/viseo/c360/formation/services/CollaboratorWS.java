@@ -88,7 +88,7 @@ public class CollaboratorWS {
         mapUserCache.put(token, user);
     }
 
-    @RequestMapping(value = "${endpoint.checkisdminconnected}", method = RequestMethod.POST)
+    @RequestMapping(value = "${endpoint.getuserrole}", method = RequestMethod.POST)
     @ResponseBody
     public boolean checkIsAdminAlreadyConnected(@RequestBody String thisToken){
         try {

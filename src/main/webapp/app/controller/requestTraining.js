@@ -100,7 +100,13 @@ angular.module('controllers')
             .when('/RequestTraining', {
                 templateUrl: 'templates/requestTraining.html',
                 controller: 'controllerRequestTraining',
-                controllerAs: 'DmF'
-            })
+                controllerAs: 'DmF',
+                resolve: {isConnected: returnCurrentUserService}
+            });
+        function returnCurrentUserService(CurrentUserService) {
+            return CurrentUserService.checkIsCollaboratorConnected();
+        }
+
+        returnCurrentUserService.$inject = ['currentUserService'];
     }
     ]);
