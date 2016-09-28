@@ -87,7 +87,7 @@ angular.module('controllers').controller('controllerAffectTraining', ['$http', '
     };
 
     self.saveAction = function () {
-        $http.put("api/sessions/" + self.sessionSelected.id + "/collaborators", self.selectedCollaboratorList).then(function (response) {
+        $http.post("api/sessions/" + self.sessionSelected.id + "/collaborators", self.selectedCollaboratorList).then(function (response) {
                 self.isCollabaratorListUpdated = true;
             },
             function (error) {

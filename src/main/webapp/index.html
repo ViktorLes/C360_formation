@@ -15,8 +15,9 @@
 <div ng-controller="globalController as ctrl">
     <header class="bg-primary navbar-fixed-top">
         <div>
-            <div id="titreAppliquette" class="col-md-10">Gestions des formations</div>
+            <div id="titreAppliquette" class="col-md-9">Gestions des formations</div>
             <div id="titreProjet" class="col-md-2">Collaborateur 360</div>
+            <div id="disconnect" class="col-md-1 myDisconnectClass" ng-click="ctrl.disconnectUser()">Déconnexion</div>
         </div>
         <div class="row" ng-show="ctrl.isUserConnected()">
             <div class="col-md-8"></div>
@@ -24,7 +25,7 @@
                 <div class="col-md-8 col-md-push-4">
                     <span class="glyphicon glyphicon-user" ng-bind="ctrl.displayCollaborator()"></span>
                 </div>
-                <div id="disconnect" class="col-md-4 myDisconnectClass" ng-click="ctrl.disconnectUser()">Deconnexion</div>
+
             </div>
         </div>
     </header>

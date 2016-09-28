@@ -11,8 +11,10 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
     };
 
     self.disconnectUser = function () {
-        currentUserService.disconnectCurrentUser();
-        $location.url('/');
+        if (self.isUserConnected() !== undefined) {
+            currentUserService.disconnectCurrentUser();
+            $location.url('/');
+        }
     };
 
     self.displayCollaborator = function () {
@@ -25,7 +27,7 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
         MockConnexionService.select(myCollaborator);
         self.collaboratorConnected = MockConnexionService.getCollaboratorDescription();
     };
-    
+
     self.isUserConnected = function () {
         return currentUserService.isUserConnected();
     }

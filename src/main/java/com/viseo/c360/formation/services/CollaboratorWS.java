@@ -172,7 +172,7 @@ public class CollaboratorWS {
         return new RequestTrainingToDescription().convert(requestTraining);
     }
 
-    @RequestMapping(value = "${endpoint.collaboratorsbysession}", method = RequestMethod.PUT)
+    @RequestMapping(value = "${endpoint.collaboratorsbysession}", method = RequestMethod.POST)
     @ResponseBody
     public TrainingSessionDescription updateCollaboratorsTrainingSession(@PathVariable Long idTrainingSession, @RequestBody List<CollaboratorIdentity> collaboratorIdentities) {
         try {
