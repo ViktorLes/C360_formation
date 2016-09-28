@@ -8,7 +8,7 @@
             </div>
 
             <div class="panel-body">
-                <form name="CX.userForm" novalidate>
+                <form name="CX.userForm" novalidate ng-submit="CX.submitLogin(CX.userForm)">
                     <!-- EMAIL -->
                     <div class="form-group" ng-class="{ 'has-error' : !CX.isNotEmptyEmailField }">
                         <input type="email" name="email" class="form-control" ng-model="CX.user.email"
@@ -20,24 +20,16 @@
                                required placeholder="Password" ng-focus="CX.isNotEmptyPasswordField=true">
                     </div>
                     <div>
-                        <button class="center-block alert alert-danger" disabled="disabled" role="alert"
-                                ng-show="CX.isThereAnEmptyField">
-                            Veuillez remplir correctement tous les champs
-                        </button>
-                    </div>
-                    <div>
-                        <button class="center-block alert alert-danger" disabled="disabled" role="alert"
+                        <button class="myCssButton center-block alert alert-danger" role="alert"
                                 ng-show="CX.isErrorAuthentification">
                             Connexion refusée : veuillez entrer une adresse e-mail et un mot de passe valide
                         </button>
                     </div>
                     <div>
-                        <button class="btn btn-primary center-block" type="submit"
-                                ng-click="CX.submitLogin(CX.userForm)">Connexion</button>
+                        <button class="btn btn-primary center-block" type="submit" ng-click="CX.submitLogin(CX.userForm)">Connexion</button>
                     </div>
                     <div>
-                        <button class="center-block btn btn-link"
-                                ng-click="CX.registerNewCollaborator()">
+                        <button class="center-block btn btn-link" ng-click="CX.registerNewCollaborator()">
                             Pas encore inscrit ? Cliquez ici pour vous enregistrer
                         </button>
                     </div>

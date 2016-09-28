@@ -44,6 +44,7 @@ angular.module('controllers')
             $location.url("/RegisterCollaborator");
         };
     }])
+
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/', {
