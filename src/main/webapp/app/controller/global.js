@@ -19,7 +19,7 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
 
     self.displayCollaborator = function () {
         if (currentUserService.getUserLastName() != undefined) {
-            return currentUserService.getUserFirstName() + ' ' + currentUserService.getUserLastName().toUpperCase();
+            return ' '+currentUserService.getUserFirstName() + ' ' + currentUserService.getUserLastName().toUpperCase();
         }
     };
 

@@ -11,7 +11,7 @@
             </div>
 
             <div class="panel-body">
-                <form name="collaborateurForm" novalidate>
+                <form name="collaborateurForm" novalidate ng-submit="EC.verifyForm(collaborateurForm)">
                     <!-- MATRICULE -->
                     <div class="form-group"
                          ng-class="{ 'has-error' : EC.isEmptyMatriculeField || EC.isErrorInputMessageDisplayed(collaborateurForm.personnalIdNumber,focus.personnalIdNumber)}">
@@ -96,9 +96,7 @@
                         Veuillez remplir correctement tous les champs
                     </button>
 
-                    <button type="submit" ng-mousedown="EC.verifyForm(collaborateurForm)"
-                            class="btn btn-primary center-block">S'enregistrer
-                    </button>
+                    <button type="submit" class="btn btn-primary center-block">S'enregistrer</button>
                 </form>
             </div>
 
