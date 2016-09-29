@@ -1,14 +1,22 @@
 angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', 'currentUserService', '$location', function (InitBddService, MockConnexionService, $http, currentUserService, $location) {
     var self = this;
-    initBase();
-
-    function initBase() {
-        InitBddService.init();
-        $http.get("api/collaborateurs").then(function (response) {
-            self.collaborators = response.data;
+    self.showBddButton = false;
+    $http.get("api/collaborateurs").then(function (response) {
+        self.collaborators = response.data;
+        if (self.collaborators.length === 0) {
+            self.showBddButton = true
+        }
+        else {
+            self.showBddButton = false;
             self.collaboratorSelected = self.collaborators[0];
             self.collaboratorConnected = self.collaborators[0];
-        });
+        }
+
+    });
+
+    self.initBase = function () {
+        InitBddService.init();
+        self.showBddButton = false;
     };
 
     self.disconnectUser = function () {
@@ -20,7 +28,7 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
 
     self.displayCollaborator = function () {
         if (currentUserService.getUserLastName() != undefined) {
-            return ' '+currentUserService.getUserFirstName() + ' ' + currentUserService.getUserLastName().toUpperCase();
+            return ' ' + currentUserService.getUserFirstName() + ' ' + currentUserService.getUserLastName().toUpperCase();
         }
     };
 
