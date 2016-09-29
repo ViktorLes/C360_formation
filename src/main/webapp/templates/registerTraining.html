@@ -27,7 +27,7 @@
                         <div class="col-sm-3">
                             <p class="input-group">
                                 <select name="topic" required class="defaultSelectedValue selectpicker form-control"
-                                        ng-options="topic.name for topic in DF.topicList | orderBy : 'name'"
+                                        ng-options="topic.name for topic in (DF.topicList | orderBy : 'name')"
                                         ng-model="DF.training.topicDescription">
                                     <option value="" disabled selected>Thèmes...</option>
                                 </select>

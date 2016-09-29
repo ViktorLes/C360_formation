@@ -17,7 +17,7 @@
         <div>
             <di id="titreAppliquette" class="col-md-9">Gestions des formations</di>
             <div id="titreProjet" class="col-md-2">Collaborateur 360</div>
-            <div id="disconnect" class="col-md-1 myDisconnectClass" ng-click="ctrl.disconnectUser()">Déconnexion</div>
+            <div id="disconnect" class="col-md-1 myDisconnectClass" ng-show="ctrl.isLogOutVisible" ng-click="ctrl.disconnectUser()">Déconnexion</div>
         </div>
         <div class="row myMargin" ng-show="ctrl.isUserConnected()">
             <div class="col-md-8"></div>
