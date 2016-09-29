@@ -1,5 +1,6 @@
 angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', 'currentUserService', '$location', function (InitBddService, MockConnexionService, $http, currentUserService, $location) {
     var self = this;
+    self.initBase();
 
     self.initBase = function () {
         InitBddService.init();
