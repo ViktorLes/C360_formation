@@ -41,6 +41,7 @@ angular.module('controllers')
             return self.isNotEmptyEmailField && self.isNotEmptyPasswordField;
         };
         self.registerNewCollaborator = function () {
+            console.log("ici");
             $location.url("/RegisterCollaborator");
         };
     }])

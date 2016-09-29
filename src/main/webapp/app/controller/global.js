@@ -1,7 +1,6 @@
 angular.module('controllers').controller('globalController', ['InitBddService', 'MockConnexionService', '$http', 'currentUserService', '$location', function (InitBddService, MockConnexionService, $http, currentUserService, $location) {
     var self = this;
     self.showBddButton = false;
-    self.isLogOutVisible = false;
 
     $http.get("api/collaborateurs").then(function (response) {
         self.collaborators = response.data;
@@ -23,7 +22,6 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
 
     self.disconnectUser = function () {
         if (self.isUserConnected() !== undefined) {
-            self.isLogOutVisible = false;
             currentUserService.disconnectCurrentUser();
             $location.url('/');
             location.reload();
@@ -32,7 +30,6 @@ angular.module('controllers').controller('globalController', ['InitBddService', 
 
     self.displayCollaborator = function () {
         if (currentUserService.getUserLastName() != undefined) {
-            self.isLogOutVisible = true;
             return ' ' + currentUserService.getUserFirstName() + ' ' + currentUserService.getUserLastName().toUpperCase();
         }
     };

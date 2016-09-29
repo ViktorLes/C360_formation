@@ -50,6 +50,7 @@ angular.module('controllers')
 
             self.saveAction = function () {
                 self.training.trainingTitle = self.training.trainingTitle.replace(/ +/g, " ");
+                console.log("self.training: ",self.training);
                 $http.post("api/formations", self.training).then(function (response) {
                         self.trainingList.push(response.data);
                         self.isTrainingSaved = true;
@@ -99,7 +100,8 @@ angular.module('controllers')
                 self.isErroneousTopic = true;
             }
             else {
-                $http.post("api/themes", topic).then(function () {
+                $http.post("api/themes", topic).then(function (response) {
+                        topic = response.data;
                         mySharedService.broadcastTopic(topic);
                         ngDialog.close();
                     },
