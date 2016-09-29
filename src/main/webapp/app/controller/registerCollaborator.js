@@ -111,6 +111,9 @@ angular.module('controllers')
             self.collaborator.email = "";
             self.collaborator.password = "";
             self.collaborator.confirmPassword = "";
+        };
+        self.goToAuthentificationPage = function () {
+            $location.url('/Authentication');
         }
     }])
     .directive('pwCheck', [function () {
