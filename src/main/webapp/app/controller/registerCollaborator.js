@@ -57,6 +57,7 @@ angular.module('controllers')
                 $location.url('/Authentication');
             },
             function (error) {
+                console.log("error: ",error)
                 if (error.data.message === "personnalIdNumber") {
                     self.isNewPersonalIdNumber = false;
                     self.isNewEmail = true;
