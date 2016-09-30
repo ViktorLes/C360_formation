@@ -39,19 +39,19 @@ angular.module('authentication', ['angular-jwt'])
             isUserConnected: function () {
                 return self.token
             },
-            checkThisUserRole: function (userToken) {
-                return $http.post('api/getuserrole', userToken).success(function (response) {
-                    if (response === false) {
-                        $location.url('/authentication.html');
-                        return false;
-                    }
-                    else return true;
-                })
+            setUserRole: function (newRole) {
+                self.roles = newRole;
+            },
+            getThisUserRole: function (userToken) {
+                return $http.post('api/getuserrole', userToken).then(function (response) {
+                    self.setUserRole(response.data);
+                });
             },
             checkIsAdminConnected: function () {
                 var deffered = $q.defer();
                 var userToken = this.getUserToken();
-                if ((userToken !== undefined) && (this.checkThisUserRole(userToken))) {
+                this.getThisUserRole();
+                if ((userToken !== undefined) && (this.getUserRole() === true)) {
                     deffered.resolve("Success")
                 }
                 else {
@@ -63,7 +63,8 @@ angular.module('authentication', ['angular-jwt'])
             checkIsCollaboratorConnected: function () {
                 var deffered = $q.defer();
                 var userToken = this.getUserToken();
-                if ((userToken !== undefined) && (this.checkThisUserRole(userToken) === false)) {
+                this.getThisUserRole();
+                if ((userToken !== undefined) && (this.getUserRole() === false)) {
                     deffered.resolve("Success")
                 }
                 else {

@@ -78,7 +78,6 @@ angular.module('controllers')
             };
 
             $http.post("api/requests", myRequest).success(function (data) {
-                console.log("data: ",data);
                 if (data === true || data === "true") {
                     $location.url('/RequestTraining');
                 }
@@ -106,7 +105,6 @@ angular.module('controllers')
         function returnCurrentUserService(CurrentUserService) {
             return CurrentUserService.checkIsCollaboratorConnected();
         }
-
         returnCurrentUserService.$inject = ['currentUserService'];
     }
     ]);

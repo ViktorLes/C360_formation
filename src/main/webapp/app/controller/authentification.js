@@ -14,16 +14,14 @@ angular.module('controllers')
                         self.user.email = "";
                         self.user.password = "";
                         self.isErrorAuthentification = false;
-                        currentUserService.decodeThisToken(userPersistedToken);
+                        return currentUserService.decodeThisToken(userPersistedToken);
                     }).then(function () {
-                    if (currentUserService.getUserRole()) {
-                        $location.url('/RegisterTraining')
-                    }
-                    else {
-                        $location.url('/RequestTraining')
-                    }
-                })
-                    .catch(function () {
+                        if (currentUserService.getUserRole()) {
+                            $location.url('/RegisterTraining')
+                        }else {
+                            $location.url('/RequestTraining')
+                        }
+                    }).catch(function () {
                         self.user.password = "";
                         self.isErrorAuthentification = true;
                     });
