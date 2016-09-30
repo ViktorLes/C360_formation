@@ -8,12 +8,20 @@ angular.module('controllers').factory('InitBddService', ['$http','hash', functio
         password:"viseo01",
         isAdmin: true
     };
+    var collaborator = {
+        personnalIdNumber: "COL0000",
+        lastName: "Julien",
+        firstName: "Julien",
+        email:"julien.collab@viseo.com",
+        password:"viseo01",
+        isAdmin: false
+    };
     admin.password=hash(admin.password);
 
     return {
         init: function () {
             return  $http.post("api/collaborateurs", admin).then(function(data) {
-
+                return $http.post("api/collaborateurs", collaborator)
             });
         }
     };
