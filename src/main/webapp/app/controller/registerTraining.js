@@ -50,7 +50,6 @@ angular.module('controllers')
 
             self.saveAction = function () {
                 self.training.trainingTitle = self.training.trainingTitle.replace(/ +/g, " ");
-                console.log("self.training: ",self.training);
                 $http.post("api/formations", self.training).then(function (response) {
                         self.trainingList.push(response.data);
                         self.isTrainingSaved = true;
